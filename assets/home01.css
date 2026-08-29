@@ -1,0 +1,9 @@
+
+/* HOME 01 — portal cards only. Navbar untouched. */
+.hero .buttons>a{position:relative;overflow:hidden;border-color:rgba(135,236,255,.23)!important;background:linear-gradient(145deg,rgba(7,25,46,.78),rgba(8,10,34,.82))!important;box-shadow:0 12px 30px rgba(0,0,0,.26),0 0 20px rgba(74,225,255,.06),inset 0 1px rgba(255,255,255,.04)!important}
+.hero .buttons>a::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(115deg,transparent 20%,rgba(114,239,255,.055) 42%,transparent 60%);transform:translateX(-110%);transition:transform .8s ease}.hero .buttons>a:hover::after{transform:translateX(110%)}
+.hero .card-icon{width:92px!important;height:92px!important;display:grid!important;place-items:center!important;margin:-10px auto 3px!important;overflow:visible!important}
+.hero .card-icon img{max-width:112px!important;max-height:108px!important;object-fit:contain!important;filter:drop-shadow(0 0 12px rgba(100,235,255,.16))!important}
+.hero .page-sticker img{max-width:130px!important;max-height:116px!important}
+.hero .baza-sticker img{filter:drop-shadow(0 0 13px rgba(96,225,255,.25)) drop-shadow(0 0 25px rgba(120,85,255,.10))!important}
+.hero .archive-sticker-home img{max-width:118px!important;filter:drop-shadow(0 0 14px rgba(71,236,255,.26))!important}

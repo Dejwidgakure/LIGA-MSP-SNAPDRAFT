@@ -1,0 +1,113 @@
+
+/* =========================================================
+   ENCYCLOPEDIA 06 — EVENT LIFECYCLE / ARENA / BATTLE
+========================================================= */
+.event-lifecycle{
+  display:grid;
+  grid-template-columns:repeat(6,minmax(0,1fr));
+  gap:8px;
+  margin:18px 0;
+}
+.event-lifecycle a{
+  position:relative;
+  min-height:142px;
+  padding:13px;
+  border:1px solid rgba(var(--chapter-accent),.12);
+  border-radius:14px;
+  color:inherit;
+  text-decoration:none;
+  background:linear-gradient(145deg,rgba(13,38,53,.48),rgba(5,13,31,.66));
+}
+.event-lifecycle a:not(:last-child)::after{
+  content:"→";
+  position:absolute;right:-8px;top:50%;z-index:3;
+  transform:translate(50%,-50%);
+  color:rgba(125,240,245,.38);
+  font:900 16px Orbitron,sans-serif;
+}
+.event-lifecycle a:hover{transform:translateY(-3px);border-color:rgba(var(--chapter-accent),.28)}
+.event-lifecycle b{display:block;color:rgba(var(--chapter-accent),.60);font:900 9px Orbitron,sans-serif}
+.event-lifecycle span{display:block;margin-top:9px;color:#f1ffff;font:900 11px Orbitron,sans-serif;line-height:1.15}
+.event-lifecycle small{display:block;margin-top:7px;color:#7e9aa4;font-size:9.5px;font-weight:800;line-height:1.28}
+.ency-definition-split{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-top:13px}
+.ency-definition-split article{padding:13px;border:1px solid rgba(var(--chapter-accent),.09);border-radius:13px;background:rgba(255,255,255,.018)}
+.ency-definition-split b{color:#dfffff;font:900 10px Orbitron,sans-serif}
+.ency-definition-split p{margin:6px 0 0;font-size:11px}
+
+.arena-program-chapter{--chapter-accent:96,224,255}
+.arena-reference-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:16px 0}
+.arena-reference-grid article{position:relative;min-height:142px;padding:15px;border:1px solid rgba(97,225,255,.11);border-radius:15px;background:linear-gradient(145deg,rgba(5,32,48,.53),rgba(7,13,32,.68))}
+.arena-reference-grid article>span{position:absolute;right:12px;top:9px;color:rgba(106,227,255,.13);font:900 27px Orbitron,sans-serif}
+.arena-reference-grid b{color:#eaffff;font:900 11px Orbitron,sans-serif}
+.arena-reference-grid p{margin:8px 0 0;font-size:11px}
+.arena-manual-portal{display:grid;grid-template-columns:1fr auto;align-items:center;gap:16px;margin-top:15px;padding:17px 19px;border:1px solid rgba(93,227,255,.22);border-radius:17px;color:inherit;text-decoration:none;background:linear-gradient(105deg,rgba(19,91,111,.20),rgba(10,20,47,.68));box-shadow:inset 0 1px rgba(255,255,255,.05)}
+.arena-manual-portal:hover{transform:translateY(-3px);box-shadow:0 15px 30px rgba(0,0,0,.2),0 0 18px rgba(83,221,243,.08)}
+.arena-manual-portal span{display:block;color:#65cfe2;font:900 7px Orbitron,sans-serif;letter-spacing:.1em}
+.arena-manual-portal b{display:block;margin-top:4px;color:#fff;font:900 14px Orbitron,sans-serif}
+.arena-manual-portal small{display:block;margin-top:5px;color:#7e9fa8;font-weight:800}
+.arena-manual-portal i{display:grid;place-items:center;width:42px;height:42px;border:1px solid rgba(99,229,255,.22);border-radius:50%;color:#8beaf5;font-style:normal}
+.ency-portal.arena-portal{background:linear-gradient(90deg,rgba(5,38,53,.85),rgba(7,16,37,.84))!important;border-color:rgba(91,225,255,.20)!important}
+
+.battle-rulebook{--chapter-accent:255,205,91}
+.battle-etiquette-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin:12px 0}
+.battle-etiquette-grid article{padding:12px;border:1px solid rgba(255,210,98,.10);border-radius:12px;background:rgba(255,210,98,.025)}
+.battle-etiquette-grid b{display:block;color:#ffe39c;font:900 9px Orbitron,sans-serif}
+.battle-etiquette-grid span{display:block;margin-top:5px;color:#9f9984;font-size:10px;font-weight:800}
+.battle-score-law{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin:14px 0}
+.battle-score-law>div{padding:16px;border:1px solid rgba(255,210,95,.13);border-radius:13px;text-align:center;background:linear-gradient(145deg,rgba(70,48,12,.16),rgba(7,14,31,.65))}
+.battle-score-law span{display:block;color:#8e846c;font:900 8px Orbitron,sans-serif}
+.battle-score-law b{display:block;margin-top:7px;color:#ffe69f;font:900 16px Orbitron,sans-serif}
+.battle-calculator{margin:17px 0;padding:17px;border:1px solid rgba(106,227,255,.13);border-radius:16px;background:linear-gradient(145deg,rgba(5,34,51,.51),rgba(7,14,32,.68))}
+.battle-calculator-head{display:flex;justify-content:space-between;gap:12px;align-items:center}
+.battle-calculator-head b{color:#89edf4;font:900 8px Orbitron,sans-serif}
+.battle-calculator-head span{color:#708d96;font-size:10px;font-weight:800}
+.battle-calculator input{width:100%;margin:17px 0 12px;accent-color:#6de3eb}
+.battle-calculator-result{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.battle-calculator-result article{padding:13px;border:1px solid rgba(255,255,255,.08);border-radius:12px;background:rgba(255,255,255,.02)}
+.battle-calculator-result .winner{border-color:rgba(100,235,201,.18);background:rgba(54,192,157,.035)}
+.battle-calculator-result span{display:block;color:#8299a1;font-size:9px;font-weight:900}
+.battle-calculator-result strong{display:block;margin-top:5px;color:#f5ffff;font:900 20px Orbitron,sans-serif}
+.battle-special-results{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin:13px 0}
+.battle-special-results article{padding:15px;text-align:center;border:1px solid rgba(255,210,95,.10);border-radius:13px;background:rgba(7,16,33,.54)}
+.battle-special-results span{display:block;color:#8d846d;font:900 8px Orbitron,sans-serif}
+.battle-special-results b{display:block;margin:6px 0;color:#ffe59d;font:900 23px Orbitron,sans-serif}
+.battle-special-results p{margin:0;font-size:10px}
+.legend-points-table{display:grid;grid-template-columns:repeat(5,1fr);gap:7px;margin:13px 0}
+.legend-points-table article{padding:13px;text-align:center;border:1px solid rgba(255,212,103,.11);border-radius:11px;background:rgba(65,47,14,.15)}
+.legend-points-table b{display:block;color:#8e846b;font:900 9px Orbitron,sans-serif}
+.legend-points-table span{display:block;margin-top:5px;color:#ffe39c;font:900 16px Orbitron,sans-serif}
+
+.glossary-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-top:15px}
+.glossary-grid article{padding:13px;border:1px solid rgba(103,193,255,.10);border-radius:13px;background:rgba(8,27,45,.48)}
+.glossary-grid b{color:#b9eaff;font:900 10px Orbitron,sans-serif}
+.glossary-grid p{margin:6px 0 0;color:#819da7;font-size:10.5px}
+.advanced-terms{margin-top:13px;padding:12px;border:1px solid rgba(102,191,255,.09);border-radius:13px;background:rgba(255,255,255,.012)}
+.advanced-terms summary{cursor:pointer;color:#8fcce3;font-weight:900}
+
+.ecosystem-purpose-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin:16px 0}
+.ecosystem-purpose-grid article{padding:15px;border:1px solid rgba(102,190,255,.10);border-radius:14px;background:rgba(7,24,44,.50)}
+.ecosystem-purpose-grid b{color:#e9ffff;font:900 11px Orbitron,sans-serif}
+.ecosystem-purpose-grid p{margin:7px 0 10px;font-size:11px}
+.ecosystem-purpose-grid a{color:#91e8ed;text-decoration:none;font-size:9px;font-weight:900}
+.ecosystem-mini-portals{display:grid;grid-template-columns:repeat(5,1fr);gap:7px;margin:11px 0}
+.ecosystem-mini-portals a{padding:11px;border:1px solid rgba(102,194,255,.09);border-radius:11px;color:inherit;text-decoration:none;background:rgba(255,255,255,.015)}
+.ecosystem-mini-portals b{display:block;color:#cfefff;font-size:9px}
+.ecosystem-mini-portals span{display:block;margin-top:5px;color:#718b95;font-size:8px;font-weight:800}
+.ecosystem-law{display:flex;gap:9px;margin-top:15px;padding:13px;border-left:3px solid rgba(101,204,255,.55);background:rgba(68,178,255,.035)}
+.ecosystem-law b{color:#c9efff}.ecosystem-law span{color:#91aab4;font-size:11px;font-weight:800}
+.ecosystem-law em{color:#eaffff;font-style:normal}
+
+@media(max-width:1050px){
+  .event-lifecycle{grid-template-columns:repeat(3,1fr)}
+  .event-lifecycle a:nth-child(3)::after{display:none}
+  .arena-reference-grid{grid-template-columns:repeat(2,1fr)}
+  .ecosystem-mini-portals{grid-template-columns:repeat(3,1fr)}
+}
+@media(max-width:700px){
+  .event-lifecycle{grid-template-columns:1fr}
+  .event-lifecycle a::after{display:none!important}
+  .ency-definition-split,.arena-reference-grid,.battle-score-law,.battle-etiquette-grid,.battle-calculator-result,.battle-special-results,.ecosystem-purpose-grid{grid-template-columns:1fr}
+  .legend-points-table{grid-template-columns:repeat(5,minmax(58px,1fr));overflow-x:auto}
+  .glossary-grid{grid-template-columns:1fr}
+  .ecosystem-mini-portals{grid-template-columns:1fr 1fr}
+}

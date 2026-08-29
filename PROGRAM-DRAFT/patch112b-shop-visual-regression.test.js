@@ -1,0 +1,18 @@
+const fs=require('fs');
+const assert=require('assert');
+const engine=fs.readFileSync(__dirname+'/economy-engine.js','utf8');
+const css=fs.readFileSync(__dirname+'/economy.css','utf8');
+const html=fs.readFileSync(__dirname+'/snap-draft.html','utf8');
+assert.match(engine,/economy-shop-launcher-coin/);
+assert.match(engine,/economy-shop-floating-coin coin-1/);
+assert.match(engine,/economy-shop-floating-coin coin-6/);
+assert.match(engine,/const titleFit=/);
+assert.match(engine,/economy-product-v2-title \$\{titleFit\}/);
+assert.match(css,/PATCH112B — JEFF'S COSMIC SHOP VISUAL REBUILD/);
+assert.match(css,/economyShopRgbRailA/);
+assert.match(css,/mask-image:linear-gradient/);
+assert.match(css,/economy-product-v2-price-zone\.no-promo/);
+assert.match(css,/economy-shop-launcher-coin/);
+assert.match(html,/economy\.css\?v=2\.6\.1-shop-recovery/);
+assert.match(html,/economy-engine\.js\?v=2\.5\.1-shop-recovery/);
+console.log('PATCH112B shop visual regression OK');

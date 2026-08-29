@@ -1,0 +1,547 @@
+
+/* =========================================================
+   CARD 01L — COLLECTION LOBBY + SINGLE CARD PROFILE POLISH
+   Content only. Navbar intentionally untouched.
+========================================================= */
+
+/* =========================================================
+   COLLECTION LOBBY — ORDER / GALLERY / FILTER CONSOLE
+========================================================= */
+
+/* Curator vitrines now visually belong directly under the hero. */
+.cards-page .museum-curator-strip{
+  margin-top:34px!important;
+  margin-bottom:34px!important;
+}
+
+/* Navigation comes after vitrines and acts as a holographic console. */
+.cards-page .museum-nav-panel{
+  position:relative;
+  overflow:hidden!important;
+  isolation:isolate;
+  margin-top:0!important;
+  background:
+    linear-gradient(180deg,rgba(218,253,255,.055),transparent 17%),
+    linear-gradient(145deg,rgba(8,43,60,.30),rgba(6,23,47,.39) 52%,rgba(7,11,31,.50))!important;
+  border-color:rgba(157,247,255,.30)!important;
+  box-shadow:
+    0 24px 55px rgba(0,0,0,.23),
+    0 0 28px rgba(77,235,255,.10),
+    inset 0 1px rgba(255,255,255,.14),
+    inset 0 0 42px rgba(83,236,255,.04)!important;
+}
+
+.cards-page .museum-nav-panel > .panel-inner{
+  position:relative;
+  z-index:4;
+}
+
+/* Digital cards materialising in the background of the filter console. */
+.museum-filter-holograms{
+  position:absolute;
+  z-index:1;
+  inset:0;
+  pointer-events:none;
+  overflow:hidden;
+  opacity:.62;
+}
+
+.filter-holo-card{
+  position:absolute;
+  width:74px;
+  height:103px;
+  border:1px solid rgba(107,243,255,.25);
+  border-radius:10px;
+  background:
+    linear-gradient(145deg,rgba(88,241,255,.055),rgba(135,80,255,.03)),
+    radial-gradient(circle at 28% 24%,rgba(255,255,255,.22) 0 1px,transparent 1.4px),
+    radial-gradient(circle at 71% 69%,rgba(102,240,255,.24) 0 1px,transparent 1.5px);
+  box-shadow:
+    0 0 11px rgba(83,239,255,.12),
+    inset 0 0 18px rgba(86,231,255,.035);
+  opacity:0;
+  transform:translateY(38px) scale(.76) rotate(var(--card-rot,0deg));
+  animation:filterHoloMaterialise 8.8s ease-in-out infinite;
+}
+
+.filter-holo-card::before,
+.filter-holo-card::after{
+  content:"";
+  position:absolute;
+  top:8px;
+  width:18px;
+  height:18px;
+  opacity:.48;
+}
+
+.filter-holo-card::before{
+  left:7px;
+  border-radius:50%;
+  background:radial-gradient(circle,#d9ffff,#4c9fff 48%,#2b165a);
+  box-shadow:0 0 8px rgba(65,220,255,.30);
+}
+
+.filter-holo-card::after{
+  right:7px;
+  background:radial-gradient(circle,#fff8ce,#ffc348 50%,#773202);
+  clip-path:polygon(50% 0%,62% 28%,92% 32%,70% 52%,78% 84%,50% 68%,22% 84%,30% 52%,8% 32%,38% 28%);
+}
+
+.fhc1{left:4%;top:14%;--card-rot:-10deg;animation-delay:-1s}
+.fhc2{left:16%;bottom:-16px;--card-rot:6deg;animation-delay:-5.1s}
+.fhc3{right:31%;top:-22px;--card-rot:8deg;animation-delay:-3.3s}
+.fhc4{right:17%;bottom:-28px;--card-rot:-6deg;animation-delay:-6.8s}
+.fhc5{right:4%;top:21%;--card-rot:11deg;animation-delay:-2.2s}
+.fhc6{left:45%;bottom:-44px;--card-rot:-3deg;animation-delay:-7.5s}
+
+@keyframes filterHoloMaterialise{
+  0%,12%{
+    opacity:0;
+    transform:translateY(42px) scale(.70) rotate(var(--card-rot));
+    filter:blur(3px);
+  }
+  24%,63%{
+    opacity:.48;
+    transform:translateY(0) scale(1) rotate(var(--card-rot));
+    filter:blur(0);
+  }
+  72%{
+    opacity:.63;
+    transform:translateY(-8px) scale(1.03) rotate(var(--card-rot));
+  }
+  88%,100%{
+    opacity:0;
+    transform:translateY(-42px) scale(.90) rotate(var(--card-rot));
+    filter:blur(2px);
+  }
+}
+
+/* Filter controls: prevent Windows/browser white dropdowns. */
+.cards-page .collection-filter-console .control,
+.cards-page .collection-filter-console select.control,
+.cards-page .collection-filter-console input.control{
+  color-scheme:dark!important;
+  color:#e9fdff!important;
+  background-color:#071528!important;
+  background-image:
+    linear-gradient(180deg,rgba(255,255,255,.045),transparent 42%),
+    linear-gradient(145deg,rgba(9,42,57,.78),rgba(7,18,42,.92))!important;
+  border-color:rgba(151,245,255,.21)!important;
+  box-shadow:
+    inset 0 1px rgba(255,255,255,.055),
+    0 0 14px rgba(70,230,255,.035)!important;
+}
+
+.cards-page .collection-filter-console select.control option,
+.cards-page .collection-filter-console select.control optgroup{
+  color:#eafcff!important;
+  background:#071528!important;
+}
+
+.cards-page .collection-filter-console select.control option:checked{
+  color:#ffffff!important;
+  background:#12314a!important;
+}
+
+.cards-page .collection-filter-console .control:focus{
+  outline:none!important;
+  border-color:rgba(174,253,255,.48)!important;
+  box-shadow:
+    0 0 0 2px rgba(88,237,255,.055),
+    0 0 20px rgba(75,233,255,.10)!important;
+}
+
+/* =========================================================
+   SINGLE CARD — COMPACT CLASSIFICATION
+========================================================= */
+
+.card-profile-page .card-identity-panel .panel-inner{
+  padding-bottom:26px!important;
+}
+
+.card-profile-page .identity-core-grid{
+  display:flex!important;
+  flex-wrap:wrap!important;
+  align-items:flex-start!important;
+  gap:8px!important;
+  margin-bottom:13px!important;
+}
+
+.card-profile-page .identity-core-card{
+  flex:0 1 auto!important;
+  width:auto!important;
+  min-width:112px!important;
+  max-width:220px!important;
+  min-height:0!important;
+  padding:9px 11px!important;
+  border-radius:12px!important;
+}
+
+.card-profile-page .identity-core-card b{
+  font-size:7px!important;
+}
+
+.card-profile-page .identity-core-card span{
+  margin-top:3px!important;
+  font-size:12px!important;
+  line-height:1.15!important;
+}
+
+.card-profile-page .tag-groups{
+  display:flex!important;
+  flex-wrap:wrap!important;
+  align-items:flex-start!important;
+  gap:9px!important;
+}
+
+.card-profile-page .tag-category{
+  flex:0 1 310px!important;
+  width:fit-content!important;
+  min-width:210px!important;
+  max-width:calc(33.333% - 7px)!important;
+  display:block!important;
+  padding:10px 11px!important;
+  border-radius:13px!important;
+}
+
+.card-profile-page .tag-category-meta{
+  margin-bottom:7px;
+}
+
+.card-profile-page .tag-category-meta b{
+  font-size:8px!important;
+}
+
+.card-profile-page .tag-category-meta small{
+  display:none!important;
+}
+
+.card-profile-page .tag-chip-list{
+  gap:5px!important;
+}
+
+.card-profile-page .card-tag-chip{
+  padding:5px 7px!important;
+  font-size:9px!important;
+}
+
+/* =========================================================
+   PILOTS — FIRST 5, EXPAND REST
+========================================================= */
+
+.card-profile-page .full-pilot-gallery .pilot-ledger-card.is-pilot-collapsed{
+  display:none!important;
+}
+
+.pilot-expand-row{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:13px;
+  margin:17px auto 2px;
+  padding-top:15px;
+  border-top:1px solid rgba(116,241,255,.07);
+}
+
+.pilot-expand-row[hidden]{
+  display:none!important;
+}
+
+#pilotVisibleLabel{
+  color:#708f99;
+  font-size:9px;
+  font-weight:900;
+}
+
+.profile-expand-btn{
+  min-width:205px;
+  padding:10px 15px;
+  border:1px solid rgba(149,244,255,.22);
+  border-radius:999px;
+  color:#dcffff;
+  background:
+    linear-gradient(180deg,rgba(255,255,255,.055),transparent 45%),
+    rgba(5,28,46,.60);
+  box-shadow:
+    inset 0 1px rgba(255,255,255,.08),
+    0 0 16px rgba(75,232,255,.05);
+  font:900 9px Orbitron,sans-serif;
+  cursor:pointer;
+  transition:.2s ease;
+}
+
+.profile-expand-btn:hover{
+  transform:translateY(-2px);
+  border-color:rgba(179,253,255,.46);
+  box-shadow:0 0 21px rgba(78,235,255,.10);
+}
+
+/* =========================================================
+   HISTORIC DECK VITRINES — PAN + SCALE
+========================================================= */
+
+.card-profile-page .historic-deck-image{
+  height:220px!important;
+  background:
+    radial-gradient(circle at 50% 43%,rgba(65,232,225,.10),transparent 38%),
+    rgba(4,10,26,.68)!important;
+}
+
+.card-profile-page .historic-deck-image img{
+  width:100%!important;
+  height:118%!important;
+  object-fit:cover!important;
+  object-position:center 100%;
+  transform-origin:center center;
+  will-change:transform,object-position;
+  animation:historicDeckMuseumPan 13.5s ease-in-out infinite alternate;
+}
+
+.card-profile-page .historic-deck-card:nth-child(2n) .historic-deck-image img{
+  animation-delay:-4.1s;
+}
+
+.card-profile-page .historic-deck-card:nth-child(3n) .historic-deck-image img{
+  animation-delay:-8.2s;
+}
+
+.card-profile-page .historic-deck-card:hover .historic-deck-image img{
+  animation-duration:20s;
+  filter:brightness(.77) saturate(1)!important;
+}
+
+@keyframes historicDeckMuseumPan{
+  0%{
+    object-position:center 100%;
+    transform:scale(1.03) translateY(0);
+  }
+  42%{
+    object-position:center 53%;
+    transform:scale(1.10) translateY(-1%);
+  }
+  100%{
+    object-position:center 0%;
+    transform:scale(1.035) translateY(-2%);
+  }
+}
+
+/* =========================================================
+   HISTORY OF APPEARANCES — HORIZONTAL CAROUSEL
+========================================================= */
+
+.card-profile-page .card-history-source-table{
+  display:none!important;
+}
+
+.history-carousel-controls{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  margin:0 0 12px;
+}
+
+.history-carousel-controls[hidden]{
+  display:none!important;
+}
+
+.history-carousel-controls>span{
+  color:#6f8e98;
+  font-size:9px;
+  font-weight:900;
+  text-transform:uppercase;
+  letter-spacing:.05em;
+}
+
+.history-carousel-controls>div{
+  display:flex;
+  gap:7px;
+}
+
+.history-carousel-controls button{
+  width:34px;
+  height:34px;
+  display:grid;
+  place-items:center;
+  padding:0;
+  border:1px solid rgba(117,240,255,.18);
+  border-radius:50%;
+  color:#e3ffff;
+  background:rgba(4,17,38,.72);
+  font:900 20px Orbitron,sans-serif;
+  cursor:pointer;
+  transition:.18s ease;
+}
+
+.history-carousel-controls button:hover:not(:disabled){
+  transform:translateY(-2px);
+  border-color:rgba(162,250,255,.42);
+  box-shadow:0 0 16px rgba(75,235,255,.09);
+}
+
+.history-carousel-controls button:disabled{
+  opacity:.27;
+  cursor:default;
+}
+
+.card-history-carousel{
+  display:grid;
+  grid-auto-flow:column;
+  grid-auto-columns:minmax(270px,330px);
+  gap:13px;
+  overflow-x:auto;
+  overflow-y:hidden;
+  padding:4px 3px 16px;
+  scroll-snap-type:x mandatory;
+  scroll-behavior:smooth;
+  overscroll-behavior-inline:contain;
+  scrollbar-width:thin;
+  scrollbar-color:rgba(101,225,255,.29) rgba(3,9,25,.22);
+}
+
+.card-history-carousel::-webkit-scrollbar{
+  height:7px;
+}
+.card-history-carousel::-webkit-scrollbar-track{
+  border-radius:999px;
+  background:rgba(3,9,25,.24);
+}
+.card-history-carousel::-webkit-scrollbar-thumb{
+  border-radius:999px;
+  background:linear-gradient(90deg,rgba(77,222,255,.40),rgba(139,91,255,.34));
+}
+
+.card-history-entry{
+  position:relative;
+  min-height:210px;
+  scroll-snap-align:start;
+  scroll-snap-stop:always;
+  padding:16px;
+  overflow:hidden;
+  border:1px solid rgba(148,246,255,.13);
+  border-radius:17px;
+  background:
+    linear-gradient(180deg,rgba(255,255,255,.035),transparent 18%),
+    linear-gradient(145deg,rgba(7,31,45,.43),rgba(9,10,31,.56));
+  box-shadow:
+    0 13px 27px rgba(0,0,0,.22),
+    inset 0 1px rgba(255,255,255,.045);
+}
+
+.card-history-entry::after{
+  content:"";
+  position:absolute;
+  right:-28px;
+  bottom:-35px;
+  width:90px;
+  height:90px;
+  border:1px solid rgba(99,235,255,.05);
+  border-radius:50%;
+  box-shadow:
+    0 0 0 16px rgba(143,91,255,.016),
+    0 0 0 32px rgba(99,235,255,.010);
+  pointer-events:none;
+}
+
+.card-history-entry-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  margin-bottom:12px;
+}
+
+.card-history-entry-head a{
+  color:#dffcff;
+  font:900 17px Orbitron,sans-serif;
+  text-decoration:none;
+}
+
+.card-history-entry-head span{
+  color:#ffe195;
+  font:900 9px Orbitron,sans-serif;
+}
+
+.card-history-entry-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:7px;
+}
+
+.card-history-entry-grid>div{
+  min-width:0;
+  padding:8px;
+  border-radius:10px;
+  background:rgba(255,255,255,.022);
+}
+
+.card-history-entry-grid small{
+  display:block;
+  color:#6f8d97;
+  font-size:7px;
+  font-weight:900;
+  text-transform:uppercase;
+  letter-spacing:.05em;
+}
+
+.card-history-entry-grid b,
+.card-history-entry-grid span{
+  display:block;
+  margin-top:4px;
+  color:#d8f3f5;
+  font-size:10px;
+  line-height:1.28;
+}
+
+.card-history-entry-pilots{
+  grid-column:1 / -1;
+}
+
+.card-history-empty{
+  grid-column:1;
+  padding:20px;
+  color:#819ca5;
+  border:1px solid rgba(116,241,255,.09);
+  border-radius:15px;
+  background:rgba(4,15,34,.45);
+}
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media(max-width:1050px){
+  .card-profile-page .tag-category{
+    max-width:calc(50% - 5px)!important;
+  }
+}
+
+@media(max-width:700px){
+  .card-profile-page .tag-category{
+    flex:1 1 100%!important;
+    max-width:100%!important;
+  }
+
+  .card-profile-page .historic-deck-image{
+    height:190px!important;
+  }
+
+  .card-history-carousel{
+    grid-auto-columns:minmax(260px,84vw);
+  }
+
+  .history-carousel-controls>span{
+    display:none;
+  }
+}
+
+@media(prefers-reduced-motion:reduce){
+  .filter-holo-card,
+  .card-profile-page .historic-deck-image img{
+    animation:none!important;
+  }
+
+  .card-history-carousel{
+    scroll-behavior:auto!important;
+  }
+}

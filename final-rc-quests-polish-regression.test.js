@@ -1,0 +1,17 @@
+const fs=require("fs");const path=require("path");const assert=require("assert");
+const here=__dirname;const read=f=>fs.readFileSync(path.join(here,f),"utf8");
+const qreg=read("draft-quests-registry.js"),qeng=read("draft-quests-engine.js"),qcss=read("draft-quests.css"),qui=read("draft-quests-ui.js");
+assert.doesNotMatch(qreg,/category\s*:\s*["']archetypes["']/,"Quest registry must not use legacy archetypes category");
+assert.doesNotMatch(qeng,/tagIdsForCategory\(["']archetypes["']\)/,"Quest engine must not resolve legacy archetypes category");
+assert.match(qreg,/category\s*:\s*["']deckArchetypes["']/,"Quest registry uses deckArchetypes");
+assert.match(qcss,/questFinalBorderSweep/,"Quest panel has CSS-native travelling cyan frame");
+assert.doesNotMatch(qcss.slice(qcss.indexOf("FINAL RC — QUESTS POLISH")),/quest_arishem_corner_(?:tl|tr|bl|br)/,"Final quest overrides do not use failed corner assets");
+assert.match(qcss,/questArishemEyesIntro/,"Quest result prompt uses Arishem eye intro");
+assert.match(qui,/"failed",4300/,"Failed quest gets dedicated red-eye prompt timing");
+assert.match(qui,/"completion",4600/,"Completed quest remains readable after transition");
+const collector=read("superpowers-collector.css"),collectorJs=read("superpowers-collector.js");assert.match(collectorJs,/`\$\{baseClass\} pack-card-btn`/,"Collector normal exhibits reuse canonical pack-card-btn renderer");assert.doesNotMatch(collector,/\.spx-collector-card(?:\.pack-card-btn)? \.pack-card-name/,"Collector does not override canonical pack card-name geometry");
+const groot=read("superpowers-groot.css");assert.match(groot,/FINAL TREE OF ABUNDANCE FLOW/,"Groot tree final flow exists");
+const settings=read("settings-v2.css"),html=read("snap-draft.html");assert.match(settings,/GWIEZDNE ARCHIWUM DATA RAIN IN SETTINGS MODAL/,"Settings has archive data-rain skin");assert.match(html,/settingsV2ArchiveMatrix/,"Settings includes matrix code layer");
+const prcss=read("planetary-reserve.css"),prjs=read("planetary-reserve.js");assert.match(prcss,/prCandidateTransfer/,"Reserve pick transfer animation exists");assert.match(prjs,/is-transfer-arrival/,"Reserve bench arrival feedback exists");
+const timer=read("draft-turn-timer.css");assert.match(timer,/FINAL NATURAL TIMER LAYOUT/,"Timer HUD remains in normal WYBIERA layout slot");
+console.log("FINAL RC QUESTS / POLISH REGRESSION — PASS");

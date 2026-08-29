@@ -1,0 +1,21 @@
+const fs=require('fs');
+const assert=require('assert');
+const css=fs.readFileSync('economy.css','utf8');
+const engine=fs.readFileSync('economy-engine.js','utf8');
+const html=fs.readFileSync('snap-draft.html','utf8');
+
+assert.match(css,/economyProductLocalSweep113R/,'local per-product sweep must exist');
+assert.match(css,/economy-product-v2-art-wrap::before/,'sweep must be clipped in product art-wrap');
+assert.match(css,/economyShopCoinFloat113R/,'soft ambient JeffCoin animation must exist');
+assert.match(engine,/economy-shop-floating-coin coin-10/,'PATCH112E ten-coin ambient markup must be restored');
+assert.match(engine,/economy-shop-launcher-coin/,'PATCH112E launcher JeffCoin must be restored');
+assert.match(engine,/is-title-very-long/,'PATCH112E dynamic title fit must be restored');
+assert.match(engine,/has-promo":"no-promo/,'PATCH112E promo/no-promo price centering must be restored');
+assert.match(engine,/is-name-very-long/,'PATCH112E customer name fit must be restored');
+assert.match(css,/economy-shop-balance-coin\{display:none!important;\}/,'separate balance coin must remain hidden for edited wallet asset');
+assert.match(html,/economy\.css\?v=2\.6\.1-shop-recovery/,'recovery CSS cache buster must be present');
+assert.match(html,/economy-engine\.js\?v=2\.5\.1-shop-recovery/,'recovery engine cache buster must be present');
+assert.match(html,/bounties-engine\.js\?v=1\.4\.7/,'Bounty ref must stay on accepted version');
+assert.match(html,/trade-market-ui\.js\?v=0\.6\.0-trade-market-v3-interactive/,'Trade Market v3 ref must stay restored');
+assert.match(html,/superpowers-mysterio\.js\?v=1\.2\.2/,'Mysterio accepted ref must stay restored');
+console.log('PATCH113A REDO RECOVERY regression checks passed.');

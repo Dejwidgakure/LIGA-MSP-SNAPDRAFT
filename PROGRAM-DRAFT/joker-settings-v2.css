@@ -1,0 +1,442 @@
+/* =========================================================
+   MSP SNAPDRAFT — USTAWIENIA JOKERÓW V2
+   Cały arkusz jest zamknięty w #jokerModal.
+========================================================= */
+
+#jokerModal.jokerChaosModal{
+    align-items:center !important;
+    justify-content:center !important;
+    padding:14px !important;
+    overflow:hidden !important;
+    background:
+        radial-gradient(circle at 14% 16%,rgba(255,0,255,.22),transparent 30%),
+        radial-gradient(circle at 84% 74%,rgba(0,240,255,.18),transparent 34%),
+        rgba(0,0,14,.90) !important;
+    backdrop-filter:blur(9px);
+}
+
+#jokerModal .jokerChaosWrapper{
+    position:relative;
+    isolation:isolate;
+    width:min(1040px,calc(100vw - 34px));
+    max-height:calc(100vh - 28px);
+    padding:15px 18px 16px;
+    overflow:auto;
+    box-sizing:border-box;
+    border:2px solid rgba(255,255,255,.24);
+    border-radius:24px;
+    background:
+        linear-gradient(135deg,rgba(6,0,32,.90),rgba(1,17,37,.91)),
+        url("draft-assets/galaxytool.webp") center/720px repeat;
+    box-shadow:
+        0 0 0 1px rgba(0,240,255,.18) inset,
+        0 0 28px rgba(255,0,255,.34),
+        0 0 54px rgba(0,240,255,.22),
+        0 24px 70px rgba(0,0,0,.72);
+    animation:jokerSettingsBorderPulse 3.6s ease-in-out infinite alternate;
+}
+
+#jokerModal .jokerChaosWrapper::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    z-index:-2;
+    border-radius:inherit;
+    pointer-events:none;
+    background:
+        linear-gradient(110deg,transparent 18%,rgba(255,255,255,.09) 33%,transparent 47%),
+        radial-gradient(circle at 16% 26%,rgba(255,0,255,.17),transparent 24%),
+        radial-gradient(circle at 80% 72%,rgba(0,240,255,.13),transparent 28%);
+    background-size:230% 100%,100% 100%,100% 100%;
+    animation:jokerSettingsSheen 8s linear infinite;
+}
+
+#jokerModal .jokerChaosWrapper::after{
+    content:"";
+    position:absolute;
+    inset:7px;
+    z-index:-1;
+    border:1px solid rgba(255,255,255,.07);
+    border-radius:18px;
+    pointer-events:none;
+    box-shadow:inset 0 0 30px rgba(255,0,255,.07);
+}
+
+#jokerModal .jokerChaosHeader{
+    display:flex !important;
+    align-items:center !important;
+    justify-content:center !important;
+    gap:14px !important;
+    min-height:68px;
+    margin:0 0 8px !important;
+}
+
+#jokerModal .jokerChaosJeff{
+    width:78px !important;
+    height:78px !important;
+    margin:0 !important;
+    object-fit:contain;
+    flex:0 0 auto;
+    filter:
+        drop-shadow(0 0 9px rgba(0,240,255,.72))
+        drop-shadow(0 0 15px rgba(255,0,255,.48));
+    animation:jokerSettingsJeffFloat 3.4s ease-in-out infinite;
+}
+
+#jokerModal .jokerChaosHeading{
+    min-width:0;
+    text-align:left;
+}
+
+#jokerModal .jokerChaosTitle{
+    margin:0 !important;
+    color:#fff !important;
+    font-family:'Orbitron',sans-serif !important;
+    font-size:clamp(27px,3vw,40px) !important;
+    line-height:.98 !important;
+    letter-spacing:.10em !important;
+    text-shadow:
+        2px 0 0 #ff00ff,
+        -2px 0 0 #00f0ff,
+        0 0 14px rgba(255,0,255,.72),
+        0 0 24px rgba(0,240,255,.50) !important;
+}
+
+#jokerModal .jokerChaosHeading p{
+    margin:6px 0 0;
+    max-width:650px;
+    color:rgba(229,252,255,.78);
+    font-size:12px;
+    font-weight:800;
+    line-height:1.2;
+}
+
+#jokerModal .jokerSectionTitle{
+    margin:8px 0 7px !important;
+    color:#aafcff !important;
+    font-family:'Orbitron',sans-serif !important;
+    font-size:13px !important;
+    line-height:1 !important;
+    letter-spacing:.13em !important;
+    text-shadow:0 0 9px rgba(0,240,255,.70) !important;
+}
+
+#jokerModal .jokerModesGridV2{
+    display:grid !important;
+    grid-template-columns:repeat(3,minmax(0,1fr)) !important;
+    gap:9px !important;
+    margin:0 0 9px !important;
+}
+
+#jokerModal .jokerModeCard{
+    min-height:78px !important;
+    padding:9px 10px 11px !important;
+    border-radius:14px !important;
+    background:
+        linear-gradient(145deg,rgba(9,4,37,.82),rgba(1,18,40,.75)),
+        url("draft-assets/galaxytool.webp") center/320px repeat !important;
+}
+
+#jokerModal .jokerModeCard.active{
+    border-color:rgba(255,255,255,.88) !important;
+    box-shadow:
+        0 0 0 1px rgba(255,0,255,.38) inset,
+        0 0 14px rgba(255,0,255,.52),
+        0 0 22px rgba(0,240,255,.36) !important;
+}
+
+#jokerModal .jokerModeName{
+    margin:0 0 3px !important;
+    font-size:14px !important;
+}
+
+#jokerModal .jokerModeDesc{
+    font-size:11px !important;
+    line-height:1.18 !important;
+}
+
+#jokerModal .jokerModeBadge{
+    margin-top:5px !important;
+    padding:3px 7px !important;
+    font-size:7.5px !important;
+}
+
+#jokerModal .jokerModeCard::after{
+    inset:auto 12px 6px 12px !important;
+}
+
+#jokerModal .jokerSettingsColumns{
+    display:grid;
+    grid-template-columns:minmax(0,1.15fr) minmax(330px,.85fr);
+    gap:10px;
+    align-items:stretch;
+}
+
+#jokerModal .jokerControlPanel,
+#jokerModal .jokerSettingsSide{
+    width:auto !important;
+    min-width:0;
+    margin:0 !important;
+    padding:11px 12px !important;
+    border:1px solid rgba(0,240,255,.28);
+    border-radius:16px;
+    background:
+        linear-gradient(145deg,rgba(0,3,29,.78),rgba(20,0,40,.67)),
+        url("draft-assets/galaxytool.webp") center/430px repeat;
+    box-shadow:
+        0 0 15px rgba(0,240,255,.16),
+        inset 0 0 18px rgba(255,0,255,.05);
+    box-sizing:border-box;
+}
+
+#jokerModal .jokerControlHeader{
+    display:flex !important;
+    align-items:center !important;
+    justify-content:space-between !important;
+    gap:10px !important;
+    margin:0 0 8px !important;
+    font-size:12px !important;
+}
+
+#jokerModal .jokerControlHeader small{
+    max-width:240px !important;
+    font-size:9px !important;
+    line-height:1.15 !important;
+}
+
+#jokerModal .jokerPackModeGrid{
+    display:grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:8px;
+    margin-bottom:9px;
+}
+
+#jokerModal .jokerPackModeCard{
+    position:relative;
+    display:grid;
+    gap:3px;
+    min-height:64px;
+    padding:9px 10px 8px 32px;
+    border:1px solid rgba(255,255,255,.16);
+    border-radius:13px;
+    background:rgba(3,5,26,.72);
+    color:#efffff;
+    cursor:pointer;
+    box-sizing:border-box;
+    transition:.18s ease;
+}
+
+#jokerModal .jokerPackModeCard:hover{
+    transform:translateY(-1px);
+    border-color:rgba(0,240,255,.55);
+    box-shadow:0 0 13px rgba(0,240,255,.23);
+}
+
+#jokerModal .jokerPackModeCard.active{
+    border-color:#ff4de7;
+    background:
+        linear-gradient(135deg,rgba(255,0,255,.14),rgba(0,240,255,.09)),
+        rgba(3,5,26,.82);
+    box-shadow:
+        0 0 0 1px rgba(255,77,231,.20) inset,
+        0 0 14px rgba(255,0,255,.38),
+        0 0 20px rgba(0,240,255,.16);
+}
+
+#jokerModal .jokerPackModeCard input{
+    position:absolute;
+    left:10px;
+    top:12px;
+    width:14px;
+    height:14px;
+    accent-color:#ff00d4;
+}
+
+#jokerModal .jokerPackModeCard b{
+    color:#fff;
+    font-family:'Orbitron',sans-serif;
+    font-size:9px;
+    line-height:1.15;
+    letter-spacing:.055em;
+}
+
+#jokerModal .jokerPackModeCard span{
+    color:rgba(225,250,255,.72);
+    font-size:10px;
+    font-weight:700;
+    line-height:1.16;
+}
+
+#jokerModal .jokerSliderStack{
+    display:grid;
+    gap:5px;
+}
+
+#jokerModal .jokerSliderRow{
+    grid-template-columns:205px 1fr !important;
+    gap:10px !important;
+    margin:3px 0 !important;
+    font-size:11px !important;
+}
+
+#jokerModal .jokerSliderRow b{
+    min-width:62px !important;
+    padding:3px 6px !important;
+    font-size:8.5px !important;
+}
+
+#jokerModal .jokerTypesGridV2{
+    display:grid !important;
+    grid-template-columns:repeat(2,minmax(0,1fr)) !important;
+    gap:8px !important;
+    margin:0 0 8px !important;
+}
+
+#jokerModal .jokerTypeCard[data-type]{
+    min-height:76px !important;
+    padding:9px !important;
+    border-radius:13px !important;
+    background:
+        linear-gradient(145deg,rgba(10,3,34,.78),rgba(1,17,39,.72)),
+        url("draft-assets/galaxytool.webp") center/300px repeat !important;
+}
+
+#jokerModal .jokerTypeCard[data-type].active{
+    border-color:rgba(0,240,255,.82) !important;
+    box-shadow:
+        0 0 0 1px rgba(255,0,255,.24) inset,
+        0 0 13px rgba(0,240,255,.34),
+        0 0 18px rgba(255,0,255,.20) !important;
+}
+
+#jokerModal .jokerTypeName{
+    margin-bottom:4px !important;
+    font-size:13px !important;
+}
+
+#jokerModal .jokerTypeDesc{
+    font-size:10.5px !important;
+    line-height:1.18 !important;
+}
+
+#jokerModal .jokerInfoBox{
+    max-width:none !important;
+    margin:0 !important;
+    padding:9px 10px !important;
+    border-radius:13px !important;
+    font-size:10px !important;
+    line-height:1.32 !important;
+    text-align:left !important;
+}
+
+#jokerModal .jokerStartBtn{
+    display:block;
+    min-width:280px;
+    margin:11px auto 0 !important;
+    padding:11px 28px !important;
+    font-size:15px !important;
+    letter-spacing:.10em !important;
+}
+
+@keyframes jokerSettingsBorderPulse{
+    from{
+        border-color:rgba(255,0,255,.50);
+        box-shadow:
+            0 0 0 1px rgba(0,240,255,.14) inset,
+            0 0 24px rgba(255,0,255,.27),
+            0 0 45px rgba(0,240,255,.17),
+            0 24px 70px rgba(0,0,0,.72);
+    }
+    to{
+        border-color:rgba(0,240,255,.62);
+        box-shadow:
+            0 0 0 1px rgba(255,0,255,.20) inset,
+            0 0 31px rgba(0,240,255,.30),
+            0 0 56px rgba(255,0,255,.24),
+            0 24px 70px rgba(0,0,0,.72);
+    }
+}
+
+@keyframes jokerSettingsSheen{
+    to{background-position:-230% 0,0 0,0 0}
+}
+
+@keyframes jokerSettingsJeffFloat{
+    0%,100%{transform:translateY(0) rotate(-1deg)}
+    50%{transform:translateY(-4px) rotate(1deg)}
+}
+
+@media(max-width:840px){
+    #jokerModal.jokerChaosModal{
+        align-items:flex-start !important;
+        overflow:auto !important;
+    }
+
+    #jokerModal .jokerSettingsColumns{
+        grid-template-columns:1fr;
+    }
+}
+
+@media(max-width:620px){
+    #jokerModal .jokerChaosWrapper{
+        width:calc(100vw - 18px);
+        max-height:none;
+        padding:12px;
+    }
+
+    #jokerModal .jokerModesGridV2,
+    #jokerModal .jokerPackModeGrid,
+    #jokerModal .jokerTypesGridV2{
+        grid-template-columns:1fr !important;
+    }
+
+    #jokerModal .jokerSliderRow{
+        grid-template-columns:1fr !important;
+    }
+}
+
+@media(max-height:720px) and (min-width:841px){
+    #jokerModal .jokerChaosWrapper{
+        padding:10px 14px 11px;
+    }
+
+    #jokerModal .jokerChaosHeader{
+        min-height:52px;
+        margin-bottom:4px !important;
+    }
+
+    #jokerModal .jokerChaosJeff{
+        width:58px !important;
+        height:58px !important;
+    }
+
+    #jokerModal .jokerChaosHeading p{
+        display:none;
+    }
+
+    #jokerModal .jokerModeCard{
+        min-height:68px !important;
+        padding-top:7px !important;
+    }
+
+    #jokerModal .jokerModeBadge{
+        display:none !important;
+    }
+
+    #jokerModal .jokerPackModeCard{
+        min-height:56px;
+    }
+
+    #jokerModal .jokerStartBtn{
+        margin-top:7px !important;
+        padding:9px 24px !important;
+    }
+}
+
+@media(prefers-reduced-motion:reduce){
+    #jokerModal .jokerChaosWrapper,
+    #jokerModal .jokerChaosWrapper::before,
+    #jokerModal .jokerChaosJeff{
+        animation:none !important;
+    }
+}

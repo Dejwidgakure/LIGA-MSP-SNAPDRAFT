@@ -1,0 +1,421 @@
+/* MSP SnapDraft — PATCH17 Jeff / JOKEROWA FALA
+   Wszystkie selektory są ograniczone prefiksem spx-jeff-. */
+
+.spx-jeff-overlay[hidden],
+.spx-jeff-hud[hidden],
+.spx-jeff-swim-layer[hidden]{
+    display:none!important;
+}
+
+.spx-jeff-overlay{
+    position:fixed;
+    inset:0;
+    z-index:10040;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:22px;
+    background:rgba(1,8,20,.88);
+    backdrop-filter:blur(9px);
+}
+
+.spx-jeff-panel{
+    --jeff-cyan:#bdeeff;
+    position:relative;
+    width:min(880px,94vw);
+    max-height:90vh;
+    overflow:auto;
+    padding:24px;
+    border:2px solid rgba(189,238,255,.72);
+    border-radius:30px;
+    color:#f5fcff;
+    background:
+        linear-gradient(145deg,rgba(2,17,38,.94),rgba(4,31,58,.9)),
+        url("draft-assets/powerstormtile.webp") center/580px repeat;
+    box-shadow:
+        0 0 0 1px rgba(255,255,255,.09) inset,
+        0 0 30px rgba(92,211,255,.34),
+        0 28px 70px rgba(0,0,0,.62);
+    isolation:isolate;
+}
+
+.spx-jeff-water-glow{
+    position:absolute;
+    inset:0;
+    z-index:-1;
+    border-radius:inherit;
+    opacity:.34;
+    background:
+        radial-gradient(circle at 15% 0%,rgba(189,238,255,.55),transparent 31%),
+        radial-gradient(circle at 88% 80%,rgba(48,143,255,.34),transparent 36%);
+    animation:spxJeffWater 5s ease-in-out infinite alternate;
+    pointer-events:none;
+}
+
+.spx-jeff-header{
+    display:flex;
+    align-items:center;
+    gap:18px;
+    margin-bottom:18px;
+}
+
+.spx-jeff-header img{
+    width:92px;
+    height:92px;
+    object-fit:contain;
+    filter:drop-shadow(0 0 15px rgba(189,238,255,.78));
+}
+
+.spx-jeff-header span,
+.spx-jeff-joker-info span{
+    font:800 12px/1.2 "Orbitron",sans-serif;
+    letter-spacing:.12em;
+    color:#ffe477;
+}
+
+.spx-jeff-header h2{
+    margin:4px 0;
+    font:900 clamp(28px,4vw,48px)/1 "Orbitron",sans-serif;
+    color:var(--jeff-cyan);
+    text-shadow:0 0 12px rgba(189,238,255,.82),0 0 28px rgba(32,157,255,.42);
+}
+
+.spx-jeff-header p{
+    margin:0;
+    font-size:18px;
+    font-weight:700;
+}
+
+.spx-jeff-joker-info{
+    display:grid;
+    gap:4px;
+    padding:13px 16px;
+    margin-bottom:14px;
+    border:1px solid rgba(255,228,119,.52);
+    border-radius:16px;
+    background:rgba(2,8,24,.72);
+}
+
+.spx-jeff-joker-info strong{
+    font:900 20px/1.2 "Orbitron",sans-serif;
+    color:#fff;
+}
+
+.spx-jeff-joker-info small{
+    color:#ccefff;
+    font-size:15px;
+    font-weight:700;
+}
+
+.spx-jeff-candidates{
+    display:grid;
+    grid-template-columns:repeat(3,minmax(0,1fr));
+    gap:12px;
+}
+
+.spx-jeff-candidates[hidden]{
+    display:none!important;
+}
+
+.spx-jeff-private-joker{
+    width:100%;
+    min-height:178px;
+    display:grid;
+    place-items:center;
+    gap:5px;
+    padding:18px;
+    border:2px solid rgba(255,228,119,.72);
+    border-radius:22px;
+    color:#f7fdff;
+    background:
+        radial-gradient(circle at 50% 38%,rgba(189,238,255,.30),transparent 34%),
+        linear-gradient(145deg,rgba(3,25,53,.96),rgba(4,10,29,.98)),
+        url("draft-assets/powerstormtile.webp") center/420px repeat;
+    box-shadow:
+        0 0 22px rgba(92,211,255,.28),
+        0 0 34px rgba(255,228,119,.18) inset;
+    cursor:pointer;
+    overflow:hidden;
+    transition:transform .2s ease,box-shadow .2s ease;
+}
+
+.spx-jeff-private-joker:hover{
+    transform:translateY(-3px) scale(1.012);
+    box-shadow:
+        0 0 28px rgba(92,211,255,.48),
+        0 0 44px rgba(255,228,119,.30) inset;
+}
+
+.spx-jeff-private-joker img{
+    width:72px;
+    height:72px;
+    object-fit:contain;
+    filter:drop-shadow(0 0 16px rgba(189,238,255,.78));
+}
+
+.spx-jeff-private-joker span{
+    color:#bdeeff;
+    font:800 11px/1.2 "Orbitron",sans-serif;
+    letter-spacing:.12em;
+}
+
+.spx-jeff-private-joker strong{
+    color:#ffe477;
+    font:900 18px/1.2 "Orbitron",sans-serif;
+    text-shadow:0 0 13px rgba(255,228,119,.58);
+}
+
+.spx-jeff-private-joker small{
+    color:#e7faff;
+    font:800 12px/1.2 "Orbitron",sans-serif;
+}
+
+.spx-jeff-private-joker-open{
+    animation:spxJeffPrivateJokerOpen .52s ease both;
+}
+
+#pack [data-pack-index].spx-jeff-pack-transformed{
+    animation:spxJeffPackTransform .88s var(--spx-jeff-reveal-delay,0ms) cubic-bezier(.2,.72,.2,1) both;
+}
+
+.spx-jeff-candidate{
+    min-height:112px;
+    padding:14px 12px;
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+    gap:9px;
+    border:1px solid rgba(189,238,255,.62);
+    border-radius:18px;
+    color:#fff;
+    cursor:pointer;
+    background:
+        linear-gradient(145deg,rgba(8,30,56,.82),rgba(3,10,29,.92)),
+        url("draft-assets/powerstormtile.webp") center/360px repeat;
+    box-shadow:0 0 16px rgba(92,211,255,.16);
+    transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease;
+}
+
+.spx-jeff-candidate:hover{
+    transform:translateY(-3px) scale(1.02);
+    border-color:#ffe477;
+    box-shadow:0 0 24px rgba(189,238,255,.44),0 0 18px rgba(255,228,119,.24);
+}
+
+.spx-jeff-candidate strong{
+    font:900 16px/1.18 "Orbitron",sans-serif;
+}
+
+.spx-jeff-candidate span{
+    color:#bdeeff;
+    font-size:13px;
+    font-weight:900;
+}
+
+.spx-jeff-note{
+    margin:15px 0 0;
+    color:#d9f5ff;
+    font-size:15px;
+    font-weight:700;
+    text-align:center;
+}
+
+.spx-jeff-hud{
+    position:fixed;
+    left:50%;
+    bottom:18px;
+    z-index:10020;
+    transform:translateX(-50%);
+    min-width:min(600px,92vw);
+    display:flex;
+    align-items:center;
+    gap:13px;
+    padding:10px 18px;
+    border:2px solid rgba(189,238,255,.72);
+    border-radius:999px;
+    color:#fff;
+    background:linear-gradient(90deg,rgba(2,16,36,.96),rgba(10,45,75,.94),rgba(2,16,36,.96));
+    box-shadow:0 0 26px rgba(92,211,255,.38);
+}
+
+.spx-jeff-hud>img{
+    width:52px;
+    height:52px;
+    object-fit:contain;
+}
+
+.spx-jeff-hud-copy{
+    display:grid;
+    gap:2px;
+}
+
+.spx-jeff-hud-copy strong{
+    font:900 16px/1 "Orbitron",sans-serif;
+    color:#ffe477;
+}
+
+.spx-jeff-hud-copy span{
+    font-size:15px;
+    font-weight:800;
+}
+
+.spx-jeff-swim-layer{
+    position:fixed;
+    inset:0;
+    z-index:10060;
+    overflow:hidden;
+    pointer-events:none;
+    background:linear-gradient(180deg,rgba(1,18,44,.12),rgba(14,101,147,.30));
+}
+
+.spx-jeff-swim-layer img{
+    position:absolute;
+    left:-35vw;
+    top:50%;
+    width:min(330px,32vw);
+    max-height:55vh;
+    object-fit:contain;
+    transform:translateY(-50%) rotate(5deg);
+    filter:drop-shadow(0 0 18px #bdeeff) drop-shadow(0 16px 20px rgba(0,0,0,.4));
+}
+
+.spx-jeff-swim-layer strong{
+    position:absolute;
+    left:50%;
+    top:13%;
+    transform:translateX(-50%) scale(.78);
+    opacity:0;
+    font:900 clamp(32px,6vw,78px)/1 "Orbitron",sans-serif;
+    color:#fff4a8;
+    text-shadow:0 0 15px #ffe477,0 0 35px #60d7ff;
+    white-space:nowrap;
+}
+
+.spx-jeff-wave{
+    position:absolute;
+    left:-30%;
+    right:-30%;
+    top:48%;
+    height:28vh;
+    opacity:0;
+    background:
+        radial-gradient(ellipse at 50% 100%,rgba(212,250,255,.72),transparent 62%),
+        linear-gradient(180deg,transparent,rgba(71,190,235,.48),rgba(7,75,132,.12));
+    filter:blur(5px);
+}
+
+.spx-jeff-swimming img{
+    animation:spxJeffSwim 2s cubic-bezier(.18,.72,.2,1) both;
+}
+
+.spx-jeff-swimming .spx-jeff-wave{
+    animation:spxJeffWave 2s ease-out both;
+}
+
+.spx-jeff-swimming strong{
+    animation:spxJeffTitle 2s ease both;
+}
+
+body.spx-jeff-resolving .spx-jeff-swap-target{
+    cursor:pointer;
+    outline:2px solid #bdeeff;
+    box-shadow:0 0 18px rgba(189,238,255,.82),0 0 34px rgba(37,150,255,.42)!important;
+    animation:spxJeffTarget 1s ease-in-out infinite alternate;
+}
+
+body.spx-jeff-resolving .spx-jeff-locked{
+    filter:saturate(.45) brightness(.66);
+}
+
+@keyframes spxJeffSwim{
+    0%{left:-35vw;transform:translateY(-44%) rotate(8deg) scale(.72)}
+    45%{left:39vw;transform:translateY(-55%) rotate(-4deg) scale(1.08)}
+    100%{left:112vw;transform:translateY(-48%) rotate(6deg) scale(.82)}
+}
+
+@keyframes spxJeffWave{
+    0%{opacity:0;transform:translateY(25%) scaleY(.4)}
+    45%{opacity:.9;transform:translateY(-8%) scaleY(1.12)}
+    100%{opacity:0;transform:translateY(-35%) scaleY(.7)}
+}
+
+@keyframes spxJeffTitle{
+    0%,20%,100%{opacity:0;transform:translateX(-50%) scale(.78)}
+    36%,72%{opacity:1;transform:translateX(-50%) scale(1)}
+}
+
+@keyframes spxJeffWater{
+    to{opacity:.5;filter:hue-rotate(12deg)}
+}
+
+@keyframes spxJeffTarget{
+    to{transform:translateY(-3px);box-shadow:0 0 26px rgba(189,238,255,.95),0 0 44px rgba(37,150,255,.58)}
+}
+
+@keyframes spxJeffPrivateJokerOpen{
+    0%{transform:scale(1) rotateY(0);filter:brightness(1)}
+    42%{transform:scale(.76) rotateY(92deg);filter:brightness(2)}
+    72%{transform:scale(1.06) rotateY(176deg);filter:brightness(2.5)}
+    100%{transform:scale(.96) rotateY(180deg);opacity:0;filter:brightness(3)}
+}
+
+@keyframes spxJeffPackTransform{
+    0%{opacity:.15;transform:translateY(22px) rotateY(88deg) scale(.72);filter:brightness(2.4) hue-rotate(70deg)}
+    58%{opacity:1;transform:translateY(-7px) rotateY(-8deg) scale(1.06);filter:brightness(1.55)}
+    100%{opacity:1;transform:translateY(0) rotateY(0) scale(1);filter:brightness(1)}
+}
+
+@media(max-width:700px){
+    .spx-jeff-candidates{grid-template-columns:1fr}
+    .spx-jeff-header{align-items:flex-start}
+    .spx-jeff-header img{width:70px;height:70px}
+}
+
+@media(prefers-reduced-motion:reduce){
+    .spx-jeff-water-glow,
+    .spx-jeff-swimming img,
+    .spx-jeff-swimming .spx-jeff-wave,
+    .spx-jeff-swimming strong,
+    body.spx-jeff-resolving .spx-jeff-swap-target{
+        animation:none!important;
+    }
+}
+
+/* PATCH 39.4 FULL VISUAL — mini-GUI prywatnego Jokera */
+.spx-jeff-panel{
+    animation:spxJeffModalSway 5.2s ease-in-out infinite;
+    box-shadow:0 0 0 1px rgba(255,51,211,.18),0 0 30px rgba(92,211,255,.4),0 0 52px rgba(170,55,255,.18),0 28px 70px rgba(0,0,0,.62);
+}
+
+.spx-jeff-panel::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    z-index:-1;
+    border-radius:inherit;
+    pointer-events:none;
+    background:linear-gradient(100deg,transparent 0 44%,rgba(51,224,255,.07) 46% 48%,transparent 50% 69%,rgba(255,43,207,.06) 71% 73%,transparent 75%);
+    background-size:180% 100%;
+    animation:spxJeffNeonCurrent 4s linear infinite;
+}
+
+.spx-jeff-joker-info{border-color:rgba(61,224,255,.7);box-shadow:-3px 0 rgba(255,41,211,.45),3px 0 rgba(126,73,255,.45),0 0 22px rgba(43,208,255,.2)}
+.spx-jeff-private-joker{position:relative;border-color:#4fe9ff;background:linear-gradient(145deg,rgba(7,30,62,.97),rgba(37,8,66,.98));box-shadow:-4px 0 rgba(255,48,215,.42),4px 0 rgba(139,69,255,.42),0 0 28px rgba(70,223,255,.38),inset 0 0 34px rgba(255,38,213,.12)}
+.spx-jeff-private-joker::before,.spx-jeff-private-joker::after{content:"";position:absolute;left:0;right:0;height:2px;z-index:3;background:#5aeeff;box-shadow:0 0 8px #47e8ff;opacity:.55;animation:spxJeffScanline 2.4s linear infinite}
+.spx-jeff-private-joker::after{background:#ff41d5;animation-delay:-1.1s}
+.spx-jeff-private-joker .spx-jeff-joker-glitch{position:absolute;inset:auto 8px 5px auto;color:rgba(255,65,216,.2);font:900 42px/1 "Orbitron",sans-serif;letter-spacing:.08em;transform:rotate(-8deg);text-shadow:-5px 0 rgba(54,229,255,.22),5px 0 rgba(128,68,255,.18);pointer-events:none}
+
+.spx-jeff-open-joker{position:relative;display:grid;gap:6px;padding:10px 12px;border:1px solid rgba(83,235,255,.55);border-radius:13px;background:linear-gradient(100deg,rgba(9,35,69,.82),rgba(58,10,74,.76));box-shadow:-3px 0 rgba(255,43,211,.35),3px 0 rgba(120,73,255,.35)}
+.spx-jeff-open-joker em{color:#ff65dd;font:900 10px/1 "Orbitron",sans-serif;font-style:normal;letter-spacing:.12em;text-shadow:-2px 0 #3ee8ff,2px 0 #874dff}
+
+.spx-jeff-candidate{position:relative;overflow:hidden;border-color:rgba(75,229,255,.72);background:linear-gradient(145deg,rgba(8,35,66,.92),rgba(44,8,68,.92));box-shadow:-2px 0 rgba(255,49,210,.24),2px 0 rgba(128,67,255,.24),0 0 18px rgba(67,222,255,.2)}
+.spx-jeff-candidate::after{content:"J";position:absolute;right:-4px;bottom:-12px;color:rgba(255,61,215,.12);font:900 68px/1 "Orbitron",sans-serif;text-shadow:-5px 0 rgba(52,229,255,.13)}
+.spx-jeff-candidate>em{position:relative;z-index:2;color:#ff68dd;font:900 8px/1 "Orbitron",sans-serif;font-style:normal;letter-spacing:.1em;text-shadow:-1px 0 #55ecff,1px 0 #8a51ff}
+.spx-jeff-candidate>small{position:relative;z-index:2;color:#d9f7ff;font-size:10px;font-weight:700;line-height:1.25}
+.spx-jeff-candidate>*{z-index:2}
+
+@keyframes spxJeffModalSway{0%,100%{transform:translateY(0) rotate(-.15deg)}50%{transform:translateY(-4px) rotate(.15deg)}}
+@keyframes spxJeffNeonCurrent{to{background-position:-180% 0}}
+@keyframes spxJeffScanline{from{top:8%}to{top:92%}}
+
+@media(prefers-reduced-motion:reduce){.spx-jeff-panel,.spx-jeff-panel::after,.spx-jeff-private-joker::before,.spx-jeff-private-joker::after{animation:none!important}}

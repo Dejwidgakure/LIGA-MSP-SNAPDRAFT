@@ -1,0 +1,607 @@
+
+/* PLAYER 02A — pełna karta kariery wojownika */
+
+.profile-sections{
+  gap:34px!important;
+  margin-top:34px!important;
+}
+.profile-section{
+  position:relative;
+  isolation:isolate;
+  overflow:hidden;
+  padding:28px!important;
+  border-radius:28px!important;
+}
+.profile-section::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:-2;
+  pointer-events:none;
+}
+.profile-section::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:-1;
+  pointer-events:none;
+  background:
+    linear-gradient(115deg,transparent,rgba(255,255,255,.025),transparent),
+    repeating-linear-gradient(90deg,rgba(126,248,255,.018) 0 1px,transparent 1px 38px);
+}
+.profile-section-head{
+  position:relative;
+  z-index:2;
+  margin-bottom:22px!important;
+  padding-bottom:16px!important;
+}
+.profile-section-head p{
+  max-width:560px!important;
+  font-size:13px!important;
+  line-height:1.35;
+}
+
+/* Sygnatura */
+.section-signature{
+  border:1px solid rgba(167,122,255,.34)!important;
+  background:linear-gradient(135deg,rgba(10,13,43,.92),rgba(16,8,48,.90))!important;
+  box-shadow:0 24px 70px rgba(0,0,0,.34),0 0 32px rgba(122,76,255,.10),inset 0 0 44px rgba(0,240,255,.028)!important;
+}
+.section-signature::before{
+  background:
+    radial-gradient(circle at 16% 20%,rgba(0,240,255,.17),transparent 30%),
+    radial-gradient(circle at 83% 22%,rgba(157,91,255,.21),transparent 31%),
+    radial-gradient(circle at 54% 100%,rgba(255,216,110,.08),transparent 31%);
+}
+.signature-layout{
+  display:grid;
+  grid-template-columns:minmax(290px,.75fr) minmax(0,1.25fr);
+  gap:22px;
+}
+.signature-main{
+  position:relative;
+  min-height:190px;
+  padding:23px;
+  border-radius:22px;
+  border:1px solid rgba(255,216,110,.22);
+  background:linear-gradient(145deg,rgba(12,15,44,.85),rgba(8,10,31,.74));
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  overflow:hidden;
+}
+.signature-main::after{
+  content:"✦";
+  position:absolute;
+  right:20px;
+  bottom:-28px;
+  font:900 116px/1 Orbitron,sans-serif;
+  color:rgba(255,216,110,.055);
+  transform:rotate(-10deg);
+}
+.signature-rank{
+  position:relative;
+  z-index:1;
+  color:#ffe59b;
+  font:900 clamp(22px,2.5vw,36px)/1 Orbitron,sans-serif;
+  text-shadow:0 0 16px rgba(255,216,110,.28);
+}
+.signature-legend{
+  position:relative;
+  z-index:1;
+  margin-top:10px;
+  color:#fff;
+  font-size:24px;
+  font-weight:900;
+}
+.signature-line{
+  position:relative;
+  z-index:1;
+  margin-top:12px;
+  color:#a8c4d0;
+  font-size:14px;
+  font-weight:800;
+  line-height:1.42;
+}
+.signature-facts{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:12px;
+}
+.signature-fact{
+  min-height:88px;
+  padding:15px 16px;
+  border:1px solid rgba(118,244,255,.14);
+  border-radius:17px;
+  background:rgba(3,10,30,.58);
+}
+.signature-fact b{
+  display:block;
+  margin-bottom:5px;
+  color:#83a7b6;
+  font:900 9px Orbitron,sans-serif;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+}
+.signature-fact span{
+  display:block;
+  color:#fff;
+  font-size:17px;
+  font-weight:900;
+  line-height:1.12;
+}
+.signature-fact small{
+  display:block;
+  margin-top:4px;
+  color:#819da9;
+  font-size:11px;
+}
+
+/* Kariera */
+.section-career{border-color:rgba(77,237,255,.28)!important}
+.section-career::before{
+  background:
+    radial-gradient(circle at 12% 12%,rgba(0,240,255,.15),transparent 28%),
+    linear-gradient(140deg,rgba(0,185,255,.035),transparent 58%);
+}
+.career-grid{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:12px;
+}
+.career-card{
+  position:relative;
+  min-height:126px;
+  padding:18px;
+  overflow:hidden;
+  border:1px solid rgba(104,242,255,.17);
+  border-radius:18px;
+  background:linear-gradient(145deg,rgba(4,17,39,.76),rgba(7,10,31,.67));
+}
+.career-card::after{
+  content:"";
+  position:absolute;
+  width:82px;height:82px;
+  right:-31px;bottom:-34px;
+  border:1px solid rgba(101,241,255,.08);
+  border-radius:50%;
+  box-shadow:0 0 0 15px rgba(101,241,255,.018);
+}
+.metric-label{
+  display:block;
+  color:#7fabb9;
+  font:900 9px Orbitron,sans-serif;
+  letter-spacing:.09em;
+  text-transform:uppercase;
+}
+.metric-value{
+  display:block;
+  margin-top:9px;
+  color:#fff;
+  font:900 22px/1.08 Orbitron,sans-serif;
+  text-shadow:0 0 12px rgba(0,240,255,.22);
+}
+.metric-sub{
+  display:block;
+  margin-top:7px;
+  color:#7896a3;
+  font-size:12px;
+  font-weight:800;
+}
+.career-card.legend{
+  border-color:rgba(255,216,110,.28);
+  background:linear-gradient(145deg,rgba(35,28,12,.34),rgba(11,11,32,.72));
+}
+.career-card.legend .metric-label{color:#cfb66b}
+.career-card.legend .metric-value{color:#ffe69b;text-shadow:0 0 14px rgba(255,216,110,.28)}
+
+/* Rekordy */
+.section-records{
+  border-color:rgba(255,216,110,.29)!important;
+  background:linear-gradient(145deg,rgba(19,14,38,.86),rgba(9,9,29,.79))!important;
+}
+.section-records::before{
+  background:
+    radial-gradient(circle at 14% 0%,rgba(255,216,110,.14),transparent 31%),
+    radial-gradient(circle at 88% 82%,rgba(145,80,255,.17),transparent 32%);
+}
+.record-grid{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:13px;
+}
+.record-card{
+  min-height:142px;
+  padding:19px;
+  border:1px solid rgba(255,216,110,.19);
+  border-radius:19px;
+  background:linear-gradient(145deg,rgba(37,25,15,.30),rgba(15,9,41,.63));
+}
+.record-label{
+  color:#c9ae65;
+  font:900 9px Orbitron,sans-serif;
+  letter-spacing:.09em;
+  text-transform:uppercase;
+}
+.record-value{
+  display:block;
+  margin-top:11px;
+  color:#fff5cc;
+  font:900 20px/1.08 Orbitron,sans-serif;
+}
+.record-sub{
+  display:block;
+  margin-top:7px;
+  color:#a595bb;
+  font-size:12px;
+  font-weight:800;
+}
+
+/* Rywalizacje */
+.section-rivalries{border-color:rgba(255,91,127,.22)!important}
+.section-rivalries::before{
+  background:
+    radial-gradient(circle at 5% 50%,rgba(255,64,104,.12),transparent 25%),
+    radial-gradient(circle at 95% 50%,rgba(0,240,255,.12),transparent 25%);
+}
+.rival-grid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:14px;
+}
+.rival-card{
+  position:relative;
+  min-height:184px;
+  padding:17px;
+  overflow:hidden;
+  border-radius:21px;
+  border:1px solid rgba(113,241,255,.15);
+  background:linear-gradient(90deg,rgba(46,9,24,.46),rgba(8,9,29,.73) 47%,rgba(5,30,43,.42));
+}
+.rival-card::before{
+  content:"";
+  position:absolute;
+  left:50%;top:-20%;bottom:-20%;
+  width:1px;
+  background:linear-gradient(transparent,rgba(255,255,255,.18),transparent);
+}
+.rival-type{
+  display:block;
+  text-align:center;
+  color:#af91df;
+  font:900 9px Orbitron,sans-serif;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+}
+.rival-versus{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) 56px minmax(0,1fr);
+  align-items:center;
+  gap:8px;
+  margin-top:18px;
+}
+.rival-player,.rival-opponent{
+  min-width:0;
+  font:900 clamp(14px,1.4vw,19px)/1.05 Orbitron,sans-serif;
+  color:#fff;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+.rival-player{text-align:right;color:#ffced9}
+.rival-opponent{text-align:left;color:#bdf9ff}
+.vs-orb{
+  width:52px;height:52px;
+  display:grid;place-items:center;
+  margin:auto;
+  border-radius:50%;
+  border:1px solid rgba(255,255,255,.18);
+  background:radial-gradient(circle,rgba(255,255,255,.11),rgba(131,74,255,.14) 48%,rgba(4,9,27,.9));
+  color:#fff;
+  font:900 14px Orbitron,sans-serif;
+  box-shadow:0 0 18px rgba(126,76,255,.14);
+}
+.rival-result{
+  margin-top:17px;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:7px;
+}
+.rival-result span{
+  padding:7px 5px;
+  border:1px solid rgba(255,255,255,.07);
+  border-radius:10px;
+  background:rgba(3,8,24,.55);
+  color:#819faa;
+  text-align:center;
+  font-size:10px;
+  font-weight:800;
+  text-transform:uppercase;
+}
+.rival-result b{display:block;margin-bottom:2px;color:#fff;font-size:14px}
+
+/* Historia */
+.section-history{border-color:rgba(95,132,255,.23)!important}
+.section-history::before{
+  background:
+    radial-gradient(circle at 25% 0%,rgba(0,164,255,.11),transparent 30%),
+    radial-gradient(circle at 88% 100%,rgba(126,67,255,.15),transparent 32%);
+}
+.draft-history-grid{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:15px;
+}
+.draft-history-card{
+  position:relative;
+  min-height:310px;
+  overflow:hidden;
+  border-radius:21px;
+  border:1px solid rgba(113,239,255,.16);
+  background:linear-gradient(150deg,rgba(5,13,36,.94),rgba(12,8,34,.91));
+  color:#fff;
+  text-decoration:none;
+  box-shadow:0 14px 34px rgba(0,0,0,.22);
+  transition:.24s ease;
+}
+.draft-history-card:hover{
+  transform:translateY(-4px);
+  border-color:rgba(113,239,255,.45);
+  box-shadow:0 20px 42px rgba(0,0,0,.29),0 0 22px rgba(0,240,255,.09);
+}
+.draft-thumb{
+  position:relative;
+  height:168px;
+  overflow:hidden;
+  background:
+    radial-gradient(circle at 50% 42%,rgba(0,240,255,.12),transparent 40%),
+    linear-gradient(145deg,rgba(13,24,55,.95),rgba(21,10,46,.95));
+}
+.draft-thumb img{
+  width:100%;height:100%;
+  display:block;
+  object-fit:cover;
+  object-position:center;
+  filter:brightness(.58) saturate(.82) contrast(1.05);
+  transition:.28s ease;
+}
+.draft-history-card:hover .draft-thumb img{
+  filter:brightness(.72) saturate(.98) contrast(1.04);
+  transform:scale(1.025);
+}
+.draft-history-card.no-image .draft-thumb::after{
+  content:"BRAK MINIATURY TALII";
+  position:absolute;
+  inset:0;
+  display:grid;
+  place-items:center;
+  color:#668b9c;
+  font:900 9px Orbitron,sans-serif;
+  letter-spacing:.12em;
+}
+.draft-badge,.draft-medal{
+  position:absolute;
+  z-index:3;
+  top:12px;
+  padding:7px 10px;
+  border-radius:10px;
+  font:900 10px Orbitron,sans-serif;
+}
+.draft-badge{
+  left:12px;
+  background:rgba(2,7,23,.82);
+  border:1px solid rgba(116,242,255,.19);
+  color:#dffcff;
+}
+.draft-medal{
+  right:12px;
+  background:rgba(31,23,8,.82);
+  border:1px solid rgba(255,216,110,.29);
+  color:#ffe59b;
+}
+.draft-body{padding:16px}
+.draft-place{color:#fff;font:900 21px/1 Orbitron,sans-serif}
+.draft-core{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:7px;
+  margin-top:12px;
+}
+.draft-core span{
+  padding:7px 5px;
+  border-radius:9px;
+  border:1px solid rgba(113,239,255,.09);
+  background:rgba(3,9,27,.50);
+  color:#7495a3;
+  text-align:center;
+  font-size:9px;
+  font-weight:800;
+  text-transform:uppercase;
+}
+.draft-core b{display:block;color:#fff;font-size:13px}
+.draft-legend-award{margin-top:10px;color:#d9bd70;font-size:11px;font-weight:900}
+.draft-deck-fallback{
+  display:none;
+  margin-top:10px;
+  color:#708d99;
+  font-size:10px;
+  line-height:1.25;
+}
+.draft-history-card.no-image .draft-deck-fallback{display:block}
+
+/* Arsenał */
+.section-arsenal{border-color:rgba(87,246,206,.22)!important}
+.section-arsenal::before{
+  background:
+    radial-gradient(circle at 8% 0%,rgba(0,241,195,.11),transparent 30%),
+    radial-gradient(circle at 90% 85%,rgba(232,80,255,.11),transparent 31%);
+}
+.arsenal-note{
+  margin:-9px 0 17px;
+  color:#668994;
+  font-size:11px;
+  font-weight:800;
+}
+.arsenal-grid{
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:13px;
+}
+.arsenal-card{
+  position:relative;
+  min-height:230px;
+  overflow:hidden;
+  border-radius:21px;
+  border:1px solid rgba(97,242,211,.18);
+  background:linear-gradient(155deg,rgba(4,25,37,.83),rgba(18,9,39,.81));
+  color:#fff;
+  text-decoration:none;
+  transition:.24s ease;
+}
+.arsenal-card:hover{
+  transform:translateY(-4px) scale(1.01);
+  border-color:rgba(98,245,214,.43);
+  box-shadow:0 18px 40px rgba(0,0,0,.26),0 0 22px rgba(0,240,197,.08);
+}
+.arsenal-card-top{
+  height:137px;
+  position:relative;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:24px 34px 18px;
+  background:
+    radial-gradient(circle at 50% 32%,rgba(115,245,255,.14),transparent 42%),
+    linear-gradient(155deg,rgba(9,28,45,.85),rgba(25,11,52,.84));
+}
+.arsenal-card-top::before{
+  content:"";
+  position:absolute;
+  inset:8px;
+  border-radius:15px;
+  border:1px solid rgba(255,255,255,.055);
+}
+.arsenal-cost,.arsenal-power{
+  position:absolute;
+  z-index:2;
+  top:10px;
+  width:34px;height:34px;
+  display:grid;place-items:center;
+  border-radius:50%;
+  color:#fff;
+  font:900 14px Orbitron,sans-serif;
+}
+.arsenal-cost{
+  left:10px;
+  background:linear-gradient(145deg,#155dff,#58ccff);
+}
+.arsenal-power{
+  right:10px;
+  background:linear-gradient(145deg,#ff8a19,#f23463);
+}
+.arsenal-name{
+  position:relative;
+  z-index:2;
+  text-align:center;
+  color:#fff;
+  font:900 clamp(15px,1.35vw,19px)/1.04 Orbitron,sans-serif;
+  text-shadow:0 0 12px rgba(0,240,255,.22);
+}
+.arsenal-body{padding:14px 15px 15px}
+.arsenal-kind{
+  color:#79a3ad;
+  font:900 8px Orbitron,sans-serif;
+  letter-spacing:.11em;
+  text-transform:uppercase;
+}
+.arsenal-metric{
+  display:block;
+  margin-top:7px;
+  color:#bfffea;
+  font-size:18px;
+  font-weight:900;
+}
+.arsenal-sub{
+  display:block;
+  margin-top:4px;
+  color:#718e99;
+  font-size:10px;
+  font-weight:800;
+}
+.arsenal-chips{
+  display:flex;
+  flex-wrap:wrap;
+  gap:7px;
+  margin-top:16px;
+}
+.arsenal-chip{
+  padding:7px 9px;
+  border:1px solid rgba(113,239,255,.10);
+  border-radius:999px;
+  background:rgba(3,11,28,.52);
+  color:#9cb8c0;
+  font-size:10px;
+  font-weight:800;
+  text-decoration:none;
+}
+.arsenal-chip:hover{color:#fff;border-color:rgba(113,239,255,.29)}
+
+/* Osiągnięcia */
+.section-achievements{border-color:rgba(255,216,110,.22)!important}
+.section-achievements::before{
+  background:
+    radial-gradient(circle at 50% 0%,rgba(255,216,110,.11),transparent 30%),
+    radial-gradient(circle at 20% 100%,rgba(123,74,255,.09),transparent 28%);
+}
+.achievement-grid{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:11px;
+}
+.achievement{
+  position:relative;
+  min-height:90px;
+  padding:15px 16px 15px 50px;
+  border-radius:16px;
+  border:1px solid rgba(255,216,110,.14);
+  background:rgba(22,16,31,.49);
+}
+.achievement::before{
+  content:"✦";
+  position:absolute;
+  left:17px;top:50%;
+  transform:translateY(-50%);
+  color:#ffd96d;
+  font:900 19px Orbitron,sans-serif;
+  text-shadow:0 0 10px rgba(255,216,110,.42);
+}
+.achievement b{display:block;color:#fff0bc;font-size:13px;font-weight:900}
+.achievement small{display:block;margin-top:4px;color:#887e9b;font-size:10px;font-weight:800}
+.achievement.title{
+  border-color:rgba(255,216,110,.30);
+  background:linear-gradient(145deg,rgba(53,36,10,.34),rgba(20,11,38,.53));
+}
+.empty-note-02a{
+  grid-column:1/-1;
+  padding:22px;
+  text-align:center;
+  color:#829fa9;
+  border:1px dashed rgba(113,239,255,.13);
+  border-radius:15px;
+}
+
+@media(max-width:1050px){
+  .signature-layout{grid-template-columns:1fr}
+  .career-grid,.record-grid,.draft-history-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .arsenal-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:760px){
+  .profile-section{padding:20px!important}
+  .signature-facts,.rival-grid,.achievement-grid{grid-template-columns:1fr}
+  .career-grid,.record-grid,.draft-history-grid{grid-template-columns:1fr}
+  .rival-player,.rival-opponent{font-size:13px}
+}
+@media(max-width:520px){
+  .arsenal-grid{grid-template-columns:1fr}
+  .signature-main{min-height:160px}
+}

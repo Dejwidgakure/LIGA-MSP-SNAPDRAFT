@@ -1,0 +1,214 @@
+:root{
+    --gy-violet:#8f4dff;
+    --gy-ghost:#72ffb2;
+    --gy-stone:#9b91a8;
+}
+
+#graveyardLauncher{
+    position:relative;
+    left:auto;
+    bottom:auto;
+    z-index:20;
+    display:none;
+}
+body.draft-active #graveyardLauncher{display:block;}
+body.gy-is-open{overflow:hidden!important;}
+.gy-launcher-button{
+    position:relative;
+    width:136px;
+    height:136px;
+    padding:0;
+    border:0;
+    background:transparent;
+    cursor:pointer;
+    filter:drop-shadow(0 0 8px rgba(91,45,151,.8));
+    transition:transform .22s ease,filter .22s ease,opacity .2s ease;
+}
+.gy-launcher-button:hover:not(:disabled){
+    transform:translateY(-6px) scale(1.07) rotate(-1deg);
+    filter:drop-shadow(0 0 13px rgba(157,94,255,.95)) drop-shadow(0 0 20px rgba(36,255,176,.35));
+}
+.gy-launcher-button:disabled{cursor:not-allowed;opacity:.36;filter:grayscale(.8);}
+.gy-launcher-button img{width:100%;height:100%;object-fit:contain;display:block;}
+.gy-launcher-label{
+    position:absolute;
+    left:50%;bottom:0;
+    transform:translate(-50%,35%);
+    min-width:112px;
+    padding:4px 9px;
+    border:1px solid rgba(190,149,255,.58);
+    border-radius:999px;
+    background:rgba(14,7,26,.9);
+    color:#e9dcff;
+    font:800 9px/1.1 Orbitron,system-ui,sans-serif;
+    letter-spacing:.75px;
+    text-transform:uppercase;
+    white-space:nowrap;
+    box-shadow:0 0 12px rgba(117,55,196,.6);
+}
+.gy-launcher-count{
+    position:absolute;right:4px;top:9px;
+    display:grid;place-items:center;
+    min-width:25px;height:25px;padding:0 5px;
+    border:2px solid #bfffe1;border-radius:50%;
+    background:#171022;color:#9effc8;
+    font:900 12px/1 Orbitron,system-ui,sans-serif;
+    box-shadow:0 0 12px rgba(77,255,165,.8);
+}
+.gy-launcher-button::before,.gy-launcher-button::after{
+    content:"";position:absolute;inset:22% 13%;z-index:-1;border-radius:50%;
+    background:radial-gradient(circle,rgba(33,13,50,.65),transparent 72%);
+    animation:gyButtonSmoke 3.8s ease-in-out infinite alternate;
+}
+.gy-launcher-button::after{animation-delay:-1.8s;transform:translate(8px,-8px) scale(.78);}
+@keyframes gyButtonSmoke{to{transform:translate(-8px,-13px) scale(1.18);filter:blur(6px);opacity:.22;}}
+
+.gy-overlay{
+    position:fixed;inset:0;z-index:60000;
+    display:flex;align-items:center;justify-content:center;
+    padding:2vh 2vw;
+    background:radial-gradient(circle at 50% 45%,rgba(54,21,91,.42),rgba(0,0,0,.92) 74%);
+    backdrop-filter:blur(7px);
+}
+.gy-overlay[hidden]{display:none!important;}
+.gy-modal{
+    position:relative;
+    width:min(96vw,1500px);
+    height:min(92vh,844px);
+    min-height:520px;
+    overflow:hidden;
+    border:2px solid rgba(164,106,255,.7);
+    border-radius:24px;
+    background:#140b24 url('draft-assets/graveyard_background.png') center/cover no-repeat;
+    color:white;
+    box-shadow:0 0 0 5px rgba(32,18,46,.78),0 0 55px rgba(116,47,209,.72),inset 0 0 60px rgba(0,0,0,.7);
+    isolation:isolate;
+}
+.gy-modal::before{
+    content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;
+    background:linear-gradient(180deg,rgba(3,0,10,.13) 0 25%,rgba(16,5,31,.08) 42%,rgba(11,3,24,.35));
+}
+.gy-modal::after{
+    content:"";position:absolute;inset:9px;pointer-events:none;z-index:8;border-radius:16px;
+    border:1px solid rgba(207,180,255,.18);
+    background:
+      linear-gradient(125deg,transparent 0 48%,rgba(255,255,255,.035) 49% 50%,transparent 51%) 0 0/190px 120px,
+      radial-gradient(circle at 10% 88%,transparent 0 86px,rgba(205,218,230,.11) 87px 89px,transparent 90px);
+    mix-blend-mode:screen;
+}
+.gy-close{
+    position:absolute;right:18px;top:16px;z-index:12;
+    width:44px;height:44px;border-radius:50%;
+    border:1px solid rgba(220,203,255,.55);
+    background:rgba(15,7,25,.86);color:#f4edff;
+    font:900 22px/1 system-ui;cursor:pointer;
+    box-shadow:0 0 14px rgba(118,62,196,.75);
+}
+.gy-close:disabled{display:none;}
+.gy-mode-banner{
+    position:absolute;left:50%;top:22%;z-index:9;transform:translateX(-50%);
+    display:flex;align-items:center;gap:10px;
+    max-width:76%;padding:8px 18px;border-radius:999px;
+    background:rgba(13,7,24,.78);border:1px solid rgba(189,146,255,.55);
+    color:#e8dcff;box-shadow:0 0 18px rgba(78,31,128,.55);
+    font:700 12px/1.25 Orbitron,system-ui,sans-serif;text-align:center;
+}
+.gy-overlay[data-mode="wolverine"] .gy-mode-banner{
+    color:#c9ffe2;border-color:rgba(88,255,168,.75);
+    box-shadow:0 0 20px rgba(42,255,146,.35);
+}
+.gy-field{
+    position:absolute;z-index:3;
+    left:6%;right:6%;top:30%;bottom:7%;
+    overflow:auto;
+    padding:8px 20px 26px;
+    scrollbar-width:thin;
+    scrollbar-color:#6e5e79 #171020;
+    mask-image:linear-gradient(180deg,transparent 0,#000 18px,#000 calc(100% - 12px),transparent 100%);
+}
+.gy-field::-webkit-scrollbar{width:16px;}
+.gy-field::-webkit-scrollbar-track{
+    border:2px solid #30263a;border-radius:12px;
+    background:repeating-linear-gradient(135deg,#171020 0 9px,#23172d 9px 12px);
+}
+.gy-field::-webkit-scrollbar-thumb{
+    border:3px solid #211829;border-radius:12px;
+    background:linear-gradient(90deg,#4d4555,#8c8099 48%,#453c4d);
+    box-shadow:inset 0 0 0 1px #b5a8bf,0 0 8px #6d35ad;
+}
+.gy-tombstone-grid{
+    min-height:100%;
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(150px,190px));
+    justify-content:center;
+    align-content:start;
+    gap:12px 10px;
+    padding:12px 2% 30px;
+}
+.gy-tombstone{
+    --gy-tilt:0deg;--gy-rise:0px;--gy-scale:.92;
+    position:relative;min-height:210px;padding:0;border:0;background:transparent;color:white;
+    transform:translateY(var(--gy-rise)) rotate(var(--gy-tilt)) scale(var(--gy-scale));
+    transform-origin:50% 100%;
+    cursor:default;
+    transition:transform .22s ease,filter .22s ease;
+}
+.gy-overlay[data-mode="wolverine"] .gy-tombstone{cursor:pointer;}
+.gy-tombstone:hover{
+    transform:translateY(calc(var(--gy-rise) - 9px)) rotate(0deg) scale(calc(var(--gy-scale) + .05));
+    z-index:4;filter:drop-shadow(0 0 11px rgba(190,142,255,.62));
+}
+.gy-overlay[data-mode="wolverine"] .gy-tombstone:hover,
+.gy-tombstone.is-selected{
+    filter:drop-shadow(0 0 8px #78ffb3) drop-shadow(0 0 22px rgba(37,255,137,.75));
+}
+.gy-tombstone.is-selected{animation:gyTombPulse 1.2s ease-in-out infinite alternate;}
+@keyframes gyTombPulse{to{transform:translateY(calc(var(--gy-rise) - 12px)) rotate(0deg) scale(calc(var(--gy-scale) + .07));}}
+.gy-tombstone-art{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;pointer-events:none;}
+.gy-tombstone-copy{
+    position:absolute;z-index:2;left:19%;right:19%;top:27%;bottom:24%;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;
+    color:#282634;text-align:center;text-shadow:0 1px rgba(255,255,255,.28);
+}
+.gy-tombstone-name{font:900 clamp(10px,1vw,15px)/1.05 Orbitron,system-ui,sans-serif;overflow-wrap:anywhere;}
+.gy-tombstone.gy-name-long .gy-tombstone-name{font-size:10px;line-height:1;}
+.gy-tombstone-stats{font:900 11px/1 Orbitron,system-ui,sans-serif;color:#4b405a;}
+.gy-tombstone-meta{max-width:100%;font:700 8px/1.15 system-ui,sans-serif;color:#5e5367;text-transform:uppercase;}
+.gy-joker-seal{
+    position:absolute;left:50%;top:17%;z-index:3;transform:translateX(-50%);
+    padding:3px 7px;border-radius:8px;background:#3a123f;border:1px solid #ff84ff;color:#ffd3ff;
+    font:900 8px/1 Orbitron,system-ui,sans-serif;box-shadow:0 0 9px #e448ff;
+}
+.gy-soul{
+    position:absolute;left:50%;top:33%;z-index:5;width:48px;height:74px;
+    transform:translate(-50%,0);opacity:0;pointer-events:none;
+    background:radial-gradient(ellipse at 50% 70%,rgba(197,255,222,.9),rgba(53,255,147,.38) 45%,transparent 72%);
+    filter:blur(1px) drop-shadow(0 0 11px #54ff9a);
+}
+.gy-tombstone.is-selected .gy-soul{animation:gySoulRise 1.35s ease-out infinite;}
+@keyframes gySoulRise{0%{opacity:0;transform:translate(-50%,16px) scale(.65)}35%{opacity:.92}100%{opacity:0;transform:translate(-50%,-86px) scale(1.1)}}
+.gy-empty{
+    grid-column:1/-1;align-self:center;justify-self:center;
+    max-width:520px;padding:25px 32px;border:1px solid rgba(175,132,245,.45);border-radius:20px;
+    background:rgba(13,6,25,.72);color:#ddd0ef;text-align:center;
+    font:700 14px/1.45 Orbitron,system-ui,sans-serif;box-shadow:0 0 25px rgba(78,31,135,.48);
+}
+.gy-footer-note{
+    position:absolute;left:50%;bottom:14px;z-index:10;transform:translateX(-50%);
+    padding:5px 12px;border-radius:999px;background:rgba(10,5,17,.78);color:#cfc3dc;
+    font:700 9px/1 Orbitron,system-ui,sans-serif;letter-spacing:.35px;white-space:nowrap;
+}
+
+@media(max-width:920px){
+    #graveyardLauncher{left:auto}.gy-launcher-button{width:110px;height:110px}
+    .gy-tombstone-grid{grid-template-columns:repeat(auto-fit,minmax(110px,160px));}
+    .gy-field{left:3%;right:3%;top:31%;}.gy-tombstone{min-height:180px}
+}
+@media(max-width:640px){
+    #graveyardLauncher{left:auto}.gy-launcher-button{width:90px;height:90px}.gy-launcher-label{display:none}
+    .gy-modal{height:95vh;min-height:440px}.gy-mode-banner{top:23%;font-size:9px}
+    .gy-tombstone-grid{grid-template-columns:repeat(auto-fit,minmax(88px,125px));gap:4px}.gy-tombstone{min-height:155px}
+}
+@media(prefers-reduced-motion:reduce){
+    .gy-launcher-button::before,.gy-launcher-button::after,.gy-tombstone.is-selected,.gy-tombstone.is-selected .gy-soul{animation:none!important;}
+}

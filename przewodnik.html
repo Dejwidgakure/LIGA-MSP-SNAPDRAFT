@@ -1,0 +1,3747 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Encyklopedia SnapDraftu – MSP</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@400;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root{
+    --cyan:#00f0ff;
+    --violet:#7D3CFF;
+    --purple:#8a2be2;
+    --magenta:#ff00ff;
+    --gold:#ffd700;
+    --dark:#050816;
+}
+
+*{ box-sizing:border-box; }
+html{ scroll-behavior:smooth; }
+
+body{
+    margin:0;
+    font-family:'Rajdhani', sans-serif;
+    color:white;
+    background:
+        linear-gradient(rgba(2,4,18,0.72), rgba(2,4,18,0.88)),
+        url("assets/cosmic_tło.png") center center fixed,
+        url("assets/cosmic_tlo.png") center center fixed,
+        url("assets/cosmic-bg.png") center center fixed,
+        #050816;
+    background-size:cover;
+    overflow-x:hidden;
+}
+
+body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    background:url("assets/cosmictool.png") center center / 1150px auto no-repeat;
+    opacity:0.115;
+    pointer-events:none;
+    z-index:0;
+    animation:cosmicToolFloat 18s ease-in-out infinite alternate;
+    mix-blend-mode:screen;
+}
+
+body::after{
+    content:"";
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    z-index:1;
+    background:
+        radial-gradient(circle at 18% 20%, rgba(0,240,255,0.16), transparent 28%),
+        radial-gradient(circle at 82% 12%, rgba(255,0,255,0.12), transparent 26%),
+        radial-gradient(circle at 52% 88%, rgba(125,60,255,0.13), transparent 35%),
+        repeating-linear-gradient(0deg, rgba(120,248,255,0.035) 0 1px, transparent 1px 42px),
+        repeating-linear-gradient(90deg, rgba(120,248,255,0.025) 0 1px, transparent 1px 42px);
+}
+
+@keyframes cosmicToolFloat{
+    from{ transform:translateY(0) scale(1); }
+    to{ transform:translateY(-26px) scale(1.04); }
+}
+
+.page{
+    position:relative;
+    z-index:2;
+    max-width:1180px;
+    margin:0 auto;
+    padding:24px 22px 70px;
+}
+
+.topbar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:16px;
+    margin-bottom:28px;
+}
+
+.back-link{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    padding:12px 18px;
+    border-radius:999px;
+    text-decoration:none;
+    color:#eaffff;
+    font-family:'Orbitron', sans-serif;
+    font-weight:800;
+    font-size:13px;
+    letter-spacing:1px;
+    background:rgba(4,14,36,0.72);
+    border:1px solid rgba(120,248,255,0.55);
+    box-shadow:0 0 16px rgba(0,240,255,0.32), inset 0 0 20px rgba(0,240,255,0.07);
+    backdrop-filter:blur(10px);
+    transition:0.22s ease;
+}
+.back-link:hover{
+    transform:translateY(-2px);
+    color:#001018;
+    background:linear-gradient(90deg,#00f0ff,#b8ffff);
+    box-shadow:0 0 28px rgba(0,240,255,0.75);
+}
+
+.mini-badge{
+    padding:10px 14px;
+    border-radius:999px;
+    color:#ffeaa6;
+    background:rgba(255,215,0,0.08);
+    border:1px solid rgba(255,215,0,0.30);
+    box-shadow:0 0 18px rgba(255,215,0,0.13);
+    font-weight:800;
+    letter-spacing:1px;
+}
+
+.hero{
+    position:relative;
+    overflow:hidden;
+    border-radius:30px;
+    padding:118px 300px 42px 40px;
+    margin-bottom:26px;
+    background:
+        linear-gradient(135deg, rgba(4,18,48,0.86), rgba(9,22,68,0.72) 42%, rgba(32,8,68,0.68)),
+        radial-gradient(circle at 15% 25%, rgba(0,240,255,0.22), transparent 28%),
+        radial-gradient(circle at 80% 30%, rgba(255,0,255,0.16), transparent 28%);
+    border:1px solid rgba(136,250,255,0.50);
+    box-shadow:0 0 30px rgba(0,240,255,0.26), 0 0 90px rgba(125,60,255,0.18), inset 0 0 70px rgba(0,240,255,0.06);
+    backdrop-filter:blur(12px);
+}
+.hero::before{
+    content:"";
+    position:absolute;
+    inset:-30%;
+    background:url("assets/cosmictool.png") center / 850px auto no-repeat;
+    opacity:0.10;
+    pointer-events:none;
+    animation:heroToolDrift 16s ease-in-out infinite alternate;
+}
+.hero::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent) -50% 0 / 45% 100% no-repeat;
+    animation:shine 6s ease-in-out infinite;
+    pointer-events:none;
+}
+@keyframes heroToolDrift{
+    from{ transform:translate(-18px,0) rotate(-2deg); }
+    to{ transform:translate(24px,-20px) rotate(2deg); }
+}
+@keyframes shine{
+    0%,55%{ background-position:-55% 0; }
+    100%{ background-position:155% 0; }
+}
+
+.hero-logo{
+    position:absolute;
+    left:50%;
+    top:18px;
+    transform:translateX(-50%);
+    z-index:2;
+    width:min(170px, 34vw);
+    display:block;
+    margin:0;
+    filter:drop-shadow(0 0 18px rgba(0,240,255,0.65)) drop-shadow(0 0 26px rgba(255,0,255,0.28));
+}
+.hero-content{ position:relative; z-index:2; max-width:740px; }
+.hero-guide{
+    position:absolute;
+    right:26px;
+    top:92px;
+    width:min(280px, 25vw);
+    max-width:280px;
+    z-index:2;
+    pointer-events:none;
+    filter:drop-shadow(0 0 18px rgba(0,240,255,0.30)) drop-shadow(0 0 28px rgba(125,60,255,0.24));
+}
+
+.kicker{
+    font-family:'Orbitron', sans-serif;
+    color:#b57cff;
+    font-weight:900;
+    letter-spacing:2px;
+    text-transform:uppercase;
+    text-shadow:0 0 14px rgba(181,124,255,0.65);
+    margin-bottom:10px;
+}
+h1{
+    font-family:'Orbitron', sans-serif;
+    font-size:clamp(38px, 7vw, 76px);
+    line-height:1.05;
+    margin:0 0 18px;
+    letter-spacing:2px;
+    background:linear-gradient(90deg,#eaffff,#8ff7ff,#bfa2ff,#ffffff);
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+    text-shadow:0 0 16px rgba(0,240,255,0.42), 0 0 30px rgba(125,60,255,0.24);
+}
+.lead{
+    max-width:900px;
+    font-size:22px;
+    line-height:1.55;
+    color:#dffaff;
+    margin:0 0 26px;
+}
+.quick-nav{
+    display:flex;
+    flex-wrap:wrap;
+    gap:12px;
+    margin-top:22px;
+}
+.quick-nav a{
+    color:#eaffff;
+    text-decoration:none;
+    font-weight:800;
+    border:1px solid rgba(120,248,255,0.35);
+    background:rgba(0,0,30,0.34);
+    border-radius:14px;
+    padding:10px 14px;
+    transition:.2s ease;
+}
+.quick-nav a:hover{
+    transform:translateY(-2px);
+    background:rgba(0,240,255,0.16);
+    box-shadow:0 0 18px rgba(0,240,255,0.28);
+}
+
+.video-section{
+    margin:26px 0 34px;
+    border-radius:26px;
+    padding:24px;
+    background:rgba(5,10,30,0.74);
+    border:1px solid rgba(255,215,0,0.28);
+    box-shadow:0 0 24px rgba(255,215,0,0.13), 0 0 50px rgba(0,240,255,0.10);
+    backdrop-filter:blur(12px);
+}
+
+
+.video-frame iframe{
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+    border:0;
+}
+
+.video-placeholder{
+    position:relative;
+    min-height:360px;
+    border-radius:22px;
+    overflow:hidden;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:30px;
+    background:
+        linear-gradient(135deg, rgba(0,0,0,0.62), rgba(12,20,62,0.62)),
+        radial-gradient(circle at 50% 45%, rgba(0,240,255,0.18), transparent 35%);
+    border:1px dashed rgba(255,215,0,0.55);
+}
+.video-placeholder::before{
+    content:"▶";
+    position:absolute;
+    font-size:96px;
+    color:rgba(255,215,0,0.28);
+    text-shadow:0 0 40px rgba(255,215,0,0.38);
+}
+.video-placeholder div{
+    position:relative;
+    z-index:2;
+    max-width:650px;
+}
+.video-placeholder h2{
+    margin:0 0 8px;
+    font-family:'Orbitron', sans-serif;
+    color:#ffeaa6;
+}
+.video-placeholder p{
+    font-size:20px;
+    line-height:1.45;
+    color:#eaffff;
+    margin:0;
+}
+
+.section{
+    position:relative;
+    margin:30px 0;
+    padding:34px;
+    border-radius:26px;
+    background:
+        linear-gradient(135deg, rgba(5,12,38,0.82), rgba(9,21,55,0.68)),
+        radial-gradient(circle at 10% 0%, rgba(0,240,255,0.08), transparent 34%),
+        radial-gradient(circle at 95% 20%, rgba(255,0,255,0.07), transparent 34%);
+    border:1px solid rgba(120,248,255,0.32);
+    box-shadow:0 0 22px rgba(0,240,255,0.13), inset 0 0 45px rgba(0,240,255,0.035);
+    backdrop-filter:blur(12px);
+}
+.section h2{
+    margin:0 0 18px;
+    font-family:'Orbitron', sans-serif;
+    font-size:clamp(28px, 4vw, 42px);
+    color:#eaffff;
+    text-shadow:0 0 14px rgba(0,240,255,0.55), 0 0 28px rgba(125,60,255,0.30);
+}
+.section h3{
+    margin:28px 0 10px;
+    font-family:'Orbitron', sans-serif;
+    font-size:22px;
+    color:#8ff7ff;
+    text-shadow:0 0 12px rgba(0,240,255,0.35);
+}
+.section p{
+    font-size:20px;
+    line-height:1.62;
+    margin:13px 0;
+    color:#e6fbff;
+}
+.section strong{
+    color:#ffffff;
+    text-shadow:0 0 8px rgba(0,240,255,0.35);
+}
+.callout{
+    margin:20px 0;
+    padding:18px 20px;
+    border-radius:18px;
+    background:rgba(0,240,255,0.08);
+    border-left:4px solid var(--cyan);
+    box-shadow:inset 0 0 20px rgba(0,240,255,0.05);
+    font-size:20px;
+    line-height:1.55;
+}
+.gold-callout{
+    background:rgba(255,215,0,0.08);
+    border-left-color:var(--gold);
+}
+ul{ margin:14px 0 0 0; padding-left:22px; }
+li{
+    font-size:20px;
+    line-height:1.55;
+    margin:8px 0;
+    color:#e6fbff;
+}
+.codebox{
+    margin:14px 0;
+    padding:15px 18px;
+    border-radius:16px;
+    font-family:'Orbitron', sans-serif;
+    font-weight:800;
+    color:#001018;
+    background:linear-gradient(90deg,#00f0ff,#b8ffff);
+    box-shadow:0 0 18px rgba(0,240,255,0.35);
+    display:inline-block;
+}
+.example{
+    margin:16px 0;
+    padding:17px 20px;
+    border-radius:18px;
+    background:rgba(0,0,0,0.34);
+    border:1px solid rgba(120,248,255,0.22);
+    color:#dffaff;
+    font-size:19px;
+}
+.grid-list{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:14px;
+    margin-top:16px;
+}
+.feature-card{
+    padding:18px;
+    border-radius:18px;
+    background:rgba(0,0,30,0.38);
+    border:1px solid rgba(120,248,255,0.22);
+    box-shadow:0 0 18px rgba(0,240,255,0.08);
+    font-size:18px;
+    line-height:1.45;
+}
+.feature-card b{
+    display:block;
+    margin-bottom:8px;
+    color:#ffeaa6;
+    font-family:'Orbitron', sans-serif;
+    font-size:15px;
+    letter-spacing:1px;
+}
+.feature-card-link{
+    display:block;
+    color:#dffaff;
+    text-decoration:none;
+    cursor:pointer;
+    transition:transform .2s ease,border-color .2s ease,box-shadow .2s ease,background .2s ease;
+}
+.feature-card-link:hover{
+    transform:translateY(-3px);
+    border-color:rgba(181,124,255,.65);
+    background:
+        radial-gradient(circle at 88% 12%,rgba(255,0,255,.12),transparent 35%),
+        radial-gradient(circle at 12% 88%,rgba(0,240,255,.12),transparent 35%),
+        rgba(0,0,35,.54);
+    box-shadow:0 0 24px rgba(125,60,255,.22),0 0 34px rgba(0,240,255,.12);
+}
+.feature-card-cta{
+    display:block;
+    margin-top:12px;
+    color:#8ff7ff;
+    font-family:'Orbitron',sans-serif;
+    font-size:12px;
+    font-weight:900;
+    letter-spacing:.7px;
+    text-transform:uppercase;
+}
+.final-cta{
+    text-align:center;
+    padding:44px 32px;
+    border-color:rgba(255,215,0,0.48);
+    box-shadow:0 0 30px rgba(255,215,0,0.14), 0 0 70px rgba(0,240,255,0.14);
+}
+.final-cta .cta-buttons{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    gap:16px;
+    margin-top:24px;
+}
+.btn{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    min-height:48px;
+    padding:14px 22px;
+    border-radius:15px;
+    text-decoration:none;
+    font-family:'Orbitron', sans-serif;
+    font-weight:900;
+    letter-spacing:1px;
+    color:#001018;
+    background:linear-gradient(90deg,#00f0ff,#b8ffff);
+    box-shadow:0 0 22px rgba(0,240,255,0.48);
+    transition:.22s ease;
+}
+.btn.gold{
+    background:linear-gradient(90deg,#ffd700,#fff1a8);
+    box-shadow:0 0 22px rgba(255,215,0,0.42);
+}
+.btn:hover{
+    transform:translateY(-3px) scale(1.02);
+    filter:brightness(1.1);
+}
+.footer-note{
+    text-align:center;
+    opacity:.75;
+    margin-top:34px;
+    font-size:16px;
+}
+@media(max-width:900px){
+    .hero{ padding:38px 24px 30px; }
+    .hero-content{ max-width:none; }
+    .hero-guide{
+        position:relative;
+        right:auto;
+        top:auto;
+        display:block;
+        margin:18px auto 0;
+        width:min(250px, 55vw);
+    }
+}
+@media(max-width:720px){
+    .page{ padding:16px 12px 50px; }
+    .topbar{ flex-direction:column; align-items:flex-start; }
+    .hero{ padding:36px 22px 30px; border-radius:22px; }
+    .section{ padding:24px 18px; border-radius:22px; }
+    .video-placeholder{ min-height:240px; }
+    .section p, li, .callout{ font-size:18px; }
+}
+
+/* FINAL video section patch — full card, no clipped section */
+.video-section{
+    margin-top:34px;
+    padding:28px;
+    border-radius:26px;
+    background:
+        linear-gradient(rgba(0,0,28,0.78), rgba(0,0,40,0.86)),
+        repeating-linear-gradient(0deg, rgba(0,240,255,0.055) 0 1px, transparent 1px 34px),
+        repeating-linear-gradient(90deg, rgba(255,0,255,0.045) 0 1px, transparent 1px 34px);
+    border:1px solid rgba(0,240,255,0.32);
+    box-shadow:
+        0 0 26px rgba(0,240,255,0.22),
+        0 0 54px rgba(138,43,226,0.16),
+        inset 0 0 28px rgba(255,255,255,0.035);
+}
+
+.video-title{
+    margin:0 0 10px;
+    text-align:center;
+    font-family:'Orbitron', sans-serif;
+    font-size:clamp(28px, 4vw, 46px);
+    color:#eaffff;
+    text-shadow:
+        0 0 10px rgba(0,240,255,0.85),
+        0 0 22px rgba(138,43,226,0.55);
+}
+
+.video-note{
+    text-align:center;
+    margin:0 auto 20px;
+    max-width:850px;
+    color:rgba(230,255,255,0.82);
+    font-size:18px;
+    line-height:1.45;
+}
+
+.video-frame{
+    position:relative;
+    width:min(980px, 100%);
+    aspect-ratio:16 / 9;
+    margin:0 auto;
+    border-radius:22px;
+    overflow:hidden;
+    background:#000;
+    border:1px solid rgba(255,215,0,0.42);
+    box-shadow:
+        0 0 24px rgba(255,215,0,0.18),
+        0 0 50px rgba(0,240,255,0.14);
+}
+
+.video-frame iframe{
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+    border:0;
+}
+
+.video-direct-card{
+    width:min(980px, 100%);
+    margin:18px auto 0;
+    border-radius:22px;
+    overflow:hidden;
+    border:1px solid rgba(0,240,255,0.42);
+    background:rgba(0,0,20,0.72);
+    box-shadow:
+        0 0 20px rgba(0,240,255,0.20),
+        0 0 40px rgba(255,0,255,0.11);
+}
+
+.video-direct-card a{
+    display:grid;
+    grid-template-columns:220px 1fr;
+    gap:18px;
+    align-items:center;
+    padding:14px;
+    color:white;
+    text-decoration:none;
+}
+
+.video-direct-card img{
+    width:100%;
+    border-radius:14px;
+    box-shadow:0 0 14px rgba(0,240,255,0.22);
+}
+
+.video-direct-card strong{
+    display:block;
+    font-family:'Orbitron', sans-serif;
+    font-size:22px;
+    color:#ffd700;
+    text-shadow:0 0 10px rgba(255,215,0,0.55);
+}
+
+.video-direct-card span{
+    display:block;
+    margin-top:8px;
+    color:rgba(230,255,255,0.82);
+    font-size:17px;
+    line-height:1.35;
+}
+
+@media(max-width:720px){
+    .video-section{padding:18px;}
+    .video-direct-card a{
+        grid-template-columns:1fr;
+    }
+}
+
+</style>
+
+<style id="msp-navbar-canon-from-index-only">
+/* MSP SNAPDRAFT NAVBAR — KANON Z INDEXU, TYLKO NAVBAR */
+
+/* NAVBAR MASTER FINAL */
+.msp-nav{
+    position:sticky;
+    top:0;
+    z-index:50;
+    width:100%;
+    min-height:114px;
+    display:flex;
+    align-items:center;
+    border-bottom:1px solid rgba(105,237,255,.28);
+    background:
+        linear-gradient(90deg,rgba(4,8,27,.96),rgba(9,13,40,.86) 42%,rgba(16,8,44,.92)),
+        url("assets/cosmictool.png") center/900px repeat;
+    box-shadow:
+        0 10px 34px rgba(0,0,0,.30),
+        0 0 20px rgba(105,237,255,.12),
+        0 0 48px rgba(155,92,255,.10);
+    overflow:hidden;
+}
+
+.msp-nav::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:
+        radial-gradient(circle at 18% 50%,rgba(105,237,255,.18),transparent 30%),
+        radial-gradient(circle at 78% 48%,rgba(155,92,255,.16),transparent 32%),
+        url("assets/cosmictool.png") center/760px repeat;
+    opacity:.18;
+    mix-blend-mode:screen;
+    animation:navTex 26s linear infinite;
+    pointer-events:none;
+}
+
+.msp-nav::after{
+    content:"";
+    position:absolute;
+    top:-60%;
+    bottom:-60%;
+    width:220px;
+    left:-260px;
+    background:linear-gradient(105deg,transparent,rgba(255,255,255,.26),rgba(105,237,255,.18),transparent);
+    transform:skewX(-18deg);
+    animation:sheen 7.5s ease-in-out infinite;
+    pointer-events:none;
+}
+
+@keyframes navTex{
+    to{background-position:center center,center center,180px 110px}
+}
+
+@keyframes sheen{
+    0%,58%{left:-280px;opacity:0}
+    68%{opacity:.85}
+    100%{left:calc(100% + 280px);opacity:0}
+}
+
+.nav-shell{
+    position:relative;
+    z-index:1;
+    width:min(1780px,calc(100% - 68px));
+    margin:0 auto;
+    display:grid;
+    grid-template-columns:auto minmax(610px,1.28fr) minmax(680px,1.15fr);
+    align-items:center;
+    gap:18px;
+}
+
+.nav-logos{
+    display:flex;
+    align-items:center;
+    gap:16px;
+    min-width:118px;
+}
+
+.nav-logos img{
+    width:64px;
+    height:64px;
+    object-fit:contain;
+    filter:
+        drop-shadow(0 0 8px rgba(105,237,255,.45))
+        drop-shadow(0 0 14px rgba(155,92,255,.24));
+}
+
+.nav-logos img:first-child{
+    width:112px;
+    height:112px;
+}
+
+.nav-current{
+    display:flex;
+    align-items:center;
+    justify-content:flex-start;
+    gap:14px;
+    min-width:0;
+    position:relative;
+    padding:7px 44px 7px 0;
+    overflow:visible;
+}
+
+.nav-current::before{
+    content:"";
+    position:absolute;
+    inset:-12px -14px -12px -12px;
+    pointer-events:none;
+    opacity:.92;
+    background:
+        radial-gradient(circle at 6% 26%, rgba(255,214,107,.98) 0 1.35px, transparent 2.15px),
+        radial-gradient(circle at 13% 62%, rgba(0,240,255,.90) 0 1.05px, transparent 1.95px),
+        radial-gradient(circle at 20% 8%, rgba(255,214,107,.95) 0 1.25px, transparent 2.1px),
+        radial-gradient(circle at 28% 84%, rgba(180,105,255,.82) 0 1px, transparent 1.9px),
+        radial-gradient(circle at 35% 18%, rgba(255,214,107,.92) 0 1.18px, transparent 2px),
+        radial-gradient(circle at 43% 72%, rgba(0,240,255,.84) 0 1px, transparent 1.9px),
+        radial-gradient(circle at 51% 4%, rgba(255,214,107,.96) 0 1.28px, transparent 2.1px),
+        radial-gradient(circle at 59% 86%, rgba(180,105,255,.82) 0 1px, transparent 1.9px),
+        radial-gradient(circle at 68% 16%, rgba(255,214,107,.94) 0 1.22px, transparent 2.05px),
+        radial-gradient(circle at 77% 70%, rgba(0,240,255,.84) 0 1px, transparent 1.9px),
+        radial-gradient(circle at 86% 18%, rgba(255,214,107,.94) 0 1.15px, transparent 2px),
+        radial-gradient(circle at 95% 62%, rgba(180,105,255,.78) 0 1px, transparent 1.9px);
+    filter:
+        drop-shadow(0 0 6px rgba(255,214,107,.80))
+        drop-shadow(0 0 6px rgba(0,240,255,.52));
+    animation:activeSectionParticles 1.9s ease-in-out infinite alternate;
+}
+
+@keyframes activeSectionParticles{
+    from{
+        transform:translate3d(0,0,0) scale(.98);
+        opacity:.58;
+    }
+    to{
+        transform:translate3d(2px,-3px,0) scale(1.045);
+        opacity:.96;
+    }
+}
+    to{transform:translateY(-3px) scale(1.04);opacity:.88}
+}
+
+.current-text{
+    position:relative;
+    z-index:1;
+    overflow:visible;
+}
+
+.current-title{
+    margin:0;
+    font-family:'Orbitron', sans-serif;
+    font-size:clamp(19px,1.38vw,26px);
+    font-weight:900;
+    line-height:1.03;
+    letter-spacing:.075em;
+    text-transform:uppercase;
+    color:#ffffff;
+    text-shadow:
+        0 0 7px #00f0ff,
+        0 0 17px rgba(0,240,255,.72),
+        0 0 32px rgba(138,43,226,.42),
+        0 0 54px rgba(0,240,255,.25);
+    white-space:nowrap;
+    overflow:visible;
+    text-overflow:clip;
+}
+
+.current-jeff{
+    position:relative;
+    z-index:1;
+    width:84px;
+    height:84px;
+    object-fit:contain;
+    flex:0 0 auto;
+    filter:
+        drop-shadow(0 0 8px rgba(105,237,255,.50))
+        drop-shadow(0 0 13px rgba(155,92,255,.34));
+}
+
+.active-diamond{
+    position:absolute;
+    width:8px;
+    height:8px;
+    background:linear-gradient(135deg,#fff8c9,#ffd66b,#ffb83a);
+    transform:rotate(45deg);
+    pointer-events:none;
+    z-index:2;
+    box-shadow:0 0 8px rgba(255,214,107,.95),0 0 15px rgba(255,180,58,.55);
+    animation:activeDiamondTwinkle 1.8s ease-in-out infinite alternate;
+}
+
+.ad1{left:6px;top:9px}
+.ad2{left:42%;top:-3px;animation-delay:.35s}
+.ad3{right:18px;top:14px;animation-delay:.7s}
+.ad4{left:26%;bottom:2px;animation-delay:1.05s}
+.ad5{right:72px;bottom:7px;animation-delay:.55s}
+.ad6{left:14%;bottom:14px;animation-delay:.85s}
+.ad7{left:55%;top:11px;animation-delay:1.15s}
+.ad8{right:34px;bottom:17px;animation-delay:1.35s}
+.ad9{right:4px;top:48%;animation-delay:.18s}
+
+@keyframes activeDiamondTwinkle{
+    from{opacity:.36;transform:rotate(45deg) scale(.65) translateY(0)}
+    to{opacity:1;transform:rotate(45deg) scale(1.12) translateY(-2px)}
+}
+
+.nav-links{
+    display:flex;
+    align-items:center;
+    justify-content:flex-end;
+    padding-left:22px;
+    gap:8px;
+    flex-wrap:nowrap;
+}
+
+.nav-link{
+    --spark:0;
+    position:relative;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    min-height:31px;
+    padding:5px 9px;
+    border-radius:999px;
+    text-decoration:none;
+    color:#f1fdff;
+    font-size:11.4px;
+    font-weight:800;
+    line-height:.96;
+    white-space:normal;
+    text-align:center;
+    max-width:158px;
+    border:1px solid rgba(105,237,255,.34);
+    background:
+        linear-gradient(180deg,rgba(8,10,34,.36),rgba(8,8,30,.28)),
+        url("assets/galaxytool.png") center/260px repeat;
+    box-shadow:
+        0 0 0 1px rgba(255,255,255,.035) inset,
+        0 0 9px rgba(105,237,255,.16),
+        0 0 16px rgba(155,92,255,.08);
+    transition:.2s ease;
+    overflow:visible;
+    animation:mainBtnGalaxy 14s linear infinite;
+}
+
+.nav-link::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    border-radius:inherit;
+    background:
+        linear-gradient(115deg,transparent,rgba(105,237,255,.18),transparent),
+        url("assets/galaxytool.png") center/240px repeat;
+    opacity:.38;
+    mix-blend-mode:screen;
+    animation:linkTex 13s linear infinite;
+    pointer-events:none;
+}
+
+.nav-link::after{
+    content:"";
+    position:absolute;
+    inset:-10px;
+    pointer-events:none;
+    opacity:var(--spark);
+    background:
+        radial-gradient(circle at 9% 16%,rgba(105,237,255,.95) 0 1.25px,transparent 2.1px),
+        radial-gradient(circle at 20% 5%,rgba(255,214,107,.98) 0 1.35px,transparent 2.2px),
+        radial-gradient(circle at 34% 92%,rgba(194,104,255,.95) 0 1.25px,transparent 2.1px),
+        radial-gradient(circle at 51% 8%,rgba(255,214,107,.95) 0 1.15px,transparent 2px),
+        radial-gradient(circle at 69% 92%,rgba(105,237,255,.88) 0 1.15px,transparent 2px),
+        radial-gradient(circle at 88% 20%,rgba(194,104,255,.95) 0 1.25px,transparent 2.1px),
+        radial-gradient(circle at 96% 72%,rgba(255,214,107,.95) 0 1.15px,transparent 2px),
+        radial-gradient(circle at 13% 76%,rgba(105,237,255,.86) 0 1.15px,transparent 2px);
+    filter:
+        drop-shadow(0 0 7px rgba(255,214,107,.75))
+        drop-shadow(0 0 7px rgba(105,237,255,.65));
+    animation:sparkles 1.25s ease-in-out infinite alternate;
+}
+
+@keyframes mainBtnGalaxy{
+    0%{background-position:0 0,0 0}
+    100%{background-position:0 0,180px 140px}
+}
+
+@keyframes linkTex{
+    0%{background-position:0 0,0 0}
+    50%{background-position:80px 55px,110px 90px}
+    100%{background-position:160px 110px,220px 180px}
+}
+
+@keyframes sparkles{
+    to{transform:translateY(-2px) scale(1.06)}
+}
+
+.nav-link span{
+    position:relative;
+    z-index:1;
+    display:block;
+    max-width:150px;
+    text-wrap:balance;
+    text-shadow:
+        0 0 7px rgba(105,237,255,.52),
+        0 0 14px rgba(155,92,255,.28);
+}
+
+.nav-link .diamond{
+    position:absolute;
+    width:7px;
+    height:7px;
+    opacity:var(--spark);
+    transform:rotate(45deg) scale(.72);
+    background:linear-gradient(135deg,#fff6c7,#ffd66b,#ffb62e);
+    box-shadow:
+        0 0 8px rgba(255,214,107,.95),
+        0 0 14px rgba(255,180,55,.62);
+    pointer-events:none;
+    transition:.2s ease;
+}
+
+.d1{top:-5px;left:18%}
+.d2{right:-3px;top:30%}
+.d3{bottom:-5px;left:70%}
+
+.nav-link:hover{
+    --spark:1;
+    transform:translateY(-1px);
+    color:#fff;
+    border-color:rgba(105,237,255,.78);
+    box-shadow:
+        0 0 0 1px rgba(105,237,255,.22) inset,
+        0 0 20px rgba(105,237,255,.42),
+        0 0 34px rgba(155,92,255,.28);
+}
+
+.nav-link:hover .diamond{
+    transform:rotate(45deg) scale(1);
+}
+
+.nav-link.arena{
+    color:#051323;
+    border-color:rgba(105,237,255,.75);
+    background:linear-gradient(180deg,rgba(105,237,255,.92),rgba(39,216,255,.78));
+    box-shadow:0 0 14px rgba(105,237,255,.30);
+}
+
+.nav-link.arena:hover{
+    color:#020b18;
+    box-shadow:
+        0 0 0 1px rgba(255,255,255,.38) inset,
+        0 0 20px rgba(105,237,255,.48),
+        0 0 34px rgba(155,92,255,.16);
+}
+
+@media(max-width:1420px){
+    .nav-shell{
+        width:calc(100% - 44px);
+        grid-template-columns:auto 1fr;
+        gap:18px;
+    }
+
+    .nav-links{
+        grid-column:1/-1;
+        justify-content:center;
+        padding-bottom:2px;
+        flex-wrap:wrap;
+    }
+}
+
+@media(max-width:820px){
+    .msp-nav{
+        min-height:auto;
+    }
+
+    .nav-shell{
+        width:calc(100% - 22px);
+        grid-template-columns:1fr;
+        gap:10px;
+        padding:12px 0;
+    }
+
+    .nav-logos{
+        justify-content:center;
+    }
+
+    .nav-current{
+        justify-content:center;
+        text-align:center;
+    }
+
+    .current-title{
+    margin:0;
+    font-family:'Orbitron', sans-serif;
+    font-size:clamp(19px,1.38vw,26px);
+    font-weight:900;
+    line-height:1.03;
+    letter-spacing:.075em;
+    text-transform:uppercase;
+    color:#ffffff;
+    text-shadow:
+        0 0 7px #00f0ff,
+        0 0 17px rgba(0,240,255,.72),
+        0 0 32px rgba(138,43,226,.42),
+        0 0 54px rgba(0,240,255,.25);
+    white-space:nowrap;
+    overflow:visible;
+    text-overflow:clip;
+}
+
+    .nav-links{
+        display:grid;
+        grid-template-columns:repeat(2,minmax(0,1fr));
+        justify-content:stretch;
+        gap:8px;
+    }
+
+    .nav-link{
+        white-space:normal;
+        min-height:36px;
+        font-size:13px;
+        padding:7px 8px;
+    }
+}
+
+@media(max-width:480px){
+    .nav-logos img{
+        width:48px;
+        height:48px;
+    }
+
+    .nav-logos img:first-child{
+        width:72px;
+        height:72px;
+    }
+
+    .current-jeff{
+        width:66px;
+        height:66px;
+    }
+
+    .nav-links{
+        grid-template-columns:1fr;
+    }
+}
+
+.msp-corner-logo{
+    position:fixed;
+    left:22px;
+    bottom:18px;
+    z-index:20;
+    width:82px;
+    height:82px;
+    object-fit:contain;
+    opacity:.92;
+    filter:
+        drop-shadow(0 0 12px rgba(105,237,255,.55))
+        drop-shadow(0 0 20px rgba(155,92,255,.32));
+    pointer-events:none;
+}
+
+@media(max-width:560px){
+    .msp-corner-logo{
+        width:58px;
+        height:58px;
+        left:12px;
+        bottom:10px;
+        opacity:.72;
+    }
+}
+
+
+/* MOBILE COMPACT PATCH — tylko navbar, bez ruszania przewodnika */
+@media(max-width:900px){
+    .msp-nav{
+        position:relative;
+        min-height:auto;
+        overflow:visible;
+        padding-bottom:8px !important;
+    }
+
+    .nav-shell{
+        width:100% !important;
+        max-width:720px !important;
+        grid-template-columns:1fr;
+        gap:6px !important;
+        padding:8px 12px 10px !important;
+    }
+
+    .nav-logos{
+        justify-content:center;
+        min-width:0;
+        order:1;
+    }
+
+    .nav-logos img:first-child{
+        width:68px !important;
+        height:68px !important;
+    }
+
+    .nav-current{
+        order:2;
+        width:100%;
+        justify-content:center;
+        padding:0 0 4px !important;
+        gap:8px !important;
+        min-height:0 !important;
+        overflow:visible;
+        text-align:center;
+    }
+
+    .current-title{
+        max-width:calc(100vw - 116px) !important;
+        font-size:clamp(18px, 5.2vw, 27px) !important;
+        line-height:1.02 !important;
+        letter-spacing:.045em !important;
+        white-space:normal;
+        overflow:visible;
+        text-align:center;
+        text-wrap:balance;
+    }
+
+    .current-jeff{
+        width:54px !important;
+        height:54px !important;
+    }
+
+    .active-diamond{
+        transform:scale(.72) rotate(45deg) !important;
+        opacity:.72 !important;
+        width:6px;
+        height:6px;
+    }
+
+    .nav-links{
+        order:3;
+        width:min(560px, calc(100vw - 28px)) !important;
+        margin:2px auto 0 !important;
+        padding:0 !important;
+        display:grid !important;
+        grid-template-columns:repeat(2, minmax(0, 1fr)) !important;
+        gap:7px 10px !important;
+        align-items:center !important;
+        justify-content:center !important;
+        flex-wrap:unset;
+    }
+
+    .nav-link{
+        width:100% !important;
+        max-width:none !important;
+        min-width:0 !important;
+        min-height:38px !important;
+        height:auto !important;
+        padding:7px 8px !important;
+        border-radius:18px !important;
+        font-size:clamp(13px, 3.8vw, 18px) !important;
+        line-height:1.02 !important;
+        letter-spacing:.01em !important;
+        white-space:normal !important;
+        text-align:center !important;
+        transform:none !important;
+        box-shadow:
+            0 0 10px rgba(0,240,255,.20),
+            inset 0 0 14px rgba(255,255,255,.035) !important;
+    }
+
+    .nav-link:hover{
+        transform:none !important;
+    }
+
+    .nav-link span{
+        max-width:100% !important;
+        display:block !important;
+        white-space:normal !important;
+        overflow:visible !important;
+        text-overflow:clip !important;
+        text-wrap:balance !important;
+    }
+
+    .nav-link.arena{
+        grid-column:1 / -1 !important;
+        width:62% !important;
+        justify-self:center !important;
+        min-height:39px !important;
+        font-size:clamp(13px, 3.9vw, 18px) !important;
+    }
+
+    .msp-corner-logo{
+        width:54px;
+        height:54px;
+        left:10px;
+        bottom:8px;
+        opacity:.62;
+        z-index:20;
+    }
+
+    /* Mobile: wyłączamy tylko główny biały przejazd po całym navbarze.
+       Particle aktywnego tytułu i iskry kafelków zostają jak w indexie. */
+    .msp-nav::after{
+        animation:none !important;
+        transition:none !important;
+        opacity:0 !important;
+        display:none !important;
+        content:none !important;
+    }
+}
+
+@media(max-width:560px){
+    .nav-shell{ padding:7px 10px 9px !important; }
+    .nav-logos img:first-child{ width:58px !important; height:58px !important; }
+
+    .current-title{
+        max-width:calc(100vw - 98px) !important;
+        font-size:clamp(17px, 5vw, 23px) !important;
+    }
+
+    .current-jeff{ width:48px !important; height:48px !important; }
+
+    .nav-links{
+        width:calc(100vw - 34px) !important;
+        grid-template-columns:repeat(2, minmax(0, 1fr)) !important;
+        gap:6px 8px !important;
+    }
+
+    .nav-link{
+        min-height:35px !important;
+        padding:6px 7px !important;
+        border-radius:17px !important;
+        font-size:clamp(12.5px, 3.85vw, 16px) !important;
+    }
+
+    .nav-link.arena{
+        width:66% !important;
+        min-height:36px !important;
+    }
+
+    .msp-corner-logo{
+        width:46px !important;
+        height:46px !important;
+        opacity:.58 !important;
+    }
+}
+
+@media(max-width:380px){
+    .nav-links{
+        grid-template-columns:repeat(2, minmax(0, 1fr)) !important;
+        gap:6px !important;
+    }
+
+    .nav-link{
+        font-size:12px !important;
+        min-height:34px !important;
+    }
+
+    .nav-link.arena{ width:72% !important; }
+}
+
+@media(min-width:901px){
+    .nav-link{
+        transform:scale(1.034);
+        transform-origin:center;
+        flex:0 0 auto;
+        width:auto;
+        max-width:158px;
+    }
+
+    .nav-links{
+        justify-content:flex-end;
+    }
+}
+
+
+
+/* Odstęp pod navbarem */
+.msp-nav{ margin-bottom:34px; }
+@media(max-width:900px){ .msp-nav{ margin-bottom:22px; } }
+
+
+/* Restore index-like navbar particles/sparkles */
+@media(min-width:901px){
+    .nav-current::before{
+        display:block;
+        opacity:.92;
+        animation:activeSectionParticles 1.9s ease-in-out infinite alternate;
+    }
+
+    .nav-link::before{
+        display:block;
+        opacity:.38;
+        animation:linkTex 13s linear infinite;
+    }
+
+    .nav-link::after{
+        display:block;
+        animation:sparkles 1.25s ease-in-out infinite alternate;
+    }
+
+    .nav-link:hover{
+        --spark:1;
+    }
+}
+
+@media(max-width:900px){
+    .nav-current::before{
+        display:block !important;
+        opacity:.72 !important;
+    }
+
+    .nav-link::before{
+        display:block !important;
+        opacity:.30 !important;
+    }
+
+    .nav-link::after{
+        display:block !important;
+    }
+
+    .nav-link:hover{
+        --spark:1;
+    }
+}
+
+
+/* GUIDE NAV KANON PATCH — kafelki jak index/Kroniki, max 2 linie */
+.msp-nav .nav-link{
+    display:inline-flex !important;
+    align-items:center !important;
+    justify-content:center !important;
+    min-height:31px !important;
+    padding:5px 9px !important;
+    border-radius:999px !important;
+    color:#f1fdff !important;
+    font-size:11.4px !important;
+    font-weight:800 !important;
+    line-height:.96 !important;
+    white-space:normal !important;
+    text-align:center !important;
+    max-width:158px !important;
+    text-decoration:none !important;
+    overflow:visible !important;
+    background:
+        linear-gradient(180deg,rgba(8,10,34,.36),rgba(8,8,30,.28)),
+        url("assets/galaxytool.png") center/260px repeat;
+    animation:mainBtnGalaxy 14s linear infinite !important;
+}
+
+.msp-nav .nav-link::before{
+    background:
+        linear-gradient(115deg,transparent,rgba(105,237,255,.18),transparent),
+        url("assets/galaxytool.png") center/240px repeat;
+    opacity:.38 !important;
+    mix-blend-mode:screen !important;
+    animation:linkTex 13s linear infinite !important;
+}
+
+.msp-nav .nav-link::after{
+    animation:sparkles 1.25s ease-in-out infinite alternate !important;
+}
+
+.msp-nav .nav-link span{
+    display:block !important;
+    max-width:150px !important;
+    white-space:normal !important;
+    text-wrap:balance !important;
+    overflow:visible !important;
+    text-overflow:clip !important;
+    line-height:1.02 !important;
+}
+
+.msp-nav .nav-link:hover{
+    --spark:1;
+}
+
+.msp-nav .nav-link:hover .diamond{
+    transform:rotate(45deg) scale(1) !important;
+}
+
+.msp-nav .nav-link .diamond{
+    transition:.2s ease !important;
+}
+
+/* Arena jak w indexie — czarny napis i niebieskie tło */
+.msp-nav .nav-link.arena{
+    color:#051323 !important;
+    border-color:rgba(105,237,255,.75) !important;
+    background:linear-gradient(180deg,rgba(105,237,255,.92),rgba(39,216,255,.78)) !important;
+    box-shadow:0 0 14px rgba(105,237,255,.30) !important;
+}
+
+.msp-nav .nav-link.arena span{
+    color:#051323 !important;
+    text-shadow:none !important;
+}
+
+.msp-nav .nav-link.arena:hover{
+    color:#020b18 !important;
+}
+
+/* PC: skala jak w Kronikach, bez sztucznego poszerzania kafli */
+@media(min-width:901px){
+    .msp-nav .nav-link{
+        transform:scale(1.034);
+        transform-origin:center;
+    }
+
+    .msp-nav .nav-link:hover{
+        transform:translateY(-1px) scale(1.034) !important;
+    }
+}
+
+/* Mobile: zachowaj wcześniejszy układ, tylko dopilnuj czarnej Areny */
+@media(max-width:900px){
+    .msp-nav .nav-link.arena,
+    .msp-nav .nav-link.arena span{
+        color:#051323 !important;
+        text-shadow:none !important;
+    }
+}
+
+</style>
+<link rel="stylesheet" href="assets/encyclopedia01.css">
+<link rel="stylesheet" href="assets/encyclopedia02.css">
+<link rel="stylesheet" href="assets/encyclopedia03.css">
+<link rel="stylesheet" href="assets/encyclopedia04.css">
+<link rel="stylesheet" href="assets/encyclopedia05-catalog-identities.css">
+<link rel="stylesheet" href="assets/encyclopedia06.css">
+<link rel="stylesheet" href="assets/encyclopedia07.css">
+<link rel="stylesheet" href="assets/encyclopedia10.css">
+
+
+<style>
+/* =========================================================
+   ENCYCLOPEDIA 12A — CANONICAL GUIDE TILES
+   Emoji left · system background · proper right logo/sticker
+   Navbar untouched.
+========================================================= */
+
+.portal-grid.portal-grid-curated{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:14px;
+}
+
+/* Every tile follows exactly the same visual grammar. */
+.ency-portal.curated-portal{
+  --tile-bg:none;
+  --tile-bg-pos:center;
+  --tile-bg-size:cover;
+  --tile-tint:rgba(5,12,34,.70);
+  --tile-border:rgba(111,233,255,.24);
+  --tile-glow:rgba(0,240,255,.12);
+  position:relative;
+  overflow:hidden;
+  min-height:100px;
+  padding:14px 122px 14px 18px;
+  display:grid;
+  grid-template-columns:50px minmax(0,1fr) 34px;
+  align-items:center;
+  gap:13px;
+  isolation:isolate;
+  border-color:var(--tile-border)!important;
+  background:
+    linear-gradient(90deg,var(--tile-tint),rgba(4,10,30,.70) 57%,rgba(3,8,24,.48)),
+    var(--tile-bg)!important;
+  background-repeat:no-repeat!important;
+  background-position:center,var(--tile-bg-pos)!important;
+  background-size:cover,var(--tile-bg-size)!important;
+  box-shadow:
+    0 14px 30px rgba(0,0,0,.18),
+    0 0 24px color-mix(in srgb,var(--tile-glow) 72%,transparent),
+    inset 0 1px rgba(255,255,255,.035)!important;
+}
+
+.ency-portal.curated-portal::before{
+  content:"";
+  position:absolute;
+  z-index:0;
+  inset:0;
+  pointer-events:none;
+  background:
+    linear-gradient(90deg,rgba(2,6,19,.09) 0 45%,rgba(2,6,19,.34) 68%,rgba(2,6,19,.50) 100%),
+    radial-gradient(circle at 82% 50%,var(--tile-glow),transparent 34%);
+}
+
+.ency-portal.curated-portal::after{
+  content:"";
+  position:absolute;
+  z-index:0;
+  inset:0;
+  pointer-events:none;
+  opacity:.22;
+  background:
+    linear-gradient(115deg,transparent 0 41%,rgba(255,255,255,.07) 46%,transparent 52%);
+  transform:translateX(-70%);
+  transition:transform .55s ease;
+}
+
+.ency-portal.curated-portal:hover::after{
+  transform:translateX(70%);
+}
+
+.ency-portal.curated-portal > *{
+  position:relative;
+  z-index:2;
+}
+
+/* LEFT = always emoji / simple symbol. */
+.ency-portal.curated-portal .portal-icon{
+  width:46px;
+  height:46px;
+  display:grid;
+  place-items:center;
+  border-radius:13px;
+  color:#fff;
+  font-size:24px;
+  background:rgba(3,12,31,.52);
+  border:1px solid rgba(255,255,255,.10);
+  box-shadow:
+    inset 0 0 17px rgba(255,255,255,.035),
+    0 5px 14px rgba(0,0,0,.20);
+  text-shadow:0 0 12px rgba(255,255,255,.25);
+}
+
+.ency-portal.curated-portal .portal-copy{
+  min-width:0;
+  display:flex;
+  flex-direction:column;
+  gap:3px;
+}
+
+.ency-portal.curated-portal .portal-copy-row{
+  display:flex;
+  align-items:center;
+  flex-wrap:wrap;
+  gap:7px;
+}
+
+.ency-portal.curated-portal .portal-lane,
+.ency-portal.curated-portal .portal-linking{
+  font-family:'Rajdhani','Segoe UI',sans-serif!important;
+  font-size:9px;
+  font-weight:800;
+  line-height:1;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+}
+
+.ency-portal.curated-portal .portal-lane{
+  color:#a3ddec;
+}
+.ency-portal.curated-portal .portal-linking{
+  color:#ffe09a;
+  padding-left:7px;
+  border-left:1px solid rgba(255,224,154,.22);
+}
+
+.ency-portal.curated-portal .portal-copy b{
+  font-size:15px;
+  line-height:1.05;
+}
+.ency-portal.curated-portal .portal-copy small{
+  max-width:38ch;
+  font-size:11.5px;
+  line-height:1.2;
+}
+
+/* RIGHT = proper associated logo/sticker/icon. */
+.ency-portal.curated-portal .portal-right-art{
+  position:absolute;
+  z-index:1;
+  right:52px;
+  top:50%;
+  width:82px;
+  height:82px;
+  object-fit:contain;
+  object-position:center;
+  transform:translateY(-50%);
+  opacity:.91;
+  pointer-events:none;
+  filter:
+    drop-shadow(0 7px 8px rgba(0,0,0,.74))
+    drop-shadow(0 0 8px var(--art-glow-a,rgba(101,232,255,.52)))
+    drop-shadow(0 0 18px var(--art-glow-b,rgba(138,91,255,.30)));
+  transition:transform .24s ease,filter .24s ease,opacity .24s ease;
+}
+
+.ency-portal.curated-portal:hover .portal-right-art{
+  transform:translateY(-50%) scale(1.07);
+  opacity:1;
+  filter:
+    drop-shadow(0 8px 9px rgba(0,0,0,.78))
+    drop-shadow(0 0 11px var(--art-glow-a,rgba(101,232,255,.67)))
+    drop-shadow(0 0 24px var(--art-glow-b,rgba(138,91,255,.40)));
+}
+
+.ency-portal.curated-portal > i{
+  grid-column:3;
+  justify-self:end;
+  z-index:4;
+}
+
+/* ---------- foundation ---------- */
+
+.arena-portal{
+  --tile-bg:url("assets/cosmic-bg.png");
+  --tile-bg-pos:center;
+  --tile-tint:rgba(4,42,65,.62);
+  --tile-border:rgba(73,224,255,.30);
+  --tile-glow:rgba(50,222,255,.13);
+}
+
+.process-portal{
+  --tile-bg:url("assets/cosmic-bg.png");
+  --tile-bg-pos:center 42%;
+  --tile-tint:rgba(4,28,75,.63);
+  --tile-border:rgba(94,170,255,.28);
+  --tile-glow:rgba(95,163,255,.13);
+}
+
+.graveyard-portal{
+  --tile-bg:url("assets/deep-systems-2/graveyard_background.png");
+  --tile-bg-pos:center 48%;
+  --tile-tint:rgba(0,56,38,.66);
+  --tile-border:rgba(73,228,159,.25);
+  --tile-glow:rgba(67,224,152,.12);
+}
+
+.graveyard-portal .portal-right-art{
+  width:88px;
+  height:88px;
+  --art-glow-a:rgba(79,255,181,.54);
+  --art-glow-b:rgba(48,172,255,.24);
+}
+
+.atlas-portal{
+  --tile-bg:url("assets/cosmictool.png");
+  --tile-bg-pos:right 26% center;
+  --tile-bg-size:46% auto;
+  --tile-tint:rgba(5,30,67,.69);
+  --tile-border:rgba(73,151,255,.26);
+  --tile-glow:rgba(79,159,255,.12);
+}
+.atlas-portal .portal-right-art{
+  width:70px;
+  height:92px;
+  transform:translateY(-50%) rotate(7deg);
+  --art-glow-a:rgba(72,191,255,.48);
+  --art-glow-b:rgba(139,89,255,.28);
+}
+.atlas-portal:hover .portal-right-art{
+  transform:translateY(-50%) rotate(3deg) scale(1.08);
+}
+
+/* ---------- draft modes ---------- */
+
+.gwiezdny-portal{
+  --tile-bg:url("assets/deep-systems-2/gc_title_current_texture.png");
+  --tile-bg-pos:center;
+  --tile-bg-size:cover;
+  --tile-tint:rgba(0,55,82,.54);
+  --tile-border:rgba(56,222,255,.31);
+  --tile-glow:rgba(68,228,255,.18);
+}
+.gwiezdny-portal .portal-right-art{
+  width:142px;
+  height:94px;
+  right:42px;
+  opacity:.96;
+  --art-glow-a:rgba(71,233,255,.58);
+  --art-glow-b:rgba(73,118,255,.38);
+}
+
+/* Poker gets the actual red/casino CSS language of its page,
+   not a generic cosmic image. */
+.poker-portal{
+  /* Dark red poker felt with a visible oval table rail — CSS only. */
+  --tile-bg:
+    radial-gradient(ellipse at 69% 52%,rgba(124,20,45,.96) 0 48%,rgba(93,12,31,.96) 49% 55%,rgba(226,166,73,.34) 56% 58%,rgba(33,5,15,.98) 59% 64%,transparent 65%),
+    repeating-linear-gradient(17deg,rgba(255,255,255,.018) 0 1px,transparent 1px 7px),
+    radial-gradient(circle at 78% 24%,rgba(255,216,114,.12),transparent 18%),
+    linear-gradient(135deg,#62132a 0%,#2a0717 54%,#090b1d 100%);
+  --tile-bg-pos:center;
+  --tile-bg-size:cover;
+  --tile-tint:rgba(51,4,17,.58);
+  --tile-border:rgba(255,190,111,.30);
+  --tile-glow:rgba(255,95,124,.17);
+}
+.poker-chip-logo{
+  position:absolute!important;
+  z-index:1!important;
+  right:59px;
+  top:50%;
+  width:70px;
+  height:70px;
+  display:grid!important;
+  place-items:center;
+  border-radius:50%;
+  transform:translateY(-50%) rotate(8deg);
+  color:#fff1bd;
+  background:
+    radial-gradient(circle,#7e203c 0 48%,#4a0d23 49% 62%,#c63a58 63% 75%,#4a0d23 76%);
+  border:6px dashed rgba(255,226,145,.70);
+  box-shadow:
+    0 8px 9px rgba(0,0,0,.72),
+    0 0 10px rgba(255,212,104,.46),
+    0 0 22px rgba(222,53,88,.30);
+  font:900 29px/1 Georgia,serif;
+}
+
+/* ---------- extensions ---------- */
+
+.joker-portal{
+  --tile-bg:url("assets/catalogs/joker_galaxy.png");
+  --tile-bg-pos:right center;
+  --tile-bg-size:66% auto;
+  --tile-tint:rgba(47,4,73,.64);
+  --tile-border:rgba(215,83,255,.25);
+  --tile-glow:rgba(224,89,255,.16);
+}
+.joker-portal .portal-right-art{
+  width:106px;
+  height:96px;
+  right:42px;
+  --art-glow-a:rgba(255,112,255,.58);
+  --art-glow-b:rgba(74,210,255,.35);
+}
+
+.custom-portal{
+  --tile-bg:url("assets/catalogs/customfabryka.png");
+  --tile-bg-pos:right 36% center;
+  --tile-bg-size:58% auto;
+  --tile-tint:rgba(0,56,48,.67);
+  --tile-border:rgba(85,240,178,.24);
+  --tile-glow:rgba(66,227,188,.13);
+}
+.custom-portal .portal-right-art{
+  width:104px;
+  height:91px;
+  right:43px;
+  --art-glow-a:rgba(255,219,96,.59);
+  --art-glow-b:rgba(53,221,255,.31);
+}
+
+.superpower-portal{
+  --tile-bg:url("assets/powerstormtile.webp");
+  --tile-bg-pos:center;
+  --tile-bg-size:cover;
+  --tile-tint:rgba(8,24,70,.62);
+  --tile-border:rgba(126,157,255,.25);
+  --tile-glow:rgba(101,138,255,.13);
+}
+.superpower-portal .portal-right-art{
+  width:94px;
+  height:94px;
+  --art-glow-a:rgba(255,224,91,.57);
+  --art-glow-b:rgba(78,214,255,.38);
+}
+
+.savesteal-portal{
+  --tile-bg:url("assets/deep-systems-2/save_steal_cosmic.png");
+  --tile-bg-pos:center;
+  --tile-bg-size:cover;
+  --tile-tint:rgba(67,2,42,.66);
+  --tile-border:rgba(255,90,151,.24);
+  --tile-glow:rgba(255,70,147,.14);
+}
+.savesteal-portal .portal-right-art{
+  width:105px;
+  height:96px;
+  right:41px;
+  --art-glow-a:rgba(255,110,167,.63);
+  --art-glow-b:rgba(111,90,255,.37);
+}
+
+/* ---------- economy family ---------- */
+
+.economy-portal{
+  --tile-bg:url("assets/deep-systems/shop_background.png");
+  /* Show the UPPER part of Jeff's shop scene — planet / upper architecture. */
+  --tile-bg-pos:center top;
+  --tile-bg-size:cover;
+  --tile-tint:rgba(73,48,0,.67);
+  --tile-border:rgba(255,204,83,.27);
+  --tile-glow:rgba(255,195,68,.15);
+}
+.economy-portal .portal-right-art{
+  width:88px;
+  height:88px;
+  --art-glow-a:rgba(255,215,72,.67);
+  --art-glow-b:rgba(255,126,79,.25);
+}
+
+/* Quest and Market use their program-modal assets when those newer files
+   are present in PROGRAM-DRAFT. The known encyclopedia visuals remain
+   as graceful fallbacks instead of showing a broken image. */
+.quests-portal{
+  --tile-bg:url("PROGRAM-DRAFT/draft-assets/Quest Irishman Pattern Main.png");
+  --tile-bg-pos:center;
+  --tile-bg-size:cover;
+  --tile-tint:rgba(3,28,56,.62);
+  --tile-border:rgba(91,222,255,.31);
+  --tile-glow:rgba(71,214,255,.17);
+}
+.quests-portal.has-program-bg{
+  background-position:center,var(--resolved-bg-pos,center)!important;
+  background-size:cover,var(--resolved-bg-size,cover)!important;
+}
+.quest-fallback-logo{
+  position:absolute!important;
+  z-index:1!important;
+  right:51px;
+  top:50%;
+  width:79px;
+  height:79px;
+  display:grid!important;
+  place-items:center;
+  transform:translateY(-50%);
+  border:1px solid rgba(255,218,117,.33);
+  border-radius:18px 6px 18px 6px;
+  color:#ffe8a1;
+  background:
+    radial-gradient(circle at 50% 34%,rgba(255,235,159,.17),transparent 28%),
+    linear-gradient(145deg,rgba(108,76,11,.80),rgba(29,20,51,.88));
+  box-shadow:
+    0 8px 9px rgba(0,0,0,.70),
+    0 0 10px rgba(255,213,82,.47),
+    0 0 23px rgba(147,100,255,.21);
+  font:900 32px/1 Georgia,serif;
+}
+
+.market-portal{
+  --tile-bg:url("PROGRAM-DRAFT/draft-assets/Galactic Market Backdrop V2.png");
+  --tile-bg-pos:center 60%;
+  --tile-bg-size:cover;
+  --tile-tint:rgba(33,12,43,.57);
+  --tile-border:rgba(238,105,236,.30);
+  --tile-glow:rgba(102,221,255,.15);
+}
+.market-fallback-logo{
+  position:absolute!important;
+  z-index:1!important;
+  right:49px;
+  top:50%;
+  width:83px;
+  height:83px;
+  display:grid!important;
+  place-items:center;
+  transform:translateY(-50%);
+  border-radius:50%;
+  border:1px solid rgba(255,218,118,.29);
+  color:#ffe7a2;
+  background:
+    radial-gradient(circle at 34% 29%,rgba(255,255,255,.12),transparent 23%),
+    linear-gradient(145deg,rgba(119,74,10,.82),rgba(32,19,52,.91));
+  box-shadow:
+    0 8px 10px rgba(0,0,0,.72),
+    0 0 10px rgba(255,210,81,.48),
+    0 0 24px rgba(95,210,255,.18);
+  font-size:31px;
+}
+
+/* Runtime-resolved program assets use the exact same right-logo treatment. */
+.program-resolved-art{
+  position:absolute!important;
+  z-index:1!important;
+  right:42px;
+  top:50%;
+  width:112px;
+  height:92px;
+  object-fit:contain;
+  transform:translateY(-50%);
+  opacity:.96;
+  pointer-events:none;
+  filter:
+    drop-shadow(0 8px 9px rgba(0,0,0,.76))
+    drop-shadow(0 0 10px rgba(255,220,108,.62))
+    drop-shadow(0 0 24px rgba(111,95,255,.28));
+}
+
+
+/* 12B: slightly stronger modal/pattern read for tiles resolved from real assets. */
+.ency-portal.curated-portal.asset-bg-strong{
+  background-size:cover,var(--tile-bg-size,cover)!important;
+  background-position:center,var(--tile-bg-pos,center)!important;
+}
+.ency-portal.curated-portal.asset-bg-strong::before{
+  background:
+    linear-gradient(90deg,rgba(2,6,19,.14) 0 45%,rgba(2,6,19,.39) 68%,rgba(2,6,19,.56) 100%),
+    radial-gradient(circle at 82% 50%,var(--tile-glow),transparent 34%);
+}
+
+/* ---------- Polish glyph / font consistency ---------- */
+
+/* Orbitron on some systems falls back glyph-by-glyph for ą ć ę ł ń ó ś ź ż.
+   These content headings now use the already-loaded Rajdhani family as a
+   visually close, complete Polish font. Navbar is deliberately excluded. */
+#katalogi > h2,
+#slownik > h2,
+#mapa-strony > h2,
+.glossary-chapter > h2,
+.ecosystem-map > h2{
+  font-family:'Rajdhani','Segoe UI',sans-serif!important;
+  font-weight:700!important;
+  letter-spacing:.025em!important;
+  font-variant-ligatures:normal;
+  text-transform:none;
+}
+
+/* Keep the smaller recurring tile labels glyph-safe too. */
+#katalogi .portal-lane,
+#katalogi .portal-linking{
+  font-family:'Rajdhani','Segoe UI',sans-serif!important;
+}
+
+@media(max-width:920px){
+  .portal-grid.portal-grid-curated{
+    grid-template-columns:1fr;
+  }
+}
+
+@media(max-width:620px){
+  .ency-portal.curated-portal{
+    min-height:106px;
+    padding-right:105px;
+    grid-template-columns:46px minmax(0,1fr) 28px;
+  }
+  .ency-portal.curated-portal .portal-right-art,
+  .program-resolved-art{
+    right:39px;
+    width:73px;
+    height:73px;
+  }
+  .gwiezdny-portal .portal-right-art{
+    width:103px;
+    height:72px;
+    right:31px;
+  }
+  .poker-chip-logo,
+  .quest-fallback-logo,
+  .market-fallback-logo{
+    right:41px;
+    width:64px;
+    height:64px;
+  }
+}
+
+@media(prefers-reduced-motion:reduce){
+  .ency-portal.curated-portal::after{
+    transition:none;
+  }
+}
+</style>
+
+<style id="encyclopedia-canon-system-visuals-v2">
+/* ============================================================
+   ENCYCLOPEDIA — TRYBY + ROZSZERZENIA VISUAL IDENTITIES
+   Same visual language as the curated catalog tiles.
+   ============================================================ */
+.canon-system-grid .canon-card.canon-visual{
+  --canon-bg:none;
+  --canon-pos:center;
+  --canon-size:cover;
+  --canon-tint:rgba(4,10,28,.80);
+  --canon-glow:rgba(83,220,255,.13);
+  --canon-border:rgba(106,226,255,.24);
+  position:relative;
+  isolation:isolate;
+  overflow:hidden;
+  border-color:var(--canon-border)!important;
+  background:
+    linear-gradient(90deg,var(--canon-tint) 0 47%,rgba(4,9,27,.78) 70%,rgba(4,8,22,.63)),
+    var(--canon-bg)!important;
+  background-repeat:no-repeat!important;
+  background-position:center,var(--canon-pos)!important;
+  background-size:cover,var(--canon-size)!important;
+  box-shadow:
+    0 14px 30px rgba(0,0,0,.22),
+    0 0 24px var(--canon-glow),
+    inset 0 0 0 1px rgba(255,255,255,.025)!important;
+}
+.canon-system-grid .canon-card.canon-visual::before{
+  content:"";
+  position:absolute;
+  z-index:-1;
+  inset:0;
+  pointer-events:none;
+  background:
+    radial-gradient(circle at 82% 28%,var(--canon-glow),transparent 31%),
+    linear-gradient(112deg,transparent 0 53%,rgba(255,255,255,.045) 59%,transparent 65%);
+}
+.canon-system-grid .canon-card.canon-visual:hover{
+  transform:translateY(-2px);
+  filter:brightness(1.055);
+}
+
+/* Draft modes */
+.canon-classic{
+  --canon-bg:url("assets/cosmic-bg.png");
+  --canon-pos:center;
+  --canon-tint:rgba(5,31,57,.78);
+  --canon-glow:rgba(70,221,255,.14);
+}
+.canon-current{
+  --canon-bg:url("assets/deep-systems-2/gc_title_current_texture.png");
+  --canon-pos:center;
+  --canon-tint:rgba(0,48,72,.68);
+  --canon-glow:rgba(69,229,255,.19);
+  --canon-border:rgba(76,225,255,.31);
+}
+.canon-poker{
+  --canon-bg:
+    radial-gradient(ellipse at 75% 52%,rgba(128,23,47,.98) 0 43%,rgba(84,10,29,.98) 44% 51%,rgba(237,187,95,.38) 52% 54%,rgba(34,5,16,.98) 55% 59%,transparent 60%),
+    repeating-linear-gradient(18deg,rgba(255,255,255,.018) 0 1px,transparent 1px 7px),
+    linear-gradient(135deg,#65142d,#290715 57%,#090b1a);
+  --canon-tint:rgba(53,4,18,.55);
+  --canon-glow:rgba(255,91,120,.17);
+  --canon-border:rgba(255,193,111,.31);
+}
+
+/* Extensions */
+.canon-superpowers{
+  --canon-bg:url("assets/powerstormtile.webp");
+  --canon-tint:rgba(7,22,67,.72);
+  --canon-glow:rgba(103,143,255,.16);
+}
+.canon-custompacks{
+  --canon-bg:url("assets/catalogs/customfabryka.png");
+  --canon-pos:right 36% center;
+  --canon-size:64% auto;
+  --canon-tint:rgba(0,54,46,.74);
+  --canon-glow:rgba(65,228,184,.15);
+}
+.canon-jokers{
+  --canon-bg:url("assets/catalogs/joker_galaxy.png");
+  --canon-pos:right center;
+  --canon-size:68% auto;
+  --canon-tint:rgba(46,4,71,.72);
+  --canon-glow:rgba(221,82,255,.17);
+}
+.canon-savesteal{
+  --canon-bg:url("assets/deep-systems-2/save_steal_cosmic.png");
+  --canon-tint:rgba(64,2,41,.73);
+  --canon-glow:rgba(255,71,148,.15);
+}
+.canon-economy{
+  --canon-bg:url("assets/deep-systems/shop_background.png");
+  --canon-pos:center 42%;
+  --canon-tint:rgba(67,44,0,.72);
+  --canon-glow:rgba(255,194,69,.17);
+}
+.canon-bounties{
+  --canon-bg:url("PROGRAM-DRAFT/draft-assets/bounty_round_banner.png");
+  --canon-pos:center 53%;
+  --canon-tint:rgba(57,28,7,.76);
+  --canon-glow:rgba(255,168,72,.16);
+  --canon-border:rgba(255,189,96,.24);
+}
+.canon-quests{
+  --canon-bg:url("PROGRAM-DRAFT/draft-assets/Quest Irishman Pattern Main.png");
+  --canon-pos:center;
+  --canon-tint:rgba(4,26,53,.71);
+  --canon-glow:rgba(73,218,255,.17);
+}
+.canon-market{
+  --canon-bg:url("PROGRAM-DRAFT/draft-assets/Galactic Market Backdrop V2.png");
+  --canon-pos:center 62%;
+  --canon-tint:rgba(34,11,44,.68);
+  --canon-glow:rgba(110,218,255,.16);
+  --canon-border:rgba(234,111,237,.28);
+}
+.canon-mulligan{
+  --canon-bg:url("PROGRAM-DRAFT/draft-assets/jeff_reshuffle.webp");
+  --canon-pos:right 12% center;
+  --canon-size:34% auto;
+  --canon-tint:rgba(9,39,63,.79);
+  --canon-glow:rgba(74,213,255,.15);
+}
+.canon-sideboard{
+  --canon-bg:
+    repeating-linear-gradient(135deg,rgba(110,226,255,.03) 0 1px,transparent 1px 18px),
+    radial-gradient(circle at 78% 35%,rgba(146,100,255,.18),transparent 30%),
+    linear-gradient(135deg,#101731,#080b1d 60%,#070715);
+  --canon-tint:rgba(8,13,31,.61);
+  --canon-glow:rgba(142,104,255,.13);
+}
+
+/* The catalog Poker tile gets a deliberately visible felt/table treatment.
+   This is explicit instead of relying only on the custom-property layer. */
+#katalogi .poker-portal{
+  background:
+    linear-gradient(90deg,rgba(48,3,15,.73),rgba(28,5,16,.66) 56%,rgba(12,5,16,.49)),
+    radial-gradient(ellipse at 70% 52%,#7d1733 0 46%,#5a0c27 47% 54%,rgba(231,176,85,.48) 55% 57%,#240713 58% 63%,transparent 64%),
+    repeating-linear-gradient(18deg,rgba(255,255,255,.018) 0 1px,transparent 1px 7px),
+    linear-gradient(135deg,#65142d,#270714 58%,#080a18)!important;
+  border-color:rgba(255,194,111,.35)!important;
+  box-shadow:0 14px 30px rgba(0,0,0,.24),0 0 26px rgba(255,86,117,.14),inset 0 0 24px rgba(255,216,141,.035)!important;
+}
+
+/* Give the top configuration family cards a little identity too. */
+.settings-v2-grid .settings-family.mode{
+  background:
+    linear-gradient(135deg,rgba(6,34,63,.88),rgba(8,11,31,.90)),
+    url("assets/deep-systems-2/gc_title_current_texture.png") right center/52% auto no-repeat!important;
+}
+.settings-v2-grid .settings-family.addons{
+  background:
+    linear-gradient(135deg,rgba(31,10,57,.88),rgba(8,11,31,.92)),
+    url("assets/catalogs/joker_galaxy.png") right center/48% auto no-repeat!important;
+}
+</style>
+
+
+<style id="ency-bounty-portal-v4">
+#katalogi .bounty-portal{
+  background:
+    linear-gradient(90deg,rgba(54,28,8,.82),rgba(25,12,15,.73) 56%,rgba(8,9,18,.58)),
+    url("PROGRAM-DRAFT/draft-assets/bounty_round_banner.png") center 54%/cover no-repeat!important;
+  border-color:rgba(255,188,94,.34)!important;
+  box-shadow:0 14px 30px rgba(0,0,0,.24),0 0 24px rgba(255,155,71,.13),inset 0 0 26px rgba(255,210,116,.025)!important;
+}
+#katalogi .bounty-portal .portal-right-art{
+  width:190px!important;
+  max-height:130px!important;
+  object-fit:contain!important;
+  filter:drop-shadow(0 0 14px rgba(255,182,79,.28))!important;
+}
+</style>
+
+
+<style id="ency-draft-tooltip-tags-v5">
+.draft-card-tooltip-guide{
+  display:grid;
+  grid-template-columns:58px minmax(0,1fr);
+  gap:14px;
+  align-items:start;
+  margin:17px 0;
+  padding:16px 18px;
+  border:1px solid rgba(101,231,255,.24);
+  border-radius:18px;
+  background:
+    radial-gradient(circle at 8% 24%,rgba(91,222,255,.10),transparent 25%),
+    linear-gradient(145deg,rgba(8,28,55,.84),rgba(6,10,29,.95));
+  box-shadow:0 10px 24px rgba(0,0,0,.18),inset 0 0 24px rgba(85,219,255,.035);
+}
+.draft-card-tooltip-icon{
+  width:52px;height:52px;display:grid;place-items:center;border-radius:15px;
+  border:1px solid rgba(112,234,255,.25);
+  background:linear-gradient(160deg,rgba(22,80,104,.82),rgba(10,25,54,.94));
+  font-size:28px;
+  box-shadow:0 0 16px rgba(73,220,255,.10),inset 0 0 16px rgba(255,255,255,.03);
+}
+.draft-card-tooltip-guide b{
+  display:block;
+  color:#a8f5ff;
+  font:900 12px/1.15 Orbitron,"Segoe UI",sans-serif;
+  letter-spacing:.045em;
+  text-shadow:0 0 10px rgba(80,225,255,.28);
+}
+.draft-card-tooltip-guide p{
+  margin:7px 0 9px!important;
+  color:#e6f4fb!important;
+  font-size:16px!important;
+  line-height:1.42!important;
+}
+.draft-card-tooltip-guide a{
+  display:inline-flex;
+  padding:8px 11px;
+  border-radius:10px;
+  border:1px solid rgba(108,232,255,.22);
+  background:rgba(8,29,55,.66);
+  color:#9cf0ff;
+  text-decoration:none;
+  font:900 9px/1 Orbitron,sans-serif;
+  letter-spacing:.055em;
+}
+.draft-card-tooltip-guide a:hover{
+  border-color:rgba(124,240,255,.50);
+  box-shadow:0 0 15px rgba(82,221,255,.11);
+}
+@media(max-width:560px){
+  .draft-card-tooltip-guide{grid-template-columns:1fr;}
+  .draft-card-tooltip-icon{width:46px;height:46px;}
+}
+</style>
+
+
+<style id="ency-black-hole-anomalies-v5">
+.canon-anomalies{
+  --canon-bg:
+    radial-gradient(circle at 76% 43%,#03030a 0 13%,rgba(8,4,18,.98) 14% 19%,rgba(86,41,180,.72) 20% 23%,rgba(70,213,255,.38) 24% 25%,rgba(255,114,198,.22) 26% 28%,transparent 29%),
+    conic-gradient(from 15deg at 76% 43%,transparent 0 8%,rgba(118,71,255,.13) 10%,transparent 14% 23%,rgba(85,225,255,.10) 27%,transparent 31% 46%,rgba(255,91,189,.10) 50%,transparent 54%),
+    repeating-radial-gradient(circle at 76% 43%,rgba(118,88,255,.035) 0 2px,transparent 3px 17px),
+    linear-gradient(135deg,#0d0820,#03050d 58%,#020207);
+  --canon-tint:rgba(5,6,17,.58);
+  --canon-glow:rgba(115,87,255,.16);
+  --canon-border:rgba(126,102,255,.27);
+}
+.canon-anomalies::after{
+  content:"";
+  position:absolute;
+  right:8%;
+  top:14%;
+  width:110px;height:110px;
+  border-radius:50%;
+  border:1px solid rgba(121,214,255,.16);
+  box-shadow:
+    0 0 16px rgba(121,81,255,.17),
+    0 0 38px rgba(82,211,255,.08),
+    inset 0 0 18px rgba(255,96,202,.07);
+  opacity:.72;
+  pointer-events:none;
+}
+</style>
+
+
+<style id="ency-canon-catalog-backgrounds-v6">
+/* ============================================================
+   TRYBY DRAFTOWANIA + ROZSZERZENIA
+   EXACT CATALOG BACKGROUND GRAMMAR
+   ============================================================ */
+
+/* Same layering / tint / glow grammar as #katalogi .curated-portal. */
+.canon-system-grid .canon-card.canon-visual{
+  background:
+    linear-gradient(90deg,var(--canon-tint),rgba(4,10,30,.70) 57%,rgba(3,8,24,.48)),
+    var(--canon-bg)!important;
+  background-repeat:no-repeat!important;
+  background-position:center,var(--canon-pos)!important;
+  background-size:cover,var(--canon-size)!important;
+}
+.canon-system-grid .canon-card.canon-visual::before{
+  z-index:0!important;
+  background:
+    linear-gradient(90deg,rgba(2,6,19,.09) 0 45%,rgba(2,6,19,.34) 68%,rgba(2,6,19,.50) 100%),
+    radial-gradient(circle at 82% 50%,var(--canon-glow),transparent 34%)!important;
+}
+.canon-system-grid .canon-card.canon-visual::after{
+  content:"";
+  position:absolute;
+  z-index:0;
+  inset:0;
+  pointer-events:none;
+  opacity:.18;
+  background:linear-gradient(115deg,transparent 0 41%,rgba(255,255,255,.07) 46%,transparent 52%);
+  transform:translateX(-75%);
+  transition:transform .55s ease;
+}
+.canon-system-grid .canon-card.canon-visual:hover::after{transform:translateX(75%)}
+.canon-system-grid .canon-card.canon-visual > *{position:relative;z-index:2}
+
+/* ---------------- TRYBY — same identities as catalog tiles ---------------- */
+
+.canon-system-grid .canon-card.canon-classic{
+  /* Catalog "Przebieg Draftowania" identity */
+  --canon-bg:url("assets/cosmic-bg.png");
+  --canon-pos:center 42%;
+  --canon-size:cover;
+  --canon-tint:rgba(4,28,75,.63);
+  --canon-border:rgba(94,170,255,.28);
+  --canon-glow:rgba(95,163,255,.13);
+}
+.canon-system-grid .canon-card.canon-current{
+  /* EXACT Gwiezdny Prąd portal */
+  --canon-bg:url("assets/deep-systems-2/gc_title_current_texture.png");
+  --canon-pos:center;
+  --canon-size:cover;
+  --canon-tint:rgba(0,55,82,.54);
+  --canon-border:rgba(56,222,255,.31);
+  --canon-glow:rgba(68,228,255,.18);
+}
+.canon-system-grid .canon-card.canon-poker{
+  /* EXACT Poker Draft portal — red felt + oval table rail */
+  --canon-bg:
+    radial-gradient(ellipse at 69% 52%,rgba(124,20,45,.96) 0 48%,rgba(93,12,31,.96) 49% 55%,rgba(226,166,73,.34) 56% 58%,rgba(33,5,15,.98) 59% 64%,transparent 65%),
+    repeating-linear-gradient(17deg,rgba(255,255,255,.018) 0 1px,transparent 1px 7px),
+    radial-gradient(circle at 78% 24%,rgba(255,216,114,.12),transparent 18%),
+    linear-gradient(135deg,#62132a 0%,#2a0717 54%,#090b1d 100%);
+  --canon-pos:center;
+  --canon-size:cover;
+  --canon-tint:rgba(51,4,17,.58);
+  --canon-border:rgba(255,190,111,.30);
+  --canon-glow:rgba(255,95,124,.17);
+}
+
+/* ---------------- ROZSZERZENIA — same identities as catalog tiles ---------------- */
+
+.canon-system-grid .canon-card.canon-superpowers{
+  --canon-bg:url("assets/powerstormtile.webp");
+  --canon-pos:center;
+  --canon-size:cover;
+  --canon-tint:rgba(8,24,70,.62);
+  --canon-border:rgba(126,157,255,.25);
+  --canon-glow:rgba(101,138,255,.13);
+}
+.canon-system-grid .canon-card.canon-custompacks{
+  --canon-bg:url("assets/catalogs/customfabryka.png");
+  --canon-pos:right 36% center;
+  --canon-size:58% auto;
+  --canon-tint:rgba(0,56,48,.67);
+  --canon-border:rgba(85,240,178,.24);
+  --canon-glow:rgba(66,227,188,.13);
+}
+.canon-system-grid .canon-card.canon-jokers{
+  --canon-bg:url("assets/catalogs/joker_galaxy.png");
+  --canon-pos:right center;
+  --canon-size:66% auto;
+  --canon-tint:rgba(47,4,73,.64);
+  --canon-border:rgba(215,83,255,.25);
+  --canon-glow:rgba(224,89,255,.16);
+}
+.canon-system-grid .canon-card.canon-savesteal{
+  --canon-bg:url("assets/deep-systems-2/save_steal_cosmic.png");
+  --canon-pos:center;
+  --canon-size:cover;
+  --canon-tint:rgba(67,2,42,.66);
+  --canon-border:rgba(255,90,151,.24);
+  --canon-glow:rgba(255,70,147,.14);
+}
+.canon-system-grid .canon-card.canon-economy{
+  /* Same Jeff shop background as the Economy catalog tile,
+     deliberately anchored to the TOP of the asset. */
+  --canon-bg:url("PROGRAM-DRAFT/draft-assets/shop_background.png");
+  --canon-pos:center top;
+  --canon-size:cover;
+  --canon-tint:rgba(73,48,0,.67);
+  --canon-border:rgba(255,204,83,.27);
+  --canon-glow:rgba(255,195,68,.15);
+}
+.canon-system-grid .canon-card.canon-bounties{
+  --canon-bg:url("PROGRAM-DRAFT/draft-assets/bounty_round_banner.png");
+  --canon-pos:center 54%;
+  --canon-size:cover;
+  --canon-tint:rgba(54,28,8,.72);
+  --canon-border:rgba(255,188,94,.34);
+  --canon-glow:rgba(255,155,71,.13);
+}
+.canon-system-grid .canon-card.canon-quests{
+  --canon-bg:url("PROGRAM-DRAFT/draft-assets/Quest Irishman Pattern Main.png");
+  --canon-pos:center;
+  --canon-size:cover;
+  --canon-tint:rgba(3,28,56,.62);
+  --canon-border:rgba(91,222,255,.31);
+  --canon-glow:rgba(71,214,255,.17);
+}
+.canon-system-grid .canon-card.canon-market{
+  --canon-bg:url("PROGRAM-DRAFT/draft-assets/Galactic Market Backdrop V2.png");
+  --canon-pos:center 60%;
+  --canon-size:cover;
+  --canon-tint:rgba(33,12,43,.57);
+  --canon-border:rgba(238,105,236,.30);
+  --canon-glow:rgba(102,221,255,.15);
+}
+
+/* Planned systems that do not yet have catalog pages keep their own identities. */
+.canon-system-grid .canon-card.canon-mulligan{
+  --canon-bg:url("PROGRAM-DRAFT/draft-assets/jeff_reshuffle.webp");
+  --canon-pos:right 12% center;
+  --canon-size:34% auto;
+  --canon-tint:rgba(9,39,63,.72);
+  --canon-border:rgba(90,218,255,.24);
+  --canon-glow:rgba(74,213,255,.15);
+}
+.canon-system-grid .canon-card.canon-sideboard{
+  --canon-bg:
+    repeating-linear-gradient(135deg,rgba(110,226,255,.03) 0 1px,transparent 1px 18px),
+    radial-gradient(circle at 78% 35%,rgba(146,100,255,.18),transparent 30%),
+    linear-gradient(135deg,#101731,#080b1d 60%,#070715);
+  --canon-pos:center;
+  --canon-size:cover;
+  --canon-tint:rgba(8,13,31,.55);
+  --canon-border:rgba(132,105,255,.21);
+  --canon-glow:rgba(142,104,255,.13);
+}
+
+/* Jeff superhero art in the catalog — clean transparent hero version first. */
+#katalogi .superpower-portal .portal-right-art{
+  width:112px!important;
+  height:104px!important;
+  right:39px!important;
+  object-fit:contain!important;
+  opacity:.98!important;
+}
+</style>
+
+
+<style id="ency-mode-extension-full-backgrounds-v7">
+/* ============================================================
+   TRYBY + ROZSZERZENIA — FULL-TILE BACKGROUNDS
+   The whole card is now an image stage, not a right-side sticker.
+   ============================================================ */
+
+.canon-system-grid .canon-card.canon-visual{
+  --canon-size:cover!important;
+  --canon-pos:center!important;
+  background-size:cover,cover!important;
+  background-repeat:no-repeat!important;
+  background-position:center,var(--canon-pos)!important;
+}
+
+/* SAME background assets / visual identity as Catalog tiles. */
+.canon-system-grid .canon-card.canon-superpowers{
+  --canon-bg:url("assets/powerstormtile.webp")!important;
+  --canon-pos:center!important;
+  --canon-size:cover!important;
+  --canon-tint:rgba(7,20,60,.56)!important;
+}
+.canon-system-grid .canon-card.canon-custompacks{
+  --canon-bg:url("assets/catalogs/customfabryka.png")!important;
+  --canon-pos:center!important;
+  --canon-size:cover!important;
+  --canon-tint:rgba(0,47,41,.60)!important;
+}
+.canon-system-grid .canon-card.canon-jokers{
+  --canon-bg:url("assets/catalogs/joker_galaxy.png")!important;
+  --canon-pos:center!important;
+  --canon-size:cover!important;
+  --canon-tint:rgba(43,4,67,.55)!important;
+}
+.canon-system-grid .canon-card.canon-savesteal{
+  --canon-bg:url("assets/deep-systems-2/save_steal_cosmic.png")!important;
+  --canon-pos:center!important;
+  --canon-size:cover!important;
+  --canon-tint:rgba(59,2,37,.57)!important;
+}
+.canon-system-grid .canon-card.canon-economy{
+  /* EXACT same Encyclopedia catalog copy, anchored from the TOP. */
+  --canon-bg:url("assets/deep-systems/shop_background.png")!important;
+  --canon-pos:center top!important;
+  --canon-size:cover!important;
+  --canon-tint:rgba(54,38,4,.52)!important;
+}
+.canon-system-grid .canon-card.canon-bounties{
+  --canon-bg:url("PROGRAM-DRAFT/draft-assets/bounty_round_banner.png")!important;
+  --canon-pos:center 52%!important;
+  --canon-size:cover!important;
+  --canon-tint:rgba(48,24,7,.57)!important;
+}
+.canon-system-grid .canon-card.canon-quests{
+  --canon-bg:url("PROGRAM-DRAFT/draft-assets/Quest Irishman Pattern Main.png")!important;
+  --canon-pos:center!important;
+  --canon-size:cover!important;
+  --canon-tint:rgba(3,24,50,.50)!important;
+}
+.canon-system-grid .canon-card.canon-market{
+  --canon-bg:url("PROGRAM-DRAFT/draft-assets/Galactic Market Backdrop V2.png")!important;
+  --canon-pos:center 60%!important;
+  --canon-size:cover!important;
+  --canon-tint:rgba(27,9,37,.45)!important;
+}
+.canon-system-grid .canon-card.canon-current{
+  --canon-bg:url("assets/deep-systems-2/gc_title_current_texture.png")!important;
+  --canon-pos:center!important;
+  --canon-size:cover!important;
+}
+.canon-system-grid .canon-card.canon-poker{
+  --canon-pos:center!important;
+  --canon-size:cover!important;
+}
+
+/* Stronger asset read; still keeps text readable. */
+.canon-system-grid .canon-card.canon-visual::before{
+  background:
+    linear-gradient(90deg,rgba(3,7,22,.44) 0 42%,rgba(3,7,22,.28) 66%,rgba(3,7,22,.18) 100%),
+    radial-gradient(circle at 80% 48%,var(--canon-glow),transparent 38%)!important;
+}
+.canon-system-grid .canon-card.canon-visual > *{
+  text-shadow:0 1px 3px rgba(0,0,0,.88);
+}
+
+/* Economy: explicitly preserve the top crop even if another rule tries
+   to restore an older centered position. */
+.canon-system-grid .canon-card.canon-economy{
+  background-position:center,center top!important;
+}
+</style>
+
+
+<style id="ency-force-live-draft-assets-v8">
+/* ============================================================
+   TRYBY + ROZSZERZENIA — FINAL DIRECT LIVE-ASSET BACKGROUNDS
+   ============================================================
+
+   IMPORTANT:
+   Previous passes still depended partly on old /assets/... copies
+   and CSS custom-properties. Some of those asset paths do not exist
+   on the current live Draft, and !important custom-properties could
+   also prevent the JS resolver from replacing them.
+
+   From here these cards use the SAME exact filenames referenced by
+   PROGRAM-DRAFT itself. The image is a real full-card ::before layer.
+   ============================================================ */
+
+.canon-system-grid .canon-card.canon-visual{
+  position:relative!important;
+  isolation:isolate!important;
+  overflow:hidden!important;
+  background:linear-gradient(155deg,#071128,#050918)!important;
+}
+
+/* Real full-tile artwork layer. */
+.canon-system-grid .canon-card.canon-visual::before{
+  content:""!important;
+  position:absolute!important;
+  z-index:0!important;
+  inset:0!important;
+  opacity:.78!important;
+  pointer-events:none!important;
+  filter:saturate(1.08) brightness(.92)!important;
+  transform:none!important;
+  background-repeat:no-repeat!important;
+}
+
+/* Readability layer. */
+.canon-system-grid .canon-card.canon-visual::after{
+  content:""!important;
+  position:absolute!important;
+  z-index:1!important;
+  inset:0!important;
+  pointer-events:none!important;
+  opacity:1!important;
+  transform:none!important;
+  background:
+    linear-gradient(90deg,rgba(3,7,21,.69) 0 27%,rgba(3,7,21,.47) 55%,rgba(3,7,21,.26) 100%),
+    linear-gradient(180deg,rgba(2,5,16,.16),rgba(2,5,16,.42))!important;
+}
+
+.canon-system-grid .canon-card.canon-visual > *{
+  position:relative!important;
+  z-index:2!important;
+}
+
+/* ---------------- TRYBY DRAFTOWANIA ---------------- */
+
+.canon-system-grid .canon-card.canon-classic::before{
+  background:
+    url("PROGRAM-DRAFT/draft-assets/classic_galaxy_backdrop.webp") center/cover no-repeat!important;
+  opacity:.72!important;
+}
+
+.canon-system-grid .canon-card.canon-current::before{
+  background:
+    url("PROGRAM-DRAFT/draft-assets/gc_title_current_texture.png") center/cover no-repeat!important;
+  opacity:.82!important;
+}
+
+/* Poker remains asset-free by design: actual red felt/table visual. */
+.canon-system-grid .canon-card.canon-poker::before{
+  background:
+    radial-gradient(ellipse at 68% 53%,#861932 0 45%,#671027 46% 53%,#d9a755 54% 56%,#2a0714 57% 62%,transparent 63%),
+    repeating-linear-gradient(18deg,rgba(255,255,255,.025) 0 1px,transparent 1px 7px),
+    linear-gradient(135deg,#67152e 0%,#2d0718 58%,#090b19 100%)!important;
+  opacity:1!important;
+}
+
+/* ---------------- ROZSZERZENIA ---------------- */
+
+/* EXACT file used by the Superpower UI. */
+.canon-system-grid .canon-card.canon-superpowers::before{
+  background:
+    url("PROGRAM-DRAFT/draft-assets/powerstormtile.webp") center/cover no-repeat!important;
+  opacity:.90!important;
+  filter:saturate(1.16) brightness(1.02)!important;
+}
+
+/* EXACT file used by Custom Packs. */
+.canon-system-grid .canon-card.canon-custompacks::before{
+  background:
+    url("PROGRAM-DRAFT/draft-assets/customfabryka.png") center/cover no-repeat!important;
+  opacity:.86!important;
+}
+
+/* EXACT Joker galaxy asset used by the Draft. */
+.canon-system-grid .canon-card.canon-jokers::before{
+  background:
+    url("PROGRAM-DRAFT/draft-assets/joker_galaxy.png") center/cover no-repeat!important;
+  opacity:.88!important;
+}
+
+/* EXACT Save & Steal art. */
+.canon-system-grid .canon-card.canon-savesteal::before{
+  background:
+    url("PROGRAM-DRAFT/draft-assets/save_steal_cosmic.png") center/cover no-repeat!important;
+  opacity:.88!important;
+}
+
+/* EXACT LIVE Jeff Cosmic Shop backdrop.
+   Anchored to TOP as requested — planet / upper shop area. */
+.canon-system-grid .canon-card.canon-economy::before{
+  background:
+    url("PROGRAM-DRAFT/draft-assets/cosmic_shop_background.png") center top/cover no-repeat!important;
+  opacity:.87!important;
+}
+
+/* Bounty Round visual used by live Bounties. */
+.canon-system-grid .canon-card.canon-bounties::before{
+  background:
+    url("PROGRAM-DRAFT/draft-assets/bounty_round_banner.png") center/cover no-repeat!important;
+  opacity:.87!important;
+}
+
+/* EXACT Arishem pattern used by live Quests. */
+.canon-system-grid .canon-card.canon-quests::before{
+  background:
+    url("PROGRAM-DRAFT/draft-assets/quest_arishem_pattern_main.webp") center/cover no-repeat!important;
+  opacity:.92!important;
+  filter:saturate(1.18) brightness(1.02)!important;
+}
+
+/* Galactic Market: show BOTH the recognizable planet launcher
+   and the real market backdrop behind it. */
+.canon-system-grid .canon-card.canon-market::before{
+  background:
+    url("PROGRAM-DRAFT/draft-assets/galactic_market_planet_launcher_v2.png") right 8% center/52% auto no-repeat,
+    url("PROGRAM-DRAFT/draft-assets/galactic_market_backdrop_v2.png") center 62%/cover no-repeat!important;
+  opacity:.94!important;
+  filter:saturate(1.16) brightness(.98)!important;
+}
+
+/* Planned / utility extensions. */
+.canon-system-grid .canon-card.canon-mulligan::before{
+  background:
+    url("PROGRAM-DRAFT/draft-assets/jeff_reshuffle.webp") center/cover no-repeat!important;
+  opacity:.86!important;
+}
+
+.canon-system-grid .canon-card.canon-anomalies::before{
+  background:
+    radial-gradient(circle at 74% 46%,#010105 0 13%,#080312 14% 19%,#5229ae 20% 23%,rgba(70,213,255,.64) 24% 25%,rgba(255,114,198,.38) 26% 28%,transparent 29%),
+    conic-gradient(from 15deg at 74% 46%,transparent 0 9%,rgba(118,71,255,.24) 11%,transparent 15% 25%,rgba(85,225,255,.18) 28%,transparent 32% 46%,rgba(255,91,189,.17) 50%,transparent 55%),
+    linear-gradient(135deg,#100824,#03050d 62%,#020207)!important;
+  opacity:1!important;
+}
+
+.canon-system-grid .canon-card.canon-sideboard::before{
+  background:
+    repeating-linear-gradient(135deg,rgba(110,226,255,.05) 0 1px,transparent 1px 18px),
+    radial-gradient(circle at 78% 35%,rgba(146,100,255,.31),transparent 30%),
+    linear-gradient(135deg,#101731,#080b1d 60%,#070715)!important;
+  opacity:1!important;
+}
+
+/* Per-card tint so art remains visible but text stays readable. */
+.canon-system-grid .canon-card.canon-superpowers::after{
+  background:linear-gradient(90deg,rgba(3,10,35,.67),rgba(4,9,29,.43) 58%,rgba(5,8,24,.22))!important;
+}
+.canon-system-grid .canon-card.canon-custompacks::after{
+  background:linear-gradient(90deg,rgba(0,30,27,.64),rgba(4,20,27,.40) 56%,rgba(4,12,20,.20))!important;
+}
+.canon-system-grid .canon-card.canon-jokers::after{
+  background:linear-gradient(90deg,rgba(31,3,47,.65),rgba(20,4,38,.40) 58%,rgba(8,5,22,.20))!important;
+}
+.canon-system-grid .canon-card.canon-savesteal::after{
+  background:linear-gradient(90deg,rgba(43,3,30,.65),rgba(30,5,30,.39) 58%,rgba(10,7,19,.22))!important;
+}
+.canon-system-grid .canon-card.canon-economy::after{
+  background:linear-gradient(90deg,rgba(45,31,4,.62),rgba(28,20,7,.37) 57%,rgba(8,9,17,.17))!important;
+}
+.canon-system-grid .canon-card.canon-bounties::after{
+  background:linear-gradient(90deg,rgba(44,24,5,.63),rgba(32,15,8,.40) 57%,rgba(10,8,15,.20))!important;
+}
+.canon-system-grid .canon-card.canon-quests::after{
+  background:linear-gradient(90deg,rgba(3,24,47,.61),rgba(4,20,40,.38) 57%,rgba(4,10,24,.18))!important;
+}
+.canon-system-grid .canon-card.canon-market::after{
+  background:linear-gradient(90deg,rgba(20,6,31,.61),rgba(14,8,28,.36) 55%,rgba(5,9,20,.13))!important;
+}
+
+/* Keep dependency / planned strips above the artwork. */
+.canon-system-grid .dependency-badge,
+.canon-system-grid .future-badge{
+  position:relative!important;
+  z-index:3!important;
+}
+</style>
+
+
+<style id="planetary-reserve-encyclopedia-entry-v1">
+.canon-system-grid .planetary-reserve-card{border-color:rgba(105,224,255,.47)!important;box-shadow:0 14px 30px #0005,0 0 25px rgba(48,195,255,.13),inset 0 0 34px rgba(255,211,102,.035)!important}
+.canon-system-grid .planetary-reserve-card::before{background:url("PROGRAM-DRAFT/draft-assets/planetary_reserve_logo.png") right 12px bottom 10px/48% auto no-repeat,url("PROGRAM-DRAFT/draft-assets/planetary_reserve_modal_bg.png") center/cover no-repeat!important;opacity:.92!important;filter:saturate(1.08) brightness(.96)!important}
+.canon-system-grid .planetary-reserve-card::after{background:linear-gradient(90deg,rgba(2,13,31,.84) 0 41%,rgba(5,22,43,.56) 62%,rgba(9,19,36,.22))!important}
+.canon-system-grid .planetary-reserve-card h3{color:#fff!important;text-shadow:0 0 11px rgba(95,222,255,.35)!important}.canon-system-grid .planetary-reserve-card h3 small{color:#ffe38b!important}.canon-system-grid .planetary-reserve-card>a{color:#9cf2ff!important}
+#katalogi .reserve-portal{--tile-bg:url("PROGRAM-DRAFT/draft-assets/planetary_reserve_modal_bg.png");--tile-bg-pos:center;--tile-bg-size:cover;border-color:rgba(106,225,255,.39)!important;background:linear-gradient(90deg,rgba(2,14,32,.82),rgba(5,22,43,.55) 60%,rgba(5,15,31,.28)),var(--tile-bg) var(--tile-bg-pos)/var(--tile-bg-size) no-repeat!important;box-shadow:0 14px 30px #0005,0 0 26px rgba(74,214,255,.14),inset 0 0 28px rgba(255,213,103,.025)!important}
+#katalogi .reserve-portal::after{content:"";position:absolute;inset:auto 0 0;height:3px;background:linear-gradient(90deg,transparent,#52dcff,#f8ca60,#52dcff,transparent);box-shadow:0 0 13px rgba(69,216,255,.48)}
+#katalogi .reserve-portal .portal-right-art{width:98px!important;height:98px!important;right:42px!important;object-fit:contain!important;filter:drop-shadow(0 0 13px rgba(91,222,255,.43)) drop-shadow(0 0 8px rgba(255,213,100,.23))!important}
+#katalogi .reserve-portal .portal-linking{color:#ffe38a!important;border-color:rgba(255,212,102,.26)!important;background:rgba(57,42,10,.42)!important}
+</style>
+
+<style id="planetary-reserve-battle-callout-v2">
+.planetary-reserve-battle-callout{margin:16px 0 20px;padding:16px 18px;border:1px solid rgba(97,224,255,.35);border-left:4px solid #f5d36b;border-radius:16px;background:radial-gradient(circle at 88% 20%,rgba(245,211,107,.10),transparent 27%),linear-gradient(135deg,rgba(6,34,59,.88),rgba(4,12,30,.96));box-shadow:0 10px 24px rgba(0,0,0,.20),0 0 18px rgba(75,211,255,.08)}
+.planetary-reserve-battle-callout b{display:block;color:#ffe794;font:1000 11px/1.15 Orbitron,sans-serif;letter-spacing:.06em;margin-bottom:7px;text-shadow:0 0 10px rgba(245,211,107,.24)}
+.planetary-reserve-battle-callout span{display:block;color:#e3f4fb;font-size:15px;line-height:1.42}
+.planetary-reserve-battle-callout a{display:inline-block;margin-top:10px;color:#9ef2ff;font:900 9px/1 Orbitron,sans-serif;letter-spacing:.05em;text-decoration:none}
+</style>
+
+
+<style id="final-rc-hotfix01-extension-art-layering">
+/* FINAL RC HOTFIX 01 — Rozszerzenia: the live art must read as art, not edge-peeking under a dark plate. */
+#rozszerzenia .canon-system-grid .canon-card.canon-visual{
+  background:linear-gradient(155deg,#071128,#050918)!important;
+}
+#rozszerzenia .canon-system-grid .canon-card.canon-visual::before{
+  z-index:0!important;
+  opacity:.96!important;
+  filter:saturate(1.13) brightness(1.04) contrast(1.03)!important;
+}
+#rozszerzenia .canon-system-grid .canon-card.canon-visual::after{
+  z-index:1!important;
+  opacity:1!important;
+  background:
+    linear-gradient(90deg,rgba(3,7,21,.64) 0 22%,rgba(3,7,21,.43) 43%,rgba(3,7,21,.19) 66%,rgba(3,7,21,.07) 100%),
+    linear-gradient(180deg,rgba(2,5,16,.07),rgba(2,5,16,.22))!important;
+}
+#rozszerzenia .canon-system-grid .canon-card.canon-visual>*{position:relative!important;z-index:2!important}
+#rozszerzenia .canon-system-grid .dependency-badge,
+#rozszerzenia .canon-system-grid .future-badge{z-index:3!important}
+#rozszerzenia .canon-system-grid .canon-card.canon-visual h3,
+#rozszerzenia .canon-system-grid .canon-card.canon-visual p,
+#rozszerzenia .canon-system-grid .canon-card.canon-visual a{text-shadow:0 2px 4px rgba(0,0,0,.94),0 0 9px rgba(0,0,0,.66)!important}
+</style>
+
+</head>
+
+<body>
+<div class="ency-reading-progress" id="encyReadingProgress" aria-hidden="true"><span></span></div>
+<div class="ency-library-ambient" id="encyLibraryAmbient" aria-hidden="true"></div>
+<nav class="ency-chapter-rail" id="encyChapterRail" aria-label="Rozdziały Encyklopedii"></nav>
+<img class="msp-corner-logo" src="assets/msp-logo.png" alt="Marvel Snap Polska">
+
+
+<header class="msp-nav">
+    <div class="nav-shell">
+
+        <div class="nav-logos">
+            <img src="assets/draft-logo.png" alt="MSP Draft Event">
+        </div>
+
+        
+
+        
+        <div class="nav-current">
+            <i class="active-diamond ad1"></i>
+            <i class="active-diamond ad2"></i>
+            <i class="active-diamond ad3"></i>
+            <i class="active-diamond ad4"></i>
+            <i class="active-diamond ad5"></i>
+            <i class="active-diamond ad6"></i>
+            <i class="active-diamond ad7"></i>
+            <i class="active-diamond ad8"></i>
+            <i class="active-diamond ad9"></i>
+
+            <div class="current-text">
+                <h1 class="current-title">Encyklopedia SnapDraftu</h1>
+            </div>
+
+            <img class="current-jeff" src="assets/jeff_guide.png" alt="Jeff Encyklopedia SnapDraftu">
+        </div>
+
+        <nav class="nav-links" aria-label="Nawigacja MSP SnapDraft">
+            <a class="nav-link" href="index.html">
+                <span>Kosmiczne&nbsp;Centrum<br>Draftowe</span><i class="diamond d1"></i><i class="diamond d2"></i><i class="diamond d3"></i>
+            </a>
+            
+            <a class="nav-link" href="hallOfFame.html">
+                <span>Sala<br>Chwały</span><i class="diamond d1"></i><i class="diamond d2"></i><i class="diamond d3"></i>
+            </a>
+            <a class="nav-link" href="draft.html">
+                <span>Kroniki<br>Draftowe</span><i class="diamond d1"></i><i class="diamond d2"></i><i class="diamond d3"></i>
+            </a>
+            <a class="nav-link" href="player-lobby.html">
+                <span>Galaktyczna&nbsp;Baza<br>Wojowników</span><i class="diamond d1"></i><i class="diamond d2"></i><i class="diamond d3"></i>
+            </a>
+            <a class="nav-link" href="cards.html">
+                <span>Kolekcja&nbsp;Kart<br>Wszechświata</span><i class="diamond d1"></i><i class="diamond d2"></i><i class="diamond d3"></i>
+            </a>
+            <a class="nav-link" href="stats.html">
+                <span>Gwiezdne&nbsp;Archiwum<br>Danych</span><i class="diamond d1"></i><i class="diamond d2"></i><i class="diamond d3"></i>
+            </a>
+            <a class="nav-link arena" href="PROGRAM-DRAFT/snap-draft.html">
+                <span>Arena<br>Draftu</span><i class="diamond d1"></i><i class="diamond d2"></i><i class="diamond d3"></i>
+            </a>
+        </nav>
+
+    </div>
+</header>
+
+<div class="page">
+<header class="hero">
+        <img class="hero-logo" src="assets/draft-logo.png" alt="MSP SnapDraft Logo">
+        <img class="hero-guide" src="assets/jeff_guide.png" alt="Jeff przewodnik">
+        <div class="hero-content">
+            <div class="kicker">Oficjalna baza wiedzy MSP SnapDraft</div>
+            <h1>Encyklopedia SnapDraftu</h1>
+            <p class="lead">
+                Jedno miejsce do sprawdzania zasad, trybów, rozszerzeń, ustawień specjalnych i wszystkich pojęć MSP SnapDraft. Jeśli jesteś tu pierwszy raz — zacznij od instruktażu i filmu. Jeśli grasz od dawna — użyj spisu rozdziałów albo przejdź prosto do katalogów systemowych.
+            </p>
+            <nav class="quick-nav encyclopedia-hero-actions encyclopedia-entry-actions">
+                <a class="entry-beginner" href="#start">🚀 Pierwszy draft — prowadź mnie</a>
+                <a class="entry-expert" href="#encyklopedia">🔎 Znam podstawy — szukam konkretu</a>
+                <a href="#katalogi">📚 Otwórz katalogi systemów</a>
+            </nav>
+        </div>
+    </header>
+
+    <nav class="encyclopedia-toc encyclopedia-toc-v2" aria-label="Szybka nawigacja Encyklopedii">
+      <a href="#start">🚀 Start</a>
+      <a href="#encyklopedia">📖 Pełna wiedza</a>
+      <a href="#cykl-eventu">🛰️ Cykl eventu</a>
+      <a href="#classic-flow">🎴 Zasady</a>
+      <a href="#arena-program">🖥️ Arena</a>
+      <a href="#settings-v2">⚙️ Konfiguracja</a>
+      <a href="#rozszerzenia">🧩 Rozszerzenia</a>
+      <a href="#katalogi">📚 Katalogi</a>
+          </nav>
+
+    <section class="beginner-zone" id="start">
+      <div class="beginner-zone-head">
+        <div>
+          <div class="chapter-eyebrow beginner-eyebrow">Ścieżka Startowa · dla nowego gracza</div>
+          <h2>🚀 Pierwszy Draft — szybkie wprowadzenie</h2>
+          <p>Krótka ścieżka dla osób, które chcą najpierw zobaczyć przebieg wydarzenia bez wchodzenia w szczegółowe zasady każdego systemu.</p>
+        </div>
+        <div class="beginner-time-badge"><b>5–8 MIN</b><span>do ogarnięcia podstaw</span></div>
+      </div>
+
+      <div class="beginner-steps">
+        <article class="guide-step">
+          <span class="guide-step-no">01</span>
+          <div><h3>Co właściwie robimy?</h3><p>Wspólnie draftujemy karty i każdy buduje własny finalny deck do późniejszych meczów.</p></div>
+          <a href="#classic">Pełna definicja ↓</a>
+        </article>
+        <article class="guide-step">
+          <span class="guide-step-no">02</span>
+          <div><h3>Obserwuj paczkę i swoją kolej</h3><p>Operator draftu prowadzi draft na wspólnym ekranie. Kiedy wypada Twój pick, wybierasz jedną z dozwolonych kart.</p></div>
+          <a href="#classic-flow">Jak dokładnie działa paczka ↓</a>
+        </article>
+        <article class="guide-step">
+          <span class="guide-step-no">03</span>
+          <div><h3>Buduj plan swojej talii</h3><p>Patrz na koszt, synergie i to, co już masz. Pozostałe tagi i systemy możesz sprawdzić później w odpowiednich katalogach.</p></div>
+          <a href="#katalogi">Katalogi na później ↓</a>
+        </article>
+        <article class="guide-step">
+          <span class="guide-step-no">04</span>
+          <div><h3>Zapamiętaj trzy fundamenty</h3><p>Snake jest częścią formatu, finalny main deck kończy z 12 kartami, a standardowo zdobywasz 2 picki z paczki.</p></div>
+          <a href="#twarde-zasady">Twarde zasady ↓</a>
+        </article>
+        <article class="guide-step">
+          <span class="guide-step-no">05</span>
+          <div><h3>Po drafcie grasz mecze</h3><p>Gotową talią rozgrywasz Battle z pozostałymi uczestnikami. Wyniki budują tabelę konkretnej edycji.</p></div>
+          <a href="#mecze">Punktacja i mecze ↓</a>
+        </article>
+        <article class="guide-step">
+          <span class="guide-step-no">06</span>
+          <div><h3>Dodatki poznawaj dopiero, gdy są aktywne</h3><p>Supermoce, Jokery, Economy czy Questy są dodatkowymi systemami. Organizator powie, które obowiązują w danym drafcie.</p></div>
+          <a href="#settings-v2">Jak czytać konfigurację ↓</a>
+        </article>
+      </div>
+
+      <div class="beginner-bottom-row">
+        <article class="beginner-film-card">
+          <div><span>🎥</span><div><b>Wolisz obejrzeć?</b><small>Twój film instruktażowy zostaje oficjalnym wejściem dla nowych graczy.</small></div></div>
+          <a href="#film">Przejdź do filmu ↓</a>
+        </article>
+        <article class="beginner-skip-card">
+          <b>Już to znasz?</b>
+          <span>Jeśli znasz już podstawy, możesz od razu przejść do pełnej Encyklopedii.</span>
+          <a href="#encyklopedia">Przejdź do pełnej wiedzy ↓</a>
+        </article>
+      </div>
+
+      <div class="beginner-not-now">
+        <strong>Na start wystarczą podstawy:</strong>
+        Jokeropedia, Atlas Tagów, pełne interakcje Supermocy i szczegółowe ustawienia są dostępne dalej jako materiały do sprawdzenia wtedy, gdy będą potrzebne.
+      </div>
+    </section>
+
+
+    <section class="video-section" id="film">
+        <h2 class="video-title">🎥 Film instruktażowy</h2>
+        <p class="video-note">
+            Zobacz przewodnik po lidze MSP SnapDraft Event. Jeżeli YouTube blokuje osadzenie filmu w oknie strony, użyj karty pod spodem — film otworzy się normalnie na YouTube.
+        </p>
+
+        <div class="video-frame">
+            <iframe
+                src="https://www.youtube.com/embed/_rnFMYbloTo?rel=0"
+                title="Film instruktażowy MSP SnapDraft"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen>
+            </iframe>
+        </div>
+
+        <div class="video-direct-card">
+            <a href="https://www.youtube.com/watch?v=_rnFMYbloTo" target="_blank" rel="noopener">
+                <img src="https://img.youtube.com/vi/_rnFMYbloTo/maxresdefault.jpg" alt="Miniatura filmu MSP SnapDraft">
+                <div>
+                    <strong>Obejrzyj film na YouTube</strong>
+                    <span>Awaryjny link, gdy embed pokazuje błąd konfiguracji odtwarzacza.</span>
+                </div>
+            </a>
+        </div>
+    </section>
+
+    <section class="encyclopedia-proper-gate" id="encyklopedia">
+      <div class="ency-gate-ornament" aria-hidden="true">✦</div>
+      <div class="ency-full-title">PEŁNA ENCYKLOPEDIA SNAPDRAFTU</div>
+      <h2>Zasady, systemy i wiedza o całym formacie</h2>
+      <p>Tu zaczyna się właściwa część encyklopedyczna: pełne zasady draftowania, konfiguracja edycji, rozszerzenia, faza pojedynków, słownik oraz wejścia do specjalistycznych katalogów.</p>
+
+      <div class="ency-search-box">
+        <label for="encySearch">🔎 Szukaj w Encyklopedii</label>
+        <div class="ency-search-row">
+          <input id="encySearch" type="search" placeholder="Np. Championy, Lucky Cards, Joker, punktacja, Kosmiczne Cmentarzysko…">
+          <button type="button" id="encySearchClear">Wyczyść</button>
+        </div>
+        <div class="ency-search-results" id="encySearchResults" aria-live="polite"></div>
+      </div>
+
+      <div class="ency-index-groups">
+        <article class="ency-index-group">
+          <span>01 · Fundamenty</span>
+          <a href="#classic">Czym jest SnapDraft</a>
+          <a href="#cykl-eventu">Pełny cykl edycji</a>
+          <a href="#twarde-zasady">Twarde zasady formatu</a>
+          <a href="#classic-flow">Classic krok po kroku</a>
+          <a href="#mecze">Faza pojedynków</a>
+        </article>
+        <article class="ency-index-group">
+          <span>02 · Konfiguracja</span>
+          <a href="#settings-v2">Konfiguracja draftu</a>
+          <a href="#tryby">Tryby Draftowania</a>
+          <a href="#rozszerzenia">Rozszerzenia</a>
+          <a href="#ustawienia">Ustawienia Specjalne</a>
+        </article>
+        <article class="ency-index-group">
+          <span>03 · Katalogi i podręczniki</span>
+          <a href="#katalogi">Jokeropedia / Tagi / Custom Packi</a>
+          <a href="supermoce.html">Kodeks Supermocy ↗</a>
+                  </article>
+        <article class="ency-index-group">
+          <span>04 · Referencje</span>
+          <a href="#arena-program">Anatomia Areny</a>
+          <a href="#slownik">Słownik</a>
+                              <a href="#mapa-strony">Mapa ekosystemu</a>
+        </article>
+      </div>
+    </section>
+
+    <section class="section encyclopedia-chapter" id="classic">
+        <div class="chapter-eyebrow">Definicja formatu · nie tutorial</div>
+        <h2>🎴 Czym dokładnie jest MSP SnapDraft?</h2>
+        <p><strong>MSP SnapDraft Event</strong> to stała liga draftowa organizowana przez społeczność <strong>Marvel Snap Polska</strong>. Średnio co dwa tygodnie spotykamy się na wspólne wydarzenie, podczas którego gracze budują decki w formacie draftu, a następnie rozgrywają między sobą mecze.</p>
+        <p>To zupełnie inny sposób grania w Marvel Snap. Zamiast korzystać z gotowych talii z mety albo własnych sprawdzonych decków, uczestnicy tworzą swoje talie na podstawie kart wybieranych podczas draftowania. Każda edycja może wyglądać trochę inaczej — zmieniają się tryby, zasady losowania, dodatkowe mechaniki i specjalne twisty.</p>
+        <p>Do obsługi draftów używamy specjalnie przygotowanego programu, w którym otwieramy paczki, wybieramy karty, korzystamy z dodatkowych trybów i śledzimy tworzone decki. Całość uzupełnia strona MSP SnapDraft, gdzie można sprawdzać wyniki, statystyki, decki, historię eventów, Salę Chwały oraz profile graczy.</p>
+        <p>Z czasem pojedyncze eventy przerodziły się w stałą, społecznościową ligę z własną historią, rankingami i rywalizacją. Każdy może dołączyć, spróbować swoich sił i pobawić się Marvel Snapem w zupełnie innym formacie.</p>
+    </section>
+
+    <section class="section encyclopedia-chapter encyclopedia-longform" id="cykl-eventu">
+      <div class="chapter-eyebrow">Od zapisu do Kronik · pełny przebieg</div>
+      <h2>🛰️ Jak wygląda cała edycja SnapDraftu?</h2>
+      <p class="chapter-lead">SnapDraft nie kończy się na samym wybieraniu kart. Pełna edycja ma kilka wyraźnych faz: konfigurację, ceremonię draftowania, finalizację decków, okres pojedynków i archiwizację wyników. Dzięki temu łatwo rozdzielić <strong>zasady draftowania</strong> od <strong>zasad eventu po drafcie</strong>.</p>
+
+      <div class="event-lifecycle">
+        <a href="#settings-v2"><b>01</b><span>Konfiguracja edycji</span><small>Tryb, Rozszerzenia, Ustawienia Specjalne, gracze i dane edycji.</small></a>
+        <a href="#classic-flow"><b>02</b><span>Ceremonia draftowania</span><small>Paczek, picków i budowanie głównych decków na wspólnej Arenie.</small></a>
+        <a href="#arena-program"><b>03</b><span>Finalizacja</span><small>Decki osiągają 12 kart; rozstrzygane są aktywne zasady końcowe.</small></a>
+        <a href="#mecze"><b>04</b><span>Faza pojedynków</span><small>Umawianie Battle, granie, screeny i zgłaszanie wyników.</small></a>
+        <a href="#mecze"><b>05</b><span>Tabela i klasyfikacja</span><small>Punkty draftowe ustalają kolejność konkretnej edycji.</small></a>
+        <a href="#mapa-strony"><b>06</b><span>Kroniki i historia ligi</span><small>Edycja trafia do historii; miejsca zasilają ✦ Punkty Legend.</small></a>
+      </div>
+
+      <div class="ency-definition-split">
+        <article><b>Draftowanie</b><p>To część eventu, w której zdobywamy karty i konstruujemy 12-kartowy Główny deck.</p></article>
+        <article><b>Faza pojedynków</b><p>To osobny etap po drafcie. Nie wykonujemy już picków — gramy wydraftowanymi taliami w Marvel Snap Battle.</p></article>
+        <article><b>Historia ligi</b><p>Po zakończeniu edycji jej wynik staje się częścią Kronik, profili graczy, statystyk i Rankingu Legend.</p></article>
+      </div>
+    </section>
+
+
+    <section class="section encyclopedia-chapter hard-rules-chapter" id="twarde-zasady">
+      <div class="chapter-eyebrow">Konstytucja formatu · nie ustawienia</div>
+      <h2>🔒 Twarde zasady SnapDrafta</h2>
+      <p class="chapter-lead">Tych zasad nie pokazujemy jako przełączników. Są konstytucyjną częścią formatu i obowiązują niezależnie od wybranego Trybu, Rozszerzeń oraz Ustawień Specjalnych.</p>
+      <div class="hard-rules-v2-grid">
+        <article><b>Snake zawsze obowiązuje</b><span>Snake jest częścią struktury SnapDraftu, a nie opcją konfiguracyjną.</span></article>
+        <article><b>Główny deck = 12 kart</b><span>Finalny Główny deck zawsze zawiera dokładnie 12 kart.</span></article>
+        <article><b>Standardowo 2 normalne picki</b><span>Podstawowa struktura formatu daje graczowi standardowo dwa normalne picki z paczki.</span></article>
+        <article><b>Planetarna Rezerwa ≠ większy deck</b><span>3 Rezerwowych tworzy osobną strefę SIDEBOARD. W pojedynczym meczu aktywny deck nadal ma dokładnie 12 kart, ale między meczami możesz wykonać jedną wymianę 1:1.</span></article>
+      </div>
+    </section>
+
+
+    <section class="section encyclopedia-chapter encyclopedia-longform" id="classic-flow">
+        <div class="chapter-eyebrow">Pełny rulebook Classic</div>
+        <h2>🎴 Classic — pełny przebieg draftu</h2>
+        <p>Draft odbywa się zazwyczaj co około dwa tygodnie, najczęściej w weekend, na Discordzie <strong>Marvel Snap Polska</strong>. Spotykamy się na kanale głosowym, żeby wspólnie przejść przez ceremonię draftowania: pogadać, pośmiać się, zintegrować społeczność i przede wszystkim stworzyć swoje decki na nadchodzącą edycję.</p>
+        <p>Podczas draftu można normalnie rozmawiać na kanale głosowym, komentować wybory i mówić na streamie, którą kartę chce się wybrać. To część wspólnej zabawy i integracji. Jeśli jednak ktoś nie może albo nie chce mówić na głos, to również jest w porządku — wystarczy, że będzie obecny na streamie, będzie śledził przebieg draftu i będzie odpisywał na Discordzie, kiedy przyjdzie jego kolej wyboru.</p>
+        <p>Całość prowadzi organizator, który streamuje specjalny program draftowy. To właśnie w nim wpisywani są gracze, losowana jest kolejność, otwierane są paczki, wybierane karty i budowane są decki uczestników. Wszystko dzieje się na żywo, więc każdy może obserwować wybory innych graczy, reagować na sytuację i planować własną talię.</p>
+
+        <h3>Kolejność graczy i snake draft</h3>
+        <p>Na początku draftu do programu wpisywana jest lista uczestników. Następnie ustalana lub losowana jest kolejność wyboru kart.</p>
+        <p>Podstawowy system wyboru opiera się na zasadzie <strong>snake draftu</strong>. Oznacza to, że kolejność wyboru odwraca się co rundę — gracz, który wybierał jako pierwszy w jednej kolejce, w następnej będzie wybierał jako ostatni. Dzięki temu draft jest bardziej wyrównany i fair dla wszystkich uczestników.</p>
+        <p>Dodatkowo kolejka wyboru przesuwa się między paczkami, dzięki czemu gracze nie są przez cały draft przywiązani do jednej, stałej pozycji. To sprawia, że wybory stają się bardziej taktyczne: można planować swoje picki, obserwować potrzeby innych graczy, próbować podkraść komuś ważną kartę albo przewidywać, które karty z paczki mogą jeszcze do nas wrócić.</p>
+        <div class="example"><strong>Przykład snake draftu:</strong><br>Runda 1: Gracz 1 → Gracz 2 → Gracz 3 → Gracz 4<br>Runda 2: Gracz 4 → Gracz 3 → Gracz 2 → Gracz 1</div>
+
+        <h3>Rozmiar paczek i wyrównywanie szans</h3>
+        <p>W klasycznym draftowaniu każdy gracz wybiera z każdej paczki po dwie karty, a cały draft składa się z <strong>sześciu paczek</strong>. Dzięki temu na końcu każdy uczestnik ma pełny deck złożony z 12 kart.</p>
+        <p>Rozmiar paczki zależy od liczby graczy i liczony jest według zasady:</p>
+        <div class="codebox">liczba kart w paczce = liczba graczy × 2 + 1</div>
+        <p>Dodatkowe <strong>+1</strong> jest bardzo ważne. Dzięki niemu osoba wybierająca jako ostatnia w danej paczce nadal ma realny wybór z dwóch kart, zamiast dostać jedną kartę z przymusu. To kolejny element, który pomaga utrzymać draft możliwie fair dla wszystkich.</p>
+        <p>Program pokazuje na bieżąco wszystkie najważniejsze informacje: aktualną kolejkę wyboru, kto teraz pickuje, ile kart zostało w paczce, ile kart brakuje każdemu graczowi do pełnego decku oraz jak wyglądają obecne decki uczestników. Można też kontrolować swoje wybory, sprawdzać dotychczas dobrane karty i orientować się, czy deck ma sensowną krzywą many oraz czy zaczyna budować konkretny plan gry.</p>
+
+        <div class="draft-card-tooltip-guide">
+          <div class="draft-card-tooltip-icon">🏷️</div>
+          <div>
+            <b>Każdą kartę możesz sprawdzić przed wyborem.</b>
+            <p>Najedź kursorem na kartę w paczce albo w innym miejscu Areny Draftu, aby otworzyć jej podgląd z najważniejszymi informacjami. Zobaczysz tam również przypisane <strong>Tagi</strong> — oficjalne oznaczenia pomagające rozpoznać archetypy, mechaniki, typy zdolności, drużyny, motywy i inne role karty.</p>
+            <a href="atlas-tagow.html">Sprawdź pełny Atlas Tagów ↗</a>
+          </div>
+        </div>
+        <div class="callout">Jeżeli zdarzy się, że gracz musiałby wybrać kartę, której nie posiada w swojej kolekcji, można bez problemu zgłosić to organizatorowi. W takiej sytuacji karta może zostać przelosowana lub rozwiązana zgodnie z ustaleniami danej edycji, żeby nikt nie był karany za braki w kolekcji.</div>
+
+        <h3>Jeżeli aktywne są Bany</h3>
+        <p>Bany są <strong>Ustawieniem Specjalnym → Reguły Puli</strong>. Jeśli dana edycja z nich korzysta, wskazane karty zostają usunięte z dostępnej puli przed etapem losowania.</p>
+        <p>Bany można wykorzystać taktycznie — na przykład po to, żeby pozbyć się wyjątkowo mocnej karty, karty niewygodnej dla własnej strategii albo takiej, której gracz nie posiada w swojej kolekcji. Dzięki temu draft może być bardziej zbalansowany i dopasowany do uczestników.</p>
+
+        <h3>Program draftowy</h3>
+        <p>Do draftowania używamy dedykowanego programu przygotowanego specjalnie pod <strong>MSP SnapDraft Event</strong>. Program obsługuje otwieranie paczek, wybieranie kart, kolejkę graczy, budowanie decków na żywo oraz dodatkowe tryby i zasady specjalne.</p>
+        <p>Każdy deck powstaje na ekranie w czasie rzeczywistym. Gracze widzą, jakie karty już wybrali, ile kart mają w decku i jak rozwija się ich strategia. Program jest sercem całego draftu — to tutaj odbywa się najważniejsza część wydarzenia.</p>
+
+        <h3>Konfiguracja konkretnej edycji</h3>
+        <p>To, że dwie edycje SnapDraftu korzystają z tych samych podstawowych zasad formatu, nie oznacza, że będą wyglądały identycznie. Przed startem ustalamy <strong>jeden Tryb Draftowania</strong>, ewentualne <strong>Rozszerzenia</strong> oraz <strong>Ustawienia Specjalne</strong>.</p>
+        <div class="grid-list">
+            <a class="feature-card feature-card-link" href="#tryby"><b>🎮 Tryb Draftowania</b>Określa bazowy sposób zdobywania kart: np. Classic, Gwiezdny Prąd albo Poker Draft.<span class="feature-card-cta">Zobacz Tryby →</span></a>
+            <a class="feature-card feature-card-link" href="#rozszerzenia"><b>🧩 Rozszerzenia</b>Dokładają systemy takie jak Jokery, Supermoce, Economy, Custom Packi czy Mulligan.<span class="feature-card-cta">Zobacz Rozszerzenia →</span></a>
+            <a class="feature-card feature-card-link" href="#ustawienia"><b>🛠️ Ustawienia Specjalne</b>Regulują przebieg, pulę, finalizację decku i Specjalne Twisty.<span class="feature-card-cta">Zobacz Ustawienia →</span></a>
+        </div>
+        <p>Pełny podział konfiguracji znajduje się w rozdziale <a href="#settings-v2"><strong>Jak konfigurujemy draft?</strong></a>. Nie używamy już określeń wrzucających Bany, Jokery czy Supermoce do jednej wspólnej listy „trybów”.</p>
+
+        <h3>Program draftowy a zasady gry</h3>
+        <p>Arena Draftu pokazuje i obsługuje przebieg wydarzenia. <strong>Sam wygląd programu nie tworzy dodatkowych zasad</strong>: widzisz w nim paczkę, kolejkę, decki, gracza wykonującego bieżący wybór i aktywne systemy. Część przycisków służy Operatorowi do prowadzenia lub korekty przebiegu draftu i nie stanowi dodatkowej akcji gracza.</p>
+        <div class="callout">Panel Gracza, Kolejkę Paczki, Kosmiczne Cmentarzysko, Podgląd decku i Standardowy pick znajdziesz w osobnym <a href="arena-anatomia.html"><strong>Podręczniku Anatomii Areny Draftu ↗</strong></a>.</div>
+
+        <h3>Zakończenie draftu i screen decku</h3>
+        <p>Po zakończeniu draftowania każdy gracz ma gotowy deck, którym będzie grał w fazie rozgrywek.</p>
+        <p>Po spotkaniu każdy uczestnik powinien wrzucić screen swojego decku na odpowiedni kanał na Discordzie <strong>Marvel Snap Polska</strong>. Kanał znajduje się w zakładce związanej ze <strong>Snapventami</strong> i zwykle ma nazwę w stylu:</p>
+        <div class="codebox">decki draft [numer edycji]</div>
+        <p>Screen decku jest ważny, ponieważ pozwala organizatorowi i innym graczom sprawdzić, jakimi taliami uczestnicy będą grać w danej edycji.</p>
+    </section>
+
+    
+    <section class="section encyclopedia-chapter arena-program-chapter" id="arena-program">
+      <div class="chapter-eyebrow">Stałe elementy Areny Draftu</div>
+      <h2>🖥️ Anatomia Areny Draftu</h2>
+      <p class="chapter-lead">Arena korzysta ze stałych nazw swoich najważniejszych elementów: <strong>Główna scena paczki, Pick, Kolejka Paczki, Panel Gracza, Podgląd decku, Informacje Draftowe, Kosmiczne Cmentarzysko i Dolny panel systemów</strong>.</p>
+
+      <div class="arena-reference-grid">
+        <article><span>01</span><b>Główna scena paczki</b><p>Centralna scena aktywnej paczki lub aktywnego Trybu Draftowania. Tutaj pojawiają się karty, animacje i interakcje związane z bieżącym wyborem.</p></article>
+        <article><span>02</span><b>Kolejka Paczki</b><p>Lista kolejnych graczy w bieżącej paczce. Gracz, który aktualnie wybiera, jest wyróżniony; kliknięcie nicku może przypiąć podgląd jego decku.</p></article>
+        <article><span>03</span><b>Panel Gracza</b><p>Stały moduł gracza: nick, postęp do 12 kart, Główny deck, bieżące statystyki oraz aktywne kontrolki systemów.</p></article>
+        <article><span>04</span><b>Informacje Draftowe</b><p>Panel kontekstu edycji: numer draftu, tryb, liczba graczy, bany, numer paczki, postęp kart i globalne bieżące statystyki.</p></article>
+        <article><span>05</span><b>Kosmiczne Cmentarzysko</b><p>Osobna strefa dla kart, które opuściły paczki lub decki. Nagrobek zachowuje informację, dlaczego karta trafiła na Cmentarzysko, a niektóre efekty mogą później wejść z nim w interakcję.</p><a href="graveyard.html">Pełne zasady Cmentarzyska ↗</a></article>
+        <article><span>06</span><b>Dolny panel systemów</b><p>Dolna stacja narzędzi kontekstowych. To tutaj mogą pojawiać się wejścia do Kosmicznego Cmentarzyska oraz Jeff’s Cosmic Shop.</p></article>
+      </div>
+
+      <div class="arena-deep-portals">
+      <a class="arena-manual-portal" href="proces-draftu.html">
+        <div><span>PEŁNY PRZEBIEG DRAFTU</span><b>Jak działa draftowanie od paczki #1 do finalnego decku?</b><small>Kolejność, picki, paczki, Snake, przechodzenie paczek i koniec draftowania.</small></div><i>↗</i>
+      </a>
+      <a class="arena-manual-portal" href="arena-anatomia.html">
+        <div><span>🛰️ PEŁNY PODRĘCZNIK INTERFEJSU</span><b>Otwórz Anatomię Areny Draftu</b><small>Każdy stały panel, przycisk, termin i stan karty opisany na osobnej podstronie.</small></div><i>↗</i>
+      </a>
+      </div>
+    </section>
+
+<section class="section encyclopedia-chapter encyclopedia-longform battle-rulebook" id="mecze">
+      <div class="chapter-eyebrow">Etap II wydarzenia · po zakończeniu draftowania</div>
+      <h2>⚔️ Faza pojedynków — pełny rulebook</h2>
+      <p class="chapter-lead">Po zbudowaniu finalnych decków ceremonia draftowania jest zakończona, ale edycja trwa dalej. Rozpoczyna się okres, w którym uczestnicy umawiają i rozgrywają swoje pojedynki w trybie <strong>Battle</strong> w Marvel Snap.</p>
+
+      <h3>1. Gotowość do rozgrywek</h3>
+      <p>Każdy gracz rozpoczyna Rozgrywki swoim finalnym 12-kartowym Main Deckiem. Jeżeli aktywna jest <strong>Planetarna Rezerwa</strong>, trzy dodatkowe karty tworzą jawną pulę SIDEBOARD, ale <strong>realnie zmienia się przebieg całej fazy Rozgrywek</strong>: po każdym rozegranym meczu, przed następnym spotkaniem, gracz może wykonać maksymalnie <strong>jedną zmianę 1:1</strong> pomiędzy kartami ze swojej 15-kartowej puli. Aktywny deck zawsze pozostaje 12-kartowy.</p>
+<div class="planetary-reserve-battle-callout">
+  <b>🛰️ PLANETARNA REZERWA = TAKTYKA MIĘDZY MECZAMI</b>
+  <span>Po meczu możesz wprowadzić jedną kartę z Rezerwy za jedną kartę aktywnej dwunastki, wymienić jednego aktywnego Rezerwowego na innego albo po prostu cofnąć zmianę z poprzedniego meczu. Limit zawsze wynosi <strong>jedna wymiana 1:1 względem składu z poprzedniego spotkania</strong>.</span>
+  <a href="sideboards.html#rozgrywki">Zobacz pełne zasady Planetarnej Rezerwy ↗</a>
+</div>
+
+      <p>Decki są jawne. Po draftowaniu publikowane są screeny / podglądy talii, a na stronie konkretnej edycji można sprawdzać decki przeciwników.</p>
+
+      <h3>2. Umawianie meczu</h3>
+      <p>Gracze umawiają się bezpośrednio między sobą — prywatnie albo w odpowiednim dziale draftowym na Discordzie Marvel Snap Polska. Warto kontaktować się z przeciwnikami wcześnie, a nie zostawiać całej kolejki na ostatni dzień.</p>
+      <div class="battle-etiquette-grid">
+        <article><b>✓ Dobra praktyka</b><span>Napisz wcześniej, podaj kilka możliwych godzin i odpowiedz przeciwnikowi nawet wtedy, gdy dziś nie możesz zagrać.</span></article>
+        <article><b>⚠ W razie sporu</b><span>Liczy się realna aktywność i próby umówienia meczu. Administracja może poprosić o dowody kontaktu.</span></article>
+      </div>
+
+      <h3>3. Format pojedynku</h3>
+      <p>Mecz rozgrywamy w trybie <strong>Battle</strong>. Każda strona rozpoczyna pojedynek z <strong>10 życiami</strong>. Wynik całego Battle jest później przeliczany na punkty draftowe do tabeli edycji.</p>
+
+      <h3>4. Punktacja meczu</h3>
+      <div class="battle-score-law">
+        <div><span>ZWYCIĘZCA</span><b>15 + pozostałe życia</b></div>
+        <div><span>PRZEGRANY</span><b>życia zabrane zwycięzcy</b></div>
+      </div>
+      <p>Jeżeli zwycięzca kończy Battle z <strong>X</strong> życiami, dostaje <strong>15 + X</strong> punktów. Przegrany zdobywa <strong>10 − X</strong> punktów, czyli tyle, ile żyć odebrał zwycięzcy.</p>
+
+      <div class="battle-calculator">
+        <div class="battle-calculator-head"><b>INTERAKTYWNY PRZYKŁAD</b><span>Przesuń liczbę żyć pozostałych zwycięzcy.</span></div>
+        <input id="battleLivesSlider" type="range" min="1" max="10" value="6" aria-label="Pozostałe życia zwycięzcy">
+        <div class="battle-calculator-result">
+          <article class="winner"><span>Zwycięzca · <b id="battleLivesValue">6</b> ❤️</span><strong id="battleWinnerPoints">21 pkt</strong></article>
+          <article><span>Przegrany</span><strong id="battleLoserPoints">4 pkt</strong></article>
+        </div>
+      </div>
+
+      <h3>5. Walkowery</h3>
+      <div class="battle-special-results">
+        <article><span>POJEDYNCZY WALKOWER</span><b>20 : 0</b><p>Jeżeli tylko jedna strona oddaje mecz walkowerem, druga otrzymuje administracyjny wynik 20:0.</p></article>
+        <article><span>PODWÓJNY WALKOWER</span><b>0 : 0</b><p>Jeżeli spotkanie kończy się podwójnym walkowerem, zapisujemy wynik 0:0.</p></article>
+      </div>
+
+      <h3>6. Zgłoszenie wyniku</h3>
+      <p>Zwycięzca wykonuje screen końcowego wyniku i publikuje go na odpowiednim kanale draftowym na Discordzie. Zgłoszenie oznaczamy hashtagiem <strong>#wynik</strong>, żeby organizator mógł je łatwo znaleźć i przepisać do tabeli.</p>
+      <div class="codebox">#wynik · screen końcowego Battle · czytelny rezultat</div>
+
+      <h3>7. Aktywność, terminy i decyzje administracji</h3>
+      <p>Jeżeli pojawia się problem z terminem, brak odpowiedzi albo spór o możliwość rozegrania spotkania, administracja ocenia aktywność obu stron w całym okresie przeznaczonym na rozegranie meczu, w tym wcześniejsze próby kontaktu.</p>
+      <div class="callout">Walkower jest decyzją organizacyjną, nie substytutem normalnego Battle. Pojedynczy walkower zapisujemy jako <strong>20:0</strong>, a podwójny jako <strong>0:0</strong>.</div>
+
+      <h3>8. Tabela konkretnej edycji</h3>
+      <p>Punkty ze wszystkich pojedynków składają się na tabelę draftu. To <strong>punkty draftowe</strong> — lokalna punktacja tej jednej edycji. Nie należy ich mylić z ✦ Punktami Legend.</p>
+      <p>Aktualną tabelę, rozegrane mecze, jawne decki oraz uczestników sprawdzasz w <strong>Kronikach Draftowych</strong> na stronie konkretnej edycji.</p>
+
+      <h3>9. ✦ Punkty Legend po zakończeniu edycji</h3>
+      <p>Po ustaleniu końcowych miejsc najwyżej sklasyfikowani gracze dostają punkty do długoterminowego Rankingu Legend:</p>
+      <div class="legend-points-table">
+        <article><b>#1</b><span>✦ 8</span></article>
+        <article><b>#2</b><span>✦ 4</span></article>
+        <article><b>#3</b><span>✦ 3</span></article>
+        <article><b>#4</b><span>✦ 2</span></article>
+        <article><b>#5</b><span>✦ 1</span></article>
+      </div>
+      <p><strong>Punkty draftowe</strong> odpowiadają za wynik jednej edycji. <strong>✦ Punkty Legend</strong> budują prestiż i klasyfikację gracza w historii wielu draftów.</p>
+    </section>
+
+    
+    <section class="section encyclopedia-chapter" id="settings-v2">
+      <div class="chapter-eyebrow">Konfiguracja SnapDraftu</div>
+      <h2>⚙️ Jak konfigurujemy draft?</h2>
+      <p class="chapter-lead">Konfiguracja SnapDraftu ma trzy poziomy. Najpierw wybieramy <strong>jeden Tryb Draftowania</strong>, później dokładamy <strong>Rozszerzenia</strong>, a na końcu ustawiamy <strong>Ustawienia Specjalne</strong>. <a href="#twarde-zasady">Twarde zasady formatu</a> są opisane osobno.</p>
+      <div class="settings-v2-grid">
+        <article class="settings-family mode"><span>01</span><h3>Tryb Draftowania</h3><p>Jeden bazowy sposób prowadzenia draftu.</p><a href="#tryby">Zobacz tryby ↓</a></article>
+        <article class="settings-family addons"><span>02</span><h3>Rozszerzenia</h3><p>Dodatkowe systemy nakładane na wybrany tryb.</p><a href="#rozszerzenia">Zobacz Rozszerzenia ↓</a></article>
+        <article class="settings-family special"><span>03</span><h3>Ustawienia Specjalne</h3><p>Przebieg Draftu, Reguły Puli, Finalizacja Decku i Specjalne Twisty.</p><a href="#ustawienia">Zobacz ustawienia ↓</a></article>
+      </div>
+    </section>
+
+    <section class="section encyclopedia-chapter" id="tryby">
+      <div class="chapter-eyebrow">Podstawowy sposób draftowania</div>
+      <h2>🎮 Tryby Draftowania</h2>
+      <p class="chapter-lead">Tryb Draftowania odpowiada na jedno pytanie: <strong>„W jaki podstawowy sposób zdobywamy karty w tym drafcie?”</strong> W pojedynczej edycji wybieramy jeden bazowy Tryb. Rozszerzenia i Ustawienia Specjalne nie są Trybami.</p>
+      <div class="canon-principle"><b>Jeden draft = jeden bazowy Tryb Draftowania.</b><span>Nie tworzymy już nazw w rodzaju „Classic + Bany”. Bany są Regułą Puli, a nie częścią nazwy Trybu.</span></div>
+      <div class="ency-system-grid three canon-system-grid">
+        <article class="ency-system-card canon-card canon-visual canon-classic">
+          <div class="canon-kind">TRYB DRAFTOWANIA</div>
+          <h3>Classic</h3>
+          <p>Standardowy sposób draftowania SnapDraft i podstawowy punkt odniesienia dla całego formatu.</p>
+          <details><summary>Co to oznacza?</summary><p>Classic zachowuje standardową strukturę zdobywania kart SnapDraftu. Szczegółowy przebieg znajduje się w pełnym rulebooku Classic.</p><a href="#classic-flow">Przejdź do zasad Classic ↓</a></details>
+        </article>
+        <article class="ency-system-card canon-card canon-visual canon-current" data-system-art="gwiezdny">
+          <div class="canon-kind">TRYB DRAFTOWANIA</div>
+          <h3>🌊 Gwiezdny Prąd</h3>
+          <p>Zamiast osobnych paczek tworzy stały kosmiczny nurt kart, który zmienia się po każdym wyborze. Ma dwa warianty: <strong>Rwący Prąd</strong> oraz <strong>Wygasające Gwiazdy</strong>.</p>
+          <a href="gwiezdny-prad.html">Poznaj oba warianty Gwiezdnego Prądu ↗</a>
+        </article>
+        <article class="ency-system-card canon-card portal-live canon-visual canon-poker">
+          <div class="canon-kind">TRYB DRAFTOWANIA</div>
+          <h3>🃏 Poker Draft</h3>
+          <p>Aukcyjny Tryb Draftowania: każda runda wystawia jedną kartę, a gracze licytują ją własnym budżetem Cosmic Jeffs. Odpuszczanie aukcji odbudowuje zasoby, a każdy gracz finalnie kompletuje 12 kart.</p>
+          <a href="poker-draft.html">Poznaj pełne zasady Poker Draftu ↗</a>
+          <details><summary>Dlaczego to Tryb?</summary><p>Poker Draft fundamentalnie zmienia podstawowy sposób zdobywania kart, dlatego jest jednym z podstawowych Trybów Draftowania obok Classic i Gwiezdnego Prądu.</p></details>
+        </article>
+      </div>
+    </section>
+
+    <section class="section encyclopedia-chapter" id="rozszerzenia">
+      <div class="chapter-eyebrow">Dodatkowe systemy draftu</div>
+      <h2>🧩 Rozszerzenia</h2>
+      <p class="chapter-lead">Rozszerzenie dodaje do bazowego draftu <strong>dodatkową akcję, fazę, zasób, strefę albo zestaw zasad</strong>. Można je łączyć z wybranym Trybem, o ile zasady danego Rozszerzenia na to pozwalają.</p>
+
+      <div class="dependency-callout">
+        <b>🪙 Economy jako zależność</b>
+        <span>Łowcy Nagród, Kosmiczne Questy i Galaktyczny Targ wymagają Economy / Jeff’s Cosmic Shop.</span>
+      </div>
+
+      <div class="ency-system-grid canon-system-grid">
+        <article class="ency-system-card canon-card portal-live canon-visual canon-superpowers" data-system-art="superpowers">
+          <div class="canon-kind">ROZSZERZENIE</div><h3>⚡ Supermoce</h3>
+          <p>Dodają graczom specjalne moce, które wprowadzają dodatkowe akcje podczas draftu.</p>
+          <a href="supermoce.html">Otwórz Kodeks Supermocy ↗</a>
+        </article>
+
+        <article class="ency-system-card canon-card canon-visual canon-custompacks" data-system-art="custom">
+          <div class="canon-kind">ROZSZERZENIE</div><h3>🎁 Custom Packi</h3>
+          <p>Dodają specjalne lub customowe pule i paczki kart do normalnego procesu draftowania.</p>
+          <a href="custom-packs.html">Otwórz Biblioteka Custom Packów ↗</a>
+        </article>
+
+        <article class="ency-system-card canon-card canon-visual canon-jokers" data-system-art="jokers">
+          <div class="canon-kind">ROZSZERZENIE</div><h3>🃏 Jokery</h3>
+          <p>Specjalne obiekty, które mogą pojawić się w paczce zamiast zwykłej karty. Po wybraniu Joker nie daje od razu konkretnej karty — najpierw uruchamia własny sposób rozstrzygnięcia i dopiero wtedy zamienia się w wynik wybrany przez gracza.</p>
+          <a href="jokerdex.html">Poznaj typy Jokerów i pełny katalog ↗</a>
+        </article>
+
+        <article class="ency-system-card canon-card canon-visual canon-savesteal" data-system-art="savesteal">
+          <div class="canon-kind">ROZSZERZENIE</div><h3>🛡️ Save & Steal</h3>
+          <p>Po właściwym draftowaniu każdy gracz chroni jedną kartę swojego decku, a następnie bierze udział w rundzie przejmowania niechronionych kart pomiędzy graczami.</p>
+          <a href="save-steal.html">Pełne zasady Save & Steal ↗</a>
+        </article>
+
+        <article class="ency-system-card canon-card canon-visual canon-economy" data-system-art="economy">
+          <div class="canon-kind">ROZSZERZENIE</div><h3>🪙 Economy / Jeff’s Cosmic Shop</h3>
+          <p>Dodaje JeffCoiny, sklep Jeffika i dodatkową warstwę decyzji pomiędzy normalnymi pickami. Jest bazą dla części innych rozszerzeń.</p>
+          <a href="economy.html">Pełny przewodnik po Economy ↗</a>
+        </article>
+
+        <article class="ency-system-card canon-card has-dependency canon-visual canon-bounties" data-system-art="bounties">
+          <div class="canon-kind">ROZSZERZENIE</div><div class="dependency-badge">WYMAGA ECONOMY</div>
+          <h3>🤠 Łowcy Nagród</h3>
+          <p>Kosmiczno-westernowe polowanie na nagrody, w którym wybrane karty stają się uciekinierami z nagrodą w JeffCoinach.</p>
+          <a href="lowcy-nagrod.html">Otwórz podręcznik Łowców Nagród ↗</a>
+        </article>
+
+        <article class="ency-system-card canon-card has-dependency canon-visual canon-quests" data-system-art="quests">
+          <div class="canon-kind">ROZSZERZENIE</div><div class="dependency-badge">WYMAGA ECONOMY</div>
+          <h3>📜 Kosmiczne Questy</h3>
+          <p>Dodają osobiste wyzwania wykonywane podczas normalnego draftowania. Quest ma określony poziom trudności, czas na wykonanie oraz nagrodę w JeffCoinach.</p>
+          <a href="questy.html">Zobacz zasady i pełną bibliotekę Questów ↗</a>
+        </article>
+
+        <article class="ency-system-card canon-card has-dependency canon-visual canon-market" data-system-art="market">
+          <div class="canon-kind">ROZSZERZENIE</div><div class="dependency-badge">WYMAGA ECONOMY</div>
+          <h3>🌌 Galaktyczny Targ</h3>
+          <p>System handlu obejmujący Market oraz Negocjacje między graczami.</p>
+          <a href="galaktyczny-targ.html">Wyląduj na Planecie Targowej ↗</a>
+        </article>
+
+        <article class="ency-system-card canon-card canon-visual canon-anomalies">
+          <div class="canon-kind">ROZSZERZENIE</div><div class="future-badge">PLANOWANE</div>
+          <h3>🕳️ Anomalie Czarnej Dziury</h3>
+          <p>Rzadkie, losowe wydarzenia o różnej rzadkości, które nie dają bezpośredniej przewagi jednemu graczowi, lecz potrafią nagle zmienić sytuację całego draftu.</p>
+          <details><summary>Jaki jest kierunek tego rozszerzenia?</summary><p>Anomalie mają być globalnymi eventami z efektem „wow”. Mogą wpływać na zawartość paczek i decków, zmieniać lub podmieniać karty, dodawać JeffCoiny albo wywoływać inne nietypowe zdarzenia. Mają pojawiać się rzadko, ale być wyraźnie odczuwalne, kiedy już nastąpią.</p></details>
+        </article>
+
+        <article class="ency-system-card canon-card canon-visual canon-mulligan">
+          <div class="canon-kind">ROZSZERZENIE</div><h3>🔄 Mulligan</h3>
+          <p>Po zakończeniu normalnych picków pozwala wskazać jedną własną kartę i przelosować ją na jedną nową dozwoloną kartę.</p>
+          <details><summary>Pełna zasada</summary><p>Mulligan pozostaje pełnoprawnym Rozszerzeniem także wtedy, gdy wymiana jest wykonywana ręcznie przez Operatora draftu. Główny deck nadal ma 12 kart.</p></details>
+        </article>
+
+        <article class="ency-system-card canon-card sideboard-card canon-visual canon-sideboard planetary-reserve-card">
+          <div class="canon-kind">ROZSZERZENIE · SIDEBOARD</div>
+          <h3>🛰️ Planetarna Rezerwa <small>SIDEBOARD</small></h3>
+          <p>Po wszystkich finałowych zmianach decków system buduje dla każdego gracza osobną pulę <strong>12 legalnych kandydatów</strong>. Gracz wybiera z niej dokładnie <strong>3 Rezerwowych</strong>. Od tego momentu Planetarna Rezerwa dodaje też nową warstwę taktyczną fazy Rozgrywek: <strong>między kolejnymi meczami można wykonać jedną zmianę 1:1 pomiędzy aktywną dwunastką a własną pulą 15 kart</strong>.</p>
+          <a href="sideboards.html">Otwórz Planetarną Rezerwę ↗</a>
+          <details><summary>Najważniejsza zasada</summary><p>Główny deck używany w pojedynczym meczu nadal ma dokładnie 12 kart. Trzech Rezerwowych tworzy jawną strefę <strong>SIDEBOARD</strong>, a między meczami możesz wykonać <strong>maksymalnie jedną wymianę 1:1 względem składu używanego w poprzednim meczu</strong>. Sama decyzja, którą kartę wpuścisz na kolejny mecz, nie musi być wcześniej ujawniana przeciwnikowi.</p></details>
+        </article>
+      </div>
+    </section>
+
+    <section class="section encyclopedia-chapter" id="ustawienia">
+      <div class="chapter-eyebrow">Reguły i parametry edycji</div>
+      <h2>🛠️ Ustawienia Specjalne</h2>
+      <p class="chapter-lead">Ustawienie Specjalne nie tworzy osobnego Trybu ani Rozszerzenia. Określa parametr, regułę puli, sposób finalizacji decku albo specjalną zasadę konkretnej edycji.</p>
+
+      <div class="special-settings-columns canon-settings-four">
+        <article>
+          <div class="settings-subkind">A · PRZEBIEG DRAFTU</div>
+          <h3>⏱️ Przebieg Draftu</h3>
+          <div class="setting-entry"><b>Timer</b><span>Limit czasu na wykonanie wyboru przez aktywnego gracza.</span></div>
+          <div class="setting-entry"><b>Cerebro Autopilot</b><span>Automatycznie wykonuje normalny dozwolony pick w określonych sytuacjach i nie używa Supermocy za gracza.</span></div>
+          <div class="setting-entry"><b>Bufor Paczki</b><span>+1 / +2 / +3 dodatkowe karty ponad liczbę potrzebną do wykonania należnych normalnych picków. +1 jest standardem.</span></div>
+          <details><summary>Ważne: kiedy kończy się paczka?</summary><p>Paczka kończy się po wykonaniu pełnej wymaganej liczby normalnych picków, a nie tylko dlatego, że została w niej liczba kart równa Buforowi.</p></details>
+        </article>
+
+        <article>
+          <div class="settings-subkind">B · REGUŁY PULI</div>
+          <h3>🎯 Reguły Puli</h3>
+          <div class="pool-pipeline"><span>Bazowa pula</span><i>→</i><span>Filtry dostępności</span><i>→</i><span>Modyfikatory szans</span><i>→</i><span>Losowanie</span></div>
+          <div class="setting-entry"><b>Bany</b><span>Usuwają wskazane karty z dostępnej puli.</span></div>
+          <div class="setting-entry"><b>Ograniczenia Serii</b><span>Filtr dostępności wykorzystujący dane Series kart.</span></div>
+          <div class="setting-entry"><b>Filtry Tagów</b><span>Filtry dostępności oparte o oficjalne metadane kart.</span><a href="atlas-tagow.html">Otwórz Atlas Tagów ↗</a></div>
+          <div class="setting-entry"><b>Profil Puli</b><span>Gotowy zestaw filtrów, np. STANDARD lub profil przyjazny nowym graczom. Nie jest Trybem Draftowania.</span></div>
+          <div class="setting-entry"><b>Lucky Cards</b><span>Zwiększają wagę wybranych dozwolonych kart, ale nigdy nie przywracają karty wcześniej wykluczonej.</span></div>
+        </article>
+
+        <article>
+          <div class="settings-subkind">C · FINALIZACJA DECKU</div>
+          <h3>🃏 Finalizacja Decku</h3>
+          <div class="setting-entry"><b>Preset Card</b><span>Przed draftem określana jest konkretna karta. Po draftowaniu gracz może użyć jej jako wymiany 1:1 za jedną ze swoich 12 kart.</span></div>
+          <div class="setting-entry"><b>Championy</b><span>Po normalnym draftowaniu gracz może zastąpić jedną dowolną kartę dowolnym Championem. Bany nie ograniczają wyboru Championa.</span></div>
+          <div class="final-deck-law">12 → 12 <small>Każda wymiana pozostawia Główny deck dokładnie 12-kartowy.</small></div>
+        </article>
+
+        <article class="twists-setting">
+          <div class="settings-subkind">D · SPECJALNE TWISTY</div>
+          <h3>✨ Specjalne Twisty</h3>
+          <p>Pełnoprawne Ustawienie Specjalne pozwalające z góry opisać dowolną dodatkową zasadę konkretnej edycji, której standardowy program nie musi mechanicznie egzekwować.</p>
+          <div class="twist-schema"><span>ON / OFF</span><span>Nazwa Twista</span><span>Opis zasad</span></div>
+          <details><summary>Przykład</summary><p><strong>SPECJALNY TWIST — SEZONOWA PRÓBA</strong><br>Po zakończeniu draftu każdy gracz może zastąpić jedną kartę dowolną kartą z aktualnego sezonu.</p></details>
+        </article>
+      </div>
+    </section>
+
+    <section class="section encyclopedia-chapter encyclopedia-portal-chapter" id="katalogi">
+      <div class="chapter-eyebrow">Szybki dostęp podczas draftu</div>
+      <h2>📚 Podręczniki i katalogi Encyklopedii</h2>
+      <p class="chapter-lead">Duże Tryby i systemy mają własne podstrony. Podręczniki wyjaśniają pełne zasady, a katalogi pozwalają dodatkowo przeglądać komplet Jokerów, tagów, Custom Packów lub Supermocy.</p>
+      <div class="portal-grid portal-grid-curated">
+        <a class="ency-portal live curated-portal base-portal arena-portal asset-bg-strong" data-system-art="arena" href="arena-anatomia.html">
+          <span class="portal-icon">🖥️</span>
+          <div class="portal-copy"><div class="portal-copy-row"><span class="portal-lane">PODSTAWA</span></div><b>Anatomia Areny</b><small>Panel Gracza, Picki, Kosmiczne Cmentarzysko, kolejka i stałe elementy programu</small></div>
+          <img class="portal-right-art" src="assets/arena-guide/cardback.webp" alt="" aria-hidden="true">
+          <i>↗</i>
+        </a>
+
+        <a class="ency-portal live curated-portal base-portal process-portal asset-bg-strong" data-system-art="process" href="proces-draftu.html">
+          <span class="portal-icon">🎴</span>
+          <div class="portal-copy"><div class="portal-copy-row"><span class="portal-lane">PODSTAWA</span></div><b>Przebieg Draftowania</b><small>Pełny proces od otwarcia paczki do 12-kartowego decku</small></div>
+          <img class="portal-right-art" src="assets/arena-guide/pack_open.webp" alt="" aria-hidden="true">
+          <i>↗</i>
+        </a>
+
+        <a class="ency-portal live curated-portal base-portal graveyard-portal asset-bg-strong" data-system-art="graveyard" href="graveyard.html">
+          <span class="portal-icon">🪦</span>
+          <div class="portal-copy"><div class="portal-copy-row"><span class="portal-lane">PODSTAWA</span></div><b>Kosmiczne Cmentarzysko</b><small>Skąd biorą się nagrobki i kiedy można odzyskać kartę</small></div>
+          <img class="portal-right-art" src="assets/deep-systems-2/graveyard_planet_icon.png" alt="" aria-hidden="true">
+          <i>↗</i>
+        </a>
+
+        <a class="ency-portal live curated-portal base-portal atlas-portal asset-bg-strong" data-system-art="atlas" href="atlas-tagow.html">
+          <span class="portal-icon">🏷️</span>
+          <div class="portal-copy"><div class="portal-copy-row"><span class="portal-lane">PODSTAWA</span></div><b>Atlas Tagów</b><small>Pełne definicje oficjalnej taksonomii kart</small></div>
+          <img class="portal-right-art" src="assets/catalogs/taxonomy_card_a.webp" alt="" aria-hidden="true">
+          <i>↗</i>
+        </a>
+
+        <a class="ency-portal live curated-portal mode-portal gwiezdny-portal asset-bg-strong" data-system-art="gwiezdny" href="gwiezdny-prad.html">
+          <span class="portal-icon">🌊</span>
+          <div class="portal-copy"><div class="portal-copy-row"><span class="portal-lane">TRYB DRAFTOWANIA</span></div><b>Gwiezdny Prąd</b><small>Rwący Prąd i Wygasające Gwiazdy</small></div>
+          <img class="portal-right-art" src="assets/deep-systems-2/gwiezdny_prad_sticker.webp" alt="" aria-hidden="true">
+          <i>↗</i>
+        </a>
+
+        <a class="ency-portal live curated-portal mode-portal poker-portal" href="poker-draft.html">
+          <span class="portal-icon">♠️</span>
+          <div class="portal-copy"><div class="portal-copy-row"><span class="portal-lane">TRYB DRAFTOWANIA</span></div><b>Poker Draft</b><small>Aukcje, Cosmic Jeffs, przebicia, BAN-y i Poker-Joker</small></div>
+          <span class="poker-chip-logo" aria-hidden="true">♠</span>
+          <i>↗</i>
+        </a>
+
+        <a class="ency-portal live curated-portal extension-portal joker-portal asset-bg-strong" data-system-art="jokers" href="jokerdex.html">
+          <span class="portal-icon">🃏</span>
+          <div class="portal-copy"><div class="portal-copy-row"><span class="portal-lane">ROZSZERZENIE · KATALOG</span></div><b>Jokeropedia</b><small>Wszystkie Jokery, rodzaje, rzadkości i zasady działania</small></div>
+          <img class="portal-right-art" src="assets/catalogs/jeff_joker.webp" alt="" aria-hidden="true">
+          <i>↗</i>
+        </a>
+
+        <a class="ency-portal live curated-portal extension-portal custom-portal asset-bg-strong" data-system-art="custom" href="custom-packs.html">
+          <span class="portal-icon">🎁</span>
+          <div class="portal-copy"><div class="portal-copy-row"><span class="portal-lane">ROZSZERZENIE · KATALOG</span></div><b>Biblioteka Custom Packów</b><small>Wszystkie Custom Packi, ich rodzaje i zasady budowania</small></div>
+          <img class="portal-right-art" src="assets/deep-systems/jeffgoldenhand.webp" alt="" aria-hidden="true">
+          <i>↗</i>
+        </a>
+
+        <a class="ency-portal live curated-portal extension-portal superpower-portal asset-bg-strong" data-system-art="superpowers" href="supermoce.html">
+          <span class="portal-icon">⚡</span>
+          <div class="portal-copy"><div class="portal-copy-row"><span class="portal-lane">ROZSZERZENIE · PODRĘCZNIK</span></div><b>Kodeks Supermocy</b><small>Pełne moce, zasady i interakcje</small></div>
+          <img class="portal-right-art" src="PROGRAM-DRAFT/draft-assets/jeffpowershero.png" onerror="if(!this.dataset.fallback1){this.dataset.fallback1='1';this.src='PROGRAM-DRAFT/draft-assets/jeffpowers.png';}else if(!this.dataset.fallback2){this.dataset.fallback2='1';this.src='PROGRAM-DRAFT/draft-assets/jeffpowers.webp';}else{this.onerror=null;}" alt="" aria-hidden="true">
+          <i>↗</i>
+        </a>
+
+        <a class="ency-portal live curated-portal extension-portal savesteal-portal asset-bg-strong" data-system-art="savesteal" href="save-steal.html">
+          <span class="portal-icon">🛡️</span>
+          <div class="portal-copy"><div class="portal-copy-row"><span class="portal-lane">ROZSZERZENIE</span></div><b>Save & Steal</b><small>Faza ochrony i przejmowania kart</small></div>
+          <img class="portal-right-art" src="assets/deep-systems-2/jeff_thief.png" alt="" aria-hidden="true">
+          <i>↗</i>
+        </a>
+
+        <a class="ency-portal live curated-portal economy-portal asset-bg-strong" data-system-art="economy" href="economy.html">
+          <span class="portal-icon">🪙</span>
+          <div class="portal-copy"><div class="portal-copy-row"><span class="portal-lane">ROZSZERZENIE · EKONOMIA</span></div><b>Ekonomia Draftu</b><small>JeffCoiny, Jeff’s Cosmic Shop i systemy zależne od Economy</small></div>
+          <img class="portal-right-art" src="assets/deep-systems/jeffcoin.png" alt="" aria-hidden="true">
+          <i>↗</i>
+        </a>
+
+        <a class="ency-portal live curated-portal extension-portal bounty-portal asset-bg-strong" href="lowcy-nagrod.html">
+          <span class="portal-icon">🤠</span>
+          <div class="portal-copy"><div class="portal-copy-row"><span class="portal-lane">ROZSZERZENIE · PODRĘCZNIK</span><span class="portal-linking">WYMAGA EKONOMII</span></div><b>Łowcy Nagród</b><small>Bounty Round, Uciekinierzy, rosnące nagrody i JeffCoiny</small></div>
+          <img class="portal-right-art" src="PROGRAM-DRAFT/draft-assets/galactic_hunts_icon.png" alt="" aria-hidden="true">
+          <i>↗</i>
+        </a>
+
+        <a class="ency-portal live curated-portal quests-portal asset-bg-strong" href="questy.html" data-system-art="quests">
+          <span class="portal-icon">📜</span>
+          <div class="portal-copy"><div class="portal-copy-row"><span class="portal-lane">ROZSZERZENIE</span><span class="portal-linking">WYMAGA EKONOMII</span></div><b>Kosmiczne Questy</b><small>Poziomy, okna czasowe, nagrody i pełna biblioteka</small></div>
+          <span class="quest-fallback-logo system-art-fallback" aria-hidden="true">✦</span>
+          <i>↗</i>
+        </a>
+
+        <a class="ency-portal live curated-portal market-portal asset-bg-strong" href="galaktyczny-targ.html" data-system-art="market">
+          <span class="portal-icon">🤝</span>
+          <div class="portal-copy"><div class="portal-copy-row"><span class="portal-lane">ROZSZERZENIE</span><span class="portal-linking">WYMAGA EKONOMII</span></div><b>Galaktyczny Targ</b><small>Handlowanie między graczami, negocjacje i zasady stołu</small></div>
+          <span class="market-fallback-logo system-art-fallback" aria-hidden="true">⚖</span>
+          <i>↗</i>
+        </a>
+
+        <a class="ency-portal live curated-portal extension-portal reserve-portal asset-bg-strong" href="sideboards.html" data-system-art="sideboards">
+          <span class="portal-icon">🛰️</span>
+          <div class="portal-copy"><div class="portal-copy-row"><span class="portal-lane">ROZSZERZENIE · PODRĘCZNIK</span><span class="portal-linking">SIDEBOARD</span></div><b>Planetarna Rezerwa</b><small>12 legalnych kandydatów → wybierz 3 Rezerwowych poza Main Deckiem</small></div>
+          <img class="portal-right-art" src="PROGRAM-DRAFT/draft-assets/planetary_reserve_badge.png" alt="" aria-hidden="true">
+          <i>↗</i>
+        </a>
+      </div>
+      <div class="ency-crosslink-note"><strong>Atlas Tagów ↔ Kolekcja Kart:</strong> definicja tagu należy do Encyklopedii. Kolekcja Kart pozostaje historyczno-statystyczna i będzie przyjmowała deep-link typu „pokaż karty z tym tagiem”. Nie duplikujemy dwóch konkurencyjnych źródeł prawdy.</div>
+    </section>
+
+    <section class="section encyclopedia-chapter glossary-chapter" id="slownik">
+      <div class="chapter-eyebrow">Terminologia · szybka referencja</div>
+      <h2>📖 Legenda i słownik pojęć</h2>
+      <p class="chapter-lead">Szybka legenda najczęściej używanych słów. Elementy Areny — np. Panel Gracza, podgląd decku czy główna scena paczki — są dodatkowo pokazane wizualnie w <a href="arena-anatomia.html"><strong>Anatomii Areny ↗</strong></a>.</p>
+
+      <div class="glossary-grid">
+        <article><b>Pick</b><p>Pojedynczy wybór wykonany podczas draftu. Nie każdy efekt zdobywający lub przesuwający kartę musi być standardowym pickiem.</p></article>
+        <article><b>Standardowy pick</b><p>Standardowy należny wybór gracza wynikający z podstawowej kolejki draftowania. To właśnie te picki liczą się do wymaganej struktury paczki.</p></article>
+        <article><b>Paczka</b><p>Aktualny zestaw kart lub obiektów, z którego wykonywane są wybory według zasad aktywnego Trybu Draftowania.</p></article>
+        <article><b>Główny deck</b><p>Główna talia gracza. Finalnie zawsze zawiera dokładnie 12 kart.</p></article>
+        <article><b>Panel Gracza</b><p>Moduł Areny pokazujący nick, Główny deck, postęp 0–12, bieżące statystyki i aktywne kontrolki gracza.</p></article>
+        <article><b>Kolejka Paczki</b><p>Lista kolejności wykonywania bieżących picków. Wskazuje aktywnego gracza i osoby wybierające po nim.</p></article>
+        <article><b>Kosmiczne Cmentarzysko</b><p>Strefa przechowująca karty, które opuściły paczki lub decki z określonego powodu. Nie każda karta z Cmentarzyska może automatycznie wrócić do gry.</p></article>
+        
+        <article><b>Bufor Paczki</b><p>Dodatkowe karty ponad liczbę potrzebną do wykonania wszystkich należnych standardowych picków.</p></article>
+        <article><b>Planetarna Rezerwa / Sideboard</b><p>Końcowa strefa 3 Rezerwowych wybranych z 12 legalnych kandydatów. Razem z Main Deckiem tworzą jawną pulę 15 kart, z której między meczami można wykonać jedną zmianę 1:1. Aktywny deck zawsze ma 12 kart.</p></article>
+        <article><b>JeffCoin</b><p>Waluta rozszerzenia Economy wykorzystywana w Jeff’s Cosmic Shop i zależnych systemach.</p></article>
+        <article><b>Operator draftu</b><p>Osoba prowadząca wspólną Arenę: zatwierdza przebieg, korzysta z narzędzi potrzebnych do prowadzenia draftu i pilnuje poprawnego rozstrzygania zasad.</p></article>
+      </div>
+    </section>
+
+<section class="section encyclopedia-chapter encyclopedia-longform ecosystem-map" id="mapa-strony">
+      <div class="chapter-eyebrow">Gdzie czego szukać?</div>
+      <h2>🧭 Gdzie czego szukać na stronie?</h2>
+      <p class="chapter-lead">Ta sekcja jest skrótem nawigacyjnym: pokazuje, która podstrona odpowiada na konkretny rodzaj pytania.</p>
+
+      <div class="ecosystem-purpose-grid">
+        <article><b>🌌 Kosmiczne Centrum Draftowe</b><p><strong>Strona główna.</strong> Główne wejście do całego projektu, aktualnych wydarzeń i najważniejszych sekcji.</p><a href="index.html">Otwórz Centrum ↗</a></article>
+        <article><b>🎮 Arena Draftu</b><p><strong>Gdzie odbywa się draftowanie.</strong> Wspólny program do paczek, picków, decków i aktywnych systemów.</p><a href="PROGRAM-DRAFT/snap-draft.html">Otwórz Arenę ↗</a></article>
+        <article><b>📚 Encyklopedia SnapDraftu</b><p><strong>Zasady i wiedza.</strong> Oficjalne zasady, definicje, ustawienia, Rozszerzenia, terminy i sposoby rozstrzygania zasad.</p><a href="#encyklopedia">Jesteś tutaj ↑</a></article>
+        <article><b>📜 Kroniki Draftowe</b><p><strong>Co wydarzyło się w konkretnej edycji.</strong> Tabela, wyniki, uczestnicy, decki i historia poszczególnych draftów.</p><a href="draft.html">Otwórz Kroniki ↗</a></article>
+        <article><b>🏆 Sala Chwały</b><p><strong>Prestiż między wieloma draftami.</strong> Ranking Legend, osiągnięcia i długoterminowa klasyfikacja.</p><a href="hallOfFame.html">Otwórz Salę ↗</a></article>
+        <article><b>🛰️ Galaktyczna Baza Wojowników</b><p><strong>Historia konkretnego gracza.</strong> Profil kariery, wyniki, rekordy, rywale, decki i charakterystyczne statystyki.</p><a href="player-lobby.html">Otwórz Bazę ↗</a></article>
+        <article><b>🃏 Kolekcja Kart Wszechświata</b><p><strong>Historia konkretnej karty.</strong> Występy w finalnych deckach, piloci, wyniki, środowisko i historyczne talie.</p><a href="cards.html">Otwórz Kolekcję ↗</a></article>
+        <article><b>📊 Gwiezdne Archiwum Danych</b><p><strong>Co wynika z całej historii ligi.</strong> Globalne rekordy, trendy, statystyki i przekrojowe analizy.</p><a href="stats.html">Otwórz Archiwum ↗</a></article>
+      </div>
+
+      <h3>Specjalistyczne biblioteki Encyklopedii</h3>
+      <div class="ecosystem-mini-portals">
+        <a href="arena-anatomia.html"><b>🖥️ Anatomia Areny</b><span>Interfejs programu i terminy ekranowe.</span></a>
+        <a href="supermoce.html"><b>⚡ Kodeks Supermocy</b><span>Pełne zasady poszczególnych mocy.</span></a>
+        <a href="jokerdex.html"><b>🃏 Jokeropedia</b><span>Pełny katalog Jokerów.</span></a>
+        <a href="atlas-tagow.html"><b>🏷️ Atlas Tagów</b><span>Oficjalna taksonomia kart.</span></a>
+        <a href="custom-packs.html"><b>🎁 Biblioteka Custom Packów</b><span>Pełny katalog Custom Packów.</span></a>
+        <a href="galaktyczny-targ.html"><b>🤝 Galaktyczny Targ</b><span>Negocjacje, handel i zasady stołu.</span></a>
+        <a href="sideboards.html"><b>🛰️ Planetarna Rezerwa</b><span>Sideboard 3 z 12, selekcja kandydatów i Ławka Rezerwowych.</span></a>
+      </div>
+
+      <div class="ecosystem-law">
+        <b>Najkrócej:</b>
+        <span>Encyklopedia mówi <em>„jak to działa”</em> · Kroniki <em>„co wydarzyło się w tym drafcie”</em> · Archiwum <em>„co wynika z całej historii”</em> · Baza <em>„jak radził sobie ten gracz”</em> · Kolekcja <em>„jak wyglądała historia tej karty”</em>.</span>
+      </div>
+    </section>
+
+    <section class="section final-cta" id="dolacz">
+        <h2>⭐ Dołącz do MSP SnapDraft</h2>
+        <p>W MSP SnapDraft może zagrać każdy — niezależnie od doświadczenia, kolekcji czy poziomu rywalizacji. Staramy się tworzyć format, który jest ciekawy, taktyczny, ale też możliwie przystępny dla nowych graczy.</p>
+        <p>Draft to świetny sposób, żeby oderwać się od codziennej mety Marvel Snap, spróbować nietypowych kart, stworzyć kreatywne decki i zmierzyć się z innymi w bardziej nieprzewidywalnym formacie.</p>
+        <p>To rywalizacja, ale też wspólna zabawa, integracja społeczności i okazja do spojrzenia na Marvel Snap z zupełnie innej strony.</p>
+        <p>Jeśli chcesz dołączyć — obserwuj ogłoszenia na Discordzie i grupie <strong>Marvel Snap Polska</strong>, zapisz się na najbliższy draft i wejdź z nami na arenę.</p>
+        <div class="cta-buttons">
+            <a class="btn gold" href="index.html">Kosmiczne Centrum Draftowe</a>
+            <a class="btn" href="PROGRAM-DRAFT/snap-draft.html">Wejdź na Arenę Draftu</a>
+            <a class="btn" href="draft.html">Kroniki Draftowe</a>
+        </div>
+    </section>
+
+    <div class="footer-note">MSP SnapDraft Event • Marvel Snap Polska • Encyklopedia SnapDraftu</div>
+</div>
+<script src="assets/encyclopedia01.js"></script>
+<script src="assets/encyclopedia02.js"></script>
+<script src="assets/encyclopedia03.js"></script>
+<script src="assets/encyclopedia06.js"></script>
+
+
+
+<script>
+/* Encyclopedia 12B — canonical tile assets with stronger direct modal backgrounds. */
+(function(){
+  "use strict";
+
+  const SYSTEM_ASSETS={
+    arena:{
+      backgrounds:[
+        "assets/cosmic-bg.png",
+        "assets/cosmic_tło.png",
+        "assets/cosmic_tlo.png"
+      ]
+    },
+    process:{
+      backgrounds:[
+        "assets/cosmic-bg.png",
+        "assets/cosmic_tło.png",
+        "assets/cosmic_tlo.png"
+      ]
+    },
+    graveyard:{
+      backgrounds:[
+        "assets/deep-systems-2/graveyard_background.png",
+        "assets/arena-guide/graveyard_background.png",
+        "PROGRAM-DRAFT/draft-assets/graveyard_background.png",
+        "PROGRAM-DRAFT/draft-assets/graveyard_background.webp"
+      ],
+      logos:[
+        "assets/deep-systems-2/graveyard_planet_icon.png",
+        "assets/arena-guide/graveyard_planet.png"
+      ]
+    },
+    atlas:{
+      backgrounds:[
+        "assets/cosmictool.png"
+      ],
+      logos:[
+        "assets/catalogs/taxonomy_card_a.webp"
+      ]
+    },
+    gwiezdny:{
+      backgrounds:[
+        "assets/deep-systems-2/gc_title_current_texture.png",
+        "PROGRAM-DRAFT/draft-assets/gc_title_current_texture.png",
+        "PROGRAM-DRAFT/draft-assets/gc_title_current_texture.webp"
+      ],
+      logos:[
+        "assets/deep-systems-2/gwiezdny_prad_sticker.webp",
+        "PROGRAM-DRAFT/draft-assets/gwiezdny_prad_sticker.webp",
+        "PROGRAM-DRAFT/draft-assets/gwiezdny_prad_sticker.png"
+      ],
+      bgPos:"center",
+      bgSize:"cover"
+    },
+    jokers:{
+      backgrounds:[
+        "assets/catalogs/joker_galaxy.png",
+        "PROGRAM-DRAFT/draft-assets/joker_galaxy.png"
+      ],
+      bgPos:"center",
+      bgSize:"cover",
+      logos:[
+        "assets/catalogs/jeff_joker.webp"
+      ]
+    },
+    custom:{
+      backgrounds:[
+        "assets/catalogs/customfabryka.png",
+        "PROGRAM-DRAFT/draft-assets/customfabryka.png"
+      ],
+      bgPos:"center",
+      bgSize:"cover",
+      logos:[
+        "assets/deep-systems/jeffgoldenhand.webp",
+        "PROGRAM-DRAFT/draft-assets/custom_pack_logo.png",
+        "PROGRAM-DRAFT/draft-assets/custom_pack_logo.webp"
+      ]
+    },
+    superpowers:{
+      backgrounds:[
+        "assets/powerstormtile.webp",
+        "assets/powerstormtile.png",
+        "PROGRAM-DRAFT/draft-assets/powerstormtile.webp",
+        "PROGRAM-DRAFT/draft-assets/powerstormtile.png"
+      ],
+      bgPos:"center",
+      bgSize:"cover",
+      logos:[
+        "PROGRAM-DRAFT/draft-assets/jeffpowershero.png",
+        "PROGRAM-DRAFT/draft-assets/jeffpowers.png",
+        "PROGRAM-DRAFT/draft-assets/jeffpowers.webp"
+      ]
+    },
+    savesteal:{
+      backgrounds:[
+        "assets/deep-systems-2/save_steal_cosmic.png",
+        "PROGRAM-DRAFT/draft-assets/save_steal_cosmic.png"
+      ],
+      bgPos:"center",
+      bgSize:"cover",
+      logos:[
+        "assets/deep-systems-2/jeff_thief.png",
+        "PROGRAM-DRAFT/draft-assets/jeff_thief.png"
+      ]
+    },
+    economy:{
+      backgrounds:[
+        "PROGRAM-DRAFT/draft-assets/shop_background.png",
+        "assets/deep-systems/shop_background.png",
+        "PROGRAM-DRAFT/draft-assets/shop_background.webp",
+        "PROGRAM-DRAFT/draft-assets/jeff_shop_background.png",
+        "PROGRAM-DRAFT/draft-assets/jeff_shop_background.webp"
+      ],
+      bgPos:"center top",
+      bgSize:"cover",
+      logos:[
+        "assets/deep-systems/jeffcoin.png",
+        "assets/arena-guide/jeffcoin.png",
+        "PROGRAM-DRAFT/draft-assets/jeffcoin.png"
+      ]
+    },
+    bounties:{
+      backgrounds:[
+        "PROGRAM-DRAFT/draft-assets/bounty_round_banner.png",
+        "PROGRAM-DRAFT/draft-assets/bounty_round_banner.webp"
+      ],
+      bgPos:"center 52%",
+      bgSize:"cover"
+    },
+    quests:{
+      backgrounds:[
+        "PROGRAM-DRAFT/draft-assets/Quest Irishman Pattern Main.png",
+        "PROGRAM-DRAFT/draft-assets/quest_arishem_pattern_main.webp",
+        "PROGRAM-DRAFT/draft-assets/quest_arishem_temple_backdrop.png",
+        "PROGRAM-DRAFT/draft-assets/quest_background.png",
+        "assets/quest_background.png"
+      ],
+      logos:[
+        "assets/Quest IrishM Chibi logo.png",
+        "assets/Quest IrishM Chibi Logo.png",
+        "assets/Quest Arishem Chibi logo.png",
+        "assets/Quest Arishem Chibi Logo.png",
+        "assets/quest_irishm_chibi_logo.png",
+        "assets/quest_arishem_chibi_logo.png",
+        "PROGRAM-DRAFT/draft-assets/Quest IrishM Chibi logo.png",
+        "PROGRAM-DRAFT/draft-assets/Quest Arishem Chibi logo.png",
+        "PROGRAM-DRAFT/draft-assets/quest_irishm_chibi_logo.png",
+        "PROGRAM-DRAFT/draft-assets/quest_arishem_chibi_logo.png"
+      ],
+      bgPos:"center",
+      bgSize:"cover"
+    },
+    market:{
+      backgrounds:[
+        "PROGRAM-DRAFT/draft-assets/Galactic Market Backdrop V2.png",
+        "PROGRAM-DRAFT/draft-assets/galactic_market_backdrop_v2.png",
+        "PROGRAM-DRAFT/draft-assets/market_background.png",
+        "assets/market_background.png"
+      ],
+      logos:[
+        "PROGRAM-DRAFT/draft-assets/market_logo.png",
+        "PROGRAM-DRAFT/draft-assets/market_logo.webp",
+        "PROGRAM-DRAFT/draft-assets/galactic_market_logo.png",
+        "PROGRAM-DRAFT/draft-assets/galactic_market_logo.webp",
+        "PROGRAM-DRAFT/draft-assets/trade_market_logo.png",
+        "assets/market_logo.png",
+        "assets/galactic_market_logo.png"
+      ],
+      bgPos:"center 60%",
+      bgSize:"cover"
+    },
+    sideboards:{
+      backgrounds:["PROGRAM-DRAFT/draft-assets/planetary_reserve_modal_bg.png"],
+      logos:["PROGRAM-DRAFT/draft-assets/planetary_reserve_badge.png","PROGRAM-DRAFT/draft-assets/planetary_reserve_logo.png"],
+      bgPos:"center",bgSize:"cover"
+    }
+  };
+
+  const firstExisting=(urls)=>new Promise(resolve=>{
+    if(!urls || !urls.length){resolve(null);return;}
+    let index=0;
+    const tryNext=()=>{
+      if(index>=urls.length){resolve(null);return;}
+      const url=urls[index++];
+      const image=new Image();
+      image.onload=()=>resolve(url);
+      image.onerror=tryNext;
+      image.src=url;
+    };
+    tryNext();
+  });
+
+  const ensurePortalArt=(tile)=>{
+    let art=tile.querySelector('.portal-right-art, .program-resolved-art');
+    if(art && art.tagName==='IMG') return art;
+    art=document.createElement('img');
+    art.className='portal-right-art';
+    art.alt='';
+    art.setAttribute('aria-hidden','true');
+    const fallback=tile.querySelector('.system-art-fallback');
+    if(fallback){ fallback.remove(); }
+    tile.appendChild(art);
+    return art;
+  };
+
+  const tileNodes=[...document.querySelectorAll('[data-system-art]')];
+
+  tileNodes.forEach(async tile=>{
+    const system=tile.dataset.systemArt;
+    const config=SYSTEM_ASSETS[system];
+    if(!config) return;
+
+    const [background,logo]=await Promise.all([
+      firstExisting(config.backgrounds || []),
+      firstExisting(config.logos || [])
+    ]);
+
+    if(background && !tile.classList.contains('canon-card')){
+      tile.style.setProperty('--tile-bg',`url("${background}")`);
+      if(config.bgPos) tile.style.setProperty('--tile-bg-pos',config.bgPos);
+      if(config.bgSize) tile.style.setProperty('--tile-bg-size',config.bgSize);
+    }
+
+    if(logo && !tile.classList.contains('canon-card')){
+      const art=ensurePortalArt(tile);
+      art.src=logo;
+      art.className='portal-right-art';
+      if(system==='gwiezdny'){
+        art.style.width='142px';
+        art.style.height='94px';
+        art.style.right='42px';
+      }
+      if(system==='superpowers'){
+        art.style.width='112px';
+        art.style.height='104px';
+        art.style.objectFit='contain';
+        art.style.right='39px';
+      }
+      if(system==='quests'){
+        art.style.width='88px';
+        art.style.height='88px';
+        art.style.right='47px';
+      }
+      if(system==='market'){
+        art.style.width='92px';
+        art.style.height='92px';
+        art.style.right='45px';
+      }
+    }
+  });
+})();
+</script>
+</body>
+</html>

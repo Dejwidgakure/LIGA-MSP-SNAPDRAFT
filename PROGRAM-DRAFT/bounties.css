@@ -1,0 +1,906 @@
+/* MSP SnapDraft — ŁOWCY NAGRÓD / BOUNTIES B2 */
+.modeOption.bountiesModeOption{
+    position:relative;
+    overflow:hidden;
+    border-color:rgba(255,187,76,.42);
+    background:linear-gradient(145deg,rgba(64,29,86,.82),rgba(35,13,43,.9));
+}
+.modeOption.bountiesModeOption::after{
+    content:"WYMAGA ECONOMY";
+    position:absolute;
+    right:9px;
+    bottom:7px;
+    font-size:8px;
+    letter-spacing:.08em;
+    color:#ffd37a;
+    opacity:.72;
+}
+.modeOption.bountiesModeOption.bounties-active::after{content:"AKTYWNE";color:#a8ffdb;}
+.modeOption.bountiesModeOption.bounties-requires-economy{opacity:.62;filter:saturate(.72);}
+.bountiesModeIcon{
+    width:42px;
+    height:42px;
+    object-fit:contain;
+    filter:drop-shadow(0 0 9px rgba(255,188,68,.65));
+}
+.bounty-card-marker{
+    position:absolute;
+    right:-7px;
+    top:-7px;
+    z-index:18;
+    min-width:54px;
+    min-height:42px;
+    padding:5px 8px;
+    border:2px solid rgba(255,215,112,.92);
+    border-radius:12px 12px 12px 3px;
+    background:linear-gradient(145deg,rgba(53,22,74,.97),rgba(118,42,60,.94));
+    box-shadow:0 0 10px rgba(255,71,123,.8),0 0 22px rgba(255,189,66,.52),inset 0 0 10px rgba(255,255,255,.12);
+    color:white;
+    pointer-events:none;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:4px;
+    transform:rotate(2deg);
+    animation:bountyMarkerPulse 1.8s ease-in-out infinite;
+}
+.bounty-card-marker img{width:24px;height:24px;object-fit:contain;filter:drop-shadow(0 0 5px #ffdc6c);}
+.bounty-card-marker strong{font-size:14px;line-height:1;text-shadow:0 0 8px rgba(255,224,121,.85);white-space:nowrap;}
+.bounty-card-marker b{font-size:8px;letter-spacing:.09em;color:#ffd8ed;}
+.bounty-card-marker.bounty-discount{flex-direction:column;gap:1px;background:linear-gradient(145deg,rgba(56,13,73,.98),rgba(205,31,93,.95));}
+.bounty-card-marker.bounty-discount strong{font-size:15px;}
+@keyframes bountyMarkerPulse{
+    0%,100%{transform:rotate(2deg) scale(1);filter:brightness(1)}
+    50%{transform:rotate(-1deg) scale(1.055);filter:brightness(1.16)}
+}
+.bounty-round-overlay{
+    position:fixed;
+    inset:0;
+    z-index:90080;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    pointer-events:none;
+    background:radial-gradient(circle at center,rgba(78,21,85,.22),transparent 52%);
+    opacity:0;
+    transition:opacity .24s ease;
+}
+.bounty-round-overlay.is-showing{opacity:1;}
+.bounty-round-card{
+    width:min(520px,82vw);
+    padding:24px 30px 22px;
+    text-align:center;
+    border:2px solid rgba(255,205,90,.94);
+    border-radius:22px;
+    background:linear-gradient(155deg,rgba(41,15,55,.97),rgba(78,19,48,.97));
+    box-shadow:0 0 24px rgba(255,76,144,.55),0 0 65px rgba(109,53,255,.45),inset 0 0 28px rgba(255,200,80,.09);
+    transform:scale(.74) rotate(-1.3deg);
+}
+.bounty-round-overlay.is-showing .bounty-round-card{animation:bountyRoundIn 1.85s cubic-bezier(.2,.9,.2,1) both;}
+.bounty-round-kicker{font-size:11px;letter-spacing:.24em;color:#ffc96d;font-weight:900;}
+.bounty-round-card>strong{display:block;font-size:34px;letter-spacing:.04em;color:white;text-shadow:0 0 10px #ff4e9b,0 0 26px #8c5dff;margin:6px 0 8px;}
+.bounty-round-card p{margin:0 auto 8px;color:#eadcff;font-weight:700;}
+.bounty-round-card small{color:#ffd68b;font-weight:900;letter-spacing:.08em;}
+.bounty-wanted-stamp{position:absolute;transform:translate(-20px,-39px) rotate(-8deg);border:3px solid #ff8e67;color:#ff9f75;padding:4px 10px;border-radius:6px;font-weight:1000;letter-spacing:.15em;box-shadow:0 0 12px rgba(255,77,97,.55);}
+@keyframes bountyRoundIn{0%{transform:scale(.55) rotate(-4deg);filter:blur(7px);opacity:0}18%{filter:blur(0);opacity:1}70%{transform:scale(1) rotate(.8deg);opacity:1}100%{transform:scale(.98) rotate(0);opacity:0}}
+.bounty-discount-award{
+    position:fixed;
+    inset:0;
+    z-index:90100;
+    display:grid;
+    place-items:center;
+    pointer-events:none;
+    opacity:0;
+    transition:opacity .18s ease;
+}
+.bounty-discount-award.is-visible{opacity:1;}
+.bounty-discount-ticket{
+    padding:18px 28px;
+    border-radius:16px;
+    border:2px solid #ffcf6b;
+    background:linear-gradient(145deg,rgba(49,14,69,.98),rgba(196,25,94,.95));
+    box-shadow:0 0 26px rgba(255,42,131,.7),0 0 60px rgba(93,68,255,.4);
+    text-align:center;
+    animation:bountyDiscountPop 1.7s ease both;
+}
+.bounty-discount-ticket span,.bounty-discount-ticket small{display:block;color:#ffe8a6;font-size:10px;font-weight:900;letter-spacing:.13em;}
+.bounty-discount-ticket strong{display:block;color:#fff;font-size:30px;margin:4px 0;text-shadow:0 0 14px #ff3f9a;}
+@keyframes bountyDiscountPop{0%{transform:scale(.55) rotate(-4deg);opacity:0}18%{transform:scale(1.06) rotate(1deg);opacity:1}70%{transform:scale(1);opacity:1}100%{transform:scale(.9);opacity:0}}
+
+/* MSP SnapDraft — ŁOWCY NAGRÓD / BOUNTIES B2 UX POLISH */
+.bounty-card-marker{
+    isolation:isolate;
+    overflow:visible;
+}
+.bounty-card-marker::after{
+    content:"";
+    position:absolute;
+    inset:-5px;
+    border-radius:14px;
+    border:1px solid rgba(255,225,139,.38);
+    opacity:.55;
+    pointer-events:none;
+    animation:bountyMarkerOrbit 2.4s linear infinite;
+}
+.bounty-card-marker.bounty-coins::before{
+    content:"WANTED";
+    position:absolute;
+    left:50%;
+    top:-11px;
+    transform:translateX(-50%) rotate(-3deg);
+    padding:2px 5px;
+    border-radius:4px;
+    background:rgba(75,20,42,.95);
+    border:1px solid rgba(255,191,88,.88);
+    color:#ffe3a0;
+    font-size:6px;
+    font-weight:1000;
+    letter-spacing:.12em;
+    line-height:1;
+    box-shadow:0 0 8px rgba(255,89,122,.5);
+}
+@keyframes bountyMarkerOrbit{
+    0%{transform:rotate(0deg) scale(.98);opacity:.35}
+    50%{transform:rotate(180deg) scale(1.05);opacity:.82}
+    100%{transform:rotate(360deg) scale(.98);opacity:.35}
+}
+#pack [data-card-instance-id].bounty-marker-reveal,
+[data-card-instance-id].bounty-marker-reveal{
+    animation:bountyCardRevealPulse 1.45s cubic-bezier(.2,.85,.25,1) both;
+}
+#pack [data-card-instance-id].bounty-aged-reveal,
+[data-card-instance-id].bounty-aged-reveal{
+    animation:bountyAgedCardReveal 1.65s cubic-bezier(.2,.85,.25,1) both;
+}
+@keyframes bountyCardRevealPulse{
+    0%{filter:brightness(1);transform:translateY(0) scale(1)}
+    14%{filter:brightness(1.55) saturate(1.25);transform:translateY(-7px) scale(1.035)}
+    34%{filter:brightness(1.12);transform:translateY(-2px) scale(1.012)}
+    62%{filter:brightness(1.36) saturate(1.18);transform:translateY(-4px) scale(1.025)}
+    100%{filter:brightness(1);transform:translateY(0) scale(1)}
+}
+@keyframes bountyAgedCardReveal{
+    0%{filter:brightness(1);transform:scale(1)}
+    18%{filter:sepia(.48) saturate(1.5) brightness(1.35);transform:scale(1.045) rotate(-.4deg)}
+    40%{filter:brightness(1.12);transform:scale(1.018) rotate(.25deg)}
+    66%{filter:sepia(.22) saturate(1.25) brightness(1.22);transform:scale(1.03)}
+    100%{filter:brightness(1);transform:scale(1)}
+}
+.bounty-aged-toast{
+    position:fixed;
+    left:50%;
+    top:16%;
+    z-index:90092;
+    min-width:min(390px,76vw);
+    padding:13px 22px 14px;
+    border:1px solid rgba(255,204,103,.9);
+    border-radius:16px;
+    background:linear-gradient(150deg,rgba(37,12,52,.98),rgba(102,29,58,.96));
+    box-shadow:0 0 24px rgba(255,89,124,.48),0 0 55px rgba(118,73,255,.32),inset 0 0 22px rgba(255,215,112,.07);
+    text-align:center;
+    pointer-events:none;
+    opacity:0;
+    transform:translate(-50%,-18px) scale(.92);
+    transition:opacity .22s ease,transform .28s cubic-bezier(.2,.85,.25,1);
+}
+.bounty-aged-toast.is-visible{opacity:1;transform:translate(-50%,0) scale(1);}
+.bounty-aged-toast::before{
+    content:"WANTED";
+    position:absolute;
+    left:13px;
+    top:-10px;
+    transform:rotate(-6deg);
+    padding:3px 7px;
+    border:2px solid rgba(255,106,91,.88);
+    border-radius:5px;
+    color:#ffb38f;
+    background:rgba(54,13,38,.94);
+    font-size:7px;
+    font-weight:1000;
+    letter-spacing:.14em;
+    box-shadow:0 0 10px rgba(255,64,91,.44);
+}
+.bounty-aged-toast span,.bounty-aged-toast strong,.bounty-aged-toast small{display:block;}
+.bounty-aged-toast .bounty-aged-kicker{color:#ffd27e;font-size:8px;font-weight:1000;letter-spacing:.18em;margin-bottom:3px;}
+.bounty-aged-toast strong{color:#fff;font-size:20px;line-height:1.05;text-shadow:0 0 10px rgba(255,79,145,.72);}
+.bounty-aged-toast small{margin-top:5px;color:#ffe6a6;font-size:12px;font-weight:1000;letter-spacing:.06em;}
+
+.economy-wallet-strip{overflow:visible!important;}
+.economy-wallet-strip.has-bounty-promo{position:relative;}
+.bounty-wallet-promo{
+    position:absolute;
+    left:50%;
+    top:100%;
+    transform:translate(-50%,-2px);
+    z-index:12;
+    display:flex;
+    align-items:center;
+    gap:3px;
+    padding:2px 6px 3px;
+    border-radius:8px;
+    border:1px solid rgba(255,207,107,.9);
+    background:linear-gradient(135deg,rgba(73,17,95,.98),rgba(192,27,92,.96));
+    box-shadow:0 0 10px rgba(255,48,137,.5),0 0 18px rgba(108,77,255,.28);
+    color:white;
+    line-height:1;
+    white-space:nowrap;
+    pointer-events:none;
+    animation:bountyWalletPromoPulse 1.8s ease-in-out infinite;
+}
+.bounty-wallet-promo b{font-size:6px;letter-spacing:.08em;color:#ffe1ac;}
+.bounty-wallet-promo strong{font-size:9px;text-shadow:0 0 6px rgba(255,255,255,.55);}
+@keyframes bountyWalletPromoPulse{
+    0%,100%{filter:brightness(1);transform:translate(-50%,-2px) scale(1)}
+    50%{filter:brightness(1.18);transform:translate(-50%,-3px) scale(1.035)}
+}
+
+.bounty-picker-promo-chip,
+.deckInspectorBountyPromo{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:3px;
+    min-height:22px;
+    padding:3px 7px;
+    border-radius:999px;
+    border:1px solid rgba(255,207,107,.86);
+    background:linear-gradient(135deg,rgba(76,22,101,.94),rgba(190,30,95,.92));
+    color:#fff;
+    font-size:8px;
+    font-weight:1000;
+    letter-spacing:.05em;
+    box-shadow:0 0 10px rgba(255,54,145,.36);
+    white-space:nowrap;
+}
+.bounty-picker-promo-chip strong,.deckInspectorBountyPromo strong{color:#ffe5a1;text-shadow:0 0 6px rgba(255,197,92,.45);}
+
+@media (max-width:900px){
+    .bounty-aged-toast{top:13%;min-width:min(320px,82vw);padding:11px 16px 12px;}
+    .bounty-aged-toast strong{font-size:17px;}
+    .bounty-wallet-promo{transform:translate(-50%,-1px) scale(.9);}
+}
+
+/* ŁOWCY NAGRÓD — final art integration.
+   The marker deliberately sits at the bottom-centre of a card: cost and power
+   remain unobstructed in their canonical top corners. */
+.bounty-card-marker{
+    --bounty-marker-width:clamp(38px,36%,48px);
+    left:50%!important;
+    right:auto!important;
+    top:auto!important;
+    bottom:3px!important;
+    width:var(--bounty-marker-width)!important;
+    min-width:0!important;
+    height:auto!important;
+    min-height:0!important;
+    aspect-ratio:512/307;
+    padding:0!important;
+    gap:0!important;
+    border:0!important;
+    border-radius:0!important;
+    background:transparent url("draft-assets/bounty_badge_shell.png") center/contain no-repeat!important;
+    box-shadow:none!important;
+    filter:drop-shadow(0 1px 3px rgba(0,0,0,.84));
+    transform:translateX(-50%)!important;
+    overflow:visible!important;
+    animation:bountyMarkerAssetPulse 2s ease-in-out infinite!important;
+}
+.bounty-card-marker::after,
+.bounty-card-marker::before{display:none!important;content:none!important;}
+.bounty-card-marker img{
+    position:absolute;
+    left:3.5%;
+    top:18%;
+    width:35%!important;
+    height:55%!important;
+    object-fit:contain;
+    filter:drop-shadow(0 0 3px rgba(255,220,108,.88));
+}
+.bounty-card-marker strong{
+    position:absolute;
+    left:44%;
+    right:7%;
+    top:50%;
+    transform:translateY(-52%);
+    font:1000 clamp(8px,1.02cqw,11px)/1 Orbitron,system-ui,sans-serif!important;
+    color:#fff1ae;
+    text-align:center;
+    text-shadow:0 1px 2px #431060,0 0 5px #ff45db;
+}
+.bounty-card-marker b{
+    position:absolute;
+    left:6%;
+    width:36%;
+    top:50%;
+    transform:translateY(-53%);
+    font:1000 clamp(5px,.58cqw,7px)/1 Orbitron,system-ui,sans-serif!important;
+    color:#fff1ae;
+    text-align:center;
+    letter-spacing:-.02em;
+    text-shadow:0 1px 2px #5c134e;
+}
+.bounty-card-marker.bounty-discount{flex-direction:row!important;}
+.bounty-card-marker.bounty-discount strong{
+    left:41%;
+    right:5%;
+    font-size:clamp(7px,.92cqw,10px)!important;
+}
+@keyframes bountyMarkerAssetPulse{
+    0%,100%{transform:translateX(-50%) scale(1)!important;filter:drop-shadow(0 1px 3px rgba(0,0,0,.84)) brightness(1)}
+    50%{transform:translateX(-50%) scale(1.045)!important;filter:drop-shadow(0 0 5px rgba(255,86,218,.68)) brightness(1.12)}
+}
+
+/* Art-backed announcements retain live, localised HTML text. */
+.bounty-round-card{
+    width:min(1080px,88vw)!important;
+    min-height:min(430px,48vw)!important;
+    box-sizing:border-box;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    padding:8% 25% 8% 23%!important;
+    border:0!important;
+    border-radius:0!important;
+    background:transparent url("draft-assets/bounty_round_banner.png") center/100% 100% no-repeat!important;
+    box-shadow:none!important;
+    filter:drop-shadow(0 12px 28px rgba(0,0,0,.66));
+}
+.bounty-round-kicker{color:#64ecff!important;text-shadow:0 0 8px #315dff;}
+.bounty-round-card>strong{font-size:clamp(24px,3.1vw,48px)!important;}
+.bounty-wanted-stamp{display:none!important;}
+.bounty-aged-toast{
+    top:12%!important;
+    width:min(760px,82vw)!important;
+    min-width:0!important;
+    box-sizing:border-box;
+    padding:34px 31% 35px 20%!important;
+    border:0!important;
+    border-radius:0!important;
+    background:transparent url("draft-assets/bounty_new_alert.png") center/100% 100% no-repeat!important;
+    box-shadow:none!important;
+    filter:drop-shadow(0 10px 22px rgba(0,0,0,.62));
+}
+.bounty-aged-toast::before{display:none!important;content:none!important;}
+.bounty-aged-toast strong{font-size:clamp(16px,2vw,25px)!important;}
+.bounty-discount-ticket{
+    width:min(760px,84vw);
+    aspect-ratio:4/1;
+    box-sizing:border-box;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    padding:4% 10%;
+    border:0!important;
+    border-radius:0!important;
+    background:transparent url("draft-assets/bounty_flash_sale_price_ribbon.png") center/100% 100% no-repeat!important;
+    box-shadow:none!important;
+    filter:drop-shadow(0 10px 24px rgba(0,0,0,.62));
+}
+
+/* Flash Sale is a price-strip replacement, never a description overlay. */
+.economy-product-card .economy-price-modifier-badge.is-bounty-flash-sale{
+    left:50%!important;
+    right:auto!important;
+    top:auto!important;
+    bottom:2.5%!important;
+    width:86%!important;
+    min-width:0!important;
+    height:15.5%!important;
+    min-height:22px;
+    max-height:46px;
+    box-sizing:border-box;
+    display:grid!important;
+    grid-template-columns:minmax(0,1fr) auto;
+    align-items:center;
+    gap:4px;
+    padding:1.2% 7%!important;
+    border:0!important;
+    border-radius:0!important;
+    background:transparent url("draft-assets/bounty_flash_sale_price_ribbon.png") center/100% 100% no-repeat!important;
+    box-shadow:none!important;
+    transform:translateX(-50%)!important;
+    filter:drop-shadow(0 2px 5px rgba(0,0,0,.58));
+    overflow:hidden;
+}
+.economy-product-card .economy-price-modifier-badge.is-bounty-flash-sale>b{
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+    font:1000 clamp(5px,.62cqw,9px)/1 Orbitron,system-ui,sans-serif!important;
+    color:#fff2a9!important;
+}
+.economy-product-card .economy-price-modifier-badge.is-bounty-flash-sale>span{
+    margin:0!important;
+    gap:2px!important;
+    white-space:nowrap;
+    font:1000 clamp(7px,.9cqw,13px)/1 Orbitron,system-ui,sans-serif!important;
+}
+.economy-product-card .economy-price-modifier-badge.is-bounty-flash-sale del{
+    color:#ff93b6;
+    font-size:.72em;
+    text-decoration-thickness:2px;
+}
+.economy-product-card .economy-price-modifier-badge.is-bounty-flash-sale .jeff-coin-icon{
+    width:clamp(12px,1.5cqw,20px)!important;
+    height:clamp(12px,1.5cqw,20px)!important;
+}
+
+/* Coin payout uses the generated reward panel while preserving the canonical
+   JeffCoin flight and the wallet destination calculated by Economy. */
+.economy-jeffcoin-award-flight.is-bounty-award{
+    width:360px!important;
+    height:180px!important;
+    margin:-90px 0 0 -180px!important;
+    padding:42px 42px 28px 142px;
+    box-sizing:border-box;
+    background:transparent url("draft-assets/bounty_reward_panel.png") center/100% 100% no-repeat;
+    filter:drop-shadow(0 10px 24px rgba(0,0,0,.62));
+}
+.economy-jeffcoin-award-flight.is-bounty-award .economy-award-label{position:relative;z-index:2;}
+.economy-jeffcoin-award-flight.is-bounty-award .economy-award-label span{font-size:9px;}
+.economy-jeffcoin-award-flight.is-bounty-award .economy-award-label strong{font-size:28px;}
+.economy-jeffcoin-award-flight.is-bounty-award .economy-award-coins{
+    position:absolute;
+    left:19px;
+    top:34px;
+    width:112px;
+    height:112px;
+    margin:0;
+}
+.economy-jeffcoin-award-flight.is-bounty-award .economy-award-coins img{
+    left:30px;
+    top:30px;
+    width:52px;
+    height:52px;
+}
+
+@media(max-width:700px){
+    .bounty-card-marker{--bounty-marker-width:clamp(34px,34%,43px);bottom:2px!important;}
+    .bounty-round-card{padding:10% 20% 10% 18%!important;}
+    .bounty-aged-toast{padding:25px 29% 26px 18%!important;}
+    .economy-product-card .economy-price-modifier-badge.is-bounty-flash-sale{width:88%!important;height:16%!important;}
+}
+@media(prefers-reduced-motion:reduce){
+    .bounty-card-marker{animation:none!important;}
+}
+
+/* ============================================================
+   ŁOWCY NAGRÓD B5 — READABILITY / TYPOGRAPHY / TIMING POLISH
+   Dynamic text remains HTML; generated PNGs are decorative shells only.
+   ============================================================ */
+
+/* Card bounty marker — intentionally larger and easier to spot. */
+.bounty-card-marker{
+    --bounty-marker-width:clamp(66px,66%,84px)!important;
+    bottom:-4px!important;
+    container-type:inline-size;
+    filter:drop-shadow(0 2px 4px rgba(0,0,0,.9)) drop-shadow(0 0 4px rgba(255,80,211,.34))!important;
+}
+.bounty-card-marker img{
+    left:6%!important;
+    top:17%!important;
+    width:31%!important;
+    height:58%!important;
+}
+.bounty-card-marker strong{
+    left:39%!important;
+    right:5%!important;
+    top:49%!important;
+    font-family:"Orbitron","Arial Black",sans-serif!important;
+    font-size:clamp(12px,22cqw,16px)!important;
+    font-weight:1000!important;
+    letter-spacing:-.035em!important;
+    color:#fff5bd!important;
+    -webkit-text-stroke:.45px rgba(64,16,86,.9);
+    text-shadow:
+        0 1px 0 #6d2a7d,
+        0 2px 0 #32133f,
+        0 0 5px rgba(255,255,255,.9),
+        0 0 9px rgba(255,67,220,.95)!important;
+}
+.bounty-card-marker b{
+    left:4.5%!important;
+    width:34.5%!important;
+    font-size:clamp(7px,11cqw,9px)!important;
+    font-family:"Orbitron","Arial Black",sans-serif!important;
+    -webkit-text-stroke:.35px rgba(65,14,76,.9);
+    text-shadow:0 1px 0 #5b174e,0 0 5px rgba(255,217,112,.75)!important;
+}
+.bounty-card-marker.bounty-discount strong{
+    left:39%!important;
+    right:5%!important;
+    font-size:clamp(10px,18cqw,14px)!important;
+}
+@keyframes bountyMarkerAssetPulse{
+    0%,100%{transform:translateX(-50%) scale(1)!important;filter:drop-shadow(0 2px 4px rgba(0,0,0,.9)) brightness(1)}
+    50%{transform:translateX(-50%) scale(1.08)!important;filter:drop-shadow(0 0 8px rgba(255,86,218,.82)) brightness(1.18)}
+}
+
+/* A longer card ping means the operator can understand which card became a fugitive. */
+#pack [data-card-instance-id].bounty-aged-reveal,
+[data-card-instance-id].bounty-aged-reveal{
+    animation:bountyAgedCardReveal 2.65s cubic-bezier(.18,.82,.22,1) both!important;
+}
+@keyframes bountyAgedCardReveal{
+    0%{filter:brightness(1);transform:scale(1)}
+    10%{filter:sepia(.52) saturate(1.62) brightness(1.48);transform:scale(1.06) rotate(-.45deg)}
+    25%{filter:brightness(1.22) saturate(1.25);transform:scale(1.025) rotate(.22deg)}
+    52%{filter:sepia(.30) saturate(1.38) brightness(1.34);transform:scale(1.045)}
+    76%{filter:brightness(1.16);transform:scale(1.018)}
+    100%{filter:brightness(1);transform:scale(1)}
+}
+
+/* Shared game-UI text treatment: bright face, dark extrusion, neon edge. */
+.bounty-round-card,
+.bounty-aged-toast,
+.economy-jeffcoin-award-flight.is-bounty-award,
+.bounty-discount-ticket{
+    font-family:"Orbitron","Arial Black","Segoe UI",sans-serif!important;
+}
+
+/* ---------------------- HUNT ROUND ---------------------- */
+.bounty-round-overlay{
+    opacity:0!important;
+    transition:opacity .42s ease!important;
+    background:radial-gradient(circle at 50% 43%,rgba(81,33,127,.24),rgba(8,5,28,.05) 54%,transparent 74%)!important;
+}
+.bounty-round-overlay.is-showing{opacity:1!important;}
+.bounty-round-overlay.is-leaving{opacity:0!important;}
+.bounty-round-card{
+    position:relative!important;
+    width:min(1080px,92vw)!important;
+    min-height:0!important;
+    aspect-ratio:1600/700!important;
+    padding:0!important;
+    display:block!important;
+    transform:scale(.82)!important;
+    opacity:0;
+}
+.bounty-round-overlay.is-showing .bounty-round-card{
+    animation:bountyRoundEnter .55s cubic-bezier(.18,.88,.22,1.12) forwards!important;
+}
+.bounty-round-overlay.is-leaving .bounty-round-card{
+    animation:bountyRoundLeave .45s ease forwards!important;
+}
+@keyframes bountyRoundEnter{
+    0%{transform:scale(.72) translateY(18px);opacity:0;filter:blur(5px) brightness(.82)}
+    70%{transform:scale(1.025) translateY(-2px);opacity:1;filter:blur(0) brightness(1.12)}
+    100%{transform:scale(1) translateY(0);opacity:1;filter:blur(0) brightness(1)}
+}
+@keyframes bountyRoundLeave{
+    from{transform:scale(1);opacity:1;filter:brightness(1)}
+    to{transform:scale(.965) translateY(-8px);opacity:0;filter:brightness(.75) blur(2px)}
+}
+.bounty-round-kicker{
+    position:absolute!important;
+    left:41%!important;
+    top:25.5%!important;
+    width:18%!important;
+    height:5.2%!important;
+    display:flex!important;
+    align-items:center!important;
+    justify-content:center!important;
+    margin:0!important;
+    color:#d9f8ff!important;
+    font-size:clamp(9px,.86vw,13px)!important;
+    font-weight:1000!important;
+    letter-spacing:.18em!important;
+    white-space:nowrap;
+    -webkit-text-stroke:.55px rgba(15,44,104,.95);
+    text-shadow:0 1px 0 #15477f,0 2px 0 #081f48,0 0 7px #50ecff,0 0 13px #2c65ff!important;
+}
+.bounty-round-title{
+    position:absolute!important;
+    left:34.5%!important;
+    top:32%!important;
+    width:31%!important;
+    height:17.5%!important;
+    display:flex!important;
+    flex-direction:column!important;
+    align-items:center!important;
+    justify-content:center!important;
+    gap:0!important;
+    margin:0!important;
+    overflow:hidden!important;
+    line-height:.96!important;
+    text-align:center!important;
+}
+.bounty-round-title>span{
+    width:100%!important;
+    height:50%!important;
+    display:flex!important;
+    align-items:center!important;
+    justify-content:center!important;
+    box-sizing:border-box!important;
+    white-space:nowrap!important;
+    font-family:"Orbitron","Arial Black",sans-serif!important;
+    font-weight:1000!important;
+    letter-spacing:0!important;
+    background:none!important;
+    -webkit-background-clip:border-box!important;
+    background-clip:border-box!important;
+    color:#f9a6ff!important;
+    -webkit-text-fill-color:#f9a6ff!important;
+    -webkit-text-stroke:1.05px rgba(65,15,97,.95);
+    filter:none!important;
+    text-shadow:0 2px 0 #6d246f,0 4px 0 #29133f,0 0 6px rgba(255,255,255,.9),0 0 12px rgba(255,91,235,.95),0 0 18px rgba(116,79,255,.75)!important;
+}
+.bounty-round-copy{
+    position:absolute!important;
+    left:33.5%!important;
+    top:53.5%!important;
+    width:33%!important;
+    height:11.5%!important;
+    display:flex!important;
+    align-items:center!important;
+    justify-content:center!important;
+    margin:0!important;
+    overflow:hidden!important;
+    color:#f7edff!important;
+    font-size:clamp(10px,1.02vw,15px)!important;
+    line-height:1.16!important;
+    font-weight:900!important;
+    letter-spacing:.01em!important;
+    text-align:center!important;
+    -webkit-text-stroke:.45px rgba(25,14,70,.92);
+    text-shadow:0 2px 0 rgba(23,10,57,.95),0 0 6px rgba(255,255,255,.52),0 0 12px rgba(140,94,255,.7)!important;
+}
+.bounty-round-count{
+    position:absolute!important;
+    left:38%!important;
+    bottom:25.5%!important;
+    width:24%!important;
+    height:6.2%!important;
+    display:flex!important;
+    align-items:center!important;
+    justify-content:center!important;
+    margin:0!important;
+    overflow:hidden!important;
+    color:#ffe79a!important;
+    font-size:clamp(9px,.92vw,14px)!important;
+    font-weight:1000!important;
+    letter-spacing:.06em!important;
+    white-space:nowrap!important;
+    -webkit-text-stroke:.55px rgba(89,44,5,.95);
+    text-shadow:0 2px 0 #7a420a,0 0 7px #fff2a9,0 0 13px #ff9f1f!important;
+}
+
+/* ---------------------- FUGITIVE / AGING ALERT ---------------------- */
+.bounty-aged-toast{
+    position:fixed!important;
+    left:50%!important;
+    top:11.6%!important;
+    width:min(940px,90vw)!important;
+    min-width:0!important;
+    height:auto!important;
+    aspect-ratio:1400/500!important;
+    padding:0!important;
+    overflow:visible!important;
+    opacity:0!important;
+    transform:translate(-50%,-18px) scale(.88)!important;
+    transition:opacity .34s ease,transform .46s cubic-bezier(.18,.86,.2,1.08)!important;
+}
+.bounty-aged-toast.is-visible{
+    opacity:1!important;
+    transform:translate(-50%,0) scale(1)!important;
+}
+.bounty-aged-toast.is-leaving{
+    opacity:0!important;
+    transform:translate(-50%,-10px) scale(.965)!important;
+    transition:opacity .46s ease,transform .46s ease!important;
+}
+.bounty-aged-toast .bounty-aged-kicker{
+    position:absolute!important;
+    left:24.5%!important;
+    top:25.8%!important;
+    width:39%!important;
+    height:7.5%!important;
+    margin:0!important;
+    display:flex!important;
+    align-items:center!important;
+    justify-content:center!important;
+    overflow:hidden!important;
+    white-space:nowrap!important;
+    color:#ffe69b!important;
+    font-size:clamp(11px,1.18vw,18px)!important;
+    line-height:1!important;
+    font-weight:1000!important;
+    letter-spacing:.08em!important;
+    -webkit-text-stroke:.65px rgba(105,39,5,.96);
+    text-shadow:0 2px 0 #7c3508,0 3px 0 #321508,0 0 7px #fff0ad,0 0 12px #ff8617!important;
+}
+.bounty-aged-toast .bounty-aged-name{
+    position:absolute!important;
+    left:21.5%!important;
+    top:37%!important;
+    width:44%!important;
+    height:25%!important;
+    box-sizing:border-box!important;
+    margin:0!important;
+    padding:0 2%!important;
+    display:flex!important;
+    align-items:center!important;
+    justify-content:center!important;
+    overflow:hidden!important;
+    text-align:center!important;
+    color:#fff!important;
+    font-family:"Orbitron","Arial Black",sans-serif!important;
+    font-size:clamp(26px,3.6vw,58px)!important;
+    font-weight:1000!important;
+    line-height:1.03!important;
+    letter-spacing:-.02em!important;
+    -webkit-text-stroke:1.15px rgba(38,18,82,.98);
+    text-shadow:0 2px 0 #5a2b83,0 5px 0 #1b123b,0 0 8px rgba(255,255,255,.82),0 0 16px rgba(191,88,255,.88)!important;
+}
+.bounty-aged-toast .bounty-aged-reward{
+    position:absolute!important;
+    left:32%!important;
+    top:61.5%!important;
+    width:23%!important;
+    height:12.5%!important;
+    display:flex!important;
+    align-items:center!important;
+    justify-content:center!important;
+    margin:0!important;
+    overflow:hidden!important;
+    white-space:nowrap!important;
+    color:#ffe56e!important;
+    font-size:clamp(25px,2.65vw,40px)!important;
+    line-height:1!important;
+    font-weight:1000!important;
+    letter-spacing:.015em!important;
+    -webkit-text-stroke:1px rgba(103,44,1,.98);
+    text-shadow:0 2px 0 #b55c00,0 4px 0 #522000,0 0 7px #fff7bb,0 0 14px #ffae1a!important;
+}
+.bounty-increase-toast{filter:drop-shadow(0 10px 24px rgba(0,0,0,.68)) brightness(1.04)!important;}
+.bounty-text-compressed{letter-spacing:-.045em!important;}
+
+/* ---------------------- CLAIMED REWARD PANEL ---------------------- */
+.economy-jeffcoin-award-flight.is-bounty-award{
+    position:fixed!important;
+    left:50%!important;
+    top:50%!important;
+    z-index:90120!important;
+    width:min(620px,84vw)!important;
+    height:auto!important;
+    aspect-ratio:1200/600!important;
+    margin:0!important;
+    padding:0!important;
+    box-sizing:border-box!important;
+    pointer-events:none!important;
+    background:transparent url("draft-assets/bounty_reward_panel.png") center/100% 100% no-repeat!important;
+    opacity:0!important;
+    transform:translate(-50%,-50%) scale(.88)!important;
+    transition:opacity .44s ease,transform .56s cubic-bezier(.18,.88,.2,1.08)!important;
+    filter:drop-shadow(0 14px 30px rgba(0,0,0,.72))!important;
+}
+.economy-jeffcoin-award-flight.is-bounty-award.is-visible{
+    opacity:1!important;
+    transform:translate(-50%,-50%) scale(1)!important;
+}
+.economy-jeffcoin-award-flight.is-bounty-award.is-leaving{
+    opacity:0!important;
+    transform:translate(-50%,-53%) scale(.972)!important;
+    transition:opacity .56s ease,transform .56s ease!important;
+}
+.economy-jeffcoin-award-flight.is-bounty-award .economy-bounty-award-static-coin{display:none!important;}
+.economy-jeffcoin-award-flight.is-bounty-award .economy-award-label{
+    position:absolute!important;
+    left:31%!important;
+    right:10%!important;
+    top:21%!important;
+    bottom:18%!important;
+    z-index:2!important;
+    display:flex!important;
+    flex-direction:column!important;
+    align-items:center!important;
+    justify-content:center!important;
+    gap:4%!important;
+    text-align:center!important;
+    overflow:hidden!important;
+}
+.economy-jeffcoin-award-flight.is-bounty-award .economy-award-label span{
+    color:#ffe9ad!important;
+    font-family:"Orbitron","Arial Black",sans-serif!important;
+    font-size:clamp(11px,1.35vw,18px)!important;
+    line-height:1!important;
+    font-weight:1000!important;
+    letter-spacing:.12em!important;
+    white-space:nowrap!important;
+    -webkit-text-stroke:.55px rgba(70,31,5,.98);
+    text-shadow:0 2px 0 #6e3505,0 0 6px #fff0ab,0 0 12px #ff9b17!important;
+}
+.economy-jeffcoin-award-flight.is-bounty-award .economy-award-label strong{
+    color:#fff!important;
+    font-family:"Orbitron","Arial Black",sans-serif!important;
+    font-size:clamp(36px,4.9vw,64px)!important;
+    line-height:1!important;
+    font-weight:1000!important;
+    letter-spacing:.015em!important;
+    white-space:nowrap!important;
+    -webkit-text-stroke:1.35px rgba(52,20,96,.98);
+    text-shadow:0 3px 0 #793299,0 6px 0 #24143f,0 0 8px #fff,0 0 17px #d05bff,0 0 28px #5257ff!important;
+}
+/* Old stationary five-coin stack is intentionally disabled for Bounty. */
+.economy-jeffcoin-award-flight.is-bounty-award .economy-award-coins{display:none!important;}
+
+/* Multiple JeffCoins are used only as a separate flight animation to the Player Panel. */
+.economy-bounty-coin-burst{
+    position:fixed;
+    inset:0;
+    z-index:90130;
+    pointer-events:none;
+    overflow:visible;
+}
+.economy-bounty-coin-burst img{
+    position:fixed;
+    left:0;
+    top:0;
+    width:56px;
+    height:56px;
+    object-fit:contain;
+    opacity:0;
+    filter:drop-shadow(0 0 7px #fff0a0) drop-shadow(0 0 13px #ff9e00);
+    transform:translate(calc(var(--coin-from-x) + var(--coin-fan-x)),calc(var(--coin-from-y) + var(--coin-fan-y))) translate(-50%,-50%) scale(.74);
+    transform-origin:center;
+}
+.economy-bounty-coin-burst.is-flying img{
+    animation:bountyCoinFly 1.05s cubic-bezier(.2,.72,.28,1) var(--coin-delay) both;
+}
+@keyframes bountyCoinFly{
+    0%{
+        opacity:0;
+        transform:translate(calc(var(--coin-from-x) + var(--coin-fan-x)),calc(var(--coin-from-y) + var(--coin-fan-y))) translate(-50%,-50%) scale(.62) rotate(-14deg);
+    }
+    14%{opacity:1;}
+    40%{
+        opacity:1;
+        transform:translate(calc(var(--coin-from-x) + var(--coin-fan-x) * .55),calc(var(--coin-from-y) + var(--coin-fan-y) - 26px)) translate(-50%,-50%) scale(1.05) rotate(120deg);
+    }
+    100%{
+        opacity:.12;
+        transform:translate(calc(var(--coin-from-x) + var(--coin-dx)),calc(var(--coin-from-y) + var(--coin-dy))) translate(-50%,-50%) scale(.34) rotate(330deg);
+    }
+}
+.bounty-award-arrival-pulse{
+    animation:bountyWalletArrival .7s cubic-bezier(.18,.8,.24,1) both!important;
+}
+@keyframes bountyWalletArrival{
+    0%{filter:brightness(1);transform:scale(1)}
+    38%{filter:brightness(1.65) drop-shadow(0 0 8px #ffe56d);transform:scale(1.12)}
+    100%{filter:brightness(1);transform:scale(1)}
+}
+
+/* Flash Sale notification follows the same slower, readable exit. */
+.bounty-discount-award{transition:opacity .56s ease!important;}
+.bounty-discount-award.is-leaving{opacity:0!important;}
+.bounty-discount-ticket span,
+.bounty-discount-ticket strong,
+.bounty-discount-ticket small{
+    font-family:"Orbitron","Arial Black",sans-serif!important;
+    -webkit-text-stroke:.55px rgba(47,14,77,.96);
+    text-shadow:0 2px 0 #5d267a,0 0 7px rgba(255,255,255,.76),0 0 14px #ff4eca!important;
+}
+
+@media(max-width:700px){
+    .bounty-card-marker{--bounty-marker-width:clamp(58px,60%,72px)!important;bottom:-3px!important;}
+    .bounty-round-card{width:min(980px,96vw)!important;}
+    .bounty-round-title{left:33.5%!important;top:32.5%!important;width:33%!important;height:18%!important;}
+    .bounty-round-copy{left:32.5%!important;top:54%!important;width:35%!important;font-size:clamp(8px,1.75vw,12px)!important;}
+    .bounty-aged-toast{width:min(900px,96vw)!important;top:13%!important;}
+    .economy-jeffcoin-award-flight.is-bounty-award{width:min(600px,94vw)!important;}
+    .economy-bounty-coin-burst img{width:46px;height:46px;}
+}
+@media(prefers-reduced-motion:reduce){
+    .bounty-round-overlay.is-showing .bounty-round-card,
+    .bounty-round-overlay.is-leaving .bounty-round-card,
+    .bounty-aged-toast,
+    .economy-jeffcoin-award-flight.is-bounty-award,
+    .economy-bounty-coin-burst.is-flying img,
+    .economy-jeffcoin-award-flight.is-bounty-award .economy-bounty-award-static-coin{
+        animation:none!important;
+        transition:none!important;
+    }
+}

@@ -1,0 +1,1921 @@
+@import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Rye&display=swap");
+
+:root{
+    --gambit-violet:#a94cff;
+    --gambit-magenta:#f038d4;
+    --gambit-gold:#ffd36a;
+    --gambit-ink:#080512;
+    --gambit-panel:#160b28;
+}
+
+body.spx-gambit-active{overflow:hidden!important;}
+.spx-gambit-root[hidden]{display:none!important;}
+.spx-gambit-root,.spx-gambit-root *,.spx-gambit-root *::before,.spx-gambit-root *::after{box-sizing:border-box;}
+.spx-gambit-root{
+    position:fixed;
+    inset:0;
+    z-index:100680;
+    display:grid;
+    place-items:center;
+    padding:clamp(10px,2vw,28px);
+    color:#fff8e8;
+    font-family:Inter,Montserrat,"Segoe UI",sans-serif;
+    isolation:isolate;
+}
+.spx-gambit-backdrop{
+    position:absolute;
+    inset:0;
+    z-index:-2;
+    background:
+        radial-gradient(circle at 22% 24%,rgba(187,52,255,.24),transparent 35%),
+        radial-gradient(circle at 80% 70%,rgba(255,188,67,.14),transparent 30%),
+        linear-gradient(135deg,rgba(2,3,13,.97),rgba(25,7,38,.95) 52%,rgba(4,7,20,.98));
+    backdrop-filter:blur(12px) saturate(1.25);
+}
+.spx-gambit-backdrop::before,.spx-gambit-backdrop::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    pointer-events:none;
+}
+.spx-gambit-backdrop::before{
+    opacity:.46;
+    background-image:
+        radial-gradient(circle,#fff 0 1px,transparent 1.6px),
+        radial-gradient(circle,#cc72ff 0 1px,transparent 1.7px);
+    background-position:0 0,28px 34px;
+    background-size:64px 64px,91px 91px;
+}
+.spx-gambit-backdrop::after{
+    inset:4% 2%;
+    border:1px solid rgba(201,92,255,.14);
+    border-radius:38px;
+    box-shadow:inset 0 0 110px rgba(152,50,255,.12),0 0 120px rgba(0,0,0,.74);
+}
+.spx-gambit-shell{
+    position:relative;
+    width:min(1180px,96vw);
+    max-height:min(930px,95vh);
+    overflow-x:hidden;
+    overflow-y:hidden;
+    overscroll-behavior:contain;
+    border:1px solid rgba(255,213,117,.48);
+    border-radius:30px;
+    background:
+        linear-gradient(135deg,rgba(255,255,255,.035),transparent 23%),
+        linear-gradient(160deg,rgba(22,8,40,.97),rgba(6,4,16,.985));
+    box-shadow:0 28px 95px rgba(0,0,0,.78),0 0 42px rgba(173,63,255,.18),inset 0 0 0 3px rgba(0,0,0,.42);
+    scrollbar-width:thin;
+    scrollbar-color:var(--gambit-violet) rgba(255,255,255,.06);
+}
+.spx-gambit-shell::before{
+    content:"";
+    position:absolute;
+    inset:8px;
+    pointer-events:none;
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:22px;
+}
+#spxGambitContent{min-height:100%;padding:clamp(16px,2.4vw,32px);}
+.spx-gambit-header,.spx-gambit-salvo-head{text-align:center;margin:0 auto 18px;max-width:880px;}
+.spx-gambit-header>span,.spx-gambit-salvo-head>span,.spx-gambit-summary>span{
+    display:inline-flex;
+    padding:6px 12px;
+    border:1px solid rgba(255,211,106,.45);
+    border-radius:999px;
+    color:var(--gambit-gold);
+    background:rgba(0,0,0,.28);
+    font-size:11px;
+    font-weight:900;
+    letter-spacing:.2em;
+}
+.spx-gambit-header h1,.spx-gambit-salvo-head h1,.spx-gambit-summary h1{
+    margin:8px 0 4px;
+    color:#fff3cc;
+    font-family:Impact,Montserrat,sans-serif;
+    font-size:clamp(34px,5vw,66px);
+    font-weight:900;
+    line-height:.95;
+    letter-spacing:.04em;
+    text-shadow:0 2px 0 #59217d,0 0 24px rgba(201,92,255,.58);
+}
+.spx-gambit-header p,.spx-gambit-salvo-head p{margin:8px auto 0;color:#d8cae3;font-size:14px;line-height:1.5;}
+
+.spx-gambit-casino-layout{
+    display:grid;
+    grid-template-columns:minmax(170px,230px) minmax(0,690px);
+    align-items:center;
+    justify-content:center;
+    gap:clamp(16px,3vw,44px);
+    padding:4px 76px 16px 0;
+}
+.spx-gambit-meter{align-self:stretch;display:flex;align-items:center;}
+.spx-gambit-meter-card{
+    position:relative;
+    width:100%;
+    min-height:540px;
+    overflow:hidden;
+    padding:22px 16px;
+    border:7px solid #242028;
+    border-radius:20px;
+    background:linear-gradient(90deg,#090713,#171022 48%,#090713);
+    box-shadow:inset 0 0 0 2px #726a75,inset 0 0 35px #050208,0 12px 32px rgba(0,0,0,.6),0 0 20px rgba(169,76,255,.18);
+}
+.spx-gambit-meter-card>span{position:relative;z-index:2;display:block;color:#cfbce3;font-size:11px;font-weight:900;letter-spacing:.17em;text-align:center;}
+.spx-gambit-meter-card>strong{position:relative;z-index:2;display:block;margin:8px 0 16px;color:#fff0b4;font-size:34px;text-align:center;text-shadow:0 0 18px var(--gambit-violet);}
+.spx-gambit-meter-fill{
+    position:absolute;
+    inset:auto 0 0;
+    height:calc((var(--charge) + 1) * 16.666%);
+    background:linear-gradient(0deg,rgba(97,20,173,.8),rgba(205,61,255,.63),rgba(255,255,255,.1));
+    filter:saturate(1.4);
+    box-shadow:0 -5px 24px rgba(222,93,255,.75),inset 0 15px 26px rgba(255,255,255,.12);
+    transition:height .48s cubic-bezier(.22,.84,.35,1);
+}
+.spx-gambit-meter-fill::after{content:"";position:absolute;inset:0;background:repeating-linear-gradient(135deg,transparent 0 10px,rgba(255,255,255,.07) 10px 12px);animation:spxGambitEnergy 2.4s linear infinite;}
+.spx-gambit-meter-card i{
+    position:relative;
+    z-index:2;
+    display:grid;
+    grid-template-columns:27px 1fr;
+    align-items:center;
+    gap:9px;
+    min-height:55px;
+    margin:4px 0;
+    padding:6px 8px;
+    border:1px solid rgba(255,255,255,.09);
+    border-radius:8px;
+    color:#7a7182;
+    background:rgba(0,0,0,.34);
+    font-style:normal;
+}
+.spx-gambit-meter-card i b{display:grid;place-items:center;width:27px;height:27px;border-radius:50%;background:#18131f;font-size:12px;}
+.spx-gambit-meter-card i em{font-size:9px;font-style:normal;font-weight:900;letter-spacing:.07em;}
+.spx-gambit-meter-card i.is-on{color:#fff7cf;border-color:rgba(255,211,106,.55);background:linear-gradient(90deg,rgba(132,30,215,.56),rgba(30,8,43,.7));box-shadow:0 0 16px rgba(169,76,255,.32);}
+.spx-gambit-meter-card i.is-on b{color:#1d1026;background:var(--gambit-gold);box-shadow:0 0 14px var(--gambit-gold);}
+
+.spx-gambit-machine{
+    --machine-glow:calc(.16 + var(--charge) * .08);
+    position:relative;
+    width:100%;
+    min-height:545px;
+    padding:42px clamp(24px,4vw,58px) 26px;
+    border:12px ridge #574e56;
+    border-radius:48px 48px 32px 32px;
+    background:
+        linear-gradient(90deg,rgba(255,255,255,.08),transparent 7% 93%,rgba(255,255,255,.07)),
+        repeating-linear-gradient(90deg,#28232c 0 2px,#19151d 2px 5px,#302a32 5px 7px);
+    box-shadow:inset 0 0 0 6px #0f0c12,inset 0 -30px 60px rgba(0,0,0,.65),0 24px 50px rgba(0,0,0,.65),0 0 calc(28px + var(--charge) * 9px) rgba(187,60,255,var(--machine-glow));
+}
+.spx-gambit-machine::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    z-index:0;
+    border-radius:36px 36px 24px 24px;
+    background:url("draft-assets/gambit_casino_arcade.png") center/100% 100% no-repeat;
+    opacity:.56;
+    pointer-events:none;
+}
+.spx-gambit-machine::after{content:"";position:absolute;inset:17px;z-index:0;border:1px solid rgba(255,211,106,.24);border-radius:27px;box-shadow:inset 0 0 28px rgba(169,76,255,.2);pointer-events:none;}
+.spx-gambit-machine>*{position:relative;z-index:1;}
+.spx-gambit-bulbs{position:absolute;inset:5px 7px auto;display:flex;justify-content:space-around;gap:5px;}
+.spx-gambit-bulbs i{width:12px;height:12px;border-radius:50%;background:#5b4530;box-shadow:inset 0 0 4px #120f0d;animation:spxGambitBulb 1.4s steps(2,end) infinite;}
+.spx-gambit-bulbs i:nth-child(3n+2){animation-delay:.22s}.spx-gambit-bulbs i:nth-child(3n){animation-delay:.44s}
+.spx-gambit-machine-sign{margin:-5px auto 16px;color:#ffe18d;font-family:Impact,sans-serif;font-size:clamp(20px,3vw,32px);letter-spacing:.13em;text-align:center;text-shadow:0 0 12px rgba(255,196,80,.55);}
+.spx-gambit-machine-sign b{display:inline-block;margin:0 12px;color:var(--gambit-magenta);font-size:1.2em;text-shadow:0 0 14px var(--gambit-violet);}
+.spx-gambit-slot{
+    position:relative;
+    display:flex;
+    min-height:190px;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    overflow:hidden;
+    border:12px solid #0e0b12;
+    border-radius:18px;
+    background:radial-gradient(circle at 50% 40%,rgba(122,38,177,.28),transparent 60%),linear-gradient(#08050d,#140b1c);
+    box-shadow:inset 0 0 0 3px #857c85,inset 0 0 45px #000,0 0 20px rgba(169,76,255,.24);
+}
+.spx-gambit-slot::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(0deg,transparent 0 4px,rgba(255,255,255,.025) 4px 5px);pointer-events:none;}
+.spx-gambit-slot span{color:#bda7cb;font-size:10px;font-weight:900;letter-spacing:.2em;}
+.spx-gambit-slot strong{position:relative;margin:9px 0 2px;color:#fff3d1;font-family:Impact,Montserrat,sans-serif;font-size:clamp(27px,5vw,48px);line-height:1;text-align:center;text-shadow:0 0 18px var(--gambit-violet);}
+.spx-gambit-slot b{color:var(--gambit-gold);font-size:19px;letter-spacing:.08em;}
+.spx-gambit-slot small{margin-top:10px;color:#92879c;font-size:10px;}
+.spx-gambit-machine.is-rolling .spx-gambit-slot strong,.spx-gambit-machine.is-rolling .spx-gambit-slot b{animation:spxGambitRoll .16s linear infinite;filter:blur(1px);}
+.spx-gambit-bet-controls{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:18px 0 14px;}
+.spx-gambit-bet-controls button{
+    min-height:68px;
+    border:8px outset #554c55;
+    border-radius:50%/24%;
+    color:#fff;
+    background:radial-gradient(circle at 50% 30%,#a949e0,#551070 60%,#21072f);
+    box-shadow:0 7px 0 #0c0810,0 11px 18px rgba(0,0,0,.55),inset 0 5px 10px rgba(255,255,255,.24),0 0 0 2px #17121a;
+    font-size:16px;
+    font-weight:1000;
+    letter-spacing:.12em;
+    cursor:pointer;
+}
+.spx-gambit-bet-controls button span{display:block;font-size:17px;line-height:.8;}
+.spx-gambit-bet-controls button:hover:not(:disabled){filter:brightness(1.2);transform:translateY(-1px);}
+.spx-gambit-bet-controls button:active:not(:disabled),.spx-gambit-bet-controls button.is-selected{border-style:inset;transform:translateY(5px);box-shadow:0 2px 0 #08060a,inset 0 6px 16px rgba(0,0,0,.45),0 0 22px var(--gambit-magenta);}
+.spx-gambit-bet-controls button:disabled{opacity:.55;cursor:not-allowed;}
+.spx-gambit-lever{
+    position:absolute;
+    top:114px;
+    right:-104px;
+    z-index:3;
+    width:102px;
+    height:244px;
+    border:0;
+    background:transparent;
+    cursor:pointer;
+}
+.spx-gambit-lever img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;transform:rotate(-7deg);transform-origin:50% 88%;filter:drop-shadow(0 7px 9px rgba(0,0,0,.78)) drop-shadow(0 0 10px rgba(240,56,212,.52));user-select:none;pointer-events:none;}
+.spx-gambit-lever b{position:absolute;right:-1px;bottom:63px;writing-mode:vertical-rl;color:#f3dfef;font-size:9px;letter-spacing:.2em;text-shadow:0 0 8px #080512;}
+.spx-gambit-lever:hover:not(:disabled) img{filter:brightness(1.18) drop-shadow(0 7px 9px rgba(0,0,0,.78)) drop-shadow(0 0 16px var(--gambit-magenta));}
+.spx-gambit-lever:active:not(:disabled) img,.spx-gambit-machine.is-rolling .spx-gambit-lever img{animation:spxGambitLever .62s ease-in-out;}
+.spx-gambit-lever:disabled{opacity:.5;cursor:not-allowed;}
+.spx-gambit-result{min-height:40px;display:grid;place-items:center;padding:7px 12px;border:1px solid rgba(255,211,106,.25);border-radius:8px;color:#f5e7ff;background:#0b080f;font-size:12px;font-weight:800;text-align:center;}
+.spx-gambit-machine footer{display:grid;grid-template-columns:auto 1fr;align-items:center;gap:16px;margin-top:14px;}
+.spx-gambit-protections{display:flex;gap:8px;padding:8px 12px;border:4px inset #4a414a;border-radius:10px;background:#0d0a10;}
+.spx-gambit-protections span{color:#da75ff;font-size:28px;line-height:1;text-shadow:0 0 12px #c13cff;transition:.3s ease;}
+.spx-gambit-protections span.is-broken{color:#423946;text-shadow:none;transform:scale(.82) rotate(12deg);}
+.spx-gambit-cashout{min-height:58px;border:7px outset #76633b;border-radius:11px;color:#2b1800;background:linear-gradient(#ffe78a,#d89521);box-shadow:0 6px 0 #4b300a,0 0 calc(8px + var(--charge) * 5px) rgba(255,205,81,.72),inset 0 4px 7px rgba(255,255,255,.6);cursor:pointer;}
+.spx-gambit-cashout span,.spx-gambit-cashout b{display:block}.spx-gambit-cashout span{font-size:17px;font-weight:1000;letter-spacing:.11em}.spx-gambit-cashout b{font-size:9px;letter-spacing:.08em;}
+.spx-gambit-cashout:active:not(:disabled){border-style:inset;transform:translateY(4px);box-shadow:0 2px 0 #4b300a,inset 0 5px 9px rgba(0,0,0,.25);}
+
+.spx-gambit-salvo-layout{display:grid;grid-template-columns:minmax(180px,250px) minmax(0,1fr);gap:20px;align-items:start;}
+.spx-gambit-step-rail{position:sticky;top:0;margin:0;padding:12px;list-style:none;border:1px solid rgba(255,255,255,.1);border-radius:18px;background:rgba(3,2,9,.54);}
+.spx-gambit-step-rail li{display:grid;grid-template-columns:30px 1fr;align-items:center;gap:10px;min-height:47px;padding:6px;color:#615c68;border-left:2px solid #34283d;}
+.spx-gambit-step-rail li span{display:grid;place-items:center;width:26px;height:26px;border:1px solid #61596a;border-radius:50%;font-size:11px;font-weight:900;}
+.spx-gambit-step-rail li b{font-size:10px;letter-spacing:.06em;}
+.spx-gambit-step-rail li.is-current{color:#fff1c1;border-left-color:var(--gambit-magenta);background:linear-gradient(90deg,rgba(181,49,255,.24),transparent);}
+.spx-gambit-step-rail li.is-current span{color:#20102b;border-color:var(--gambit-gold);background:var(--gambit-gold);box-shadow:0 0 13px var(--gambit-gold);}
+.spx-gambit-step-rail li.is-done{color:#bbf7d0;border-left-color:#58e49a;}
+.spx-gambit-step-rail li.is-done span{color:#07170f;border-color:#58e49a;background:#58e49a;}
+.spx-gambit-step{min-height:470px;display:flex;flex-direction:column;border:8px ridge #504851;border-radius:20px;background:linear-gradient(145deg,#140921,#09050f);box-shadow:inset 0 0 45px rgba(99,30,140,.18),0 18px 40px rgba(0,0,0,.5);}
+.spx-gambit-step-body{flex:1;padding:clamp(16px,2vw,28px);}
+.spx-gambit-step>footer{display:flex;justify-content:flex-end;gap:12px;padding:15px 20px;border-top:1px solid rgba(255,255,255,.09);background:#08050d;}
+.spx-gambit-card-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:14px;align-items:stretch;}
+.spx-gambit-card{
+    position:relative;
+    min-height:180px;
+    padding:18px 12px;
+    overflow:hidden;
+    border:2px solid #8d49bc;
+    border-radius:14px;
+    color:#fff;
+    background:radial-gradient(circle at 50% 24%,rgba(177,70,255,.34),transparent 35%),linear-gradient(145deg,#2a1040,#0b0714 75%);
+    box-shadow:inset 0 0 25px rgba(0,0,0,.45),0 7px 18px rgba(0,0,0,.42);
+    text-align:left;
+    cursor:pointer;
+}
+.spx-gambit-card::before{content:"♠";position:absolute;right:-8px;bottom:-22px;color:rgba(255,255,255,.055);font-size:100px;transform:rotate(-12deg);}
+.spx-gambit-card:hover:not(:disabled){transform:translateY(-4px);border-color:#ffe17e;box-shadow:0 0 22px rgba(192,67,255,.5),0 12px 22px rgba(0,0,0,.45);}
+.spx-gambit-card span,.spx-gambit-card strong,.spx-gambit-card b{position:relative;z-index:1;display:block;}
+.spx-gambit-card span{color:#dcadff;font-size:9px;font-weight:900;letter-spacing:.12em;}
+.spx-gambit-card strong{margin:34px 0 8px;color:#fff6d5;font-size:16px;line-height:1.1;}
+.spx-gambit-card b{color:var(--gambit-gold);font-size:11px;}
+.spx-gambit-card.is-reserve{border-color:#ffca55;background:radial-gradient(circle at 50% 25%,rgba(255,182,64,.22),transparent 40%),linear-gradient(145deg,#3b152c,#120811 75%);box-shadow:0 0 24px rgba(255,178,53,.24);}
+.spx-gambit-target-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:16px;}
+.spx-gambit-target-grid button{min-height:155px;padding:18px;border:2px solid #7b399c;border-radius:22px;color:#eee5f3;background:radial-gradient(circle,rgba(154,51,220,.18),transparent 60%),#0d0814;cursor:pointer;}
+.spx-gambit-target-grid button span{display:grid;place-items:center;width:48px;height:48px;margin:0 auto 10px;border:1px dashed var(--gambit-magenta);border-radius:50%;color:var(--gambit-magenta);font-size:25px;box-shadow:0 0 0 7px rgba(169,76,255,.08);}
+.spx-gambit-target-grid button strong,.spx-gambit-target-grid button small{display:block}.spx-gambit-target-grid button strong{color:#fff2c5;font-size:18px}.spx-gambit-target-grid button small{margin-top:8px;color:#ad9ab8;font-size:10px;}
+.spx-gambit-target-grid button:hover{border-color:#ffd56c;transform:translateY(-3px);box-shadow:0 0 22px rgba(207,70,255,.38);}
+.spx-gambit-momentum{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:20px;min-height:250px;text-align:center;}
+.spx-gambit-momentum span{color:var(--gambit-violet);font-size:72px;text-shadow:0 0 20px var(--gambit-magenta);animation:spxGambitMomentum 1s ease-in-out infinite alternate;}
+.spx-gambit-momentum b{color:#fff0bc;font-size:clamp(23px,4vw,40px);}.spx-gambit-momentum p{grid-column:1/-1;color:#b0a3b7;font-size:11px;}
+.spx-gambit-step-success{display:grid;place-items:center;min-height:300px;text-align:center;}
+.spx-gambit-step-success i{display:grid;place-items:center;width:100px;height:100px;border:3px solid var(--gambit-gold);border-radius:50%;color:#fff0bb;background:radial-gradient(circle,#ac38ee,#331047 68%);box-shadow:0 0 36px rgba(197,61,255,.6);font-size:50px;font-style:normal;}
+.spx-gambit-step-success strong{margin-top:18px;color:#fff0bc;font-size:23px;}.spx-gambit-step-success p{max-width:660px;color:#c8b9ce;line-height:1.5;}
+.spx-gambit-final-swap{display:grid;grid-template-columns:minmax(160px,220px) auto minmax(0,1fr);align-items:center;gap:18px;}.spx-gambit-final-swap>b{color:var(--gambit-gold);font-size:46px;text-shadow:0 0 18px var(--gambit-violet);}
+.spx-gambit-primary,.spx-gambit-secondary{min-height:48px;padding:11px 20px;border-radius:10px;font-weight:1000;letter-spacing:.08em;cursor:pointer;}
+.spx-gambit-primary{border:2px solid #ffe08a;color:#251308;background:linear-gradient(#ffe993,#d99524);box-shadow:0 0 18px rgba(255,203,81,.3);}
+.spx-gambit-secondary{border:1px solid #8f65aa;color:#eee4f5;background:#22132e;}
+.spx-gambit-primary:hover,.spx-gambit-secondary:hover{filter:brightness(1.15);transform:translateY(-1px);}
+
+.spx-gambit-summary{max-width:850px;min-height:570px;display:flex;flex-direction:column;align-items:center;justify-content:center;margin:auto;text-align:center;}
+.spx-gambit-summary-charge{display:grid;place-items:center;width:150px;height:150px;margin:24px;border:4px solid var(--gambit-gold);border-radius:50%;color:#fff0b5;background:radial-gradient(circle,#b338e8,#310b43 67%);box-shadow:0 0 50px rgba(205,66,255,.55);font-family:Impact,sans-serif;font-size:75px;line-height:.85;}.spx-gambit-summary-charge small{font-family:Inter,sans-serif;font-size:8px;letter-spacing:.14em;}
+.spx-gambit-summary ul{width:min(680px,100%);max-height:220px;overflow:auto;margin:0 0 22px;padding:0;list-style:none;text-align:left;}.spx-gambit-summary li{margin:5px 0;padding:9px 12px;border-left:3px solid var(--gambit-violet);background:rgba(255,255,255,.045);color:#d6cadc;font-size:12px;}
+
+.spx-gambit-fx{position:fixed;inset:0;z-index:100690;pointer-events:none;overflow:hidden;}
+.spx-gambit-fx i{position:absolute;left:50%;top:52%;width:22px;height:32px;border:1px solid #f7c9ff;border-radius:3px;background:linear-gradient(145deg,#e471ff,#361050);box-shadow:0 0 12px #d14fff;opacity:0;}
+.spx-gambit-fx.is-active i{animation:spxGambitBurst .9s cubic-bezier(.17,.7,.2,1) var(--delay) both;}
+.spx-gambit-final-scene{position:absolute;inset:0;display:grid;place-items:center;background:radial-gradient(circle at 50% 51%,rgba(196,57,255,.32),rgba(32,7,56,.12) 27%,transparent 58%);opacity:0;}
+.spx-gambit-fx.is-final .spx-gambit-final-scene{animation:spxGambitFinalScene 2.15s ease both;}
+.spx-gambit-final-scene>img{position:absolute;left:50%;top:52%;width:min(43vw,470px);max-height:68vh;object-fit:contain;transform:translate(-50%,-50%) scale(.72);filter:drop-shadow(0 0 17px #c947ff) drop-shadow(0 0 42px rgba(115,25,207,.8));opacity:0;}
+.spx-gambit-fx.is-final .spx-gambit-final-scene>img{animation:spxGambitFinalHero 2.05s cubic-bezier(.16,.78,.2,1) both;}
+.spx-gambit-final-scene>strong{position:absolute;left:50%;top:12%;transform:translateX(-50%);color:#fff0bd;font-family:Impact,Montserrat,sans-serif;font-size:clamp(26px,5vw,68px);letter-spacing:.11em;text-align:center;white-space:nowrap;text-shadow:0 0 10px #fff,0 0 25px #da4bff,0 0 54px #7d1ed0;opacity:0;}
+.spx-gambit-fx.is-final .spx-gambit-final-scene>strong{animation:spxGambitFinalTitle 2.05s ease both;}
+.spx-gambit-fx .spx-gambit-final-card{position:absolute;left:50%;top:52%;width:34px;height:50px;border:2px solid #fff0ff;border-radius:5px;background:radial-gradient(circle at 50% 42%,#ffb1ff 0 7%,#d742ff 28%,#4b0b78 72%);box-shadow:0 0 8px #fff,0 0 20px #db48ff,0 0 38px rgba(128,24,224,.9);opacity:0;}
+.spx-gambit-fx .spx-gambit-final-card::after{content:"♦";position:absolute;inset:0;display:grid;place-items:center;color:#fff4ff;font-size:19px;text-shadow:0 0 8px #fff;}
+.spx-gambit-fx.is-final .spx-gambit-final-card{animation:spxGambitFinalCard 1.22s cubic-bezier(.12,.76,.18,1) var(--delay) both;}
+
+@keyframes spxGambitEnergy{to{background-position:34px 0}}
+@keyframes spxGambitBulb{0%,45%{background:#583914;box-shadow:0 0 2px #000}55%,100%{background:#ffe083;box-shadow:0 0 11px #ffbc35}}
+@keyframes spxGambitRoll{0%{transform:translateY(-25px);opacity:.2}50%{opacity:1}100%{transform:translateY(25px);opacity:.2}}
+@keyframes spxGambitLever{0%,100%{transform:rotate(-7deg)}45%,65%{transform:rotate(39deg)}}
+@keyframes spxGambitMomentum{to{transform:translateX(9px);filter:brightness(1.4)}}
+@keyframes spxGambitBurst{0%{opacity:0;transform:translate(-50%,-50%) rotate(0) scale(.3)}15%{opacity:1}100%{opacity:0;transform:translate(-50%,-50%) rotate(var(--angle)) translateX(var(--distance)) rotate(520deg) scale(.9)}}
+@keyframes spxGambitFinalScene{0%,100%{opacity:0}8%,82%{opacity:1}}
+@keyframes spxGambitFinalHero{0%{opacity:0;transform:translate(-50%,-50%) scale(.68)}13%,76%{opacity:1;transform:translate(-50%,-50%) scale(1)}88%,100%{opacity:0;transform:translate(-50%,-50%) scale(1.08)}}
+@keyframes spxGambitFinalTitle{0%,12%{opacity:0;transform:translate(-50%,-12px) scale(.88)}24%,72%{opacity:1;transform:translate(-50%,0) scale(1)}88%,100%{opacity:0;transform:translate(-50%,-8px) scale(1.05)}}
+@keyframes spxGambitFinalCard{0%{opacity:0;transform:translate(-50%,-50%) rotate(var(--angle)) translateX(20px) rotate(0) scale(.35)}18%{opacity:1}34%{opacity:1;transform:translate(-50%,-50%) rotate(var(--angle)) translateX(76px) rotate(72deg) scale(1.05)}100%{opacity:0;transform:translate(-50%,-50%) rotate(var(--angle)) translateX(var(--distance)) rotate(var(--spin)) scale(.68)}}
+
+@media (max-width:760px){
+    .spx-gambit-root{padding:0;place-items:stretch;}
+    .spx-gambit-shell{width:100vw;max-height:100dvh;border-radius:0;border-width:0;}
+    #spxGambitContent{padding:15px 12px 24px;}
+    .spx-gambit-header h1,.spx-gambit-salvo-head h1,.spx-gambit-summary h1{font-size:34px;}
+    .spx-gambit-header p,.spx-gambit-salvo-head p{font-size:12px;}
+    .spx-gambit-casino-layout{grid-template-columns:1fr;padding:0;gap:12px;}
+    .spx-gambit-meter{order:2;}
+    .spx-gambit-meter-card{min-height:0;padding:14px 12px;display:grid;grid-template-columns:repeat(3,1fr);gap:6px;}
+    .spx-gambit-meter-card>span,.spx-gambit-meter-card>strong{grid-column:1/-1;margin:0;}.spx-gambit-meter-card>strong{font-size:24px;}
+    .spx-gambit-meter-card i{min-height:42px;margin:0;padding:5px;grid-template-columns:22px 1fr;}.spx-gambit-meter-card i b{width:22px;height:22px;}.spx-gambit-meter-card i em{font-size:7px;}
+    .spx-gambit-meter-fill{height:100%;width:calc((var(--charge) + 1) * 16.666%);transition:width .3s ease;}
+    .spx-gambit-machine{min-height:505px;padding:36px 18px 18px;border-width:8px;border-radius:28px;}
+    .spx-gambit-machine::before{border-radius:20px;opacity:.42;}
+    .spx-gambit-slot{min-height:150px;border-width:8px;}.spx-gambit-slot strong{font-size:31px;}
+    .spx-gambit-bet-controls{gap:10px;margin:12px 0;}.spx-gambit-bet-controls button{min-height:58px;border-width:6px;font-size:13px;}
+    .spx-gambit-lever{position:relative;top:auto;right:auto;width:100%;height:58px;margin:0 0 8px;border:5px ridge #514950;border-radius:12px;background:#161219;}.spx-gambit-lever img{inset:auto auto -52px 50%;width:96px;height:158px;transform:translateX(-50%) rotate(-78deg);transform-origin:50% 88%;}.spx-gambit-lever b{right:17px;bottom:16px;writing-mode:horizontal-tb;}
+    .spx-gambit-machine.is-rolling .spx-gambit-lever img,.spx-gambit-lever:active:not(:disabled) img{animation:spxGambitLeverMobile .55s ease-in-out;}
+    .spx-gambit-machine footer{grid-template-columns:1fr;gap:8px;}.spx-gambit-protections{justify-content:center;}.spx-gambit-cashout{min-height:55px;}
+    .spx-gambit-salvo-layout{grid-template-columns:1fr;}.spx-gambit-step-rail{position:static;display:flex;overflow-x:auto;padding:8px;}.spx-gambit-step-rail li{min-width:120px;min-height:42px;grid-template-columns:24px 1fr;}.spx-gambit-step{min-height:390px;border-width:5px;}
+    .spx-gambit-card-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;}.spx-gambit-card{min-height:145px;padding:13px 9px;}.spx-gambit-card strong{margin-top:25px;font-size:13px;}
+    .spx-gambit-target-grid{grid-template-columns:1fr 1fr;gap:9px;}.spx-gambit-target-grid button{min-height:125px;padding:12px;}
+    .spx-gambit-final-swap{grid-template-columns:1fr;}.spx-gambit-final-swap>b{transform:rotate(90deg);text-align:center;}.spx-gambit-momentum{gap:8px;}.spx-gambit-momentum span{font-size:40px;}.spx-gambit-summary{min-height:calc(100dvh - 50px);}
+}
+@keyframes spxGambitLeverMobile{0%,100%{transform:translateX(-50%) rotate(-78deg)}50%{transform:translateX(-50%) rotate(-25deg)}}
+
+@media (max-width:430px){
+    .spx-gambit-card-grid,.spx-gambit-target-grid{grid-template-columns:1fr 1fr;}
+    .spx-gambit-meter-card{grid-template-columns:repeat(2,1fr);}
+    .spx-gambit-machine-sign{font-size:18px;}.spx-gambit-protections span{font-size:24px;}
+}
+
+@media (prefers-reduced-motion:reduce){
+    .spx-gambit-root *,.spx-gambit-root *::before,.spx-gambit-root *::after{animation-duration:.001ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.08s!important;}
+    .spx-gambit-fx:not(.is-final){display:none!important;}
+    .spx-gambit-fx.is-final .spx-gambit-final-scene{animation:spxGambitReducedFinal .65s ease both!important;}
+    .spx-gambit-fx.is-final .spx-gambit-final-scene>img,.spx-gambit-fx.is-final .spx-gambit-final-scene>strong{animation:none!important;opacity:1;}
+    .spx-gambit-fx.is-final .spx-gambit-final-scene>img{transform:translate(-50%,-50%) scale(.9);}
+    .spx-gambit-fx.is-final .spx-gambit-final-card{display:none!important;}
+    .spx-gambit-machine.is-rolling .spx-gambit-slot strong,.spx-gambit-machine.is-rolling .spx-gambit-slot b{filter:none;opacity:.7;}
+}
+@keyframes spxGambitReducedFinal{0%,100%{opacity:0}18%,78%{opacity:1}}
+
+/* ============================================================
+   GAMBIT 2.0 — RETRO MUTANT CASINO / FULL KINETIC SALVO
+============================================================ */
+.spx-gambit-backdrop{
+    background:
+        linear-gradient(180deg,rgba(5,2,15,.22),rgba(7,2,16,.58)),
+        url("draft-assets/gambit_casino_backdrop.png") center/cover no-repeat;
+    backdrop-filter:blur(4px) saturate(1.14);
+}
+.spx-gambit-backdrop::before{
+    opacity:.35;
+    background:
+        radial-gradient(circle at 50% 46%,transparent 0 28%,rgba(8,2,18,.58) 72%),
+        repeating-linear-gradient(0deg,rgba(255,255,255,.015) 0 1px,transparent 1px 4px);
+}
+.spx-gambit-backdrop::after{inset:1.2%;border-color:rgba(255,210,98,.32);box-shadow:inset 0 0 130px rgba(26,2,48,.42),0 0 140px rgba(0,0,0,.82);}
+.spx-gambit-shell{
+    width:min(1320px,calc(100vw - 50px));
+    max-height:calc(100dvh - 18px);
+    overflow-x:hidden;
+    overflow-y:hidden;
+    border:2px solid rgba(255,214,111,.75);
+    border-radius:28px;
+    background:linear-gradient(160deg,rgba(19,5,36,.82),rgba(6,2,15,.93));
+    box-shadow:0 24px 80px rgba(0,0,0,.82),0 0 50px rgba(204,58,255,.28),inset 0 0 0 4px rgba(0,0,0,.48);
+}
+#spxGambitContent{padding:clamp(12px,1.6vw,24px);}
+.spx-gambit-header{margin-bottom:40px;max-width:980px;}
+.spx-gambit-header>span{padding:4px 11px;font-size:9px;}
+.spx-gambit-header h1{margin:5px 0 2px;font-size:clamp(32px,4vw,54px);}
+.spx-gambit-header p{margin-top:4px;font-size:12px;}
+
+.spx-gambit-casino-layout{
+    grid-template-columns:minmax(170px,220px) minmax(560px,790px);
+    gap:clamp(15px,2vw,30px);
+    padding:0 148px 4px 0;
+}
+.spx-gambit-meter-card{min-height:522px;padding:16px 12px 14px 27px;border-color:#392c3d;background:linear-gradient(90deg,#08050e,#211129 55%,#0a0610);}
+.spx-gambit-meter-card>strong{margin:4px 0 7px;font-size:29px;}
+.spx-gambit-meter-fill{
+    inset:auto auto 17px 8px;
+    width:11px;
+    height:calc((var(--charge) + 1) * 15.5%);
+    max-height:calc(100% - 34px);
+    border:1px solid rgba(255,228,159,.52);
+    border-radius:999px;
+    background:linear-gradient(0deg,#6513a6,#f126df 72%,#fff1aa);
+    box-shadow:0 0 15px #da3bff,0 0 28px rgba(167,42,255,.6);
+    overflow:hidden;
+}
+.spx-gambit-meter-card i{min-height:52px;margin:3px 0;padding:5px 7px;background:rgba(3,1,8,.76);}
+.spx-gambit-meter-card i.is-on{background:linear-gradient(90deg,rgba(117,22,186,.7),rgba(22,6,34,.94));}
+
+.spx-gambit-machine{
+    display:flex;
+    flex-direction:column;
+    min-height:522px;
+    padding:72px clamp(38px,4vw,64px) 30px;
+    border:0;
+    border-radius:42px;
+    background:linear-gradient(180deg,rgba(18,8,23,.96),rgba(8,4,12,.97));
+    box-shadow:0 24px 56px rgba(0,0,0,.76),0 0 calc(26px + var(--charge) * 8px) rgba(187,60,255,var(--machine-glow));
+    isolation:isolate;
+}
+.spx-gambit-machine::before{
+    inset:17px 20px 14px;
+    z-index:0;
+    border:2px solid rgba(255,209,94,.36);
+    border-radius:25px;
+    background:
+        repeating-linear-gradient(0deg,transparent 0 4px,rgba(255,255,255,.018) 4px 5px),
+        radial-gradient(circle at 50% 24%,rgba(173,43,232,.2),transparent 42%),
+        linear-gradient(180deg,#16081f,#08050d);
+    opacity:1;
+}
+.spx-gambit-machine::after{
+    content:"";
+    position:absolute;
+    inset:-26px -27px -19px;
+    z-index:8;
+    border:0;
+    border-radius:0;
+    background:url("draft-assets/gambit_casino_arcade.png") center/100% 100% no-repeat;
+    box-shadow:none;
+    pointer-events:none;
+    -webkit-mask:
+        linear-gradient(#000 0 0) top/100% 25% no-repeat,
+        linear-gradient(#000 0 0) left/20% 100% no-repeat,
+        linear-gradient(#000 0 0) right/20% 100% no-repeat;
+    mask:
+        linear-gradient(#000 0 0) top/100% 25% no-repeat,
+        linear-gradient(#000 0 0) left/20% 100% no-repeat,
+        linear-gradient(#000 0 0) right/20% 100% no-repeat;
+    filter:drop-shadow(0 0 9px rgba(241,49,221,.55));
+}
+.spx-gambit-machine>*{z-index:3;}
+.spx-gambit-bulbs{z-index:9;inset:11px 14px auto;opacity:.9;}
+.spx-gambit-machine-sign{
+    position:absolute;
+    top:24px;
+    left:50%;
+    z-index:9;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:12px;
+    min-width:min(72%,540px);
+    margin:0;
+    padding:7px 24px 9px;
+    border:2px solid #ffce63;
+    border-radius:999px;
+    background:linear-gradient(#5b126f,#22052d 65%,#100214);
+    box-shadow:inset 0 0 10px #f041dc,0 0 13px #d52cff,0 5px 0 #08010c;
+    transform:translateX(-50%);
+    color:#fff0a9;
+    font-size:clamp(21px,2.7vw,35px);
+    letter-spacing:.1em;
+    text-shadow:0 2px 0 #8d4710,0 0 6px #fff,0 0 15px #ffb63c;
+    white-space:nowrap;
+}
+.spx-gambit-machine-sign span:first-child{transform:skew(-5deg) rotate(-1deg);}
+.spx-gambit-machine-sign span:last-child{transform:skew(5deg) rotate(1deg);}
+.spx-gambit-machine-sign b{display:grid;place-items:center;width:45px;height:45px;margin:0;border:2px solid #ffaaff;border-radius:50%;background:radial-gradient(circle,#f559f4,#5a0c75 66%);font-size:24px;box-shadow:0 0 18px #f026d7;}
+.spx-gambit-slot{flex:1;min-height:166px;border-width:9px;}
+.spx-gambit-slot strong{font-size:clamp(28px,4vw,44px);}
+.spx-gambit-bet-controls{margin:12px 0 10px;}
+.spx-gambit-bet-controls button{min-height:60px;border-width:6px;}
+.spx-gambit-result{min-height:34px;padding:5px 10px;}
+.spx-gambit-machine footer{margin-top:7px;padding-top:0;}
+.spx-gambit-cashout{min-height:52px;}
+
+.spx-gambit-lever{
+    top:73px;
+    right:-153px;
+    z-index:10;
+    width:158px;
+    height:385px;
+}
+.spx-gambit-lever::before{
+    content:"";
+    position:absolute;
+    left:7px;
+    right:5px;
+    bottom:18px;
+    height:72px;
+    border:5px ridge #4e3b51;
+    border-radius:22px;
+    background:linear-gradient(#25102e,#08050d);
+    box-shadow:inset 0 0 18px rgba(236,52,221,.25),0 10px 20px rgba(0,0,0,.6);
+}
+.spx-gambit-lever img{filter:drop-shadow(0 10px 12px rgba(0,0,0,.86)) drop-shadow(0 0 17px rgba(240,56,212,.78));}
+.spx-gambit-lever b{
+    right:-21px;
+    bottom:8px;
+    display:grid;
+    place-items:center;
+    width:142px;
+    min-height:56px;
+    padding:6px 10px;
+    writing-mode:horizontal-tb;
+    border:2px solid #ffc5fb;
+    border-radius:11px;
+    color:#fff5ff;
+    background:linear-gradient(180deg,#9d22c7,#42075f);
+    box-shadow:inset 0 0 9px #ef7cff,0 0 18px #d52cff,0 5px 0 #190321;
+    text-align:center;
+    transform:rotate(-2deg);
+}
+.spx-gambit-lever b span{display:block;font-family:Impact,Montserrat,sans-serif;font-size:25px;line-height:.9;letter-spacing:.12em;text-shadow:0 0 6px #fff,0 0 15px #ff4fdf;}
+.spx-gambit-lever b small{display:block;margin-top:4px;font-size:7px;letter-spacing:.13em;}
+
+.spx-gambit-prize,.spx-gambit-unleash{
+    min-height:min(720px,calc(100dvh - 70px));
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    padding:35px;
+    text-align:center;
+    background:radial-gradient(circle at 50% 44%,rgba(191,45,246,.34),transparent 38%);
+}
+.spx-gambit-prize>span,.spx-gambit-unleash>span,.spx-gambit-aftermath header>span{color:#ffd76c;font-size:13px;font-weight:1000;letter-spacing:.25em;}
+.spx-gambit-prize>strong{display:grid;place-items:center;width:150px;height:150px;margin:18px;border:5px solid #ffd568;border-radius:50%;background:radial-gradient(circle,#e045ef,#55106c 60%,#15051e);box-shadow:0 0 60px rgba(226,63,255,.62);font-family:Impact,sans-serif;font-size:82px;}
+.spx-gambit-prize h1,.spx-gambit-unleash h1,.spx-gambit-aftermath h1{margin:8px 0;color:#fff0bd;font-family:Impact,Montserrat,sans-serif;font-size:clamp(38px,6vw,74px);letter-spacing:.05em;text-shadow:0 3px 0 #6b2078,0 0 24px #cf47ff;}
+.spx-gambit-prize p,.spx-gambit-unleash p,.spx-gambit-aftermath header p{max-width:750px;color:#dfd0e8;line-height:1.5;}
+.spx-gambit-prize>div{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-top:20px;}
+.spx-gambit-prize i{padding:8px 12px;border:1px solid #ad6bcb;border-radius:999px;background:#16081e;color:#fff0c2;font-size:10px;font-style:normal;font-weight:900;}
+.spx-gambit-unleash-track{width:min(650px,90%);height:22px;margin:28px 0 10px;padding:4px;border:2px solid #ffce63;border-radius:999px;background:#0a040f;box-shadow:0 0 20px rgba(214,55,255,.4);}
+.spx-gambit-unleash-track i{display:block;width:calc(var(--salvo-progress) * 100%);height:100%;border-radius:999px;background:linear-gradient(90deg,#7b18c8,#f33edb,#fff1a5);box-shadow:0 0 14px #e349ff;transition:width .28s ease;}
+.spx-gambit-unleash>b{color:#ffd870;font-size:12px;letter-spacing:.16em;}
+.spx-gambit-live-impact{position:absolute;left:50%;top:58%;z-index:5;padding:10px 17px;border:2px solid #ffd776;border-radius:10px;color:#fff5d4;background:linear-gradient(135deg,#8f1ec5,#2b083e);box-shadow:0 0 22px #e449ff;font-family:Impact,sans-serif;font-size:clamp(16px,2vw,26px);letter-spacing:.12em;transform:translate(-50%,-50%) rotate(calc((var(--impact-index) - 2) * 4deg));animation:spxGambitImpact .9s ease both;white-space:nowrap;}
+.spx-gambit-live-impact.is-pack{border-color:#53dbff;}.spx-gambit-live-impact.is-queue{border-color:#ff6daf;}.spx-gambit-live-impact.is-royal{border-color:#ffe666;}
+.spx-gambit-fx.is-final .spx-gambit-final-scene{animation-duration:3.5s;}
+.spx-gambit-fx.is-final .spx-gambit-final-scene>img,.spx-gambit-fx.is-final .spx-gambit-final-scene>strong{animation-duration:3.4s;}
+
+.spx-gambit-aftermath{min-height:min(730px,calc(100dvh - 70px));padding:10px 4px;}
+.spx-gambit-aftermath header{text-align:center;}
+.spx-gambit-aftermath h1{font-size:clamp(35px,5vw,62px);}
+.spx-gambit-aftermath-layout{display:grid;grid-template-columns:minmax(250px,340px) minmax(0,1fr);gap:18px;align-items:start;margin-top:18px;}
+.spx-gambit-aftermath-report,.spx-gambit-aftermath-action{border:2px solid rgba(211,93,255,.48);border-radius:20px;background:linear-gradient(145deg,rgba(34,9,48,.96),rgba(8,4,14,.97));box-shadow:inset 0 0 32px rgba(157,38,215,.15),0 16px 36px rgba(0,0,0,.45);}
+.spx-gambit-aftermath-report{padding:20px;}
+.spx-gambit-aftermath-report h2,.spx-gambit-aftermath-action h2{margin:0 0 12px;color:#ffe39a;font-family:Impact,Montserrat,sans-serif;letter-spacing:.08em;}
+.spx-gambit-aftermath-report ul{max-height:430px;overflow:auto;margin:0;padding:0;list-style:none;}
+.spx-gambit-aftermath-report li{margin:7px 0;padding:10px 12px;border-left:3px solid #d243ff;background:rgba(255,255,255,.045);color:#ddd0e4;font-size:12px;line-height:1.4;}
+.spx-gambit-aftermath-action{padding:20px;text-align:center;}
+.spx-gambit-aftermath-action>span{color:#d98cff;font-size:10px;font-weight:900;letter-spacing:.17em;}
+.spx-gambit-aftermath-action>p{color:#cbbbd4;font-size:12px;line-height:1.5;}
+.spx-gambit-aftermath-action>.spx-gambit-card-grid{margin:16px 0;}
+.spx-gambit-card.is-selected{border-color:#ffe36b;box-shadow:0 0 0 3px rgba(255,215,86,.25),0 0 29px rgba(231,81,255,.62);transform:translateY(-3px);}
+
+@keyframes spxGambitImpact{0%{opacity:0;transform:translate(-50%,-50%) scale(.35) rotate(-10deg)}22%,72%{opacity:1;transform:translate(-50%,-50%) scale(1) rotate(calc((var(--impact-index) - 2) * 4deg))}100%{opacity:0;transform:translate(-50%,-80%) scale(1.08)}}
+
+@media (max-height:820px) and (min-width:761px){
+    .spx-gambit-shell{max-height:calc(100dvh - 8px);}
+    #spxGambitContent{padding:9px 18px 12px;}
+    .spx-gambit-header{margin-bottom:34px;}.spx-gambit-header h1{font-size:34px;}.spx-gambit-header p{font-size:10px;line-height:1.25;}
+    .spx-gambit-casino-layout{grid-template-columns:180px minmax(530px,700px);gap:17px;}
+    .spx-gambit-meter-card,.spx-gambit-machine{min-height:478px;}
+    .spx-gambit-meter-card i{min-height:45px;}.spx-gambit-meter-card>strong{font-size:23px;}
+    .spx-gambit-machine{padding-top:64px;padding-bottom:20px;}
+    .spx-gambit-machine-sign{top:22px;font-size:23px;}.spx-gambit-machine-sign b{width:36px;height:36px;font-size:20px;}
+    .spx-gambit-slot{min-height:150px;}.spx-gambit-slot strong{font-size:32px;}.spx-gambit-slot small{margin-top:5px;}
+    .spx-gambit-bet-controls{margin:8px 0;}.spx-gambit-bet-controls button{min-height:52px;}
+    .spx-gambit-machine footer{margin-top:7px;padding-top:0;}.spx-gambit-cashout{min-height:47px;}
+    .spx-gambit-lever{top:48px;height:350px;}
+}
+
+@media (max-width:980px) and (min-width:761px){
+    .spx-gambit-casino-layout{grid-template-columns:155px minmax(480px,1fr);padding-right:100px;gap:13px;}
+    .spx-gambit-lever{right:-112px;width:125px;}
+    .spx-gambit-lever b{right:-7px;width:114px;}.spx-gambit-lever b span{font-size:20px;}
+}
+
+@media (max-width:760px){
+    .spx-gambit-shell{width:100vw;max-height:100dvh;overflow-y:auto;border-radius:0;}
+    .spx-gambit-casino-layout{grid-template-columns:1fr;padding:0;}
+    .spx-gambit-machine{min-height:465px;padding:70px 18px 18px;}
+    .spx-gambit-machine::after{inset:-14px -10px -8px;-webkit-mask:linear-gradient(#000 0 0) top/100% 23% no-repeat,linear-gradient(#000 0 0) left/12% 100% no-repeat,linear-gradient(#000 0 0) right/12% 100% no-repeat;mask:linear-gradient(#000 0 0) top/100% 23% no-repeat,linear-gradient(#000 0 0) left/12% 100% no-repeat,linear-gradient(#000 0 0) right/12% 100% no-repeat;}
+    .spx-gambit-machine-sign{top:22px;min-width:80%;padding:7px 11px;font-size:19px;}.spx-gambit-machine-sign b{width:32px;height:32px;font-size:18px;}
+    .spx-gambit-lever{position:relative;top:auto;right:auto;width:100%;height:74px;margin:2px 0 7px;border:4px ridge #4e3b51;border-radius:14px;background:#130819;}
+    .spx-gambit-lever::before{display:none;}.spx-gambit-lever img{left:16px;right:auto;bottom:-45px;width:90px;height:150px;transform:rotate(-76deg);}.spx-gambit-lever b{right:14px;bottom:9px;width:150px;min-height:49px;}
+    .spx-gambit-meter-card{min-height:0;padding:12px;grid-template-columns:repeat(3,1fr);}.spx-gambit-meter-fill{inset:auto 10px 5px 10px;width:calc((var(--charge) + 1) * 16%);height:7px;max-height:none;}
+    .spx-gambit-prize,.spx-gambit-unleash{min-height:calc(100dvh - 40px);padding:18px 10px;}
+    .spx-gambit-aftermath{min-height:auto;}.spx-gambit-aftermath-layout{grid-template-columns:1fr;}.spx-gambit-aftermath-report ul{max-height:180px;}
+}
+
+@media (prefers-reduced-motion:reduce){
+    .spx-gambit-live-impact{animation:none!important;opacity:1!important;}
+    .spx-gambit-unleash-track i{transition-duration:.08s!important;}
+}
+
+/* ============================================================
+   GAMBIT 3.0 — PHYSICAL CASINO / BOARD SALVO / POLISH UI
+============================================================ */
+.spx-gambit-backdrop{
+    background:
+        linear-gradient(180deg,rgba(5,2,15,.08),rgba(7,2,16,.32)),
+        url("draft-assets/gambit_casino_backdrop.png") center/cover no-repeat;
+    backdrop-filter:blur(2px) saturate(1.22);
+}
+.spx-gambit-backdrop::before{opacity:.2;}
+.spx-gambit-backdrop::after{box-shadow:inset 0 0 82px rgba(26,2,48,.25),0 0 90px rgba(0,0,0,.55);}
+.spx-gambit-shell{
+    width:min(1500px,calc(100vw - 36px));
+    overflow:hidden;
+    transition:opacity .28s ease,visibility .28s ease,transform .28s ease;
+}
+.spx-gambit-shell::after{
+    content:"";
+    position:absolute;
+    right:-20px;
+    top:18%;
+    z-index:0;
+    width:180px;
+    height:260px;
+    pointer-events:none;
+    background:url("draft-assets/gambit_kinetic_card.png") center/contain no-repeat;
+    opacity:.08;
+    filter:blur(1px) drop-shadow(0 0 25px #cf43ff);
+    transform:rotate(16deg);
+    animation:spxGambitAmbientCard 5.5s ease-in-out infinite alternate;
+}
+#spxGambitContent{position:relative;z-index:1;}
+.spx-gambit-header{margin-bottom:34px;}
+.spx-gambit-header h1{
+    color:#ffe8ff;
+    font-family:Impact,"Arial Black",Montserrat,sans-serif;
+    font-size:clamp(38px,4vw,62px);
+    letter-spacing:.07em;
+    text-shadow:0 3px 0 #72208c,0 0 10px #fff,0 0 30px #e33cff;
+}
+.spx-gambit-casino-layout{
+    grid-template-columns:minmax(190px,225px) minmax(660px,880px);
+    gap:clamp(18px,2vw,30px);
+    padding:0 0 6px;
+}
+.spx-gambit-meter-card{
+    min-height:536px;
+    padding:17px 13px 15px;
+    isolation:isolate;
+    background:linear-gradient(100deg,rgba(5,2,10,.96),rgba(29,9,39,.96));
+}
+.spx-gambit-meter-card>span,.spx-gambit-meter-card>strong,.spx-gambit-meter-card>i{position:relative;z-index:3;}
+.spx-gambit-meter-card>span{
+    color:#ffe7a1;
+    font-family:Impact,Montserrat,sans-serif;
+    font-size:13px;
+    letter-spacing:.11em;
+    text-shadow:0 0 12px #e444ff;
+}
+.spx-gambit-meter-fill{
+    inset:auto 7px 7px;
+    z-index:0;
+    width:auto;
+    height:calc((var(--charge) + 1) * 16.1%);
+    max-height:calc(100% - 14px);
+    border:1px solid rgba(255,212,98,.35);
+    border-radius:16px;
+    background:
+        linear-gradient(0deg,rgba(97,10,163,.92),rgba(236,39,218,.64) 70%,rgba(255,236,168,.48)),
+        url("draft-assets/gambit_kinetic_card.png") center bottom/74px auto repeat-x;
+    box-shadow:inset 0 0 26px rgba(255,255,255,.2),0 0 22px rgba(220,51,255,.66);
+    opacity:.72;
+}
+.spx-gambit-meter-card i{
+    min-height:55px;
+    border:1px solid rgba(168,87,192,.23);
+    background:rgba(4,1,8,.76);
+    backdrop-filter:blur(4px);
+}
+.spx-gambit-meter-card i.is-on{
+    border-color:rgba(255,216,111,.62);
+    background:linear-gradient(90deg,rgba(101,17,155,.72),rgba(19,5,29,.72));
+    box-shadow:0 0 18px rgba(218,55,255,.22),inset 0 0 12px rgba(255,255,255,.05);
+}
+.spx-gambit-meter-card i em{font-size:8px;letter-spacing:.06em;}
+
+.spx-gambit-machine{
+    min-height:536px;
+    padding:74px 126px 28px 48px;
+    border-radius:42px;
+}
+.spx-gambit-machine::after{inset:-25px -24px -18px;}
+.spx-gambit-machine-sign{
+    left:calc(50% - 39px);
+    min-width:min(66%,520px);
+    padding:8px 24px 10px;
+    font-family:Impact,"Arial Black",Montserrat,sans-serif;
+    font-size:clamp(23px,2.5vw,36px);
+}
+.spx-gambit-slot{min-height:170px;border:9px ridge #736879;box-shadow:inset 0 0 22px #020104,0 0 12px rgba(235,58,255,.28);}
+.spx-gambit-slot strong{font-size:clamp(30px,3.4vw,48px);}
+.spx-gambit-bet-controls{gap:15px;margin:11px 0 9px;}
+.spx-gambit-bet-controls button{
+    min-height:62px;
+    border:7px outset #6d5f72;
+    border-radius:15px;
+    background:linear-gradient(180deg,#b12bd3,#57106e 58%,#2a0736);
+    box-shadow:0 7px 0 #130318,inset 0 4px 8px rgba(255,255,255,.25),0 0 17px rgba(224,55,255,.35);
+    font-family:Impact,Montserrat,sans-serif;
+    font-size:17px;
+    letter-spacing:.09em;
+}
+.spx-gambit-bet-controls button.is-selected{border-color:#f4cf76;background:linear-gradient(180deg,#df48f3,#75188d 60%,#360944);}
+.spx-gambit-result{
+    min-height:40px;
+    border:2px inset #5e4e61;
+    background:linear-gradient(180deg,#0d0611,#050308);
+    transition:color .2s ease,border-color .2s ease,box-shadow .2s ease;
+}
+.spx-gambit-machine.has-result.is-success .spx-gambit-result{border-color:#52f59a;color:#caffdf;box-shadow:inset 0 0 22px rgba(35,255,126,.22),0 0 18px rgba(35,255,126,.32);animation:spxGambitResultWin .7s ease both;}
+.spx-gambit-machine.has-result.is-miss .spx-gambit-result{border-color:#ff566e;color:#ffd1d7;box-shadow:inset 0 0 22px rgba(255,37,74,.22),0 0 18px rgba(255,37,74,.32);animation:spxGambitResultLoss .62s ease both;}
+.spx-gambit-machine.has-result.is-push .spx-gambit-result{border-color:#ffd76c;color:#fff0bd;box-shadow:inset 0 0 22px rgba(255,214,76,.18),0 0 16px rgba(255,214,76,.28);}
+.spx-gambit-machine footer{grid-template-columns:auto minmax(0,1fr);gap:12px;margin-top:9px;}
+.spx-gambit-cashout{
+    min-height:58px;
+    border:8px outset #806b3c;
+    border-radius:15px;
+    box-shadow:0 7px 0 #3c2406,0 0 calc(10px + var(--charge) * 5px) rgba(255,205,81,.68),inset 0 5px 9px rgba(255,255,255,.62);
+}
+.spx-gambit-cashout span{font-family:Impact,Montserrat,sans-serif;font-size:20px;letter-spacing:.1em;}
+
+.spx-gambit-lever{
+    top:73px;
+    right:7px;
+    z-index:10;
+    width:112px;
+    height:370px;
+    border:5px ridge #514950;
+    border-radius:22px;
+    background:linear-gradient(90deg,#09050d,#2a112f 52%,#0a060d);
+    box-shadow:inset 0 0 22px rgba(232,47,220,.28),0 12px 22px rgba(0,0,0,.64),0 0 19px rgba(218,50,255,.28);
+}
+.spx-gambit-lever::before{left:6px;right:6px;bottom:10px;height:77px;border-radius:16px;}
+.spx-gambit-lever img{inset:0 -5px 34px;width:112px;height:280px;}
+.spx-gambit-lever b{right:4px;bottom:15px;width:94px;min-height:59px;padding:7px 4px;transform:none;}
+.spx-gambit-lever b span{font-size:14px;letter-spacing:.035em;white-space:nowrap;}
+.spx-gambit-lever b small{font-size:6px;letter-spacing:.08em;}
+
+.spx-gambit-burst-card{
+    position:absolute;
+    left:50%;top:52%;
+    width:40px;height:62px;
+    object-fit:contain;
+    filter:drop-shadow(0 0 10px #fff) drop-shadow(0 0 24px #dc3eff);
+    opacity:0;
+}
+.spx-gambit-fx.is-active .spx-gambit-burst-card{animation:spxGambitImageBurst .95s cubic-bezier(.17,.7,.2,1) var(--delay) both;}
+.spx-gambit-root.is-board-phase{pointer-events:none;}
+.spx-gambit-root.is-board-phase .spx-gambit-backdrop,.spx-gambit-root.is-board-phase .spx-gambit-shell{opacity:0;visibility:hidden;transform:scale(.985);}
+.spx-gambit-fx.is-board-salvo .spx-gambit-final-scene{
+    opacity:1;
+    background:radial-gradient(circle at 50% 54%,rgba(200,54,255,.28),transparent 37%);
+    animation:spxGambitBoardSceneIn .55s ease both;
+}
+.spx-gambit-fx.is-board-salvo .spx-gambit-final-scene>img{
+    opacity:1;
+    width:min(38vw,430px);
+    transform:translate(-50%,-50%) scale(1);
+    animation:spxGambitBoardHeroIn .6s cubic-bezier(.16,.78,.2,1) both;
+}
+.spx-gambit-fx.is-board-salvo .spx-gambit-final-scene>strong{
+    top:8%;
+    opacity:1;
+    animation:spxGambitBoardTitleIn .55s ease both;
+}
+.spx-gambit-projectile{
+    position:fixed;
+    z-index:12;
+    left:var(--from-x);top:var(--from-y);
+    width:64px;height:92px;
+    object-fit:contain;
+    opacity:0;
+    filter:drop-shadow(0 0 10px #fff) drop-shadow(0 0 25px #ef3fff) drop-shadow(0 0 44px #801bd2);
+    transform:translate(-50%,-50%) rotate(-20deg) scale(.45);
+}
+.spx-gambit-projectile.is-flying{animation:spxGambitProjectile .56s cubic-bezier(.18,.76,.18,1) both;}
+.spx-gambit-board-impact{
+    position:fixed!important;
+    z-index:11;
+    width:24px!important;height:24px!important;
+    border:3px solid #fff!important;
+    border-radius:50%!important;
+    background:radial-gradient(circle,#fff 0 11%,#ef49ff 23%,rgba(126,20,211,.5) 48%,transparent 70%)!important;
+    box-shadow:0 0 18px #fff,0 0 42px #e23eff,0 0 78px #7d18c7!important;
+    opacity:0;
+    transform:translate(-50%,-50%);
+    animation:spxGambitBoardImpact .82s ease-out both;
+}
+.spx-gambit-target-hit{animation:spxGambitTargetFlash .72s ease both!important;}
+.spx-gambit-live-impact{z-index:14;font-size:clamp(14px,1.7vw,23px);}
+.spx-gambit-aftermath-wipe{
+    position:fixed;inset:0;z-index:20;
+    display:grid;place-items:center;
+    background:radial-gradient(circle,rgba(230,59,255,.82),rgba(60,8,96,.94) 35%,rgba(6,2,14,.96) 78%);
+    clip-path:circle(0 at 50% 52%);
+    animation:spxGambitAftermathWipe .76s ease-in-out both;
+}
+.spx-gambit-aftermath-wipe img{position:absolute;width:min(26vw,300px);filter:drop-shadow(0 0 22px #fff) drop-shadow(0 0 45px #ea46ff);transform:rotate(-12deg);opacity:.3;}
+.spx-gambit-aftermath-wipe strong{position:relative;color:#fff0ba;font-family:Impact,Montserrat,sans-serif;font-size:clamp(30px,5vw,68px);letter-spacing:.12em;text-shadow:0 0 12px #fff,0 0 35px #f13dff;}
+.spx-gambit-root.is-aftermath-phase .spx-gambit-shell{animation:spxGambitAftermathEnter .5s cubic-bezier(.18,.78,.2,1) both;}
+.spx-gambit-root.is-closing .spx-gambit-shell{animation:spxGambitModalBreak .62s ease both;}
+
+.spx-gambit-aftermath{min-height:min(690px,calc(100dvh - 52px));padding:6px 4px 10px;}
+.spx-gambit-aftermath header>span{font-size:12px;color:#ef9cff;}
+.spx-gambit-aftermath h1{margin:4px 0;font-size:clamp(38px,4.4vw,62px);color:#ffc6ff;text-shadow:0 3px 0 #6e137f,0 0 12px #fff,0 0 34px #ea3dff;}
+.spx-gambit-aftermath header p{margin:5px auto 0;font-size:13px;}
+.spx-gambit-aftermath-layout{
+    grid-template-columns:minmax(360px,.9fr) minmax(470px,1.1fr);
+    gap:22px;
+    align-items:stretch;
+    margin-top:14px;
+}
+.spx-gambit-aftermath-report,.spx-gambit-aftermath-action{min-height:430px;border-color:rgba(231,81,255,.66);background:linear-gradient(145deg,rgba(45,7,58,.97),rgba(8,3,14,.98));}
+.spx-gambit-aftermath-report{padding:24px;}
+.spx-gambit-aftermath-report h2,.spx-gambit-aftermath-action h2{font-size:clamp(25px,2.2vw,36px);color:#ffc4ff;text-shadow:0 0 14px rgba(235,69,255,.65);}
+.spx-gambit-aftermath-report ul{max-height:480px;}
+.spx-gambit-aftermath-report li{margin:9px 0;padding:14px 15px;border-left-width:5px;color:#f2e9f6;font-size:14px;line-height:1.45;}
+.spx-gambit-aftermath-action{display:flex;flex-direction:column;justify-content:center;padding:24px;text-align:center;}
+.spx-gambit-aftermath-action>span{font-size:11px;color:#f092ff;}
+.spx-gambit-aftermath-action>p{max-width:760px;margin:0 auto;color:#dfd1e4;font-size:13px;}
+.spx-gambit-aftermath-action>.spx-gambit-card-grid{width:100%;margin:18px 0;}
+.spx-gambit-aftermath-action .spx-gambit-card-grid{grid-template-columns:repeat(auto-fit,minmax(190px,1fr));}
+.spx-gambit-aftermath-action .spx-gambit-card{display:grid;grid-template-rows:auto 1fr auto;place-items:center;min-height:205px;padding:18px;}
+.spx-gambit-aftermath-action .spx-gambit-card span{justify-self:start;font-size:10px;}
+.spx-gambit-aftermath-action .spx-gambit-card strong{align-self:center;margin:12px 0;color:#fff5dc;font-size:clamp(19px,1.8vw,27px);line-height:1.12;text-align:center;}
+.spx-gambit-aftermath-action .spx-gambit-card b{justify-self:center;font-size:12px;}
+
+@keyframes spxGambitAmbientCard{to{transform:translate(-18px,20px) rotate(25deg);opacity:.13;}}
+@keyframes spxGambitResultWin{0%{transform:scale(.96);filter:brightness(.8)}42%{transform:scale(1.025);filter:brightness(1.35)}100%{transform:scale(1);filter:brightness(1)}}
+@keyframes spxGambitResultLoss{0%,100%{transform:translateX(0)}22%{transform:translateX(-7px)}42%{transform:translateX(6px)}62%{transform:translateX(-4px)}82%{transform:translateX(3px)}}
+@keyframes spxGambitImageBurst{0%{opacity:0;transform:translate(-50%,-50%) rotate(0) scale(.25)}14%{opacity:1}100%{opacity:0;transform:translate(-50%,-50%) rotate(var(--angle)) translateX(var(--distance)) rotate(560deg) scale(.9)}}
+@keyframes spxGambitBoardSceneIn{from{opacity:0}to{opacity:1}}
+@keyframes spxGambitBoardHeroIn{from{opacity:0;transform:translate(-50%,-50%) scale(.65)}to{opacity:1;transform:translate(-50%,-50%) scale(1)}}
+@keyframes spxGambitBoardTitleIn{from{opacity:0;transform:translate(-50%,-18px) scale(.9)}to{opacity:1;transform:translate(-50%,0) scale(1)}}
+@keyframes spxGambitProjectile{0%{left:var(--from-x);top:var(--from-y);opacity:0;transform:translate(-50%,-50%) rotate(-24deg) scale(.35)}15%{opacity:1}100%{left:var(--to-x);top:var(--to-y);opacity:1;transform:translate(-50%,-50%) rotate(var(--shot-spin)) scale(.72)}}
+@keyframes spxGambitBoardImpact{0%{opacity:0;transform:translate(-50%,-50%) scale(.2)}18%{opacity:1}100%{opacity:0;transform:translate(-50%,-50%) scale(7)}}
+@keyframes spxGambitTargetFlash{0%,100%{filter:none}35%{filter:brightness(2) saturate(1.7) drop-shadow(0 0 18px #ef43ff)}}
+@keyframes spxGambitAftermathWipe{0%{clip-path:circle(0 at 50% 52%);opacity:0}45%,62%{clip-path:circle(90% at 50% 52%);opacity:1}100%{clip-path:circle(120% at 50% 52%);opacity:0}}
+@keyframes spxGambitAftermathEnter{from{opacity:0;transform:scale(.94)}to{opacity:1;transform:scale(1)}}
+@keyframes spxGambitModalBreak{0%{opacity:1;transform:scale(1);filter:none}45%{opacity:1;transform:scale(1.018);filter:brightness(1.4) saturate(1.6)}100%{opacity:0;transform:scale(.84) rotate(-1deg);filter:blur(7px) brightness(1.8)}}
+
+@media (max-height:820px) and (min-width:761px){
+    .spx-gambit-header{margin-bottom:27px;}
+    .spx-gambit-casino-layout{grid-template-columns:175px minmax(590px,790px);gap:18px;}
+    .spx-gambit-meter-card,.spx-gambit-machine{min-height:470px;}
+    .spx-gambit-machine{padding:65px 115px 20px 39px;}
+    .spx-gambit-lever{top:61px;right:5px;width:103px;height:330px;}
+    .spx-gambit-lever img{width:103px;height:250px;}
+    .spx-gambit-slot{min-height:145px;}
+    .spx-gambit-aftermath{min-height:calc(100dvh - 26px);}
+    .spx-gambit-aftermath-report,.spx-gambit-aftermath-action{min-height:365px;}
+    .spx-gambit-aftermath-action .spx-gambit-card{min-height:172px;}
+}
+@media (max-width:1080px) and (min-width:761px){
+    .spx-gambit-casino-layout{grid-template-columns:165px minmax(540px,1fr);gap:13px;padding:0;}
+    .spx-gambit-machine{padding-right:108px;padding-left:34px;}
+    .spx-gambit-lever{right:4px;width:96px;}
+    .spx-gambit-lever img{width:96px;}
+    .spx-gambit-lever b{width:80px;}.spx-gambit-lever b span{font-size:15px;}
+    .spx-gambit-machine-sign{left:calc(50% - 32px);font-size:22px;}
+    .spx-gambit-aftermath-layout{grid-template-columns:minmax(310px,.85fr) minmax(410px,1.15fr);}
+}
+@media (max-width:760px){
+    .spx-gambit-shell{width:100vw;max-height:100dvh;overflow-y:auto;}
+    .spx-gambit-header{margin-bottom:22px;}
+    .spx-gambit-header h1{font-size:34px;}
+    .spx-gambit-casino-layout{grid-template-columns:1fr;gap:12px;padding:0;}
+    .spx-gambit-machine{min-height:505px;padding:69px 16px 17px;}
+    .spx-gambit-machine-sign{left:50%;min-width:82%;font-size:19px;}
+    .spx-gambit-lever{position:relative;top:auto;right:auto;width:100%;height:78px;margin:3px 0 8px;border-radius:15px;}
+    .spx-gambit-lever img{left:12px;right:auto;bottom:-44px;width:94px;height:154px;transform:rotate(-76deg);}
+    .spx-gambit-lever b{right:13px;bottom:8px;width:155px;min-height:52px;}
+    .spx-gambit-lever b span{font-size:18px;}
+    .spx-gambit-meter-card{min-height:0;padding:12px;grid-template-columns:repeat(2,1fr);}
+    .spx-gambit-meter-fill{inset:auto 6px 6px;width:calc((var(--charge) + 1) * 16%);height:calc(100% - 12px);max-height:none;background-size:auto 82px;}
+    .spx-gambit-aftermath{min-height:auto;}
+    .spx-gambit-aftermath-layout{grid-template-columns:1fr;}
+    .spx-gambit-aftermath-report,.spx-gambit-aftermath-action{min-height:0;}
+    .spx-gambit-aftermath-report ul{max-height:190px;}
+    .spx-gambit-aftermath-action .spx-gambit-card-grid{grid-template-columns:repeat(2,minmax(0,1fr));}
+    .spx-gambit-aftermath-action .spx-gambit-card{min-height:160px;padding:12px 9px;}
+    .spx-gambit-aftermath-action .spx-gambit-card strong{font-size:16px;}
+    .spx-gambit-fx.is-board-salvo .spx-gambit-final-scene>img{width:min(70vw,330px);}
+    .spx-gambit-projectile{width:46px;height:69px;}
+}
+@media (prefers-reduced-motion:reduce){
+    .spx-gambit-shell::after{animation:none!important;}
+    .spx-gambit-projectile.is-flying{animation:spxGambitReducedProjectile .09s ease both!important;}
+    .spx-gambit-board-impact{animation:spxGambitReducedImpact .16s ease both!important;}
+    .spx-gambit-aftermath-wipe{animation:spxGambitReducedWipe .18s ease both!important;}
+    .spx-gambit-root.is-closing .spx-gambit-shell{animation:spxGambitReducedClose .12s ease both!important;}
+}
+@keyframes spxGambitReducedProjectile{from{left:var(--from-x);top:var(--from-y);opacity:0;transform:translate(-50%,-50%) scale(.8)}to{left:var(--to-x);top:var(--to-y);opacity:1;transform:translate(-50%,-50%) scale(.9)}}
+@keyframes spxGambitReducedImpact{from{opacity:0;transform:translate(-50%,-50%) scale(.6)}to{opacity:1;transform:translate(-50%,-50%) scale(1.4)}}
+@keyframes spxGambitReducedWipe{from{opacity:0}to{opacity:.92}}
+@keyframes spxGambitReducedClose{from{opacity:1}to{opacity:0}}
+
+/* Gambit v3.1 — fizyczny pulpit sterowania maszyny */
+.spx-gambit-projectile{
+    width:82px;
+    height:118px;
+    mix-blend-mode:screen;
+    filter:brightness(1.28) saturate(1.55) drop-shadow(0 0 9px #fff) drop-shadow(0 0 26px #f04cff) drop-shadow(0 0 56px #7718cf);
+}
+.spx-gambit-projectile.is-flying{animation-duration:.47s;}
+.spx-gambit-fx.is-board-salvo .spx-gambit-final-scene>img{
+    opacity:1;
+    animation:spxGambitBoardHeroHold .5s cubic-bezier(.16,.78,.2,1) both;
+}
+
+@media (min-width:761px){
+    .spx-gambit-machine{
+        min-height:0;
+        aspect-ratio:3/2;
+        padding:0;
+        border-radius:38px;
+        background:linear-gradient(180deg,rgba(16,7,22,.94),rgba(7,3,11,.98));
+    }
+    .spx-gambit-machine::before{
+        inset:22.5% 19.2% 31%;
+        border:0;
+        border-radius:12px;
+        background:
+            repeating-linear-gradient(0deg,transparent 0 4px,rgba(255,255,255,.024) 4px 5px),
+            radial-gradient(circle at 50% 38%,rgba(137,29,185,.25),transparent 58%),
+            linear-gradient(180deg,#100718,#08040d);
+        box-shadow:inset 0 0 38px #000;
+    }
+    .spx-gambit-machine::after{
+        inset:-2.1% -2.2% -1.8%;
+        -webkit-mask:
+            linear-gradient(#000 0 0) top/100% 25% no-repeat,
+            linear-gradient(#000 0 0) left/20.5% 100% no-repeat,
+            linear-gradient(#000 0 0) right/20.5% 100% no-repeat,
+            linear-gradient(#000 0 0) bottom/100% 31.5% no-repeat;
+        mask:
+            linear-gradient(#000 0 0) top/100% 25% no-repeat,
+            linear-gradient(#000 0 0) left/20.5% 100% no-repeat,
+            linear-gradient(#000 0 0) right/20.5% 100% no-repeat,
+            linear-gradient(#000 0 0) bottom/100% 31.5% no-repeat;
+    }
+    .spx-gambit-bulbs{inset:2.2% 7% auto;z-index:9;}
+    .spx-gambit-machine-sign{
+        top:7.2%;
+        left:50%;
+        min-width:48%;
+        padding:6px 20px 8px;
+        font-size:clamp(19px,2.1vw,31px);
+    }
+    .spx-gambit-machine-sign b{width:38px;height:38px;font-size:21px;}
+    .spx-gambit-slot{
+        position:absolute;
+        left:20.2%;
+        right:20.2%;
+        top:25.1%;
+        height:40.5%;
+        min-height:0;
+        padding:4% 4% 10%;
+        border:0;
+        border-radius:11px;
+        background:transparent;
+        box-shadow:none;
+    }
+    .spx-gambit-slot strong{margin:5px 0 1px;font-size:clamp(27px,3.15vw,45px);}
+    .spx-gambit-slot b{font-size:clamp(15px,1.55vw,21px);}
+    .spx-gambit-slot small{margin-top:5px;}
+    .spx-gambit-screen-result{
+        position:absolute;
+        left:5%;
+        right:5%;
+        bottom:4.5%;
+        z-index:4;
+        min-height:31px;
+        padding:5px 12px;
+        border:1px solid rgba(240,100,255,.42);
+        border-radius:5px;
+        color:#f8e8ff;
+        background:linear-gradient(180deg,rgba(29,8,37,.92),rgba(5,2,9,.94));
+        box-shadow:inset 0 0 14px rgba(224,58,255,.13);
+        font-size:clamp(9px,1vw,12px);
+    }
+    .spx-gambit-control-deck{
+        position:absolute;
+        left:20%;
+        right:20%;
+        top:68.3%;
+        bottom:5.5%;
+        z-index:10;
+        display:grid;
+        grid-template-rows:minmax(0,1fr) minmax(0,.92fr);
+        gap:0;
+        align-items:center;
+        perspective:720px;
+    }
+    .spx-gambit-control-deck .spx-gambit-bet-controls{
+        display:grid;
+        grid-template-columns:1fr 1fr;
+        align-items:center;
+        gap:2.5%;
+        height:100%;
+        margin:0;
+        padding:0 2.5%;
+    }
+    .spx-gambit-control-deck .spx-gambit-bet-controls button{
+        position:relative;
+        min-height:0;
+        height:100%;
+        padding:0 8% 6%;
+        border:0;
+        border-radius:0;
+        color:#fff7d8;
+        background:url("draft-assets/gambit_casino_direction_button.png") center/100% 100% no-repeat;
+        box-shadow:none;
+        filter:drop-shadow(0 7px 5px rgba(0,0,0,.55));
+        transform:rotateX(4deg) translateY(0);
+        transform-origin:50% 100%;
+        transition:transform .16s ease,filter .16s ease;
+    }
+    .spx-gambit-control-deck .spx-gambit-bet-controls button span{
+        display:inline-block;
+        margin-right:7px;
+        font-size:clamp(13px,1.3vw,20px);
+        line-height:1;
+        vertical-align:middle;
+    }
+    .spx-gambit-control-deck .spx-gambit-bet-controls button b{
+        display:inline-block;
+        font-family:Impact,"Arial Black",Montserrat,sans-serif;
+        font-size:clamp(16px,1.7vw,25px);
+        letter-spacing:.09em;
+        line-height:1;
+        text-shadow:0 2px 1px #4a075d,0 0 10px #fff,0 0 20px #ef4eff;
+        vertical-align:middle;
+    }
+    .spx-gambit-control-deck .spx-gambit-bet-controls button:hover:not(:disabled){
+        filter:brightness(1.18) drop-shadow(0 8px 8px rgba(0,0,0,.62)) drop-shadow(0 0 10px rgba(240,60,255,.72));
+        transform:rotateX(4deg) translateY(-2px);
+    }
+    .spx-gambit-control-deck .spx-gambit-bet-controls button:active:not(:disabled),
+    .spx-gambit-control-deck .spx-gambit-bet-controls button.is-selected{
+        border:0;
+        background:url("draft-assets/gambit_casino_direction_button.png") center/100% 100% no-repeat;
+        box-shadow:none;
+        filter:brightness(1.28) saturate(1.22) drop-shadow(0 2px 2px rgba(0,0,0,.7)) drop-shadow(0 0 15px #f14cff);
+        transform:rotateX(4deg) translateY(5px) scale(.985);
+    }
+    .spx-gambit-control-deck footer{
+        position:relative;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        height:100%;
+        margin:0;
+        padding:0 10%;
+    }
+    .spx-gambit-control-deck .spx-gambit-protections{
+        position:absolute;
+        left:1.5%;
+        top:50%;
+        z-index:3;
+        gap:2px;
+        padding:2px 5px;
+        border:1px solid rgba(255,206,99,.52);
+        border-radius:999px;
+        background:rgba(8,3,12,.74);
+        transform:translateY(-50%);
+    }
+    .spx-gambit-control-deck .spx-gambit-protections span{font-size:17px;}
+    .spx-gambit-cashout{
+        position:relative;
+        width:84%;
+        height:100%;
+        min-height:0;
+        padding:0 8% 6%;
+        border:0;
+        border-radius:0;
+        color:#261100;
+        background:url("draft-assets/gambit_casino_cashout_button.png") center/100% 100% no-repeat;
+        box-shadow:none;
+        filter:drop-shadow(0 7px 5px rgba(0,0,0,.58)) drop-shadow(0 0 calc(6px + var(--charge) * 3px) rgba(255,204,73,.56));
+        transform:rotateX(4deg);
+        transform-origin:50% 100%;
+        transition:transform .16s ease,filter .16s ease;
+    }
+    .spx-gambit-cashout span{font-size:clamp(15px,1.65vw,24px);text-shadow:0 1px 0 rgba(255,255,255,.65);}
+    .spx-gambit-cashout b{font-size:clamp(7px,.75vw,10px);}
+    .spx-gambit-cashout:hover:not(:disabled){filter:brightness(1.12) drop-shadow(0 8px 7px rgba(0,0,0,.62)) drop-shadow(0 0 14px #ffd15c);}
+    .spx-gambit-cashout:active:not(:disabled){
+        border:0;
+        box-shadow:none;
+        transform:rotateX(4deg) translateY(5px) scale(.99);
+    }
+    .spx-gambit-lever{
+        position:absolute;
+        top:28%;
+        right:1.2%;
+        z-index:12;
+        width:14%;
+        height:58%;
+        margin:0;
+        padding:0;
+        border:0;
+        border-radius:0;
+        background:transparent;
+        box-shadow:none;
+        overflow:visible;
+    }
+    .spx-gambit-lever::before{display:none;}
+    .spx-gambit-lever img{
+        inset:-3% 0 6%;
+        width:100%;
+        height:94%;
+        object-fit:contain;
+        transform:rotate(-7deg);
+        filter:drop-shadow(0 10px 10px rgba(0,0,0,.86)) drop-shadow(0 0 15px rgba(240,56,212,.8));
+    }
+    .spx-gambit-lever b{
+        right:5%;
+        bottom:1%;
+        width:90%;
+        min-height:24px;
+        padding:4px 5px;
+        border:1px solid #ffbdf8;
+        border-radius:999px;
+        background:linear-gradient(180deg,#861dad,#310541);
+        box-shadow:inset 0 0 7px #ef7cff,0 0 10px #d52cff,0 3px 0 #17021f;
+        transform:none;
+    }
+    .spx-gambit-lever b span{font-size:clamp(10px,1vw,14px);letter-spacing:.06em;}
+}
+
+@media (max-width:760px){
+    .spx-gambit-machine{min-height:565px;aspect-ratio:auto;padding:69px 16px 17px;}
+    .spx-gambit-machine::after{
+        -webkit-mask:linear-gradient(#000 0 0) top/100% 23% no-repeat,linear-gradient(#000 0 0) left/12% 100% no-repeat,linear-gradient(#000 0 0) right/12% 100% no-repeat;
+        mask:linear-gradient(#000 0 0) top/100% 23% no-repeat,linear-gradient(#000 0 0) left/12% 100% no-repeat,linear-gradient(#000 0 0) right/12% 100% no-repeat;
+    }
+    .spx-gambit-slot{position:relative;left:auto;right:auto;top:auto;height:auto;min-height:190px;padding:18px 12px 52px;}
+    .spx-gambit-screen-result{position:absolute;left:4%;right:4%;bottom:7px;min-height:36px;font-size:10px;}
+    .spx-gambit-control-deck{position:relative;left:auto;right:auto;top:auto;bottom:auto;z-index:10;display:grid;gap:4px;height:154px;margin:6px 0 0;}
+    .spx-gambit-control-deck .spx-gambit-bet-controls{height:78px;margin:0;gap:5px;}
+    .spx-gambit-control-deck .spx-gambit-bet-controls button{height:78px;min-height:0;padding-bottom:8px;border:0;border-radius:0;background:url("draft-assets/gambit_casino_direction_button.png") center/100% 100% no-repeat;box-shadow:none;}
+    .spx-gambit-control-deck .spx-gambit-bet-controls button b{font-family:Impact,Montserrat,sans-serif;font-size:17px;}
+    .spx-gambit-control-deck footer{position:relative;display:flex;align-items:center;justify-content:center;height:72px;margin:0;padding:0 7%;}
+    .spx-gambit-control-deck .spx-gambit-protections{position:absolute;left:0;z-index:3;padding:3px 5px;border-width:1px;}
+    .spx-gambit-control-deck .spx-gambit-protections span{font-size:18px;}
+    .spx-gambit-cashout{width:88%;height:72px;min-height:0;padding-bottom:9px;border:0;border-radius:0;background:url("draft-assets/gambit_casino_cashout_button.png") center/100% 100% no-repeat;box-shadow:none;}
+    .spx-gambit-cashout span{font-size:17px;}
+    .spx-gambit-lever{position:relative;top:auto;right:auto;width:100%;height:92px;margin:0;border:0;border-radius:0;background:transparent;box-shadow:none;overflow:visible;}
+    .spx-gambit-lever::before{display:none;}
+    .spx-gambit-lever img{left:4px;right:auto;bottom:-38px;width:108px;height:170px;transform:rotate(-76deg);}
+    .spx-gambit-lever b{right:12px;bottom:19px;width:112px;min-height:30px;padding:4px 7px;border-radius:999px;}
+    .spx-gambit-lever b span{font-size:14px;}
+    .spx-gambit-projectile{width:58px;height:84px;}
+}
+
+@keyframes spxGambitBoardHeroHold{
+    from{opacity:0;transform:translate(-50%,-50%) scale(.7)}
+    to{opacity:1;transform:translate(-50%,-50%) scale(1)}
+}
+
+/* ============================================================
+   PATCH100M — GAMBIT CLEAN CASINO REBUILD
+   One machine asset, true screen underlay, readable salvo.
+============================================================ */
+.spx-gambit-final-hero{pointer-events:none;}
+.spx-gambit-ambient-cards{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden;}
+.spx-gambit-ambient-cards img{
+    position:absolute;
+    left:var(--ambient-x);
+    top:var(--ambient-y);
+    width:var(--ambient-size);
+    height:auto;
+    opacity:.42;
+    transform:translate(-50%,-50%) rotate(var(--ambient-rotate));
+    filter:drop-shadow(0 0 7px rgba(255,255,255,.5)) drop-shadow(0 0 16px rgba(225,64,255,.72));
+    animation:spxGambitAmbientDrift var(--ambient-duration) ease-in-out var(--ambient-delay) infinite alternate;
+}
+.spx-gambit-ambient-cards img.is-charged{
+    opacity:.7;
+    filter:brightness(1.25) saturate(1.5) drop-shadow(0 0 8px #fff) drop-shadow(0 0 22px #ef55ff) drop-shadow(0 0 36px rgba(139,31,227,.92));
+}
+@keyframes spxGambitAmbientDrift{
+    from{transform:translate(-50%,-50%) rotate(calc(var(--ambient-rotate) - 7deg)) translateY(-7px) scale(.94)}
+    to{transform:translate(-50%,-50%) rotate(calc(var(--ambient-rotate) + 7deg)) translateY(9px) scale(1.08)}
+}
+
+.spx-gambit-fx.is-board-salvo .spx-gambit-final-scene{
+    opacity:1;
+    background:
+        radial-gradient(circle at 50% 56%,rgba(196,57,255,.27),rgba(66,13,108,.13) 30%,transparent 58%),
+        linear-gradient(180deg,rgba(5,2,14,.05),rgba(7,2,16,.24));
+    animation:spxGambitBoardSceneIn .62s ease both;
+}
+.spx-gambit-fx.is-board-salvo .spx-gambit-final-scene>.spx-gambit-final-hero{
+    z-index:2;
+    opacity:1;
+    width:min(37vw,420px);
+    max-height:72vh;
+    transform:translate(-50%,-50%) scale(1);
+    animation:spxGambitBoardHeroHold .72s cubic-bezier(.16,.78,.2,1) both;
+}
+.spx-gambit-fx.is-board-salvo .spx-gambit-final-scene>strong{
+    z-index:3;
+    top:8%;
+    opacity:1;
+    font-size:clamp(28px,4vw,56px);
+    animation:spxGambitBoardTitleIn .62s ease both;
+}
+.spx-gambit-projectile{
+    width:72px;
+    height:104px;
+    mix-blend-mode:screen;
+    filter:brightness(1.22) saturate(1.5) drop-shadow(0 0 9px #fff) drop-shadow(0 0 24px #f04cff) drop-shadow(0 0 48px #7718cf);
+}
+.spx-gambit-projectile.is-flying{animation-duration:.58s;}
+
+@media (min-width:761px){
+    .spx-gambit-machine{
+        position:relative;
+        min-height:0;
+        aspect-ratio:3/2;
+        padding:0;
+        overflow:visible;
+        border:0;
+        border-radius:0;
+        background:transparent;
+        box-shadow:none;
+        isolation:isolate;
+    }
+
+    /* No duplicate machine. The monitor is DOM content underneath one foreground arcade asset. */
+    .spx-gambit-machine::before{display:none!important;}
+    .spx-gambit-machine::after{
+        content:"";
+        position:absolute;
+        inset:0;
+        z-index:5;
+        border:0;
+        border-radius:0;
+        background:url("draft-assets/gambit_casino_arcade.png") center/100% 100% no-repeat;
+        box-shadow:none;
+        opacity:1;
+        pointer-events:none;
+        -webkit-mask:none!important;
+        mask:none!important;
+        filter:drop-shadow(0 15px 26px rgba(0,0,0,.55)) drop-shadow(0 0 10px rgba(230,58,255,.2));
+    }
+
+    .spx-gambit-bulbs{z-index:8;inset:2.1% 7.1% auto;}
+    .spx-gambit-machine-sign{
+        top:6.8%;
+        left:50%;
+        z-index:9;
+        min-width:48%;
+        padding:6px 20px 8px;
+        font-size:clamp(19px,2.05vw,30px);
+    }
+    .spx-gambit-machine-sign b{width:38px;height:38px;font-size:21px;}
+
+    /* Transparent monitor opening measured directly from 1536×1024 arcade PNG:
+       x 353–1191, y 287–633. Slight inset keeps the blue screen safely behind the gold bezel. */
+    .spx-gambit-slot{
+        position:absolute;
+        left:23.4%;
+        right:22.9%;
+        top:28.5%;
+        height:32.9%;
+        z-index:2;
+        min-height:0;
+        display:flex;
+        flex-direction:column;
+        align-items:center;
+        justify-content:center;
+        overflow:hidden;
+        padding:7.8% 5.5% 8.8%;
+        border:0;
+        border-radius:18px;
+        background:
+            repeating-linear-gradient(180deg,rgba(255,255,255,.026) 0 1px,transparent 1px 4px),
+            radial-gradient(circle at 50% 25%,rgba(73,190,235,.14),transparent 48%),
+            linear-gradient(180deg,#0b334b 0%,#08283e 48%,#061a2d 100%);
+        box-shadow:inset 0 0 32px rgba(0,0,0,.62),inset 0 0 0 1px rgba(102,213,255,.18);
+        animation:spxGambitCleanScreenPulse 3.2s ease-in-out infinite;
+    }
+    .spx-gambit-slot::before{
+        content:"";
+        position:absolute;
+        inset:0;
+        pointer-events:none;
+        background:
+            linear-gradient(180deg,rgba(255,255,255,.04),transparent 18%,transparent 78%,rgba(0,0,0,.14)),
+            repeating-linear-gradient(180deg,transparent 0 3px,rgba(145,224,255,.025) 3px 4px);
+        opacity:.75;
+        animation:spxGambitCleanScan 7s linear infinite;
+    }
+    .spx-gambit-screen-hud{
+        position:absolute;
+        left:7.2%;
+        right:7.2%;
+        top:6.2%;
+        z-index:3;
+        display:flex;
+        align-items:center;
+        justify-content:space-between;
+        gap:14px;
+    }
+    .spx-gambit-screen-label{
+        color:#d8d8f1;
+        font-size:clamp(9px,.8vw,12px);
+        font-weight:900;
+        letter-spacing:.22em;
+        text-transform:uppercase;
+        text-shadow:0 0 8px rgba(200,235,255,.16);
+    }
+    .spx-gambit-screen-lives{
+        display:inline-flex;
+        align-items:center;
+        gap:5px;
+        padding:4px 8px;
+        border:1px solid rgba(125,218,255,.32);
+        border-radius:999px;
+        background:rgba(8,39,58,.66);
+        box-shadow:inset 0 0 11px rgba(71,188,235,.1);
+    }
+    .spx-gambit-screen-lives span{
+        color:#a8e6ff;
+        font-size:clamp(7px,.67vw,9px);
+        font-weight:900;
+        letter-spacing:.18em;
+    }
+    .spx-gambit-screen-lives i{
+        color:#f09cff;
+        font-size:clamp(12px,1vw,16px);
+        font-style:normal;
+        line-height:1;
+        text-shadow:0 0 7px #ea55ff,0 0 13px rgba(211,55,255,.7);
+    }
+    .spx-gambit-screen-lives i.is-broken{color:#4b687a;opacity:.62;text-shadow:none;}
+
+    .spx-gambit-slot strong{
+        position:relative;
+        z-index:3;
+        max-width:88%;
+        margin:0;
+        color:#fff0d0;
+        font-family:Impact,"Arial Black",Montserrat,sans-serif;
+        font-size:clamp(31px,3.45vw,50px);
+        line-height:.92;
+        text-align:center;
+        text-wrap:balance;
+        text-shadow:0 0 10px rgba(255,255,255,.3),0 0 24px rgba(224,72,255,.62);
+    }
+    .spx-gambit-slot.is-long-name strong{font-size:clamp(26px,2.9vw,42px);max-width:92%;}
+    .spx-gambit-slot.is-very-long-name strong{font-size:clamp(22px,2.45vw,35px);line-height:.9;max-width:94%;}
+    .spx-gambit-slot>b{
+        position:relative;
+        z-index:3;
+        margin-top:7px;
+        color:#ff79dc;
+        font-size:clamp(16px,1.55vw,22px);
+        letter-spacing:.15em;
+        text-shadow:0 0 10px rgba(255,77,215,.34),0 0 18px rgba(197,53,255,.18);
+    }
+    .spx-gambit-slot>small{display:none!important;}
+    .spx-gambit-screen-result{
+        position:absolute;
+        left:6.8%;
+        right:6.8%;
+        bottom:5.8%;
+        z-index:3;
+        min-height:36px;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        padding:5px 13px;
+        border:1px solid rgba(108,215,255,.24);
+        border-radius:7px;
+        color:#e9f8ff;
+        background:linear-gradient(180deg,rgba(5,30,46,.46),rgba(3,14,25,.32));
+        box-shadow:inset 0 0 12px rgba(85,211,255,.05);
+        font-size:clamp(9.5px,.92vw,12px);
+        font-weight:800;
+        line-height:1.15;
+        text-align:center;
+        animation:spxGambitCleanTextFlicker 4.4s linear infinite;
+    }
+    .spx-gambit-machine.has-result.is-success .spx-gambit-screen-result{border-color:#55e69a;color:#dfffe9;box-shadow:inset 0 0 18px rgba(41,255,137,.12),0 0 12px rgba(40,255,136,.12);}
+    .spx-gambit-machine.has-result.is-miss .spx-gambit-screen-result{border-color:#ef5b74;color:#ffe0e6;box-shadow:inset 0 0 18px rgba(255,43,79,.11),0 0 12px rgba(255,43,79,.11);}
+    .spx-gambit-machine.has-result.is-push .spx-gambit-screen-result{border-color:#e7c85f;color:#fff3be;}
+
+    .spx-gambit-control-deck{
+        position:absolute;
+        left:20%;
+        right:20%;
+        top:67.2%;
+        bottom:5.7%;
+        z-index:9;
+        display:grid;
+        grid-template-rows:minmax(0,1fr) minmax(0,.9fr);
+        gap:0;
+        align-items:center;
+        perspective:720px;
+    }
+    .spx-gambit-control-deck .spx-gambit-bet-controls{
+        display:grid;
+        grid-template-columns:1fr 1fr;
+        align-items:center;
+        gap:2.5%;
+        height:100%;
+        margin:0;
+        padding:0 2.5%;
+        background:transparent!important;
+        box-shadow:none!important;
+    }
+    .spx-gambit-control-deck .spx-gambit-bet-controls button{
+        position:relative;
+        min-height:0;
+        height:100%;
+        padding:0 8% 4%;
+        border:0;
+        border-radius:0;
+        color:#fff7d8;
+        background:url("draft-assets/gambit_casino_direction_button.png") center/100% 100% no-repeat;
+        box-shadow:none;
+        filter:drop-shadow(0 6px 5px rgba(0,0,0,.56));
+        transform:rotateX(4deg);
+    }
+    .spx-gambit-control-deck .spx-gambit-bet-controls button span{display:inline-block;margin-right:7px;font-size:clamp(12px,1.2vw,18px);line-height:1;transform:translateY(1px);}
+    .spx-gambit-control-deck .spx-gambit-bet-controls button b{display:inline-block;font-family:Impact,"Arial Black",Montserrat,sans-serif;font-size:clamp(16px,1.62vw,23px);letter-spacing:.09em;line-height:1;transform:translateY(1px);}
+    .spx-gambit-control-deck .spx-gambit-bet-controls button:hover:not(:disabled){filter:brightness(1.16) drop-shadow(0 7px 7px rgba(0,0,0,.62)) drop-shadow(0 0 9px rgba(240,60,255,.65));transform:rotateX(4deg) translateY(-2px);}
+    .spx-gambit-control-deck .spx-gambit-bet-controls button:active:not(:disabled),
+    .spx-gambit-control-deck .spx-gambit-bet-controls button.is-selected{border:0;background:url("draft-assets/gambit_casino_direction_button.png") center/100% 100% no-repeat;box-shadow:none;filter:brightness(1.25) saturate(1.2) drop-shadow(0 2px 2px rgba(0,0,0,.7)) drop-shadow(0 0 13px #f14cff);transform:rotateX(4deg) translateY(4px) scale(.987);}
+    .spx-gambit-control-deck footer{position:relative;display:flex;align-items:center;justify-content:center;height:100%;margin:0;padding:0 10%;background:transparent!important;box-shadow:none!important;}
+    .spx-gambit-control-deck .spx-gambit-protections{display:none!important;}
+    .spx-gambit-cashout{
+        position:relative;
+        width:72%;
+        height:100%;
+        min-height:0;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        padding:0 8% 4%;
+        border:0;
+        border-radius:0;
+        color:#2b1600;
+        background:url("draft-assets/gambit_casino_cashout_button.png") center/100% 100% no-repeat;
+        box-shadow:none;
+        filter:drop-shadow(0 6px 5px rgba(0,0,0,.58)) drop-shadow(0 0 calc(5px + var(--charge) * 3px) rgba(255,204,73,.45));
+        transform:rotateX(4deg);
+    }
+    .spx-gambit-cashout span{
+        display:block;
+        font-family:Impact,"Arial Black",Montserrat,sans-serif;
+        font-size:clamp(16px,1.55vw,22px);
+        letter-spacing:.11em;
+        line-height:1;
+        white-space:nowrap;
+        transform:translateY(1px);
+        text-shadow:0 1px 0 rgba(255,255,255,.5);
+    }
+    .spx-gambit-cashout b{display:none!important;}
+
+    .spx-gambit-lever{
+        position:absolute;
+        top:28%;
+        right:1.2%;
+        z-index:10;
+        width:14%;
+        height:58%;
+        margin:0;
+        padding:0;
+        border:0;
+        border-radius:0;
+        background:transparent;
+        box-shadow:none;
+        overflow:visible;
+        opacity:1;
+    }
+    .spx-gambit-lever::before{display:none!important;}
+    .spx-gambit-lever img{
+        inset:-3% 0 6%;
+        width:100%;
+        height:94%;
+        object-fit:contain;
+        opacity:1!important;
+        transform:rotate(-7deg);
+        filter:brightness(1.08) saturate(1.13) contrast(1.07) drop-shadow(0 10px 10px rgba(0,0,0,.86)) drop-shadow(0 0 17px rgba(240,56,212,.88));
+    }
+    .spx-gambit-lever b{right:5%;bottom:1%;width:90%;min-height:24px;padding:4px 5px;border:1px solid #ffbdf8;border-radius:999px;background:linear-gradient(180deg,#861dad,#310541);box-shadow:inset 0 0 7px #ef7cff,0 0 10px #d52cff,0 3px 0 #17021f;transform:none;}
+    .spx-gambit-lever b span{font-size:clamp(10px,1vw,14px);letter-spacing:.06em;}
+}
+
+@keyframes spxGambitCleanScreenPulse{
+    0%,100%{filter:brightness(.97);}
+    50%{filter:brightness(1.04);}
+}
+@keyframes spxGambitCleanScan{
+    from{background-position:0 0,0 0;}
+    to{background-position:0 0,0 20px;}
+}
+@keyframes spxGambitCleanTextFlicker{
+    0%,100%{opacity:.99;}
+    27%{opacity:.94;}
+    29%{opacity:.995;}
+    67%{opacity:.96;}
+    69%{opacity:.99;}
+}
+
+@media (max-width:760px){
+    .spx-gambit-screen-hud{display:flex;align-items:center;justify-content:space-between;gap:8px;width:100%;margin-bottom:3px;}
+    .spx-gambit-screen-label{font-size:9px;letter-spacing:.16em;}
+    .spx-gambit-screen-lives{display:inline-flex;align-items:center;gap:4px;padding:3px 6px;border:1px solid rgba(125,218,255,.3);border-radius:999px;background:rgba(8,39,58,.58);}
+    .spx-gambit-screen-lives span{font-size:7px;color:#a8e6ff;font-weight:900;letter-spacing:.12em;}
+    .spx-gambit-screen-lives i{font-size:13px;font-style:normal;color:#f09cff;}
+    .spx-gambit-screen-lives i.is-broken{color:#4b687a;opacity:.6;}
+    .spx-gambit-slot>small{display:none!important;}
+    .spx-gambit-slot>b{color:#ff79dc;}
+    .spx-gambit-cashout b{display:none!important;}
+    .spx-gambit-cashout span{white-space:nowrap;}
+}
+
+@media (prefers-reduced-motion:reduce){
+    .spx-gambit-ambient-cards img{animation:none!important;}
+    .spx-gambit-slot,.spx-gambit-screen-result{animation:none!important;}
+}
+
+/* PATCH100O — Gambit polish after 100N/100M feedback */
+.spx-gambit-ambient-cards img{
+    opacity:.56;
+    filter:drop-shadow(0 0 8px rgba(255,255,255,.56)) drop-shadow(0 0 18px rgba(225,64,255,.8)) drop-shadow(0 0 30px rgba(113,22,188,.42));
+}
+.spx-gambit-ambient-cards img.is-charged{
+    opacity:.85;
+    filter:brightness(1.3) saturate(1.6) drop-shadow(0 0 9px #fff) drop-shadow(0 0 24px #ef55ff) drop-shadow(0 0 42px rgba(139,31,227,.98));
+}
+.spx-gambit-projectile{
+    width:78px;
+    height:114px;
+    filter:brightness(1.28) saturate(1.58) drop-shadow(0 0 12px #fff) drop-shadow(0 0 30px #f04cff) drop-shadow(0 0 54px #7718cf);
+}
+.spx-gambit-projectile.is-flying{animation-duration:.72s!important;}
+.spx-gambit-board-impact{
+    width:30px!important;
+    height:30px!important;
+    box-shadow:0 0 22px #fff,0 0 52px #e23eff,0 0 92px #7d18c7!important;
+    animation-duration:1.04s!important;
+}
+.spx-gambit-target-hit{animation-duration:.92s!important;}
+.spx-gambit-live-impact{
+    font-size:clamp(15px,1.85vw,25px);
+    animation-duration:1.06s!important;
+}
+.spx-gambit-aftermath-wipe{animation-duration:.92s!important;}
+
+.spx-gambit-fx.is-board-salvo .spx-gambit-final-scene{
+    background:
+        radial-gradient(circle at 50% 56%,rgba(196,57,255,.30),rgba(66,13,108,.15) 31%,transparent 60%),
+        radial-gradient(circle at 50% 42%,rgba(83,212,255,.10),transparent 34%),
+        linear-gradient(180deg,rgba(5,2,14,.03),rgba(7,2,16,.22));
+    animation-duration:.74s;
+}
+.spx-gambit-fx.is-board-salvo .spx-gambit-final-scene>.spx-gambit-final-hero{
+    animation-duration:.94s;
+}
+.spx-gambit-fx.is-board-salvo .spx-gambit-final-scene>strong{
+    animation-duration:.74s;
+}
+
+@media (min-width:761px){
+    .spx-gambit-slot{
+        left:22.8%;
+        right:22.2%;
+        top:27.6%;
+        height:34.5%;
+        padding:7.1% 5.2% 8.6%;
+        border-radius:20px;
+        background:
+            linear-gradient(180deg,rgba(160,236,255,.065),rgba(160,236,255,0) 14%),
+            repeating-linear-gradient(180deg,rgba(255,255,255,.034) 0 1px,transparent 1px 4px),
+            radial-gradient(circle at 50% 24%,rgba(87,218,255,.23),transparent 52%),
+            radial-gradient(circle at 50% 68%,rgba(13,108,170,.18),transparent 58%),
+            linear-gradient(180deg,#0c3d5c 0%,#09314d 44%,#071f36 100%);
+        box-shadow:inset 0 0 36px rgba(0,0,0,.58),inset 0 0 0 1px rgba(126,222,255,.24),0 0 18px rgba(24,112,184,.08);
+        animation-duration:2.7s;
+    }
+    .spx-gambit-slot::before{
+        background:
+            radial-gradient(circle at 50% -12%,rgba(255,255,255,.16),transparent 40%),
+            linear-gradient(180deg,rgba(255,255,255,.06),transparent 18%,transparent 77%,rgba(0,0,0,.16)),
+            repeating-linear-gradient(180deg,transparent 0 3px,rgba(145,224,255,.032) 3px 4px);
+        opacity:.82;
+        animation-duration:6.2s;
+    }
+    .spx-gambit-slot::after{
+        content:"";
+        position:absolute;
+        inset:0;
+        pointer-events:none;
+        background:radial-gradient(ellipse at 50% 12%,rgba(203,245,255,.15),transparent 46%),radial-gradient(ellipse at 50% 100%,rgba(0,0,0,.18),transparent 54%);
+        mix-blend-mode:screen;
+        opacity:.75;
+    }
+    .spx-gambit-screen-hud{
+        left:6.6%;
+        right:6.6%;
+        top:5.4%;
+    }
+    .spx-gambit-screen-label{font-size:clamp(9px,.86vw,13px);}
+    .spx-gambit-screen-lives{padding:4px 9px;}
+    .spx-gambit-slot strong{
+        max-width:90%;
+        font-size:clamp(33px,3.7vw,54px);
+        text-shadow:0 0 12px rgba(255,255,255,.34),0 0 30px rgba(224,72,255,.66);
+    }
+    .spx-gambit-slot.is-long-name strong{font-size:clamp(28px,3.15vw,45px);}
+    .spx-gambit-slot.is-very-long-name strong{font-size:clamp(24px,2.7vw,38px);}
+    .spx-gambit-slot>b{
+        margin-top:8px;
+        font-size:clamp(17px,1.7vw,24px);
+        text-shadow:0 0 12px rgba(255,77,215,.36),0 0 22px rgba(197,53,255,.22);
+    }
+    .spx-gambit-screen-result{
+        left:6.2%;
+        right:6.2%;
+        bottom:5.4%;
+        min-height:38px;
+        padding:6px 16px;
+        border-color:rgba(115,224,255,.28);
+        background:linear-gradient(180deg,rgba(6,36,56,.52),rgba(4,18,31,.38));
+        box-shadow:inset 0 0 14px rgba(85,211,255,.08),0 0 10px rgba(85,211,255,.04);
+        font-size:clamp(10px,.98vw,13px);
+    }
+}
+
+@media (max-width:760px){
+    .spx-gambit-slot::after{display:none;}
+}
+
+/* PATCH100P — slower cinematic salvo + casino/pixel typography */
+:root{
+    --gambit-casino-font:"Bree Serif", Georgia, serif;
+    --gambit-screen-font:"Oxanium", "Segoe UI", sans-serif;
+}
+
+/* Casino typography hierarchy */
+.spx-gambit-header h1,
+.spx-gambit-machine-sign,
+.spx-gambit-prize h1,
+.spx-gambit-unleash h1,
+.spx-gambit-aftermath h1,
+.spx-gambit-salvo-head h1,
+.spx-gambit-summary h1{
+    font-family:var(--gambit-casino-font)!important;
+    font-weight:400!important;
+    letter-spacing:.035em;
+}
+.spx-gambit-meter-card>span,
+.spx-gambit-meter-card i em,
+.spx-gambit-meter-card i b,
+.spx-gambit-screen-label,
+.spx-gambit-screen-lives,
+.spx-gambit-slot>b,
+.spx-gambit-screen-result{
+    font-family:var(--gambit-screen-font)!important;
+}
+.spx-gambit-slot>strong{
+    font-family:var(--gambit-casino-font)!important;
+    font-weight:400!important;
+}
+.spx-gambit-control-deck .spx-gambit-bet-controls button b,
+.spx-gambit-cashout span{
+    font-family:var(--gambit-casino-font)!important;
+    font-weight:400!important;
+}
+
+/* The pixel font is wider; keep labels readable and intentionally arcade-like. */
+.spx-gambit-meter-card>span{font-size:9px!important;line-height:1.45;letter-spacing:.08em!important;}
+.spx-gambit-meter-card i em{font-size:6.5px!important;line-height:1.45;letter-spacing:.01em!important;}
+.spx-gambit-meter-card i b{font-size:9px!important;}
+.spx-gambit-screen-label{font-size:9px!important;line-height:1.45;letter-spacing:.08em!important;}
+.spx-gambit-screen-lives span{font-size:7px!important;letter-spacing:.04em!important;}
+.spx-gambit-slot>b{font-size:clamp(13px,1.25vw,18px)!important;line-height:1.4;letter-spacing:.08em!important;}
+.spx-gambit-screen-result{font-size:clamp(8px,.72vw,10px)!important;line-height:1.55!important;letter-spacing:0!important;}
+
+/* Salvo pacing: hero enters, stays for every throw, then fades only after all impacts. */
+.spx-gambit-fx.is-board-salvo .spx-gambit-final-scene{
+    animation-duration:1.05s!important;
+}
+.spx-gambit-fx.is-board-salvo .spx-gambit-final-scene>.spx-gambit-final-hero{
+    animation-duration:1.15s!important;
+}
+.spx-gambit-fx.is-board-salvo .spx-gambit-final-scene>strong{
+    animation-duration:1.05s!important;
+}
+.spx-gambit-projectile.is-flying{
+    animation-duration:.82s!important;
+}
+.spx-gambit-board-impact{
+    animation-duration:1.2s!important;
+}
+.spx-gambit-target-hit{
+    animation-duration:1.08s!important;
+}
+.spx-gambit-live-impact{
+    animation-duration:1.18s!important;
+}
+
+/* Dedicated exit beat — do not tear down Gambit while the last impacts are still visible. */
+.spx-gambit-fx.is-salvo-closing .spx-gambit-final-scene>.spx-gambit-final-hero{
+    animation:spxGambitHeroSalvoExit .82s ease-in both!important;
+}
+.spx-gambit-fx.is-salvo-closing .spx-gambit-final-scene>strong{
+    animation:spxGambitTitleSalvoExit .66s ease-in both!important;
+}
+.spx-gambit-fx.is-salvo-closing .spx-gambit-ambient-cards{
+    animation:spxGambitAmbientSalvoExit .82s ease-in both!important;
+}
+@keyframes spxGambitHeroSalvoExit{
+    from{opacity:1;transform:translate(-50%,-50%) scale(1);filter:drop-shadow(0 0 17px #c947ff) drop-shadow(0 0 42px rgba(115,25,207,.8));}
+    to{opacity:0;transform:translate(-50%,-48%) scale(.94);filter:blur(2px) drop-shadow(0 0 8px rgba(180,70,255,.25));}
+}
+@keyframes spxGambitTitleSalvoExit{
+    from{opacity:1;transform:translateX(-50%) translateY(0);}
+    to{opacity:0;transform:translateX(-50%) translateY(-12px);}
+}
+@keyframes spxGambitAmbientSalvoExit{
+    from{opacity:1;filter:none;}
+    to{opacity:0;filter:blur(2px);}
+}
+
+.spx-gambit-aftermath-wipe{
+    animation-duration:1.05s!important;
+}
+
+@media (min-width:761px){
+    .spx-gambit-header h1{font-size:clamp(31px,4.2vw,58px);}
+    .spx-gambit-machine-sign{font-size:clamp(18px,1.95vw,29px);}
+    .spx-gambit-slot>strong{font-size:clamp(31px,3.55vw,52px)!important;}
+    .spx-gambit-slot.is-long-name>strong{font-size:clamp(27px,3.05vw,44px)!important;}
+    .spx-gambit-slot.is-very-long-name>strong{font-size:clamp(22px,2.55vw,36px)!important;}
+    .spx-gambit-cashout span{font-size:clamp(17px,1.5vw,22px)!important;}
+    .spx-gambit-control-deck .spx-gambit-bet-controls button b{font-size:clamp(16px,1.5vw,22px)!important;}
+}
+
+@media (prefers-reduced-motion:reduce){
+    .spx-gambit-fx.is-salvo-closing .spx-gambit-final-scene>.spx-gambit-final-hero,
+    .spx-gambit-fx.is-salvo-closing .spx-gambit-final-scene>strong,
+    .spx-gambit-fx.is-salvo-closing .spx-gambit-ambient-cards{animation-duration:.08s!important;}
+}
+
+/* PATCH100Q — Gambit hero persistence + safe monitor text layout */
+.spx-gambit-fx{pointer-events:none!important;}
+.spx-gambit-final-scene,
+.spx-gambit-ambient-cards,
+.spx-gambit-final-hero,
+.spx-gambit-projectile,
+.spx-gambit-board-impact,
+.spx-gambit-live-impact,
+.spx-gambit-aftermath-wipe{pointer-events:none!important;}
+
+@media (min-width:761px){
+  .spx-gambit-screen-hud{
+    top:5.2%!important;
+    left:6.4%!important;
+    right:6.4%!important;
+    z-index:5!important;
+  }
+  .spx-gambit-slot>strong{
+    position:absolute!important;
+    left:8.2%!important;
+    right:8.2%!important;
+    top:25.5%!important;
+    margin:0!important;
+    max-width:none!important;
+    max-height:2.35em!important;
+    line-height:.94!important;
+    overflow:hidden!important;
+    display:-webkit-box!important;
+    -webkit-line-clamp:2!important;
+    -webkit-box-orient:vertical!important;
+    text-align:center!important;
+    text-wrap:balance;
+    z-index:4!important;
+  }
+  .spx-gambit-slot>b{
+    position:absolute!important;
+    left:8.2%!important;
+    right:8.2%!important;
+    top:57.8%!important;
+    margin:0!important;
+    text-align:center!important;
+    z-index:4!important;
+  }
+  .spx-gambit-screen-result{
+    position:absolute!important;
+    left:6.2%!important;
+    right:6.2%!important;
+    bottom:5.2%!important;
+    min-height:40px!important;
+    max-height:54px!important;
+    padding:6px 14px!important;
+    overflow:hidden!important;
+    display:-webkit-box!important;
+    -webkit-line-clamp:3!important;
+    -webkit-box-orient:vertical!important;
+    align-items:center!important;
+    justify-content:center!important;
+    z-index:4!important;
+  }
+  .spx-gambit-slot.is-long-name>strong{top:23.8%!important;}
+  .spx-gambit-slot.is-very-long-name>strong{top:22.2%!important;font-size:clamp(20px,2.35vw,33px)!important;line-height:.9!important;}
+}
+
+@media (max-width:760px){
+  .spx-gambit-slot>strong{
+    display:-webkit-box!important;
+    -webkit-line-clamp:2!important;
+    -webkit-box-orient:vertical!important;
+    overflow:hidden!important;
+  }
+  .spx-gambit-screen-result{
+    max-height:52px!important;
+    overflow:hidden!important;
+    display:-webkit-box!important;
+    -webkit-line-clamp:3!important;
+    -webkit-box-orient:vertical!important;
+  }
+}
+
+/* Keep Gambit visible and charged for the whole salvo, then fade only in closing phase. */
+.spx-gambit-fx.is-board-salvo .spx-gambit-final-scene{z-index:10!important;pointer-events:none!important;}
+.spx-gambit-fx.is-board-salvo .spx-gambit-ambient-cards{z-index:1!important;}
+.spx-gambit-fx.is-board-salvo .spx-gambit-final-scene>.spx-gambit-final-hero{
+  z-index:8!important;
+  opacity:1!important;
+  visibility:visible!important;
+  animation:
+    spxGambitBoardHeroHold 1.15s cubic-bezier(.16,.78,.2,1) both,
+    spxGambitHeroChargedPulse 1.7s ease-in-out 1.15s infinite alternate,
+    spxGambitHeroChargedShake 0.22s linear 1.25s infinite alternate!important;
+  transform:translate(-50%,-50%) scale(1)!important;
+  filter:drop-shadow(0 0 18px #ffffff) drop-shadow(0 0 32px #ef55ff) drop-shadow(0 0 62px rgba(119,24,207,.95))!important;
+}
+.spx-gambit-fx.is-board-salvo .spx-gambit-final-scene>strong{
+  z-index:9!important;
+}
+.spx-gambit-projectile{z-index:11!important;}
+.spx-gambit-board-impact,.spx-gambit-live-impact{z-index:12!important;}
+.spx-gambit-fx.is-salvo-closing .spx-gambit-final-scene>.spx-gambit-final-hero{
+  animation:
+    spxGambitHeroSalvoExit 0.95s ease-in both!important;
+}
+.spx-gambit-fx.is-salvo-closing .spx-gambit-final-scene>strong{
+  animation:spxGambitTitleSalvoExit .82s ease-in both!important;
+}
+@keyframes spxGambitHeroChargedPulse{
+  from{transform:translate(-50%,-50%) scale(1);filter:drop-shadow(0 0 16px #fff) drop-shadow(0 0 28px #ef55ff) drop-shadow(0 0 54px rgba(119,24,207,.88));}
+  to{transform:translate(-50%,-50%) scale(1.02);filter:drop-shadow(0 0 20px #fff) drop-shadow(0 0 40px #ff6df7) drop-shadow(0 0 74px rgba(119,24,207,1));}
+}
+@keyframes spxGambitHeroChargedShake{
+  from{translate:0 -1px;}
+  to{translate:0 1px;}
+}
+
+/* Slightly longer visible impacts to read the salvo better. */
+.spx-gambit-projectile.is-flying{animation-duration:.92s!important;}
+.spx-gambit-board-impact{animation-duration:1.28s!important;}
+.spx-gambit-live-impact{animation-duration:1.24s!important;}
+.spx-gambit-target-hit{animation-duration:1.16s!important;}
+.spx-gambit-aftermath-wipe{animation-duration:1.14s!important;}
+
+/* UI-flow final: every projectile visibly leaves Gambit's hand, while the
+   hero remains mounted on the board until the salvo-closing phase. */
+.spx-gambit-fx.is-board-salvo .spx-gambit-final-hero.is-throwing{
+  rotate:-4deg;
+  scale:1.035;
+  filter:brightness(1.22) drop-shadow(0 0 22px #fff) drop-shadow(0 0 46px #ff50ec) drop-shadow(0 0 78px rgba(114,20,214,.98))!important;
+  transition:rotate .12s ease,scale .12s ease,filter .12s ease;
+}
+
+@media (prefers-reduced-motion:reduce){
+  .spx-gambit-fx.is-board-salvo{display:block!important;}
+  .spx-gambit-fx.is-board-salvo .spx-gambit-final-scene>.spx-gambit-final-hero{
+    animation:none!important;
+    opacity:1!important;
+    visibility:visible!important;
+    transform:translate(-50%,-50%) scale(.98)!important;
+  }
+  .spx-gambit-projectile.is-flying{display:block!important;animation-duration:.16s!important;}
+}

@@ -1,0 +1,442 @@
+
+/* =========================================================
+   ENCYCLOPEDIA 05 — CATALOG IDENTITY PASS
+   Visual DNA borrowed from the real SnapDraft systems.
+========================================================= */
+
+/* -------------------------
+   SHARED CATALOG HERO STAGE
+------------------------- */
+.catalog-identity-stage{
+  position:absolute;
+  right:20px;
+  top:16px;
+  width:330px;
+  height:190px;
+  pointer-events:none;
+  z-index:1;
+}
+.catalog-hero > *{position:relative;z-index:2}
+.catalog-world-label{
+  display:inline-flex;
+  align-items:center;
+  gap:7px;
+  margin-top:11px;
+  padding:5px 8px;
+  border:1px solid rgba(255,255,255,.10);
+  border-radius:999px;
+  color:#9eb7c0;
+  background:rgba(3,11,26,.46);
+  font:900 8px Orbitron,sans-serif;
+  letter-spacing:.08em;
+}
+.catalog-card{transition:.18s ease}
+
+/* =========================================================
+   JOKERDEX — JOKER V2 / COSMIC CASINO GLITCH
+========================================================= */
+body.joker-catalog{
+  background:
+    radial-gradient(circle at 16% 14%,rgba(255,0,255,.13),transparent 30%),
+    radial-gradient(circle at 83% 18%,rgba(0,240,255,.11),transparent 28%),
+    linear-gradient(rgba(3,2,20,.80),rgba(3,2,18,.94)),
+    url("catalogs/joker_galaxy.png") center/cover fixed,
+    #050315!important;
+}
+body.joker-catalog::before{
+  background:
+    repeating-linear-gradient(0deg,transparent 0 25px,rgba(255,255,255,.015) 25px 26px),
+    linear-gradient(90deg,rgba(255,0,255,.04),transparent 38%,rgba(0,240,255,.035));
+  opacity:1!important;
+  animation:jdxScan 9s linear infinite!important;
+}
+body.joker-catalog::after{
+  background:
+    radial-gradient(circle at 18% 20%,rgba(255,0,255,.13),transparent 28%),
+    radial-gradient(circle at 82% 22%,rgba(0,240,255,.12),transparent 27%),
+    repeating-linear-gradient(0deg,rgba(255,255,255,.018) 0 1px,transparent 1px 3px)!important;
+}
+@keyframes jdxScan{to{background-position:0 26px,0 0}}
+
+.joker-catalog .catalog-hero{
+  min-height:260px;
+  padding-right:350px;
+  border-color:rgba(255,0,255,.31);
+  background:
+    conic-gradient(from 210deg at 85% 35%,transparent,rgba(255,0,255,.10),transparent 20%,rgba(0,240,255,.10),transparent 43%),
+    linear-gradient(145deg,rgba(24,4,44,.88),rgba(5,9,33,.90));
+  box-shadow:
+    0 20px 55px rgba(0,0,0,.35),
+    0 0 34px rgba(255,0,255,.11),
+    inset 0 1px 0 rgba(255,255,255,.07);
+}
+.joker-catalog .catalog-hero h1{
+  color:#fff;
+  text-shadow:
+    -2px 0 #ff2e88,
+    2px 0 #00efff,
+    0 0 10px #fff,
+    0 0 25px rgba(168,77,255,.72);
+  animation:jdxTitleGlitch 2.8s steps(1,end) infinite;
+}
+@keyframes jdxTitleGlitch{
+  0%,82%,100%{transform:translate(0);filter:none}
+  84%{transform:translate(-1px,.5px);filter:hue-rotate(20deg)}
+  87%{transform:translate(1px,-.5px);filter:hue-rotate(-20deg)}
+  90%{transform:translate(0);filter:none}
+}
+.joker-catalog .catalog-identity-stage::before{
+  content:"";
+  position:absolute;
+  inset:14px 0 0 50px;
+  background:url("catalogs/joker_galaxy.png") center/cover;
+  border-radius:50%;
+  opacity:.38;
+  filter:saturate(1.4) contrast(1.1);
+  box-shadow:0 0 40px rgba(255,0,255,.20);
+}
+.joker-catalog .catalog-identity-stage::after{
+  content:"?";
+  position:absolute;
+  right:1px;
+  top:-10px;
+  color:rgba(255,255,255,.10);
+  font:900 180px/1 Orbitron,sans-serif;
+  text-shadow:-4px 0 rgba(255,0,255,.16),4px 0 rgba(0,240,255,.15);
+}
+.joker-catalog .catalog-mascot{
+  position:absolute;
+  right:60px;
+  bottom:-3px;
+  width:170px;
+  filter:
+    drop-shadow(0 0 10px rgba(255,0,255,.55))
+    drop-shadow(0 0 18px rgba(0,240,255,.35));
+  animation:jdxJeffFloat 3.1s ease-in-out infinite alternate;
+}
+@keyframes jdxJeffFloat{to{transform:translateY(-8px) rotate(1.5deg)}}
+
+.joker-catalog .catalog-toolbar{
+  border-color:rgba(255,0,255,.18);
+  box-shadow:0 0 25px rgba(255,0,255,.045);
+}
+.joker-catalog .catalog-card.joker-entry{
+  --rarity:#a67cff;
+  min-height:244px;
+  border-color:color-mix(in srgb,var(--rarity) 30%,transparent);
+  border-radius:19px;
+  background:
+    conic-gradient(from 45deg at 50% 40%,transparent,rgba(255,0,255,.07),transparent 22%,rgba(0,240,255,.07),transparent 47%),
+    linear-gradient(145deg,rgba(18,7,35,.86),rgba(5,8,27,.92));
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,.02) inset,
+    0 0 18px color-mix(in srgb,var(--rarity) 11%,transparent);
+}
+.joker-catalog .catalog-card.joker-entry[data-rarity="epic"]{--rarity:#ff5edb}
+.joker-catalog .catalog-card.joker-entry[data-rarity="legendary"]{--rarity:#ffe36e}
+.joker-catalog .catalog-card.joker-entry::before{
+  content:"";
+  position:absolute;
+  inset:-35%;
+  background:
+    conic-gradient(from 45deg,transparent,rgba(255,0,255,.09),transparent 20%,rgba(0,240,255,.10),transparent 43%,rgba(255,224,72,.07),transparent 65%);
+  animation:jdxSpin 9s linear infinite;
+  pointer-events:none;
+}
+@keyframes jdxSpin{to{transform:rotate(360deg)}}
+.joker-catalog .catalog-card.joker-entry > *{position:relative;z-index:2}
+.joker-catalog .catalog-card.joker-entry:hover{
+  transform:translateY(-4px) rotateX(.6deg);
+  border-color:color-mix(in srgb,var(--rarity) 58%,transparent);
+}
+.joker-type-pill,
+.joker-rarity-pill{
+  display:inline-flex;
+  align-items:center;
+  gap:5px;
+  padding:4px 7px;
+  border:1px solid rgba(255,255,255,.30);
+  border-radius:999px;
+  background:rgba(2,2,17,.70);
+  font:900 7px Orbitron,sans-serif;
+  letter-spacing:.08em;
+}
+.joker-type-pill{color:#fff;text-shadow:0 0 6px #00f0ff,0 0 8px #ff00ff}
+.joker-rarity-pill{color:var(--rarity);box-shadow:0 0 8px color-mix(in srgb,var(--rarity) 25%,transparent)}
+.joker-rarity-gem{
+  width:7px;height:7px;display:inline-block;transform:rotate(45deg);
+  border:1px solid rgba(255,255,255,.82);background:var(--rarity);
+  box-shadow:0 0 8px var(--rarity);
+}
+.joker-entry h3{
+  color:#fff!important;
+  font-size:17px!important;
+  text-shadow:-1px 0 #ff2e88,1px 0 #00efff,0 0 9px rgba(255,255,255,.25);
+}
+.joker-entry .joker-family{
+  color:#c8a7ff;
+  font:900 8px Orbitron,sans-serif;
+  text-transform:uppercase;
+}
+.joker-entry .joker-filter-box{
+  margin-top:13px;
+  padding:9px 10px;
+  border:1px solid rgba(0,240,255,.10);
+  border-radius:10px;
+  background:rgba(0,8,24,.47);
+}
+.joker-entry .joker-filter-box b{
+  display:block;color:#7cecff;font-size:8px;text-transform:uppercase;letter-spacing:.08em
+}
+.joker-entry .joker-filter-box span{
+  display:block;margin-top:4px;color:#9cb3bd;font-size:10px;font-weight:800
+}
+
+/* =========================================================
+   CUSTOM PACK DATABASE — CUSTOM PACK LAB / FACTORY
+========================================================= */
+body.pack-catalog{
+  background:
+    linear-gradient(rgba(0,8,14,.75),rgba(0,8,14,.93)),
+    url("catalogs/customfabryka.png") center/cover fixed,
+    #001016!important;
+}
+body.pack-catalog::before{
+  opacity:1!important;
+  background:
+    repeating-linear-gradient(0deg,rgba(94,255,203,.035) 0 1px,transparent 1px 25px),
+    repeating-linear-gradient(90deg,rgba(94,255,203,.025) 0 1px,transparent 1px 25px),
+    linear-gradient(110deg,transparent 23%,rgba(145,255,224,.06) 40%,transparent 57%)!important;
+  background-size:auto,auto,230% 100%!important;
+  animation:packFactoryScan 8s linear infinite!important;
+}
+@keyframes packFactoryScan{to{background-position:0 0,0 0,-230% 0}}
+.pack-catalog .catalog-hero{
+  min-height:270px;
+  padding-right:390px;
+  border:2px solid rgba(88,255,205,.43);
+  background:
+    linear-gradient(145deg,rgba(0,18,25,.83),rgba(0,35,43,.72) 52%,rgba(0,12,28,.88)),
+    url("catalogs/customfabryka.png") center/cover;
+  box-shadow:0 0 27px rgba(0,255,174,.17),0 20px 60px rgba(0,0,0,.42);
+}
+.pack-catalog .catalog-hero h1{
+  color:#eafff9;
+  text-shadow:-2px 0 rgba(0,255,174,.65),2px 0 rgba(0,190,255,.62),0 0 15px rgba(104,255,211,.50);
+}
+.pack-catalog .catalog-identity-stage{
+  width:390px;height:220px;right:0;top:22px;
+}
+.pack-hero-item{
+  position:absolute;
+  width:125px;
+  filter:drop-shadow(0 0 12px rgba(0,255,174,.34));
+  animation:packHover 4.2s ease-in-out infinite alternate;
+}
+.pack-hero-item:nth-child(1){left:10px;top:48px;transform:rotate(-13deg)}
+.pack-hero-item:nth-child(2){left:95px;top:2px;transform:rotate(-4deg);animation-delay:-1.2s}
+.pack-hero-item:nth-child(3){right:82px;top:16px;transform:rotate(5deg);animation-delay:-2.1s}
+.pack-hero-item:nth-child(4){right:0;top:65px;transform:rotate(13deg);animation-delay:-3s}
+@keyframes packHover{to{translate:0 -10px;filter:drop-shadow(0 0 18px rgba(0,255,174,.55)) brightness(1.05)}}
+
+.pack-catalog .catalog-toolbar{
+  border-color:rgba(82,255,202,.22);
+  box-shadow:0 0 20px rgba(0,255,174,.07);
+}
+.pack-catalog .catalog-card.pack-entry{
+  --pack-accent:#58ffcd;
+  min-height:220px;
+  border-color:color-mix(in srgb,var(--pack-accent) 23%,transparent);
+  background:
+    linear-gradient(115deg,rgba(0,255,174,.035),rgba(0,190,255,.045)),
+    rgba(0,18,29,.78);
+  box-shadow:inset 0 0 18px rgba(0,255,174,.03),0 0 13px rgba(0,255,174,.045);
+}
+.pack-catalog .catalog-card.pack-entry[data-category="thematic"]{--pack-accent:#46cfff}
+.pack-catalog .catalog-card.pack-entry[data-category="statistics"]{--pack-accent:#ffd76b}
+.pack-catalog .catalog-card.pack-entry[data-category="special"]{--pack-accent:#bd8dff}
+.pack-catalog .catalog-card.pack-entry:hover{
+  transform:translateY(-3px);
+  border-color:color-mix(in srgb,var(--pack-accent) 50%,transparent);
+  box-shadow:0 0 18px color-mix(in srgb,var(--pack-accent) 11%,transparent);
+}
+.pack-catalog .pack-preview{
+  float:right;
+  width:88px;
+  margin:-5px -5px 7px 10px;
+  filter:drop-shadow(0 0 10px color-mix(in srgb,var(--pack-accent) 22%,transparent));
+}
+.pack-catalog .pack-category-label{
+  color:var(--pack-accent);
+  font:900 8px Orbitron,sans-serif;
+  letter-spacing:.08em;
+  text-shadow:0 0 8px color-mix(in srgb,var(--pack-accent) 25%,transparent);
+}
+.pack-catalog .pack-criteria{
+  display:grid;
+  gap:5px;
+  clear:both;
+  margin-top:12px;
+  padding-top:10px;
+  border-top:1px solid color-mix(in srgb,var(--pack-accent) 12%,transparent);
+}
+.pack-catalog .pack-criteria .catalog-pill{
+  width:max-content;
+  color:color-mix(in srgb,var(--pack-accent) 70%,white);
+  border-color:color-mix(in srgb,var(--pack-accent) 17%,transparent);
+}
+.pack-catalog .catalog-card h3{font-size:13px}
+
+/* =========================================================
+   ATLAS TAGÓW — TAXONOMY OBSERVATORY
+========================================================= */
+body.tag-catalog{
+  background:
+    radial-gradient(circle at 50% 10%,rgba(72,202,255,.08),transparent 35%),
+    linear-gradient(rgba(3,8,24,.78),rgba(3,8,24,.94)),
+    #040817!important;
+}
+.tag-catalog .catalog-hero{
+  min-height:260px;
+  padding-right:370px;
+  background:
+    radial-gradient(circle at 75% 35%,rgba(70,198,255,.08),transparent 29%),
+    linear-gradient(145deg,rgba(6,25,47,.88),rgba(9,13,39,.91));
+}
+.tag-catalog .catalog-identity-stage{
+  width:355px;height:210px;right:5px;top:20px;
+}
+.taxonomy-cardback{
+  position:absolute;
+  width:105px;
+  border-radius:11px;
+  box-shadow:0 0 20px rgba(82,212,255,.10);
+  opacity:.65;
+  animation:taxonomyFloat 5.2s ease-in-out infinite alternate;
+}
+.taxonomy-cardback:nth-child(1){left:20px;top:62px;transform:rotate(-15deg)}
+.taxonomy-cardback:nth-child(2){left:118px;top:14px;transform:rotate(-1deg);animation-delay:-1.6s}
+.taxonomy-cardback:nth-child(3){right:15px;top:60px;transform:rotate(14deg);animation-delay:-3.1s}
+@keyframes taxonomyFloat{to{translate:0 -9px;filter:brightness(1.10)}}
+.tag-catalog .taxonomy-orbit{
+  position:absolute;
+  inset:15px 15px 5px 0;
+  border:1px solid rgba(112,219,255,.10);
+  border-radius:50%;
+  transform:rotate(-10deg);
+}
+.tag-catalog .taxonomy-orbit::before,
+.tag-catalog .taxonomy-orbit::after{
+  content:"";
+  position:absolute;width:8px;height:8px;border-radius:50%;
+  background:#7fefff;box-shadow:0 0 10px #7fefff;
+}
+.tag-catalog .taxonomy-orbit::before{left:10%;top:37%}
+.tag-catalog .taxonomy-orbit::after{right:12%;bottom:30%}
+
+.tag-catalog .catalog-toolbar{border-color:rgba(86,196,255,.16)}
+.tag-catalog .catalog-category{
+  position:sticky;
+  top:182px;
+  z-index:8;
+  margin:31px 0 12px;
+  padding:10px 13px;
+  border-left:3px solid var(--category-color,#7eeff4);
+  border-radius:0 10px 10px 0;
+  background:linear-gradient(90deg,color-mix(in srgb,var(--category-color) 8%,rgba(4,12,29,.94)),rgba(4,12,29,.90));
+  box-shadow:0 7px 20px rgba(0,0,0,.14);
+}
+.tag-catalog .catalog-card.tag-category-card{
+  min-height:165px;
+  border-color:color-mix(in srgb,var(--tag-color) 20%,transparent);
+  background:
+    linear-gradient(145deg,color-mix(in srgb,var(--tag-color) 5%,rgba(8,24,42,.76)),rgba(6,12,31,.82));
+}
+.tag-catalog .catalog-card.tag-category-card:hover{
+  border-color:color-mix(in srgb,var(--tag-color) 45%,transparent);
+  box-shadow:0 0 20px color-mix(in srgb,var(--tag-color) 8%,transparent);
+}
+.tag-catalog .catalog-card.tag-category-card h3{
+  color:color-mix(in srgb,var(--tag-color) 62%,white);
+  text-shadow:0 0 9px color-mix(in srgb,var(--tag-color) 17%,transparent);
+}
+.tag-catalog .tag-id-chip{
+  display:inline-flex;
+  margin-top:10px;
+  padding:4px 6px;
+  border:1px solid color-mix(in srgb,var(--tag-color) 14%,transparent);
+  border-radius:999px;
+  color:color-mix(in srgb,var(--tag-color) 66%,white);
+  background:color-mix(in srgb,var(--tag-color) 4%,transparent);
+  font:900 7px Orbitron,sans-serif;
+}
+.tag-catalog .taxonomy-legend{
+  display:grid;
+  grid-template-columns:repeat(7,minmax(0,1fr));
+  gap:7px;
+  margin:14px 0 18px;
+}
+.tag-catalog .taxonomy-legend button{
+  min-height:48px;
+  padding:8px;
+  border:1px solid color-mix(in srgb,var(--legend-color) 17%,transparent);
+  border-radius:10px;
+  color:color-mix(in srgb,var(--legend-color) 60%,white);
+  background:color-mix(in srgb,var(--legend-color) 4%,rgba(4,13,31,.6));
+  cursor:pointer;
+  font:900 7px Orbitron,sans-serif;
+  line-height:1.25;
+}
+.tag-catalog .taxonomy-legend button:hover{
+  border-color:color-mix(in srgb,var(--legend-color) 40%,transparent);
+  box-shadow:0 0 13px color-mix(in srgb,var(--legend-color) 10%,transparent);
+}
+
+/* ---------------------------------------------------------
+   MAIN ENCYCLOPEDIA PORTAL PREVIEWS
+--------------------------------------------------------- */
+.ency-portal[href="jokerdex.html"]{
+  background:
+    linear-gradient(90deg,rgba(24,5,39,.80),rgba(6,14,34,.86)),
+    url("catalogs/joker_galaxy.png") right center/55% auto no-repeat!important;
+}
+.ency-portal[href="jokerdex.html"]::after{
+  content:"";
+  position:absolute;right:60px;top:8px;bottom:8px;width:72px;
+  background:url("catalogs/jeff_joker.webp") center/contain no-repeat;
+  filter:drop-shadow(0 0 10px rgba(255,0,255,.35));
+}
+.ency-portal[href="custom-packs.html"]{
+  background:
+    linear-gradient(90deg,rgba(0,25,31,.88),rgba(0,30,35,.58)),
+    url("catalogs/customfabryka.png") right center/58% auto no-repeat!important;
+}
+.ency-portal[href="atlas-tagow.html"]{
+  background:
+    linear-gradient(90deg,rgba(6,24,43,.89),rgba(8,18,43,.78)),
+    url("catalogs/taxonomy_card_b.webp") 92% center/74px auto no-repeat!important;
+}
+
+/* responsive */
+@media(max-width:980px){
+  .joker-catalog .catalog-hero,
+  .pack-catalog .catalog-hero,
+  .tag-catalog .catalog-hero{padding-right:27px;padding-top:230px}
+  .catalog-identity-stage{left:50%;right:auto!important;transform:translateX(-50%);top:12px!important}
+  .tag-catalog .taxonomy-legend{grid-template-columns:repeat(4,minmax(0,1fr))}
+}
+@media(max-width:620px){
+  .catalog-identity-stage{width:290px!important;scale:.84;transform-origin:top center}
+  .joker-catalog .catalog-hero,
+  .pack-catalog .catalog-hero,
+  .tag-catalog .catalog-hero{padding-top:205px}
+  .tag-catalog .taxonomy-legend{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .tag-catalog .catalog-category{top:128px}
+}
+@media(prefers-reduced-motion:reduce){
+  .joker-catalog .catalog-card.joker-entry::before,
+  .joker-catalog .catalog-hero h1,
+  .joker-catalog .catalog-mascot,
+  .pack-hero-item,
+  .taxonomy-cardback{animation:none!important}
+}

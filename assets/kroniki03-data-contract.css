@@ -1,0 +1,374 @@
+
+/* =========================================================
+   KRONIKI 03 — DATA CONTRACT V2
+   Kroniki only. Navbar untouched.
+========================================================= */
+
+/* Richer DATA CONTRACT rows — centered, larger and more decorative. */
+.meta-config-shell{
+  grid-column:1 / -1;
+  position:relative;
+  display:grid;
+  gap:18px;
+  padding:18px 18px 10px;
+  margin-top:8px;
+  border-top:1px solid rgba(111,233,255,.16);
+  isolation:isolate;
+}
+
+.meta-config-shell::before,
+.meta-config-shell::after{
+  content:"";
+  position:absolute;
+  width:84px;
+  height:118px;
+  border-radius:18px;
+  border:1px solid rgba(111,233,255,.13);
+  background:
+    linear-gradient(180deg,rgba(255,255,255,.055),transparent 42%),
+    linear-gradient(140deg,rgba(69,26,133,.28),rgba(10,24,57,.06));
+  box-shadow:
+    inset 0 0 0 1px rgba(255,255,255,.02),
+    0 0 26px rgba(0,240,255,.05);
+  opacity:.34;
+  pointer-events:none;
+  z-index:-1;
+}
+
+.meta-config-shell::before{
+  top:12px;
+  left:24px;
+  transform:rotate(-15deg);
+}
+
+.meta-config-shell::after{
+  top:10px;
+  right:26px;
+  transform:rotate(16deg);
+}
+
+.meta-config-line{
+  display:grid;
+  grid-template-columns:1fr;
+  align-items:center;
+  justify-items:center;
+  gap:8px;
+}
+
+.meta-config-label{
+  padding-top:0;
+  color:#a7ebff;
+  font-size:11px;
+  font-weight:900;
+  line-height:1.15;
+  letter-spacing:1.8px;
+  text-transform:uppercase;
+  text-align:center;
+  text-shadow:0 0 12px rgba(0,240,255,.18);
+}
+
+.meta-config-chips{
+  min-width:0;
+  width:100%;
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+}
+
+.meta-config-chip,
+.meta-config-empty{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-height:34px;
+  padding:8px 16px;
+  border-radius:999px;
+  font:800 14px/1.05 'Rajdhani',sans-serif;
+  letter-spacing:.22px;
+  white-space:normal;
+  text-align:center;
+}
+
+.meta-config-chip{
+  color:#f3fcff;
+  border:1px solid rgba(111,233,255,.24);
+  background:
+    linear-gradient(180deg,rgba(255,255,255,.06),transparent 55%),
+    rgba(16,40,62,.58);
+  box-shadow:
+    inset 0 1px rgba(255,255,255,.05),
+    0 0 14px rgba(0,240,255,.035);
+}
+
+.meta-config-line-special .meta-config-chip{
+  border-color:rgba(196,119,255,.26);
+  background:
+    linear-gradient(180deg,rgba(255,255,255,.04),transparent 55%),
+    rgba(51,24,84,.52);
+  box-shadow:0 0 14px rgba(138,43,226,.04);
+}
+
+.meta-config-empty{
+  color:#8aa5b0;
+  border:1px dashed rgba(139,192,207,.15);
+  background:rgba(255,255,255,.02);
+}
+
+.meta-twist-note{
+  grid-column:1 / -1;
+  display:grid;
+  grid-template-columns:1fr;
+  gap:6px;
+  margin-top:-1px;
+  padding:3px 2px 2px;
+  justify-items:center;
+}
+
+.meta-twist-note span{
+  color:#e8cbff;
+  font-size:10px;
+  font-weight:900;
+  letter-spacing:1.25px;
+  text-transform:uppercase;
+  text-align:center;
+}
+
+.meta-twist-note p{
+  margin:0;
+  max-width:920px;
+  color:#c7d0e9;
+  font-size:12px;
+  line-height:1.42;
+  text-align:center;
+}
+
+/* Winner deck: stronger tint towards the draft accent. */
+.winner-bg{
+  top:240px!important;
+  width:min(1160px,94vw)!important;
+  height:min(700px,68vw)!important;
+  opacity:.19!important;
+  filter:blur(2px) saturate(1.16) contrast(1.08) brightness(1.06)!important;
+  overflow:hidden;
+  box-shadow:
+    0 0 90px color-mix(in srgb,var(--draft-accent) 18%,transparent),
+    inset 0 0 90px rgba(1,4,20,.24);
+  -webkit-mask-image:radial-gradient(ellipse at center,black 0 56%,rgba(0,0,0,.92) 73%,transparent 100%);
+  mask-image:radial-gradient(ellipse at center,black 0 56%,rgba(0,0,0,.92) 73%,transparent 100%);
+}
+
+.winner-bg::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  border-radius:inherit;
+  pointer-events:none;
+  background:
+    radial-gradient(circle at 50% 40%,color-mix(in srgb,var(--draft-accent) 30%,transparent),transparent 57%),
+    linear-gradient(135deg,color-mix(in srgb,var(--draft-accent) 18%,transparent),transparent 40% 66%,color-mix(in srgb,var(--draft-accent) 13%,transparent));
+  mix-blend-mode:color;
+  opacity:.86;
+}
+
+.winner-bg::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  border-radius:inherit;
+  pointer-events:none;
+  background:
+    linear-gradient(to bottom,rgba(4,8,26,.10),transparent 18% 64%,rgba(4,8,26,.34)),
+    radial-gradient(ellipse at center,transparent 42%,rgba(3,7,25,.32) 82%,rgba(3,7,25,.58) 100%);
+}
+
+/* Keep text/panel readability above the brighter deck. */
+.hero{
+  isolation:isolate;
+}
+
+.hero-logo,
+.draft-title,
+.draft-subtitle,
+.meta-grid{
+  position:relative;
+  z-index:2;
+}
+
+/* PATCH102 compatibility: historical payload details below the three canonical families. */
+.meta-config-detail{
+  grid-column:1 / -1;
+  display:grid;
+  grid-template-columns:1fr;
+  gap:8px;
+  margin-top:0;
+  padding:6px 6px 4px;
+  justify-items:center;
+}
+
+.meta-config-detail span{
+  color:#b9eaff;
+  font-size:10px;
+  font-weight:900;
+  letter-spacing:1.3px;
+  text-transform:uppercase;
+  text-align:center;
+}
+
+.meta-config-detail-body{
+  width:100%;
+  display:flex;
+  justify-content:center;
+}
+
+.meta-config-detail p{
+  margin:0;
+  max-width:940px;
+  color:#d7e3fb;
+  font-size:13px;
+  line-height:1.45;
+  text-align:center;
+}
+
+.meta-token-list{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  align-items:center;
+  gap:10px;
+  width:100%;
+}
+
+.meta-token{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-height:36px;
+  padding:9px 16px;
+  border-radius:16px;
+  font:800 15px/1.04 'Orbitron',sans-serif;
+  letter-spacing:.2px;
+  text-align:center;
+  color:#edf8ff;
+  border:1px solid rgba(111,233,255,.2);
+  background:
+    linear-gradient(180deg,rgba(255,255,255,.055),transparent 58%),
+    rgba(13,32,58,.60);
+  box-shadow:
+    inset 0 1px rgba(255,255,255,.05),
+    0 0 16px rgba(0,240,255,.04);
+}
+
+.meta-token-list.is-count-1 .meta-token{
+  min-height:42px;
+  padding:11px 20px;
+  font-size:20px;
+}
+
+.meta-token-list.is-count-2 .meta-token{
+  min-height:40px;
+  padding:10px 19px;
+  font-size:18px;
+}
+
+.meta-token-list.is-count-3 .meta-token{
+  font-size:16px;
+}
+
+.meta-config-detail--bans span{
+  color:#ff8fa8;
+  text-shadow:0 0 12px rgba(255,74,125,.26);
+}
+
+.meta-token-list--bans .meta-token{
+  color:#ffe8ee;
+  border-color:rgba(255,86,136,.30);
+  background:
+    linear-gradient(180deg,rgba(255,255,255,.06),transparent 58%),
+    linear-gradient(145deg,rgba(95,15,39,.58),rgba(44,8,25,.72));
+  box-shadow:
+    inset 0 1px rgba(255,255,255,.05),
+    0 0 18px rgba(255,62,122,.10),
+    0 0 30px rgba(255,62,122,.05);
+}
+
+.meta-config-detail--lucky span{
+  color:#ffd889;
+  text-shadow:0 0 12px rgba(255,208,74,.18);
+}
+.meta-token-list--lucky .meta-token{
+  color:#fff3cf;
+  border-color:rgba(255,206,117,.30);
+  background:
+    linear-gradient(180deg,rgba(255,255,255,.06),transparent 58%),
+    linear-gradient(145deg,rgba(98,64,14,.55),rgba(48,31,8,.72));
+  box-shadow:0 0 18px rgba(255,206,82,.09);
+}
+
+.meta-token-list--preset .meta-token,
+.meta-token-list--profile .meta-token,
+.meta-token-list--series .meta-token,
+.meta-token-list--tags .meta-token{
+  font-family:'Rajdhani',sans-serif;
+  font-size:15px;
+  border-radius:999px;
+}
+
+.meta-config-detail--twist p{
+  max-width:980px;
+  padding:12px 16px;
+  border-radius:18px;
+  border:1px solid rgba(196,119,255,.18);
+  background:rgba(40,18,68,.32);
+  box-shadow:inset 0 1px rgba(255,255,255,.03), 0 0 18px rgba(138,43,226,.035);
+}
+
+@media(max-width:900px){
+  .meta-config-shell{
+    gap:14px;
+    padding:16px 8px 6px;
+  }
+
+  .meta-config-shell::before,
+  .meta-config-shell::after{
+    width:64px;
+    height:94px;
+    opacity:.22;
+  }
+
+  .winner-bg{
+    top:225px!important;
+    height:430px!important;
+    opacity:.15!important;
+  }
+}
+
+@media(max-width:560px){
+  .meta-config-chip,
+  .meta-config-empty{
+    font-size:12px;
+    min-height:30px;
+    padding:7px 12px;
+  }
+
+  .meta-token{
+    min-height:32px;
+    padding:8px 12px;
+    font-size:13px;
+  }
+
+  .meta-token-list.is-count-1 .meta-token{
+    font-size:16px;
+  }
+
+  .meta-token-list.is-count-2 .meta-token{
+    font-size:15px;
+  }
+
+  .winner-bg{
+    top:250px!important;
+    height:390px!important;
+    opacity:.13!important;
+  }
+}

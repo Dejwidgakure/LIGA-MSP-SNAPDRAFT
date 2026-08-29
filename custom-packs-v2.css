@@ -1,0 +1,703 @@
+/* =========================================================
+   MSP SNAPDRAFT — CUSTOM PACKS V2
+   Cały arkusz jest zamknięty w #customPackModal.
+========================================================= */
+
+#customPackModal.customModal{
+    align-items:center;
+    justify-content:center;
+    padding:14px;
+    overflow:hidden;
+    background:
+        radial-gradient(circle at 18% 14%,rgba(0,255,174,.16),transparent 34%),
+        radial-gradient(circle at 82% 80%,rgba(0,190,255,.13),transparent 38%),
+        rgba(0,8,14,.91);
+    backdrop-filter:blur(10px) saturate(1.15);
+}
+
+#customPackModal .customPackLab{
+    position:relative;
+    isolation:isolate;
+    box-sizing:border-box;
+    width:min(1120px,calc(100vw - 30px));
+    max-height:calc(100vh - 28px);
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+    padding:14px 17px 15px;
+    overflow:hidden;
+    border:2px solid rgba(88,255,205,.72);
+    border-radius:25px;
+    background:
+        linear-gradient(145deg,rgba(0,18,25,.88),rgba(0,35,43,.78) 52%,rgba(0,12,28,.91)),
+        url("draft-assets/customfabryka.png") center/cover no-repeat;
+    box-shadow:
+        0 0 0 1px rgba(162,255,229,.12) inset,
+        0 0 27px rgba(0,255,174,.36),
+        0 0 58px rgba(0,195,255,.22),
+        0 26px 70px rgba(0,0,0,.70);
+}
+
+#customPackModal .customPackLab::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    z-index:-2;
+    border-radius:inherit;
+    pointer-events:none;
+    background:
+        repeating-linear-gradient(0deg,rgba(94,255,203,.045) 0 1px,transparent 1px 25px),
+        repeating-linear-gradient(90deg,rgba(94,255,203,.035) 0 1px,transparent 1px 25px),
+        linear-gradient(110deg,transparent 23%,rgba(145,255,224,.09) 40%,transparent 57%);
+    background-size:auto,auto,230% 100%;
+    animation:cpv2FactoryScan 8s linear infinite;
+}
+
+#customPackModal .customPackLab::after{
+    content:"";
+    position:absolute;
+    inset:7px;
+    z-index:-1;
+    border:1px solid rgba(154,255,224,.10);
+    border-radius:18px;
+    pointer-events:none;
+    box-shadow:
+        inset 0 0 35px rgba(0,255,174,.07),
+        inset 0 0 75px rgba(0,190,255,.05);
+}
+
+#customPackModal .cpv2-header{
+    position:relative;
+    display:grid;
+    grid-template-columns:76px minmax(0,1fr) auto;
+    align-items:center;
+    gap:13px;
+    min-height:72px;
+    padding:4px 8px 7px;
+    border-bottom:1px solid rgba(91,255,207,.22);
+}
+
+#customPackModal .cpv2-jeff{
+    width:72px;
+    height:72px;
+    object-fit:contain;
+    filter:
+        drop-shadow(0 0 9px rgba(113,255,213,.86))
+        drop-shadow(0 0 18px rgba(0,190,255,.42));
+    animation:cpv2JeffFloat 3.3s ease-in-out infinite alternate;
+}
+
+#customPackModal .cpv2-kicker{
+    margin-bottom:3px;
+    color:#8cffd9;
+    font-family:"Orbitron",sans-serif;
+    font-size:9px;
+    font-weight:1000;
+    letter-spacing:.17em;
+    text-transform:uppercase;
+    text-shadow:0 0 8px rgba(0,255,174,.72);
+}
+
+#customPackModal .cpv2-title{
+    position:relative;
+    margin:0;
+    color:#eafff9;
+    font-family:"Orbitron",sans-serif;
+    font-size:clamp(25px,3vw,41px);
+    font-weight:1000;
+    line-height:1;
+    letter-spacing:.075em;
+    text-transform:uppercase;
+    text-shadow:
+        -2px 0 0 rgba(0,255,174,.65),
+        2px 0 0 rgba(0,190,255,.62),
+        0 0 15px rgba(104,255,211,.72);
+    animation:cpv2TitleGlitch 3.4s steps(2,end) infinite;
+}
+
+#customPackModal .cpv2-subtitle{
+    margin:6px 0 0;
+    max-width:660px;
+    color:rgba(226,255,249,.77);
+    font-size:12px;
+    font-weight:800;
+    line-height:1.18;
+}
+
+#customPackModal .cpv2-dna{
+    position:relative;
+    width:76px;
+    height:52px;
+    opacity:.82;
+}
+
+#customPackModal .cpv2-dna::before,
+#customPackModal .cpv2-dna::after{
+    content:"";
+    position:absolute;
+    inset:3px 8px;
+    border:2px solid #65ffd2;
+    border-top-color:transparent;
+    border-bottom-color:transparent;
+    border-radius:50%;
+    filter:drop-shadow(0 0 7px rgba(0,255,174,.75));
+    animation:cpv2DnaSpin 3.8s linear infinite;
+}
+
+#customPackModal .cpv2-dna::after{
+    transform:rotate(90deg);
+    border-color:#46cfff;
+    border-top-color:transparent;
+    border-bottom-color:transparent;
+    animation-direction:reverse;
+}
+
+#customPackModal .cpv2-layout{
+    min-height:0;
+    display:grid;
+    grid-template-columns:minmax(0,1.34fr) minmax(310px,.66fr);
+    gap:10px;
+    overflow:hidden;
+}
+
+#customPackModal .cpv2-panel{
+    min-width:0;
+    min-height:0;
+    border:1px solid rgba(82,255,202,.30);
+    border-radius:17px;
+    background:
+        linear-gradient(145deg,rgba(0,18,28,.81),rgba(0,32,40,.68)),
+        repeating-linear-gradient(0deg,rgba(77,255,200,.025) 0 1px,transparent 1px 22px);
+    box-shadow:
+        inset 0 0 22px rgba(0,255,174,.05),
+        0 0 15px rgba(0,255,174,.10);
+}
+
+#customPackModal .cpv2-list-panel{
+    display:flex;
+    flex-direction:column;
+    overflow:hidden;
+    padding:11px 12px 12px;
+}
+
+#customPackModal .cpv2-section-heading{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+    margin:0 0 8px;
+    color:#a7ffe4;
+    font-family:"Orbitron",sans-serif;
+    font-size:11px;
+    font-weight:1000;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    text-shadow:0 0 8px rgba(0,255,174,.62);
+}
+
+#customPackModal .cpv2-selected-count{
+    padding:4px 8px;
+    border:1px solid rgba(80,219,255,.34);
+    border-radius:999px;
+    background:rgba(0,24,37,.78);
+    color:#7eeaff;
+    font-size:8px;
+    letter-spacing:.08em;
+}
+
+#customPackModal .packList{
+    min-height:210px;
+    max-height:none;
+    flex:1;
+    display:grid;
+    gap:9px;
+    padding:3px 5px 8px 2px;
+    overflow:auto;
+    border:0;
+    border-radius:0;
+    background:transparent;
+    scrollbar-width:thin;
+    scrollbar-color:#4fffc7 rgba(0,30,40,.55);
+}
+
+#customPackModal .cpv2-group{
+    display:grid;
+    gap:6px;
+    padding:8px;
+    border:1px solid rgba(82,255,202,.17);
+    border-radius:14px;
+    background:rgba(0,12,22,.56);
+}
+
+#customPackModal .cpv2-group-header{
+    display:grid;
+    grid-template-columns:auto minmax(0,1fr);
+    gap:2px 8px;
+    align-items:center;
+    padding:1px 2px 4px;
+}
+
+#customPackModal .cpv2-group-icon{
+    grid-row:1/3;
+    color:#73ffd2;
+    font-size:20px;
+    filter:drop-shadow(0 0 7px rgba(0,255,174,.66));
+}
+
+#customPackModal .cpv2-group-title{
+    color:#d8fff4;
+    font-family:"Orbitron",sans-serif;
+    font-size:9px;
+    font-weight:1000;
+    letter-spacing:.09em;
+}
+
+#customPackModal .cpv2-group-description{
+    color:rgba(204,255,240,.60);
+    font-size:9px;
+    font-weight:700;
+    line-height:1.1;
+}
+
+#customPackModal .cpv2-pack-item{
+    position:relative;
+    display:grid;
+    grid-template-columns:24px minmax(0,1fr) 54px;
+    align-items:center;
+    gap:7px;
+    min-height:53px;
+    padding:7px 8px;
+    border:1px solid rgba(83,221,255,.20);
+    border-radius:11px;
+    background:
+        linear-gradient(115deg,rgba(0,255,174,.035),rgba(0,190,255,.055)),
+        rgba(0,18,29,.74);
+    transition:.18s ease;
+}
+
+#customPackModal .cpv2-pack-item:hover{
+    transform:translateY(-1px);
+    border-color:rgba(92,255,209,.53);
+    box-shadow:0 0 12px rgba(0,255,174,.18);
+}
+
+#customPackModal .cpv2-pack-item.is-selected{
+    border-color:rgba(112,255,216,.78);
+    background:
+        linear-gradient(115deg,rgba(0,255,174,.13),rgba(0,190,255,.10)),
+        rgba(0,20,31,.84);
+    box-shadow:
+        0 0 0 1px rgba(160,255,229,.08) inset,
+        0 0 15px rgba(0,255,174,.23);
+}
+
+#customPackModal .cpv2-pack-check{
+    width:17px;
+    height:17px;
+    margin:0;
+    accent-color:#49ffc2;
+    filter:drop-shadow(0 0 5px rgba(0,255,174,.62));
+}
+
+#customPackModal .cpv2-pack-copy{
+    min-width:0;
+    cursor:pointer;
+}
+
+#customPackModal .cpv2-pack-name{
+    display:block;
+    overflow:hidden;
+    color:#f0fffb;
+    font-family:"Orbitron",sans-serif;
+    font-size:8.5px;
+    font-weight:1000;
+    line-height:1.12;
+    letter-spacing:.035em;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+}
+
+#customPackModal .cpv2-pack-summary{
+    display:block;
+    margin-top:3px;
+    overflow:hidden;
+    color:rgba(213,255,244,.65);
+    font-size:9.5px;
+    font-weight:700;
+    line-height:1.1;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+}
+
+#customPackModal .cpv2-criteria{
+    display:flex;
+    flex-wrap:wrap;
+    gap:3px;
+    margin-top:4px;
+}
+
+#customPackModal .cpv2-criterion{
+    padding:2px 5px;
+    border:1px solid rgba(93,235,255,.28);
+    border-radius:999px;
+    background:rgba(0,25,39,.72);
+    color:#96efff;
+    font-family:"Orbitron",sans-serif;
+    font-size:6.4px;
+    font-weight:900;
+    line-height:1;
+    letter-spacing:.04em;
+}
+
+#customPackModal .cpv2-pack-count{
+    box-sizing:border-box;
+    width:52px;
+    min-height:31px;
+    padding:4px 3px 4px 7px;
+    border:1px solid rgba(93,255,207,.42);
+    border-radius:8px;
+    outline:none;
+    background:rgba(0,13,23,.88);
+    color:#dffff6;
+    font-family:"Orbitron",sans-serif;
+    font-size:11px;
+    font-weight:900;
+    text-align:center;
+    box-shadow:inset 0 0 8px rgba(0,255,174,.06);
+}
+
+#customPackModal .cpv2-pack-count:disabled{
+    opacity:.34;
+}
+
+#customPackModal .cpv2-options{
+    display:grid;
+    grid-template-rows:repeat(3,minmax(0,auto)) 1fr;
+    gap:9px;
+    min-height:0;
+}
+
+#customPackModal .cpv2-option-section{
+    padding:10px;
+}
+
+#customPackModal .cpv2-option-title{
+    margin-bottom:7px;
+    color:#8fffdc;
+    font-family:"Orbitron",sans-serif;
+    font-size:8.5px;
+    font-weight:1000;
+    letter-spacing:.11em;
+    text-transform:uppercase;
+    text-shadow:0 0 7px rgba(0,255,174,.54);
+}
+
+#customPackModal .cpv2-option-grid{
+    display:grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:6px;
+}
+
+#customPackModal .cpv2-option-grid.three{
+    grid-template-columns:repeat(3,minmax(0,1fr));
+}
+
+#customPackModal .cpv2-option{
+    position:relative;
+    min-height:44px;
+    display:grid;
+    place-items:center;
+    gap:2px;
+    padding:7px 5px 6px 24px;
+    border:1px solid rgba(81,220,255,.20);
+    border-radius:10px;
+    background:rgba(0,17,29,.72);
+    color:rgba(229,255,249,.76);
+    cursor:pointer;
+    text-align:center;
+    transition:.18s ease;
+}
+
+#customPackModal .cpv2-option:hover{
+    border-color:rgba(89,255,210,.50);
+    box-shadow:0 0 11px rgba(0,255,174,.14);
+}
+
+#customPackModal .cpv2-option:has(input:checked){
+    border-color:#6affd1;
+    background:
+        linear-gradient(135deg,rgba(0,255,174,.13),rgba(0,190,255,.09)),
+        rgba(0,18,30,.82);
+    color:#fff;
+    box-shadow:0 0 13px rgba(0,255,174,.23);
+}
+
+#customPackModal .cpv2-option input{
+    position:absolute;
+    left:8px;
+    top:50%;
+    width:13px;
+    height:13px;
+    margin:0;
+    transform:translateY(-50%);
+    accent-color:#48ffc1;
+}
+
+#customPackModal .cpv2-option b{
+    font-family:"Orbitron",sans-serif;
+    font-size:7.5px;
+    line-height:1.05;
+    letter-spacing:.045em;
+}
+
+#customPackModal .cpv2-option span{
+    color:rgba(210,255,243,.58);
+    font-size:8px;
+    font-weight:700;
+    line-height:1.05;
+}
+
+#customPackModal .cpv2-status{
+    align-self:stretch;
+    display:grid;
+    align-content:center;
+    gap:4px;
+    padding:10px 12px;
+    border:1px dashed rgba(95,255,210,.28);
+    border-radius:14px;
+    background:
+        radial-gradient(circle at 15% 50%,rgba(0,255,174,.08),transparent 45%),
+        rgba(0,12,22,.62);
+}
+
+#customPackModal .cpv2-status b{
+    color:#9affdf;
+    font-family:"Orbitron",sans-serif;
+    font-size:8px;
+    letter-spacing:.10em;
+}
+
+#customPackModal .cpv2-status span{
+    color:rgba(216,255,245,.68);
+    font-size:10px;
+    font-weight:700;
+    line-height:1.2;
+}
+
+#customPackModal .customConfirmBtn{
+    width:min(460px,100%);
+    min-height:44px;
+    display:block;
+    margin:0 auto;
+    padding:10px 22px;
+    border:1px solid rgba(184,255,233,.82);
+    border-radius:13px;
+    background:
+        linear-gradient(100deg,rgba(28,255,173,.92),rgba(74,236,255,.88),rgba(28,255,173,.92));
+    background-size:220% 100%;
+    color:#002119;
+    font-family:"Orbitron",sans-serif;
+    font-size:14px;
+    font-weight:1000;
+    letter-spacing:.10em;
+    text-shadow:0 1px 0 rgba(255,255,255,.46);
+    box-shadow:
+        0 0 17px rgba(0,255,174,.36),
+        0 0 28px rgba(0,190,255,.20);
+    cursor:pointer;
+    animation:cpv2ConfirmFlow 4s linear infinite;
+}
+
+#customPackModal .customConfirmBtn:hover{
+    transform:translateY(-1px) scale(1.015);
+    filter:brightness(1.12);
+}
+
+#customPackModal .customConfirmBtn:disabled{
+    opacity:.40;
+    cursor:not-allowed;
+    transform:none;
+    filter:none;
+}
+
+@keyframes cpv2FactoryScan{
+    to{background-position:0 0,0 0,-230% 0}
+}
+
+@keyframes cpv2JeffFloat{
+    from{transform:translateY(1px) rotate(-1deg)}
+    to{transform:translateY(-4px) rotate(1deg)}
+}
+
+@keyframes cpv2TitleGlitch{
+    0%,88%,100%{transform:translateX(0);filter:none}
+    90%{transform:translateX(-1px);filter:hue-rotate(18deg)}
+    94%{transform:translateX(1px);filter:hue-rotate(-18deg)}
+}
+
+@keyframes cpv2DnaSpin{
+    to{transform:rotate(360deg)}
+}
+
+@keyframes cpv2ConfirmFlow{
+    to{background-position:-220% 0}
+}
+
+@media(max-width:880px){
+    #customPackModal{
+        align-items:flex-start;
+        overflow:auto;
+    }
+
+    #customPackModal .customPackLab{
+        max-height:none;
+        overflow:visible;
+    }
+
+    #customPackModal .cpv2-layout{
+        grid-template-columns:1fr;
+        overflow:visible;
+    }
+
+    #customPackModal .packList{
+        max-height:48vh;
+    }
+}
+
+@media(max-width:620px){
+    #customPackModal .customPackLab{
+        width:calc(100vw - 16px);
+        padding:11px;
+    }
+
+    #customPackModal .cpv2-header{
+        grid-template-columns:58px 1fr;
+    }
+
+    #customPackModal .cpv2-jeff{
+        width:56px;
+        height:56px;
+    }
+
+    #customPackModal .cpv2-dna{
+        display:none;
+    }
+
+    #customPackModal .cpv2-option-grid,
+    #customPackModal .cpv2-option-grid.three{
+        grid-template-columns:1fr;
+    }
+}
+
+@media(max-height:740px) and (min-width:881px){
+    #customPackModal .customPackLab{
+        padding-top:9px;
+        padding-bottom:10px;
+        gap:7px;
+    }
+
+    #customPackModal .cpv2-header{
+        min-height:55px;
+    }
+
+    #customPackModal .cpv2-jeff{
+        width:55px;
+        height:55px;
+    }
+
+    #customPackModal .cpv2-subtitle{
+        display:none;
+    }
+
+    #customPackModal .cpv2-pack-item{
+        min-height:47px;
+        padding-top:5px;
+        padding-bottom:5px;
+    }
+}
+
+@media(prefers-reduced-motion:reduce){
+    #customPackModal .customPackLab::before,
+    #customPackModal .cpv2-jeff,
+    #customPackModal .cpv2-title,
+    #customPackModal .cpv2-dna::before,
+    #customPackModal .cpv2-dna::after,
+    #customPackModal .customConfirmBtn{
+        animation:none;
+    }
+}
+
+/* Informacja odsłaniana dopiero po otwarciu Custom Packa. */
+#packStage #customPackRevealInfo{
+    box-sizing:border-box;
+    width:min(720px,calc(100% - 28px));
+    display:grid;
+    justify-items:center;
+    gap:4px;
+    margin:-3px auto 10px;
+    padding:8px 12px;
+    border:1px solid rgba(83,255,204,.34);
+    border-radius:13px;
+    background:
+        linear-gradient(115deg,rgba(0,255,174,.08),rgba(0,190,255,.06)),
+        rgba(0,14,25,.72);
+    color:rgba(224,255,247,.78);
+    box-shadow:0 0 13px rgba(0,255,174,.14),inset 0 0 14px rgba(0,190,255,.04);
+}
+
+#packStage #customPackRevealInfo[hidden]{
+    display:none;
+}
+
+#packStage #customPackRevealInfo strong{
+    color:#91ffdb;
+    font-family:"Orbitron",sans-serif;
+    font-size:9px;
+    letter-spacing:.12em;
+    text-shadow:0 0 8px rgba(0,255,174,.65);
+}
+
+#packStage #customPackRevealInfo > span{
+    font-size:12px;
+    font-weight:800;
+    line-height:1.15;
+}
+
+#packStage #customPackRevealInfo > div{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    gap:4px;
+}
+
+#packStage #customPackRevealInfo i{
+    padding:3px 7px;
+    border:1px solid rgba(89,224,255,.32);
+    border-radius:999px;
+    background:rgba(0,22,34,.76);
+    color:#8cecff;
+    font-family:"Orbitron",sans-serif;
+    font-size:7px;
+    font-weight:900;
+    font-style:normal;
+    letter-spacing:.045em;
+}
+
+
+/* ============================================================
+   FINAL LAST HOTFIX — CUSTOM PACK REVEAL SAFE LAYER
+   The info tile is gameplay information and must always stay above
+   Classic galaxy / prop / cloud decoration.
+   ============================================================ */
+#packStage #customPackRevealInfo{
+    position:relative!important;
+    z-index:32!important;
+    isolation:isolate!important;
+    margin:-10px auto 16px!important;
+    transform:translateY(-8px)!important;
+    pointer-events:none!important;
+}
+#packStage #packName{
+    position:relative!important;
+    z-index:33!important;
+}

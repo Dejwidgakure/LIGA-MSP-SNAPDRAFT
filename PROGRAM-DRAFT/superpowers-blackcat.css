@@ -1,0 +1,885 @@
+:root{--bc-cyan:#77f5ff;--bc-violet:#b755ff;--bc-magenta:#ff3ace;--bc-silver:#f4fbff;--bc-ink:#050711;--bc-gold:#ffd66a;}
+.spx-blackcat-overlay[hidden],.spx-blackcat-event[hidden]{display:none!important;}
+.spx-blackcat-overlay{position:fixed;inset:0;z-index:2147481800;display:grid;place-items:center;padding:clamp(8px,1.2vw,20px);background:radial-gradient(circle at 50% 40%,rgba(76,30,123,.35),rgba(1,4,13,.94) 65%),rgba(0,0,0,.86);backdrop-filter:blur(10px) saturate(1.2);font-family:"Exo 2","Segoe UI",sans-serif;color:#f7fbff;}
+.spx-blackcat-modal{box-sizing:border-box;position:relative;width:min(1760px,98vw);height:min(1040px,96dvh);min-height:620px;display:grid;grid-template-rows:auto minmax(0,1fr) auto;overflow:hidden;border:1px solid rgba(181,228,255,.76);border-radius:28px;background:linear-gradient(145deg,rgba(7,10,23,.985),rgba(17,7,29,.985) 58%,rgba(3,14,27,.985));box-shadow:0 0 0 2px rgba(130,65,255,.28),0 0 0 7px rgba(6,8,18,.96),0 0 0 9px rgba(74,235,255,.28),0 28px 95px #000,inset 0 0 70px rgba(63,46,116,.3);}
+.spx-blackcat-modal:before{content:"";position:absolute;inset:5px;pointer-events:none;border-radius:22px;border:2px solid transparent;background:linear-gradient(90deg,var(--bc-cyan),var(--bc-violet),var(--bc-magenta),var(--bc-cyan)) border-box;-webkit-mask:linear-gradient(#000 0 0) padding-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;opacity:.7;filter:drop-shadow(0 0 8px var(--bc-violet));animation:bcBorderPulse 4s linear infinite;z-index:4;}
+@keyframes bcBorderPulse{0%,100%{filter:hue-rotate(0deg) drop-shadow(0 0 8px var(--bc-cyan));opacity:.58}50%{filter:hue-rotate(70deg) drop-shadow(0 0 14px var(--bc-magenta));opacity:.92}}
+.spx-blackcat-header{position:relative;isolation:isolate;z-index:5;min-height:88px;display:grid;grid-template-columns:minmax(0,1fr) auto auto;align-items:center;gap:18px;overflow:hidden;padding:10px 18px 10px 14px;border-bottom:1px solid rgba(125,237,255,.42);background:#080b18;box-shadow:0 7px 35px rgba(0,0,0,.5),inset 0 -2px 0 rgba(156,79,255,.34);}
+.spx-blackcat-header:before{content:"";position:absolute;z-index:-2;inset:0;background:url("draft-assets/blackcat_header_vault_banner.png") center 58%/cover no-repeat;filter:saturate(.9) contrast(1.04) brightness(.66);transform:scale(1.015);}
+.spx-blackcat-header:after{content:"";position:absolute;z-index:-1;inset:0;background:linear-gradient(90deg,rgba(3,8,20,.9) 0%,rgba(8,8,22,.62) 37%,rgba(20,7,31,.68) 68%,rgba(2,11,24,.9) 100%),linear-gradient(180deg,rgba(0,0,0,.14),rgba(2,4,13,.57));pointer-events:none;}
+.spx-blackcat-header>*{position:relative;z-index:1;}
+.spx-blackcat-brand{display:flex;align-items:center;min-width:0;gap:12px;}
+.spx-blackcat-brand>img{width:72px;height:72px;object-fit:contain;filter:drop-shadow(0 0 12px rgba(128,239,255,.62)) drop-shadow(0 0 18px rgba(184,74,255,.5));}
+.spx-blackcat-brand>div{min-width:0}.spx-blackcat-brand span,.spx-blackcat-objective>span,.spx-blackcat-security>span,.spx-blackcat-loot>span,.spx-blackcat-target-copy span,.spx-blackcat-vault span,.spx-blackcat-summary-panel>span{display:block;color:#9cf8ff;font-size:clamp(9px,.72vw,12px);font-weight:900;letter-spacing:.17em;text-transform:uppercase;text-shadow:0 0 11px rgba(90,235,255,.8);}
+.spx-blackcat-brand h2{margin:1px 0 0;font-family:"Orbitron","Exo 2",sans-serif;font-size:clamp(26px,2.2vw,42px);line-height:1;color:#fff;letter-spacing:.08em;text-shadow:0 2px 0 #2b2445,0 0 8px #fff,0 0 22px #8c38ff;}
+.spx-blackcat-brand p{margin:4px 0 0;max-width:920px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#c7d7e7;font-weight:700;font-size:clamp(11px,.82vw,14px);}
+.spx-blackcat-header-status{display:flex;align-items:stretch;gap:8px}.spx-blackcat-header-status>span,.spx-blackcat-economy{display:grid;place-items:center;min-width:126px;min-height:48px;padding:7px 12px;border:1px solid rgba(111,238,255,.45);border-radius:13px;background:linear-gradient(145deg,rgba(23,61,87,.75),rgba(15,10,44,.9));color:#dffeff;font-family:"Rajdhani","Segoe UI",sans-serif;font-size:11px;font-weight:800;letter-spacing:.1em;text-align:center;box-shadow:inset 0 0 18px rgba(80,221,255,.13),0 0 13px rgba(87,209,255,.14);}.spx-blackcat-header-status b{display:block;color:#fff6b5;font-size:15px;text-shadow:0 0 9px #b678ff}.spx-blackcat-economy.on{border-color:#ffd45c;color:#fff2ae;box-shadow:inset 0 0 20px rgba(255,190,28,.14),0 0 14px rgba(255,188,32,.2)}
+.spx-blackcat-close{position:relative;z-index:8;width:48px;height:48px;border:1px solid rgba(176,229,255,.48);border-radius:50%;background:rgba(3,9,23,.78);color:#fff;font:800 31px/1 "Segoe UI",sans-serif;cursor:pointer;box-shadow:inset 0 0 18px rgba(104,222,255,.15),0 0 18px rgba(0,0,0,.5)}.spx-blackcat-close:hover{color:#ff9fe6;border-color:#ff76dd;box-shadow:0 0 20px rgba(255,70,211,.45)}
+.spx-blackcat-content{position:relative;z-index:2;min-height:0;overflow:auto;scrollbar-color:#8355ca rgba(10,15,31,.8);background:radial-gradient(circle at 50% 35%,rgba(65,24,105,.17),transparent 50%),linear-gradient(rgba(4,10,22,.35),rgba(2,5,13,.62));}
+.spx-blackcat-footer{position:relative;z-index:5;min-height:68px;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:9px 18px;border-top:1px solid rgba(124,227,255,.28);background:linear-gradient(90deg,rgba(6,14,29,.98),rgba(28,8,42,.97),rgba(4,16,30,.98));}.spx-blackcat-footer>div:first-child{color:#b8d5e8;font-size:12px;font-weight:700;line-height:1.35}.spx-blackcat-actions{display:flex;gap:10px;justify-content:flex-end;flex-wrap:wrap}
+.spx-blackcat-action{min-height:42px;padding:9px 18px;border:1px solid rgba(129,229,255,.5);border-radius:13px;background:linear-gradient(180deg,rgba(30,63,87,.93),rgba(9,21,39,.98));color:#effcff;font-family:"Exo 2","Segoe UI",sans-serif;font-size:12px;font-weight:900;letter-spacing:.075em;text-transform:uppercase;cursor:pointer;box-shadow:inset 0 1px 0 rgba(255,255,255,.17),inset 0 -8px 18px rgba(0,0,0,.22),0 0 13px rgba(77,218,255,.13);transition:.18s ease}.spx-blackcat-action:hover:not(:disabled){transform:translateY(-2px);border-color:#fff;box-shadow:0 0 22px rgba(83,226,255,.43),inset 0 1px 0 #fff}.spx-blackcat-action:disabled{opacity:.34;cursor:not-allowed}.spx-blackcat-action.primary{border-color:#e9ceff;background:linear-gradient(180deg,#9a42d9,#4b167e 55%,#261041);box-shadow:0 0 20px rgba(185,69,255,.38),inset 0 1px 0 rgba(255,255,255,.55)}.spx-blackcat-action.cashout{border-color:#ffd865;background:linear-gradient(180deg,#6f4a0d,#382004);color:#fff5b5}.spx-blackcat-action.danger{border-color:#ff617d;background:linear-gradient(180deg,#86152c,#3c0715);}
+.spx-blackcat-target-stage{padding:clamp(14px,2vw,30px)}.spx-blackcat-target-copy{display:grid;grid-template-columns:clamp(115px,12vw,210px) minmax(0,1fr);align-items:center;max-width:1180px;margin:0 auto 18px;padding:5px 24px 10px;border-bottom:1px solid rgba(126,225,255,.3)}.spx-blackcat-target-copy img{width:100%;max-height:170px;object-fit:contain;filter:drop-shadow(0 0 20px rgba(180,70,255,.45))}.spx-blackcat-target-copy h3,.spx-blackcat-vault h3,.spx-blackcat-summary-panel h3{margin:5px 0 7px;font-family:"Orbitron","Exo 2",sans-serif;font-size:clamp(20px,2vw,36px);letter-spacing:.045em;color:#fff;text-shadow:0 0 12px rgba(139,226,255,.55),0 0 24px rgba(185,67,255,.38)}.spx-blackcat-target-copy p,.spx-blackcat-vault p{margin:0;color:#bfd0df;font-weight:650;line-height:1.48}.spx-blackcat-target-groups{display:grid;gap:16px;max-width:1500px;margin:auto}.spx-blackcat-target-groups section{padding:14px;border:1px solid rgba(122,222,255,.22);border-radius:20px;background:linear-gradient(135deg,rgba(16,36,57,.62),rgba(27,9,43,.72));box-shadow:inset 0 0 30px rgba(36,127,175,.09)}.spx-blackcat-target-groups h4{margin:0 0 12px;color:#9edbea;font-size:11px;letter-spacing:.16em}.spx-blackcat-target-groups h4 b{color:#fff;font-size:15px;text-shadow:0 0 10px #8d4fff}.spx-blackcat-target-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(132px,1fr));gap:12px}.spx-blackcat-target-button,.spx-blackcat-reward-cards button{position:relative;display:grid;place-items:center;gap:7px;padding:9px;border:1px solid rgba(121,216,255,.25);border-radius:17px;background:rgba(2,8,20,.66);color:#eaffff;cursor:pointer;transition:.2s ease}.spx-blackcat-target-button:hover,.spx-blackcat-target-button.is-selected,.spx-blackcat-reward-cards button:hover{transform:translateY(-4px);border-color:#f5ddff;background:rgba(55,18,77,.78);box-shadow:0 0 0 2px rgba(78,231,255,.25),0 0 24px rgba(181,70,255,.42)}.spx-blackcat-target-button>span,.spx-blackcat-reward-cards button>span{font-size:10px;font-weight:900;letter-spacing:.1em;color:#a9f7ff}
+.spx-blackcat-card{position:relative;width:110px;aspect-ratio:.68;overflow:visible;border:1px solid rgba(193,157,255,.85);border-radius:13px;background:radial-gradient(circle at 50% 38%,rgba(142,65,224,.3),transparent 35%),linear-gradient(165deg,#15113c,#07091d 62%,#260935);box-shadow:inset 0 0 0 3px rgba(86,223,255,.11),inset 0 0 22px rgba(120,49,214,.35),0 6px 17px rgba(0,0,0,.58)}.spx-blackcat-card:before{content:"";position:absolute;inset:5px;border:1px solid rgba(96,231,255,.45);border-radius:9px;pointer-events:none}.spx-blackcat-card-art{position:absolute;inset:18% 9% 28%;overflow:hidden;border-radius:7px;background:url("draft-assets/galaxytool.webp") center/cover no-repeat;box-shadow:inset 0 0 18px rgba(3,5,20,.65),0 0 12px rgba(93,207,255,.24)}.spx-blackcat-card-art i{position:absolute;inset:24%;transform:rotate(45deg);background:radial-gradient(circle,#fff 0 8%,#bda3ff 9% 18%,#6a37ca 19% 38%,transparent 40%);filter:drop-shadow(0 0 7px #fff)}.spx-blackcat-card strong{position:absolute;left:7px;right:7px;bottom:8%;z-index:3;color:#fff;font-size:10px;line-height:1.08;text-align:center;text-shadow:0 2px 2px #000,0 0 7px #a543ff}.spx-blackcat-card-orb{position:absolute;z-index:5;display:grid;place-items:center;width:32px;height:32px;border-radius:50%;font:900 15px/1 "Exo 2",sans-serif;color:#fff;text-shadow:0 2px 2px #000}.spx-blackcat-card-orb.cost{left:-8px;top:-8px;background:radial-gradient(circle at 35% 27%,#7ffcff,#147ec3 52%,#071733 70%);border:2px solid #82f4ff;box-shadow:0 0 9px #35dbff}.spx-blackcat-card-orb.power{right:-8px;bottom:-8px;background:radial-gradient(circle at 35% 27%,#fff6a0,#d48716 53%,#371000 72%);border:2px solid #ffe771;box-shadow:0 0 9px #ffb42f}.spx-blackcat-card.mini{width:clamp(28px,4vw,60px);border-radius:5px}.spx-blackcat-card.mini .spx-blackcat-card-orb{width:15px;height:15px;font-size:8px;border-width:1px}.spx-blackcat-card.mini strong{font-size:6px;bottom:6%}.spx-blackcat-card.objective{width:clamp(74px,7vw,112px);margin:10px auto}.spx-blackcat-card.summary-card{width:clamp(82px,8vw,124px);flex:0 0 auto}
+.spx-blackcat-heist-layout{box-sizing:border-box;height:100%;min-height:0;display:grid;grid-template-columns:minmax(0,1fr) clamp(230px,18vw,330px);align-items:center;gap:12px;padding:10px 14px}.spx-blackcat-board-frame{position:relative;width:min(100%,calc((96dvh - 220px)*1.4));aspect-ratio:1.4;margin:auto;overflow:hidden;border:1px solid rgba(133,229,255,.55);border-radius:22px;background:#030714;box-shadow:0 0 0 3px rgba(75,39,133,.55),0 0 35px rgba(73,196,255,.21),inset 0 0 34px #000}.spx-blackcat-museum{position:absolute;inset:0;width:100%;height:100%;object-fit:fill;filter:saturate(1.07) contrast(1.04);}.spx-blackcat-grid{position:absolute;z-index:3;left:9.75%;right:10%;top:14.25%;bottom:14.4%;display:grid;grid-template-columns:repeat(var(--bc-cols),1fr);grid-template-rows:repeat(var(--bc-rows),1fr);gap:0}.spx-blackcat-cell{position:relative;min-width:0;min-height:0;padding:0;border:1px solid rgba(83,194,235,.13);background:transparent;color:#fff;overflow:visible}.spx-blackcat-cell:disabled{cursor:default}.spx-blackcat-cell.is-reachable{cursor:pointer;border-color:rgba(134,242,255,.56);box-shadow:inset 0 0 18px rgba(71,206,255,.18);animation:bcReachable 1.45s ease-in-out infinite}.spx-blackcat-cell.is-reachable:hover{z-index:8;background:rgba(70,223,255,.1);box-shadow:inset 0 0 25px rgba(98,231,255,.42),0 0 13px #a844ff}.spx-blackcat-cell.is-reachable:after{content:"SKOK";position:absolute;left:50%;top:50%;z-index:7;transform:translate(-50%,-50%);font-size:clamp(6px,.52vw,10px);font-weight:900;letter-spacing:.09em;color:#cffcff;text-shadow:0 0 7px #1edcff;opacity:.75}.spx-blackcat-fog{position:absolute;inset:0;z-index:5;background:radial-gradient(circle at 50% 50%,rgba(41,31,72,.9),rgba(2,5,14,.985) 67%);box-shadow:inset 0 0 20px #000;transition:opacity .35s ease,background .35s ease}.spx-blackcat-cell.is-lit:not(.is-visited) .spx-blackcat-fog{background:radial-gradient(circle,rgba(78,108,151,.62),rgba(5,9,20,.92) 68%);box-shadow:inset 0 0 18px rgba(85,221,255,.2)}.spx-blackcat-cell.is-visited .spx-blackcat-fog{opacity:0;pointer-events:none}.spx-blackcat-cell.is-reachable .spx-blackcat-fog{background:radial-gradient(circle,rgba(48,133,162,.68),rgba(6,8,25,.92) 72%)}@keyframes bcReachable{50%{border-color:#d6faff;box-shadow:inset 0 0 24px rgba(102,229,255,.34),0 0 7px rgba(172,71,255,.38)}}
+.spx-blackcat-token,.spx-blackcat-token-light{position:absolute;z-index:20;left:calc(9.75% + (var(--bc-col) + .5) * (80.25% / var(--bc-cols)));top:calc(14.25% + (var(--bc-row) + .5) * (71.35% / var(--bc-rows)));transform:translate(-50%,-50%);pointer-events:none;transition:left .42s cubic-bezier(.22,.8,.22,1),top .42s cubic-bezier(.22,.8,.22,1)}.spx-blackcat-token{width:clamp(40px,5.2vw,86px);height:clamp(40px,5.2vw,86px);object-fit:contain;filter:drop-shadow(0 5px 4px rgba(0,0,0,.75)) drop-shadow(0 0 7px #fff) drop-shadow(0 0 15px #a83aff);animation:bcTokenFloat 1.8s ease-in-out infinite}.spx-blackcat-token-light{z-index:2;width:calc(80.25% / var(--bc-cols) * 2.25);aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,rgba(235,252,255,.65) 0 5%,rgba(85,229,255,.26) 18%,rgba(170,68,255,.2) 42%,transparent 72%);filter:blur(3px);mix-blend-mode:screen}.spx-blackcat-token-light:after{content:"";position:absolute;inset:25%;border:1px solid rgba(215,251,255,.75);border-radius:50%;box-shadow:0 0 16px #65eaff}@keyframes bcTokenFloat{50%{transform:translate(-50%,calc(-50% - 4px)) scale(1.04)}}
+.spx-blackcat-laser{position:absolute;z-index:4;inset:-15%;width:130%;height:130%;object-fit:contain;filter:drop-shadow(0 0 8px #ff174f);animation:bcLaser 1s ease-in-out infinite}@keyframes bcLaser{50%{filter:drop-shadow(0 0 15px #ff174f) brightness(1.25)}}.spx-blackcat-vitrine{position:absolute;z-index:4;inset:-5%;display:grid;place-items:center}.spx-blackcat-vitrine>img{position:absolute;width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 0 8px rgba(88,226,255,.62))}.spx-blackcat-vitrine>span{position:relative;z-index:2;display:grid;place-items:center;width:62%;height:62%;color:#fff}.spx-blackcat-vitrine>span>img{width:58%;height:58%;object-fit:contain;filter:drop-shadow(0 0 7px #ffd248)}.spx-blackcat-vitrine>span>b{font-size:clamp(16px,2vw,32px);color:#e7faff;text-shadow:0 0 10px #4bdfff}.spx-blackcat-vitrine small{display:block;margin-top:-4px;font-size:clamp(5px,.45vw,9px);font-weight:900;color:#fff6b0;text-align:center;text-shadow:0 1px 2px #000}.spx-blackcat-security-count{position:absolute;z-index:4;left:50%;top:50%;transform:translate(-50%,-50%);display:grid;place-items:center;width:clamp(20px,2.2vw,36px);height:clamp(20px,2.2vw,36px);border-radius:50%;font:900 clamp(11px,1.1vw,18px)/1 "Exo 2",sans-serif}.spx-blackcat-security-count.safe{color:#adffea;border:1px solid #55e8c0;background:rgba(8,59,52,.72);box-shadow:0 0 12px rgba(41,255,199,.45)}.spx-blackcat-security-count.hot{color:#fff0f4;border:1px solid #ff5474;background:rgba(91,9,31,.78);box-shadow:0 0 14px rgba(255,27,80,.65)}
+.spx-blackcat-heist-sidebar{align-self:stretch;min-height:0;overflow:auto;display:grid;grid-template-rows:auto auto minmax(0,1fr);gap:9px;padding:2px}.spx-blackcat-objective,.spx-blackcat-security,.spx-blackcat-loot{padding:12px;border:1px solid rgba(112,225,255,.28);border-radius:17px;background:linear-gradient(150deg,rgba(17,40,60,.78),rgba(23,8,39,.84));box-shadow:inset 0 0 26px rgba(63,163,220,.08)}.spx-blackcat-objective{text-align:center}.spx-blackcat-objective>small{display:block;color:#ccd8e8;font-size:9px;font-weight:800;letter-spacing:.08em}.spx-blackcat-security{display:grid;grid-template-columns:1fr auto;gap:4px 10px;align-items:center}.spx-blackcat-security>span{grid-column:1}.spx-blackcat-security>b{grid-column:2;grid-row:1/3;font:900 clamp(30px,3.1vw,54px)/1 "Orbitron",sans-serif;color:#ffccd8;text-shadow:0 0 13px #ff2457}.spx-blackcat-security p{grid-column:1;align-self:start;margin:4px 0 0;color:#aebed1;font-size:10px;line-height:1.35}.spx-blackcat-loot{min-height:0;overflow:auto}.spx-blackcat-loot ul{list-style:none;margin:9px 0 0;padding:0;display:grid;gap:6px}.spx-blackcat-loot li{display:grid;grid-template-columns:33px 1fr;align-items:center;gap:8px;min-height:35px;padding:5px 8px;border-radius:10px;background:rgba(2,8,20,.67);border:1px solid rgba(137,99,209,.28);font-size:10px;font-weight:800}.spx-blackcat-loot li img{width:30px;height:30px;object-fit:contain}.spx-blackcat-loot li b{display:grid;place-items:center;width:28px;height:28px;border-radius:50%;background:#20245d;color:#c7f8ff;font-size:18px}.spx-blackcat-loot li.empty{display:block;color:#73859b;font-weight:650}
+.spx-blackcat-event{position:absolute;z-index:40;inset:0;display:grid;place-items:center;padding:20px;background:rgba(1,4,12,.79);backdrop-filter:blur(8px)}.spx-blackcat-event>section{position:relative;width:min(560px,92vw);padding:26px 28px 24px;border:1px solid rgba(141,237,255,.72);border-radius:25px;background:linear-gradient(150deg,rgba(15,28,53,.985),rgba(41,8,55,.985));text-align:center;box-shadow:0 0 0 4px rgba(64,29,102,.65),0 0 60px rgba(92,218,255,.32),inset 0 0 45px rgba(98,42,166,.21)}.spx-blackcat-event.laser>section{border-color:#ff516f;box-shadow:0 0 0 4px rgba(94,7,30,.62),0 0 60px rgba(255,23,73,.38)}.spx-blackcat-event>section>img{width:150px;height:120px;object-fit:contain;margin:-22px auto -4px;filter:drop-shadow(0 0 17px rgba(108,229,255,.62))}.spx-blackcat-event.laser>section>img{filter:drop-shadow(0 0 20px #ff1649)}.spx-blackcat-event span{display:block;color:#9ef6ff;font-size:10px;font-weight:900;letter-spacing:.17em}.spx-blackcat-event h3{margin:5px 0 8px;font:900 clamp(21px,2vw,31px)/1.1 "Orbitron","Exo 2",sans-serif;color:#fff;text-shadow:0 0 15px #a948ff}.spx-blackcat-event p{margin:0 auto 20px;max-width:490px;color:#c9d9e5;font-weight:650;line-height:1.45}.spx-blackcat-event-actions{display:flex;justify-content:center;gap:9px;flex-wrap:wrap}
+.spx-blackcat-reward-stage{padding:clamp(14px,2vw,30px);max-width:1480px;margin:auto}.spx-blackcat-vault{display:grid;grid-template-columns:minmax(210px,36%) 1fr;align-items:center;min-height:230px;overflow:hidden;border:1px solid rgba(130,222,255,.34);border-radius:24px;background:linear-gradient(140deg,rgba(21,36,58,.74),rgba(42,11,52,.78));box-shadow:inset 0 0 38px rgba(71,128,205,.11)}.spx-blackcat-vault.compact{min-height:190px}.spx-blackcat-vault>img{width:100%;height:230px;object-fit:cover;object-position:center;mask-image:linear-gradient(90deg,#000 72%,transparent 100%)}.spx-blackcat-vault>div{padding:20px}.spx-blackcat-reward-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(128px,1fr));gap:12px;margin-top:17px}.spx-blackcat-reward-cards.candidates{grid-template-columns:repeat(2,minmax(150px,240px));justify-content:center}.spx-blackcat-reward-cards button{padding:12px}.spx-blackcat-reward-cards .spx-blackcat-card{width:112px}
+.spx-blackcat-summary{height:100%;min-height:0;display:grid;grid-template-columns:minmax(310px,48%) 1fr;overflow:hidden}.spx-blackcat-summary>img{width:100%;height:100%;min-height:430px;object-fit:cover;filter:saturate(1.12) contrast(1.04);mask-image:linear-gradient(90deg,#000 75%,transparent 100%)}.spx-blackcat-summary-panel{align-self:center;max-height:100%;overflow:auto;padding:30px 35px 30px 12px}.spx-blackcat-main-result{display:flex;align-items:center;gap:22px;padding:15px;margin:16px 0;border:1px solid rgba(129,229,255,.29);border-radius:19px;background:rgba(8,13,29,.68)}.spx-blackcat-main-result p,.spx-blackcat-main-miss{margin:0;color:#c7d8e7;line-height:1.5}.spx-blackcat-main-result b{color:#fff3a5}.spx-blackcat-summary-panel ul{list-style:none;margin:12px 0 0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.spx-blackcat-summary-panel li{display:grid;grid-template-columns:31px 1fr;gap:8px;align-items:center;padding:8px 10px;border:1px solid rgba(108,216,255,.22);border-radius:12px;background:rgba(5,12,25,.75)}.spx-blackcat-summary-panel li>b{display:grid;place-items:center;width:27px;height:27px;border-radius:50%;background:rgba(24,95,78,.75);color:#8fffd7}.spx-blackcat-summary-panel li.miss>b{background:rgba(93,19,43,.72);color:#ff91ad}.spx-blackcat-summary-panel li span{font-size:10px;font-weight:900;color:#effcff}.spx-blackcat-summary-panel li small{display:block;margin-top:2px;color:#8fa8bb;font-weight:650}
+@media(max-width:1050px){.spx-blackcat-modal{height:98dvh;min-height:0}.spx-blackcat-heist-layout{grid-template-columns:minmax(0,1fr) 210px}.spx-blackcat-header-status{display:none}.spx-blackcat-brand p{max-width:62vw}.spx-blackcat-board-frame{width:100%}.spx-blackcat-security p{display:none}.spx-blackcat-summary-panel ul{grid-template-columns:1fr}}
+@media(max-width:780px){.spx-blackcat-overlay{padding:0}.spx-blackcat-modal{width:100vw;height:100dvh;border-radius:0}.spx-blackcat-modal:before{border-radius:0}.spx-blackcat-header{grid-template-columns:1fr auto;padding:7px 10px}.spx-blackcat-brand>img{width:54px;height:54px}.spx-blackcat-brand p{display:none}.spx-blackcat-heist-layout{display:block;overflow:auto}.spx-blackcat-board-frame{width:100%;margin-bottom:10px}.spx-blackcat-heist-sidebar{grid-template-columns:repeat(3,1fr);grid-template-rows:auto;overflow:visible}.spx-blackcat-objective .spx-blackcat-card,.spx-blackcat-security p{display:none}.spx-blackcat-loot ul{max-height:88px;overflow:auto}.spx-blackcat-summary{display:block;overflow:auto}.spx-blackcat-summary>img{width:100%;height:230px;min-height:0;mask-image:linear-gradient(#000 72%,transparent)}.spx-blackcat-summary-panel{padding:14px 18px 25px}.spx-blackcat-target-copy{grid-template-columns:90px 1fr;padding:0 4px 8px}.spx-blackcat-target-copy p{font-size:12px}.spx-blackcat-footer{align-items:flex-start;min-height:60px;padding:8px 10px}.spx-blackcat-footer>div:first-child{display:none}.spx-blackcat-actions{width:100%}.spx-blackcat-action{flex:1}.spx-blackcat-vault{grid-template-columns:140px 1fr}.spx-blackcat-vault>img{height:190px}}
+@media(max-height:720px) and (min-width:781px){.spx-blackcat-modal{height:98dvh}.spx-blackcat-header{min-height:70px}.spx-blackcat-brand>img{width:58px;height:58px}.spx-blackcat-brand p{display:none}.spx-blackcat-footer{min-height:54px}.spx-blackcat-board-frame{width:min(100%,calc((98dvh - 152px)*1.4))}.spx-blackcat-objective .spx-blackcat-card{width:68px}.spx-blackcat-security p{display:none}.spx-blackcat-loot li{min-height:29px}}
+@media(prefers-reduced-motion:reduce){.spx-blackcat-modal:before,.spx-blackcat-cell.is-reachable,.spx-blackcat-token,.spx-blackcat-laser{animation:none!important}.spx-blackcat-token,.spx-blackcat-token-light{transition:none!important}}
+
+/* BLACK CAT V7 — canonical museum heist */
+.spx-blackcat-v7{--bc-heist-font:"Orbitron","Oxanium","Exo 2",sans-serif}
+.spx-blackcat-v7 .spx-blackcat-modal{background:linear-gradient(145deg,rgba(4,8,21,.985),rgba(20,7,35,.985) 58%,rgba(2,14,27,.985));}
+.spx-blackcat-v7 .spx-blackcat-brand h2,.spx-blackcat-v7 h3,.spx-blackcat-v7 .spx-blackcat-action{font-family:var(--bc-heist-font)}
+.spx-blackcat-v7 .spx-blackcat-heist-layout{grid-template-columns:minmax(0,1fr) clamp(238px,18vw,332px);align-items:stretch;padding:8px 14px 10px}
+.spx-blackcat-v7 .spx-blackcat-board-column{min-width:0;min-height:0;display:grid;grid-template-rows:minmax(0,1fr) auto;align-items:center;gap:7px}
+.spx-blackcat-v7 .spx-blackcat-board-frame{width:min(100%,calc((96dvh - 292px)*1.4));max-height:100%;align-self:center}
+.spx-blackcat-v7 .spx-blackcat-grid{left:9.75%;right:10%;top:14.25%;bottom:14.4%}
+.spx-blackcat-v7 .spx-blackcat-cell{appearance:none}
+.spx-blackcat-v7 .spx-blackcat-cell.is-lit:not(.is-visited) .spx-blackcat-fog{opacity:.52;background:radial-gradient(circle,rgba(92,116,161,.35),rgba(3,6,15,.86) 72%)}
+.spx-blackcat-v7 .spx-blackcat-cell.is-visited .spx-blackcat-fog{opacity:.08}
+.spx-blackcat-v7 .spx-blackcat-cell.is-reachable.is-visited:after{content:"WRÓĆ"}
+.spx-blackcat-v7 .spx-blackcat-cell.is-current{border-color:#fff!important;box-shadow:inset 0 0 24px rgba(130,243,255,.22),0 0 14px rgba(204,86,255,.45)}
+.spx-blackcat-v7 .spx-blackcat-vitrine{inset:-10%;animation:bcVitrineReveal .42s cubic-bezier(.2,.8,.2,1) both}
+.spx-blackcat-v7 .spx-blackcat-vitrine>span>img{width:72%;height:72%;filter:drop-shadow(0 0 5px #fff) drop-shadow(0 0 11px #a34cff)}
+.spx-blackcat-v7 .spx-blackcat-vitrine small{font:900 clamp(5px,.42vw,8px)/1 var(--bc-heist-font);letter-spacing:.04em}
+.spx-blackcat-v7 .spx-blackcat-main-vitrine{position:absolute;z-index:7;inset:-12%;display:grid;place-items:center;padding-bottom:3px;background:url("draft-assets/blackcat_heist_vitrine.png") center/contain no-repeat;filter:drop-shadow(0 0 12px #f1bc4f);animation:bcMainCase 1.8s ease-in-out infinite}
+.spx-blackcat-v7 .spx-blackcat-main-vitrine .spx-blackcat-card{transform:scale(.82)}
+.spx-blackcat-v7 .spx-blackcat-main-vitrine>small{position:absolute;bottom:7%;font:900 7px/1 var(--bc-heist-font);color:#fff0a7;text-shadow:0 0 7px #ffbf2d}
+.spx-blackcat-v7 .spx-blackcat-empty-case{position:absolute;z-index:4;inset:24%;display:grid;place-items:center;border:1px dashed rgba(101,224,255,.32);border-radius:7px;color:rgba(178,232,245,.52);font:800 6px/1 var(--bc-heist-font);letter-spacing:.08em}
+@keyframes bcVitrineReveal{from{opacity:0;transform:scale(.35) rotate(-4deg);filter:blur(6px)}to{opacity:1;transform:scale(1);filter:none}}
+@keyframes bcMainCase{50%{filter:drop-shadow(0 0 21px #ffca47) drop-shadow(0 0 13px #a54cff)}}
+.spx-blackcat-v7 .spx-blackcat-token{width:clamp(48px,5.8vw,96px);height:clamp(48px,5.8vw,96px);z-index:24}
+.spx-blackcat-v7 .spx-blackcat-heist-sidebar{grid-template-rows:auto auto minmax(0,1fr)}
+.spx-blackcat-v7 .spx-blackcat-security>b{color:#fff0a8;text-shadow:0 0 13px #ff4bb8}
+.spx-blackcat-v7 .spx-blackcat-header-status .bc-alarm-on{border-color:#ff4f77;animation:bcAlarmPanel .7s ease-in-out infinite alternate}
+@keyframes bcAlarmPanel{to{box-shadow:inset 0 0 22px rgba(255,28,79,.3),0 0 18px rgba(255,32,92,.5)}}
+.spx-blackcat-v7 .spx-blackcat-legend{display:flex;align-items:center;justify-content:center;gap:10px;min-height:52px;padding:4px 8px;border:1px solid rgba(117,222,255,.22);border-radius:14px;background:linear-gradient(90deg,rgba(3,12,28,.88),rgba(24,7,38,.9),rgba(3,12,28,.88));box-shadow:inset 0 0 23px rgba(63,162,222,.08)}
+.spx-blackcat-v7 .spx-blackcat-legend>span{flex:0 0 auto;color:#9ef7ff;font:900 8px/1 var(--bc-heist-font);letter-spacing:.13em}
+.spx-blackcat-v7 .spx-blackcat-legend>div{display:flex;align-items:center;justify-content:center;gap:4px;flex-wrap:wrap}
+.spx-blackcat-legend-item{position:relative;width:50px;height:43px;display:grid;grid-template-rows:28px auto;place-items:center;padding:2px;border:1px solid rgba(139,220,255,.24);border-radius:9px;background:rgba(4,10,23,.8);color:#dffaff;cursor:help}
+.spx-blackcat-legend-item img{width:28px;height:28px;object-fit:contain;filter:drop-shadow(0 0 5px rgba(108,224,255,.65))}
+.spx-blackcat-legend-item>span{font:800 5.5px/1 var(--bc-heist-font);letter-spacing:.03em;white-space:nowrap}
+[data-tooltip]{position:relative}
+[data-tooltip]:after{content:attr(data-tooltip);position:absolute;z-index:100;left:50%;bottom:calc(100% + 8px);width:max-content;max-width:220px;transform:translate(-50%,5px);padding:7px 9px;border:1px solid rgba(126,236,255,.6);border-radius:8px;background:rgba(2,7,18,.97);box-shadow:0 0 18px rgba(73,215,255,.28);color:#eafcff;font:700 10px/1.3 "Exo 2",sans-serif;white-space:normal;pointer-events:none;opacity:0;transition:.16s ease}
+[data-tooltip]:hover:after,[data-tooltip]:focus-visible:after,[data-tooltip].is-tooltip-locked:after{opacity:1;transform:translate(-50%,0)}
+.spx-blackcat-v7 .spx-blackcat-summary{position:relative;isolation:isolate;grid-template-columns:minmax(0,1fr) minmax(310px,42%);gap:16px;padding:24px;background:linear-gradient(90deg,rgba(2,6,18,.86),rgba(4,8,20,.32)),var(--bc-summary-bg) center/cover no-repeat}
+.spx-blackcat-v7 .spx-blackcat-summary:before{content:"";position:absolute;z-index:-1;inset:0;background:linear-gradient(90deg,rgba(2,7,19,.94) 0 39%,rgba(2,7,19,.62) 56%,rgba(2,7,19,.12))}
+.spx-blackcat-v7 .spx-blackcat-summary-copy{align-self:center;max-width:740px;padding:24px;border:1px solid rgba(125,224,255,.28);border-radius:22px;background:rgba(3,8,21,.76);backdrop-filter:blur(7px);box-shadow:inset 0 0 35px rgba(92,51,166,.16),0 18px 45px rgba(0,0,0,.35)}
+.spx-blackcat-v7 .spx-blackcat-summary-copy>span{color:#9cf8ff;font:900 10px/1 var(--bc-heist-font);letter-spacing:.17em}
+.spx-blackcat-v7 .spx-blackcat-summary-copy ul{list-style:none;margin:12px 0 0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}
+.spx-blackcat-v7 .spx-blackcat-summary-copy li{display:grid;grid-template-columns:36px 1fr;align-items:center;gap:8px;min-height:45px;padding:5px 8px;border:1px solid rgba(103,215,255,.22);border-radius:11px;background:rgba(4,10,25,.78);cursor:help}
+.spx-blackcat-v7 .spx-blackcat-summary-copy li>img{width:34px;height:34px;object-fit:contain}.spx-blackcat-v7 .spx-blackcat-summary-copy li span{font-size:10px;font-weight:900}.spx-blackcat-v7 .spx-blackcat-summary-copy li small{display:block;color:#9bb0c2;font-size:8px}
+.spx-blackcat-v7 .spx-blackcat-summary-bag{position:relative;align-self:end;justify-self:center;width:min(520px,100%);aspect-ratio:1;display:grid;place-items:center}
+.spx-blackcat-v7 .spx-blackcat-summary-bag>img{position:absolute;z-index:2;inset:4%;width:92%;height:92%;object-fit:contain;filter:drop-shadow(0 22px 24px rgba(0,0,0,.72)) drop-shadow(0 0 18px rgba(164,63,255,.36))}
+.spx-blackcat-v7 .spx-blackcat-summary-bag>strong{position:absolute;z-index:7;bottom:4%;padding:7px 14px;border:1px solid rgba(171,236,255,.42);border-radius:999px;background:rgba(4,8,22,.86);font:900 10px/1 var(--bc-heist-font);letter-spacing:.12em;text-shadow:0 0 9px #7d4fff}
+.spx-blackcat-v7 .spx-blackcat-bag-loot{position:absolute;z-index:5;left:24%;right:24%;top:28%;bottom:34%;display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:0;transform:perspective(500px) rotateX(14deg)}
+.spx-blackcat-v7 .spx-blackcat-bag-loot>img{width:clamp(34px,4.3vw,68px);height:clamp(34px,4.3vw,68px);object-fit:contain;margin:-6px;filter:drop-shadow(0 0 7px #fff) drop-shadow(0 0 12px #a14bff);animation:bcBagLoot .6s calc(var(--loot-i)*.08s) cubic-bezier(.15,.9,.24,1.3) both}
+.spx-blackcat-v7 .spx-blackcat-bag-card{transform:scale(.7);margin:-18px}
+@keyframes bcBagLoot{from{opacity:0;transform:translateY(-80px) scale(.2) rotate(-20deg)}to{opacity:1;transform:none}}
+.spx-blackcat-loot-flight{position:fixed;z-index:2147482500;left:0;top:0;width:62px;height:62px;display:grid;place-items:center;pointer-events:none;animation:bcLootFlight .88s cubic-bezier(.18,.7,.2,1) forwards}
+.spx-blackcat-loot-flight:before{content:"";position:absolute;inset:-25%;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.85),rgba(114,226,255,.34) 28%,rgba(177,69,255,.23) 50%,transparent 72%);filter:blur(4px)}
+.spx-blackcat-loot-flight img{position:relative;width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 0 7px #fff) drop-shadow(0 0 15px #9a45ff)}
+.spx-blackcat-loot-flight b{position:relative;color:#fff;font-size:36px;text-shadow:0 0 12px #86efff}
+@keyframes bcLootFlight{0%{opacity:0;transform:translate(calc(var(--bc-from-x) - 31px),calc(var(--bc-from-y) - 31px)) scale(.25) rotate(-18deg)}18%{opacity:1;transform:translate(calc(var(--bc-from-x) - 31px),calc(var(--bc-from-y) - 62px)) scale(1.15) rotate(8deg)}100%{opacity:0;transform:translate(calc(var(--bc-to-x) - 31px),calc(var(--bc-to-y) - 31px)) scale(.3) rotate(28deg)}}
+
+/* Pack-side crystal warp. Portal cards deliberately reuse pack-card markup. */
+.spx-blackcat-gem-portal{--gem-color:#7ff5ff;position:absolute;z-index:125;right:clamp(8px,2vw,30px);top:clamp(76px,9vh,126px);width:clamp(310px,31vw,540px);min-height:190px;padding:12px 14px 10px;border:1px solid color-mix(in srgb,var(--gem-color) 72%,#fff 28%);border-radius:22px;background:radial-gradient(circle at 20% 10%,color-mix(in srgb,var(--gem-color) 22%,transparent),transparent 40%),linear-gradient(145deg,rgba(2,8,22,.96),rgba(22,6,38,.96));box-shadow:0 0 0 3px rgba(4,8,23,.8),0 0 30px color-mix(in srgb,var(--gem-color) 48%,transparent),inset 0 0 33px color-mix(in srgb,var(--gem-color) 12%,transparent);color:#effcff;font-family:"Exo 2",sans-serif;overflow:visible;animation:bcPortalEnter .42s cubic-bezier(.2,.9,.2,1) both}
+.spx-blackcat-gem-portal.gem-prism{--gem-color:#ff75ec}.spx-blackcat-gem-portal.gem-synergy{--gem-color:#ffd65d}.spx-blackcat-gem-portal.gem-necromancer{--gem-color:#62ffae}.spx-blackcat-gem-portal.gem-future{--gem-color:#a6ddff}.spx-blackcat-gem-portal.gem-shadow{--gem-color:#9a62ff}
+.spx-blackcat-portal-mist{position:absolute;z-index:-1;inset:-25%;border-radius:45%;background:radial-gradient(ellipse,color-mix(in srgb,var(--gem-color) 32%,transparent),transparent 66%);filter:blur(20px);animation:bcPortalMist 3s ease-in-out infinite}
+.spx-blackcat-gem-portal header{display:flex;align-items:center;gap:10px;margin-bottom:4px}.spx-blackcat-gem-portal header>img{width:58px;height:58px;object-fit:contain;filter:drop-shadow(0 0 8px #fff) drop-shadow(0 0 15px var(--gem-color));animation:bcGemFloat 1.7s ease-in-out infinite}.spx-blackcat-gem-portal header span{display:block;color:var(--gem-color);font-size:8px;font-weight:900;letter-spacing:.14em}.spx-blackcat-gem-portal header h3{margin:2px 0;font:900 clamp(15px,1.4vw,24px)/1 "Orbitron",sans-serif;text-shadow:0 0 12px var(--gem-color)}
+.spx-blackcat-portal-cards{display:flex;align-items:center;justify-content:center;gap:16px;min-height:205px;padding:3px}.spx-blackcat-portal-cards>.pack-card-btn,.spx-blackcat-portal-cards>.joker-card-btn{position:relative!important;inset:auto!important;transform:scale(.78)!important;transform-origin:center!important;margin:-18px!important;opacity:1!important;animation:bcPortalCard 2.3s ease-in-out infinite!important;filter:drop-shadow(0 0 13px var(--gem-color))}.spx-blackcat-portal-cards>:nth-child(2){animation-delay:-1.15s!important}
+.spx-blackcat-gem-portal>p{margin:4px 3px 0;color:#c7dbe6;font-size:10px;line-height:1.3}.spx-blackcat-portal-instruction{padding:22px 12px;border:1px dashed color-mix(in srgb,var(--gem-color) 58%,transparent);border-radius:13px;text-align:center;font-weight:800}.spx-blackcat-gem-portal.is-committing{animation:bcPortalConsume .72s ease-in forwards;pointer-events:none}
+@keyframes bcPortalEnter{from{opacity:0;transform:translateY(-18px) scale(.75);filter:blur(8px)}to{opacity:1;transform:none;filter:none}}@keyframes bcPortalMist{50%{transform:scale(1.12) rotate(4deg);opacity:.65}}@keyframes bcGemFloat{50%{transform:translateY(-5px) rotate(3deg)}}@keyframes bcPortalCard{50%{filter:drop-shadow(0 0 22px var(--gem-color)) brightness(1.12)}}@keyframes bcPortalConsume{to{opacity:0;transform:scale(.18) rotate(9deg);filter:blur(15px)}}
+
+@media(max-width:1050px){.spx-blackcat-v7 .spx-blackcat-legend-item{width:44px}.spx-blackcat-v7 .spx-blackcat-player-gallery{padding-left:8px!important;padding-right:8px!important}.spx-blackcat-gem-portal{width:min(480px,58vw)}}
+@media(max-width:780px){.spx-blackcat-v7 .spx-blackcat-heist-layout{display:block}.spx-blackcat-v7 .spx-blackcat-board-column{display:block}.spx-blackcat-v7 .spx-blackcat-legend{margin-bottom:8px;overflow-x:auto;justify-content:flex-start}.spx-blackcat-v7 .spx-blackcat-legend>div{flex-wrap:nowrap}.spx-blackcat-v7 .spx-blackcat-summary{display:block;overflow:auto}.spx-blackcat-v7 .spx-blackcat-summary-bag{height:330px}.spx-blackcat-v7 .spx-blackcat-summary-copy ul{grid-template-columns:1fr}.spx-blackcat-gem-portal{position:fixed;left:5vw;right:5vw;top:auto;bottom:10px;width:90vw;max-height:54dvh;overflow:auto}.spx-blackcat-portal-cards{min-height:160px}}
+@media(prefers-reduced-motion:reduce){.spx-blackcat-v7 .spx-blackcat-vitrine,.spx-blackcat-v7 .spx-blackcat-main-vitrine,.spx-blackcat-v7 .spx-blackcat-bag-loot>img,.spx-blackcat-gem-portal,.spx-blackcat-gem-portal *{animation:none!important}}
+
+/* Final heist polish: the modal is an interior museum floor, with a three-column visitor route. */
+.spx-blackcat-v7 .spx-blackcat-modal.is-heist{
+    background:
+        linear-gradient(90deg,rgba(2,7,20,.74),rgba(2,5,15,.45) 38%,rgba(3,5,16,.72)),
+        url("draft-assets/blackcat_exhibit_wall_02.png") center/cover no-repeat!important;
+}
+.spx-blackcat-v7 .spx-blackcat-modal.is-heist .spx-blackcat-content{
+    background:linear-gradient(180deg,rgba(2,6,17,.18),rgba(1,4,14,.58));
+}
+.spx-blackcat-v7 .spx-blackcat-modal.is-heist .spx-blackcat-heist-layout{
+    grid-template-columns:minmax(170px,17vw) minmax(0,1fr) minmax(300px,25vw);
+    align-items:stretch;gap:14px;padding:12px 16px 14px;
+}
+.spx-blackcat-v7 .spx-blackcat-modal.is-heist .spx-blackcat-board-column{min-width:0;display:grid;align-content:center;gap:12px}
+.spx-blackcat-v7 .spx-blackcat-modal.is-heist .spx-blackcat-board-frame{width:min(100%,calc((96dvh - 156px)*1.4));max-width:100%;max-height:calc(100dvh - 156px)}
+.spx-blackcat-v7 .spx-blackcat-modal.is-heist .spx-blackcat-heist-sidebar{grid-template-rows:auto minmax(92px,1fr) auto;gap:10px;overflow:auto;padding:0 3px 0 0}
+.spx-blackcat-v7 .spx-blackcat-heist-rail{min-width:0;display:grid;align-content:center;gap:11px;padding:2px 0}
+.spx-blackcat-v7 .spx-blackcat-museum-tile{
+    position:relative;isolation:isolate;min-height:128px;padding:15px 12px 13px;display:grid;align-content:center;justify-items:center;gap:4px;
+    border:1px solid rgba(123,230,255,.47);border-radius:17px;background:linear-gradient(155deg,rgba(25,45,69,.9),rgba(22,8,41,.94));
+    color:#e9fbff;cursor:default;box-shadow:inset 0 0 28px rgba(71,199,255,.12),0 0 17px rgba(50,195,255,.1);
+}
+.spx-blackcat-v7 .spx-blackcat-museum-tile:before{content:"";position:absolute;z-index:-1;inset:12px 8px 29px;border:1px solid rgba(169,243,255,.58);border-radius:11px;background:linear-gradient(165deg,rgba(170,237,255,.13),rgba(14,31,53,.2) 62%,rgba(2,7,18,.54));box-shadow:inset 0 0 16px rgba(124,229,255,.14),0 0 10px rgba(80,220,255,.12);backdrop-filter:blur(2px)}
+.spx-blackcat-v7 .spx-blackcat-museum-tile:after{content:"";position:absolute;z-index:-1;left:8px;right:8px;bottom:9px;height:18px;border-radius:4px 4px 10px 10px;background:linear-gradient(180deg,#70452c,#2c1420);border:1px solid rgba(255,207,117,.47);box-shadow:0 4px 9px rgba(0,0,0,.52),inset 0 2px 4px rgba(255,206,119,.18)}
+.spx-blackcat-v7 .spx-blackcat-museum-tile>*{position:relative;z-index:1}
+.spx-blackcat-v7 .spx-blackcat-museum-tile span{color:#9cf8ff;font:900 10px/1 var(--bc-heist-font);letter-spacing:.14em;text-shadow:0 0 10px #36dcff}
+.spx-blackcat-v7 .spx-blackcat-museum-tile b{font:900 clamp(28px,3.1vw,52px)/1 var(--bc-heist-font);color:#fff6bd;text-shadow:0 0 10px #ffd25c,0 0 20px #b33fff}
+.spx-blackcat-v7 .spx-blackcat-museum-tile small{max-width:145px;color:#c3d4e2;font:650 9px/1.28 "Exo 2",sans-serif;text-align:center}
+.spx-blackcat-v7 .spx-blackcat-museum-tile.is-alarm{border-color:rgba(255,77,125,.8);box-shadow:inset 0 0 28px rgba(255,36,86,.16),0 0 20px rgba(255,36,86,.2)}
+.spx-blackcat-v7 .spx-blackcat-museum-tile.is-alarm span{color:#ffafc1;text-shadow:0 0 10px #ff2457}
+.spx-blackcat-v7 .spx-blackcat-museum-tile.is-alarm b{color:#ffd3dc;text-shadow:0 0 10px #ff2457,0 0 24px #ff2457}
+.spx-blackcat-v7 .spx-blackcat-lantern-tile{width:100%;font:inherit;cursor:pointer;border-color:rgba(255,221,126,.62);background:linear-gradient(155deg,rgba(62,55,35,.9),rgba(24,8,43,.94));}
+.spx-blackcat-v7 .spx-blackcat-lantern-tile:before{border-color:rgba(255,235,168,.6);background:linear-gradient(165deg,rgba(255,235,168,.2),rgba(28,27,43,.22) 62%,rgba(5,6,18,.58));}
+.spx-blackcat-v7 .spx-blackcat-lantern-tile span{color:#ffeaa0;text-shadow:0 0 10px #ffc83d}
+.spx-blackcat-v7 .spx-blackcat-lantern-tile b{font-size:clamp(18px,2vw,30px);color:#fff4b0;text-shadow:0 0 10px #ffbf3d,0 0 20px #ff7a2e}
+.spx-blackcat-v7 .spx-blackcat-lantern-tile:hover:not(:disabled){transform:translateY(-2px);border-color:#fff1a1;box-shadow:0 0 24px rgba(255,201,62,.35),inset 0 0 28px rgba(255,205,61,.16)}
+.spx-blackcat-v7 .spx-blackcat-lantern-tile:disabled{opacity:.55;cursor:not-allowed;filter:saturate(.65)}
+.spx-blackcat-v7 .spx-blackcat-rail-note{padding:4px 7px;text-align:center;color:#b9cddd}
+.spx-blackcat-v7 .spx-blackcat-rail-note span{display:block;color:#9cf8ff;font:900 9px/1 var(--bc-heist-font);letter-spacing:.13em;text-shadow:0 0 8px #36dcff}
+.spx-blackcat-v7 .spx-blackcat-rail-note p{margin:6px 0 0;font:650 9px/1.35 "Exo 2",sans-serif}
+.spx-blackcat-v7 .spx-blackcat-legend-panel{align-self:start;padding:2px;border:0;background:transparent;box-shadow:none;overflow:visible}
+.spx-blackcat-v7 .spx-blackcat-legend-panel>span{margin:0 0 7px;padding-left:4px}
+.spx-blackcat-v7 .spx-blackcat-legend-panel>div{grid-template-columns:repeat(3,minmax(64px,1fr));gap:8px}
+.spx-blackcat-v7 .spx-blackcat-legend-vitrine-item{min-width:0;min-height:86px;display:grid;grid-template-columns:1fr;grid-template-rows:62px auto;justify-items:center;gap:2px;padding:0;border:0;border-radius:0;background:transparent;text-align:center;cursor:help}
+.spx-blackcat-v7 .spx-blackcat-legend-vitrine-item:hover,.spx-blackcat-v7 .spx-blackcat-legend-vitrine-item.is-tooltip-locked{border:0;box-shadow:none;transform:translateY(-2px)}
+.spx-blackcat-v7 .spx-blackcat-legend-vitrine-art{width:62px;height:62px}
+.spx-blackcat-v7 .spx-blackcat-legend-copy{display:block;min-width:0;max-width:92px}
+.spx-blackcat-v7 .spx-blackcat-legend-copy b{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:7px;text-align:center}
+.spx-blackcat-v7 .spx-blackcat-legend-copy small{display:none}
+/* The ordinary cross-light only marks route tiles; the lantern is what reveals their contents. */
+.spx-blackcat-v7 .spx-blackcat-cell.is-lit:not(.is-scouted) .spx-blackcat-fog{background:radial-gradient(circle,rgba(66,100,138,.5),rgba(4,8,20,.9) 70%);box-shadow:inset 0 0 18px rgba(85,221,255,.18)}
+.spx-blackcat-v7 .spx-blackcat-cell.is-scouted .spx-blackcat-fog{opacity:0;pointer-events:none}
+.spx-blackcat-v7 .spx-blackcat-cell.is-scouted{box-shadow:inset 0 0 18px rgba(103,229,255,.28)}
+
+@media(max-width:1050px){.spx-blackcat-v7 .spx-blackcat-modal.is-heist .spx-blackcat-heist-layout{grid-template-columns:minmax(145px,17vw) minmax(0,1fr) 250px;gap:9px;padding:9px}.spx-blackcat-v7 .spx-blackcat-legend-panel>div{grid-template-columns:repeat(2,minmax(64px,1fr))}}
+@media(max-width:780px){.spx-blackcat-v7 .spx-blackcat-modal.is-heist .spx-blackcat-heist-layout{display:block;overflow:auto}.spx-blackcat-v7 .spx-blackcat-heist-rail{grid-template-columns:repeat(3,minmax(0,1fr));align-items:stretch;margin-bottom:9px}.spx-blackcat-v7 .spx-blackcat-museum-tile{min-height:92px;padding:11px 7px}.spx-blackcat-v7 .spx-blackcat-rail-note{display:none}.spx-blackcat-v7 .spx-blackcat-modal.is-heist .spx-blackcat-board-frame{width:100%;max-height:none}.spx-blackcat-v7 .spx-blackcat-modal.is-heist .spx-blackcat-heist-sidebar{display:grid;grid-template-columns:1fr;grid-template-rows:auto;overflow:visible;margin-top:9px}.spx-blackcat-v7 .spx-blackcat-legend-panel>div{grid-template-columns:repeat(3,minmax(58px,1fr))}}
+
+/* Pack portal polish: crystal warp sits between the Superpowers strip and the pack, not on its baseline. */
+#packStage .spx-blackcat-gem-portal{
+    top:64px!important;
+    transform:translate(-50%,-100%)!important;
+    grid-template-columns:72px minmax(190px,1fr) minmax(250px,300px)!important;
+    min-height:138px!important;
+    width:min(700px,78vw)!important;
+    gap:8px!important;
+    pointer-events:none;
+}
+#packStage .spx-blackcat-portal-copy{padding-top:10px;align-self:center}
+#packStage .spx-blackcat-portal-copy span{font-family:"Rajdhani","Exo 2",sans-serif;font-size:10px;letter-spacing:.19em;text-shadow:0 0 8px var(--gem-color),0 0 15px var(--gem-color)}
+#packStage .spx-blackcat-portal-copy h3{margin:4px 0 6px;font-family:"Oxanium","Orbitron",sans-serif;font-size:clamp(16px,1.45vw,25px);font-weight:800;letter-spacing:.055em;color:#fff;text-shadow:0 0 5px #fff,0 0 12px var(--gem-color),0 0 26px var(--gem-color),0 0 38px #a84cff}
+#packStage .spx-blackcat-portal-copy p{font-family:"Rajdhani","Exo 2",sans-serif;font-size:10px;line-height:1.18;text-shadow:0 0 7px rgba(138,228,255,.45)}
+#packStage .spx-blackcat-portal-beam{left:69px!important;right:205px!important;top:55%!important;max-width:355px;height:4px!important;box-shadow:0 0 7px #fff,0 0 14px var(--gem-color),0 0 23px color-mix(in srgb,var(--gem-color) 62%,transparent)!important}
+#packStage .spx-blackcat-portal-beam:after{height:24px!important;filter:blur(8px)!important}
+#packStage .spx-blackcat-portal-cards{min-height:132px!important;gap:0!important;align-self:end;overflow:visible}
+#packStage .spx-blackcat-gem-portal .spx-blackcat-portal-cards>.pack-card-btn,#packStage .spx-blackcat-gem-portal .spx-blackcat-portal-cards>.joker-card-btn{transform:scale(.62) rotate(-5deg)!important;transform-origin:center bottom!important;margin:-35px!important;filter:drop-shadow(0 0 10px var(--gem-color)) drop-shadow(0 0 17px rgba(255,255,255,.38))!important}
+#packStage .spx-blackcat-gem-portal .spx-blackcat-portal-cards>:nth-child(2){transform:scale(.62) rotate(5deg) translateX(-13px)!important;animation-delay:-1.15s!important}
+#packStage .spx-blackcat-portal-crystal{width:72px!important;height:88px!important;align-self:center}
+#packStage .spx-blackcat-portal-crystal img{width:67px!important;height:67px!important}
+@media(max-width:780px){#packStage .spx-blackcat-gem-portal{top:38px!important;width:95vw!important;grid-template-columns:54px minmax(150px,1fr) minmax(170px,220px)!important}.spx-blackcat-gem-portal .spx-blackcat-portal-cards{min-height:108px!important}}
+
+/* Hard final desktop grid override: rail, arena and museum cabinet remain three sibling columns. */
+@media(min-width:1051px){
+    .spx-blackcat-v7 .spx-blackcat-modal.is-heist .spx-blackcat-heist-layout{
+        display:grid!important;
+        grid-template-columns:minmax(150px,190px) minmax(0,1fr) minmax(280px,330px)!important;
+        grid-template-rows:minmax(0,1fr)!important;
+        align-items:stretch!important;
+        gap:14px!important;
+        padding:12px 16px 14px!important;
+    }
+    .spx-blackcat-v7 .spx-blackcat-modal.is-heist .spx-blackcat-heist-left-rail{grid-column:1!important;grid-row:1!important;width:auto!important;min-width:0!important;}
+    .spx-blackcat-v7 .spx-blackcat-modal.is-heist .spx-blackcat-board-column{grid-column:2!important;grid-row:1!important;width:auto!important;min-width:0!important;justify-items:center!important;padding-inline:clamp(0px,1.2vw,20px)!important;}
+    .spx-blackcat-v7 .spx-blackcat-modal.is-heist .spx-blackcat-heist-sidebar{grid-column:3!important;grid-row:1!important;width:auto!important;min-width:0!important;}
+    .spx-blackcat-v7 .spx-blackcat-modal.is-heist .spx-blackcat-board-frame{width:min(100%,calc((100dvh - 132px)*1.4))!important;margin-inline:auto!important;}
+    .spx-blackcat-v7 .spx-blackcat-museum-tile{width:auto!important;min-width:0!important;}
+}
+
+/* Loot remains visible in its opened vitrine, while the pickup gets one readable hero beat. */
+.spx-blackcat-v7 .spx-blackcat-vitrine.is-collected{animation:none!important;filter:drop-shadow(0 0 12px rgba(255,208,74,.7))}
+.spx-blackcat-v7 .spx-blackcat-vitrine.is-collected em{position:absolute;z-index:6;bottom:8%;padding:3px 5px;border:1px solid rgba(255,226,118,.7);border-radius:999px;background:rgba(36,16,4,.86);color:#fff3a5;font:900 6px/1 var(--bc-heist-font);letter-spacing:.07em;text-shadow:0 0 6px #ffb52d;font-style:normal;white-space:nowrap}
+.spx-blackcat-v7 .spx-blackcat-heist-controls .lantern-action{border-color:#ffe184;background:linear-gradient(180deg,#87621b,#3d2307);color:#fff4b0;box-shadow:0 0 16px rgba(255,199,54,.34),inset 0 1px 0 rgba(255,255,255,.44)}
+.spx-blackcat-v7 .spx-blackcat-heist-controls .lantern-action:hover:not(:disabled){border-color:#fff6bd;box-shadow:0 0 26px rgba(255,208,61,.56),inset 0 1px 0 #fff}
+.spx-blackcat-v7 .spx-blackcat-loot-pop{position:absolute;z-index:35;inset:0;display:grid;place-items:center;background:radial-gradient(circle at 50% 48%,rgba(123,45,194,.26),rgba(1,4,15,.34) 42%,rgba(1,4,15,.06) 72%);backdrop-filter:blur(1.5px);pointer-events:none;animation:bcLootPopFade 1.45s ease both}
+.spx-blackcat-v7 .spx-blackcat-loot-pop-card{width:min(420px,62vw);min-height:245px;padding:18px 24px 20px;display:grid;place-items:center;align-content:center;gap:7px;border:1px solid rgba(255,226,119,.86);border-radius:24px;background:linear-gradient(145deg,rgba(19,34,58,.96),rgba(41,8,59,.96));box-shadow:0 0 0 3px rgba(74,32,128,.72),0 0 48px rgba(255,194,54,.42),inset 0 0 35px rgba(160,64,222,.2);text-align:center;animation:bcLootPopCard 1.45s cubic-bezier(.17,.86,.25,1.1) both}
+.spx-blackcat-v7 .spx-blackcat-loot-pop-card>span{color:#9ef7ff;font:900 11px/1 var(--bc-heist-font);letter-spacing:.18em;text-shadow:0 0 12px #39ddff}
+.spx-blackcat-v7 .spx-blackcat-loot-pop-card>img{width:132px;height:132px;object-fit:contain;filter:drop-shadow(0 0 9px #fff) drop-shadow(0 0 26px #ffbd32);animation:bcLootPopIcon 1.45s ease both}
+.spx-blackcat-v7 .spx-blackcat-loot-pop-card>b{font-size:94px;color:#ffe9a3;text-shadow:0 0 20px #ffbe2d}
+.spx-blackcat-v7 .spx-blackcat-loot-pop-card>strong{color:#fff6be;font:900 clamp(18px,2vw,28px)/1.05 "Rajdhani","Orbitron",sans-serif;letter-spacing:.06em;text-shadow:0 0 8px #fff,0 0 18px #ffb42d}
+.spx-blackcat-v7 .spx-blackcat-loot-pop-card>small{max-width:330px;color:#cbd9e4;font:650 10px/1.3 "Exo 2",sans-serif}
+@keyframes bcLootPopFade{0%{opacity:0}12%{opacity:1}82%{opacity:1}100%{opacity:0}}
+@keyframes bcLootPopCard{0%{transform:scale(.38) translateY(20px);filter:blur(8px)}17%{transform:scale(1.06) translateY(0);filter:none}78%{transform:scale(1);opacity:1}100%{transform:scale(.94);opacity:0}}
+@keyframes bcLootPopIcon{0%{transform:scale(.2) rotate(-18deg)}18%{transform:scale(1.12) rotate(4deg)}60%{transform:scale(1) rotate(0)}}
+
+/* Target entrance: one museum layer, then the canonical Draft pack cards. */
+.spx-blackcat-v7 .spx-blackcat-modal.is-target{height:min(980px,96dvh);min-height:0}
+.spx-blackcat-v7 .spx-blackcat-modal.is-target .spx-blackcat-header{min-height:80px;padding-block:8px}
+.spx-blackcat-v7 .spx-blackcat-modal.is-target .spx-blackcat-footer{min-height:56px;padding-block:7px}
+.spx-blackcat-v7 .spx-blackcat-target-stage{
+    box-sizing:border-box;min-height:100%;padding:clamp(10px,1.25vw,20px);
+    background:linear-gradient(180deg,rgba(3,7,19,.5),rgba(2,5,14,.86)),url("draft-assets/blackcat_museum_interior_wide.png") center/cover fixed no-repeat;
+}
+.spx-blackcat-v7 .spx-blackcat-target-copy{
+    grid-template-columns:clamp(82px,8vw,118px) minmax(0,1fr);max-width:1540px;margin:0 auto 10px;padding:0 18px 9px;
+}
+.spx-blackcat-v7 .spx-blackcat-target-copy img{max-height:112px}
+.spx-blackcat-v7 .spx-blackcat-target-copy h3{margin:3px 0 5px;font-size:clamp(20px,1.75vw,31px)}
+.spx-blackcat-v7 .spx-blackcat-target-copy p{max-width:1240px;font-size:clamp(11px,.8vw,14px);line-height:1.34}
+.spx-blackcat-v7 .spx-blackcat-target-groups{
+    grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;max-width:1660px;margin:auto;padding:0 4px 12px;
+}
+.spx-blackcat-v7 .spx-blackcat-target-groups>.spx-blackcat-player-gallery:only-child{grid-column:1/-1}
+.spx-blackcat-v7 .spx-blackcat-player-gallery{
+    position:relative;isolation:isolate;min-width:0;min-height:218px;padding:48px 18px 28px;
+    overflow:hidden;border:1px solid rgba(122,222,255,.4);border-radius:18px;
+    background-image:linear-gradient(180deg,rgba(2,5,15,.18),rgba(2,5,15,.6)),var(--bc-wall),url("draft-assets/blackcat_museum_interior_wide.png");
+    background-position:center,center,center;background-size:cover,cover,cover;
+    box-shadow:inset 0 0 46px rgba(0,0,0,.48),0 0 18px rgba(72,193,255,.12);
+}
+.spx-blackcat-v7 .spx-blackcat-player-gallery:before,.spx-blackcat-v7 .spx-blackcat-player-gallery:after{content:none}
+.spx-blackcat-v7 .spx-blackcat-player-gallery>h4{
+    position:absolute;z-index:5;left:50%;top:9px;transform:translateX(-50%);width:max-content;max-width:calc(100% - 24px);margin:0;padding:4px 14px;
+    border:0;background:linear-gradient(90deg,transparent,rgba(2,9,24,.78) 16% 84%,transparent);color:#9cefff;
+    font-size:clamp(12px,.95vw,16px);letter-spacing:.13em;text-align:center;white-space:nowrap;text-shadow:0 0 10px #47dffb;
+}
+.spx-blackcat-v7 .spx-blackcat-player-gallery>h4 span{color:#9cefff}
+.spx-blackcat-v7 .spx-blackcat-player-gallery>h4 b{display:inline;color:#fff;font-size:1.12em;text-shadow:0 0 11px #b45cff,0 0 22px #36dcff}
+.spx-blackcat-v7 .spx-blackcat-target-cards{
+    position:relative;z-index:3;display:grid;grid-template-columns:none;grid-auto-flow:column;grid-auto-columns:112px;justify-content:start;align-items:center;gap:12px;
+    min-height:170px;overflow-x:auto;overflow-y:hidden;padding:18px 21px 13px;scrollbar-width:thin;scrollbar-color:#7761ce rgba(2,8,20,.54);
+}
+.spx-blackcat-v7 .spx-blackcat-player-gallery:only-child .spx-blackcat-target-cards{justify-content:center}
+.spx-blackcat-v7 .spx-blackcat-target-card-native{flex:0 0 auto}
+.spx-blackcat-v7 .spx-blackcat-target-card-native.is-selected{transform:translateY(-5px) scale(1.025)}
+.spx-blackcat-v7 .spx-blackcat-target-marker{
+    position:absolute;z-index:40;left:50%;top:50%;width:58px;height:58px;object-fit:contain;pointer-events:none;
+    opacity:0;transform:translate(-50%,-50%) scale(.45) rotate(-12deg);filter:drop-shadow(0 0 5px #fff) drop-shadow(0 0 15px #57e7ff) drop-shadow(0 0 22px #b544ff);transition:opacity .18s ease,transform .22s ease;
+}
+.spx-blackcat-v7 .spx-blackcat-target-card-native.is-selected .spx-blackcat-target-marker{opacity:.96;transform:translate(-50%,-50%) scale(1) rotate(0)}
+.spx-blackcat-v7 .spx-blackcat-target-card-label{
+    position:absolute;z-index:41;left:50%;bottom:-23px;transform:translateX(-50%);width:max-content;color:#a9f7ff;
+    font:900 10px/1 "Rajdhani","Exo 2",sans-serif;letter-spacing:.1em;text-shadow:0 0 8px #39eaff;white-space:nowrap;pointer-events:none;
+}
+.spx-blackcat-v7 .spx-blackcat-target-card-native.is-selected .spx-blackcat-target-card-label{color:#fff2a8;text-shadow:0 0 8px #ffcc4f,0 0 15px #b548ff}
+@media(max-width:1180px){
+    .spx-blackcat-v7 .spx-blackcat-target-groups{grid-template-columns:1fr}
+    .spx-blackcat-v7 .spx-blackcat-player-gallery{min-height:204px}
+    .spx-blackcat-v7 .spx-blackcat-target-copy{grid-template-columns:78px minmax(0,1fr)}
+    .spx-blackcat-v7 .spx-blackcat-target-copy img{max-height:92px}
+}
+
+/* Laser / loot event cards keep the museum atmosphere visible behind the alert. */
+.spx-blackcat-v7 .spx-blackcat-event{isolation:isolate;overflow:hidden;background:linear-gradient(180deg,rgba(2,6,17,.54),rgba(3,3,14,.78));backdrop-filter:blur(8px) saturate(.86)}
+.spx-blackcat-v7 .spx-blackcat-event:before{content:"";position:absolute;z-index:-1;inset:-18px;background:linear-gradient(180deg,rgba(2,5,17,.18),rgba(2,3,13,.62)),url("draft-assets/blackcat_heist_museum_topdown.png") center/cover no-repeat;filter:blur(6px) saturate(.92) brightness(.72);transform:scale(1.04);opacity:.78}
+.spx-blackcat-v7 .spx-blackcat-event>section{z-index:1}
+.spx-blackcat-v7 .spx-blackcat-event.laser:before{background:linear-gradient(180deg,rgba(90,4,26,.15),rgba(11,2,18,.64)),url("draft-assets/blackcat_heist_museum_topdown.png") center/cover no-repeat;filter:blur(6px) saturate(.9) brightness(.64)}
+
+/* Heist board uses the modal surface as a dim museum wall; the playable grid stays crisp. */
+.spx-blackcat-v7 .spx-blackcat-modal.is-heist{background:linear-gradient(180deg,rgba(2,7,20,.84),rgba(2,3,15,.94)),url("draft-assets/blackcat_escape_night_museum.png") center/cover no-repeat}
+.spx-blackcat-v7 .spx-blackcat-modal.is-heist .spx-blackcat-footer{display:none!important}
+.spx-blackcat-v7 .spx-blackcat-modal.is-heist .spx-blackcat-heist-layout{grid-template-columns:minmax(0,1fr) clamp(300px,23vw,420px);gap:14px;padding:10px 16px}
+.spx-blackcat-v7 .spx-blackcat-modal.is-heist .spx-blackcat-board-column{display:block;min-height:0}
+.spx-blackcat-v7 .spx-blackcat-modal.is-heist .spx-blackcat-board-frame{width:min(100%,calc((96dvh - 150px)*1.4));max-height:calc(100dvh - 150px)}
+.spx-blackcat-v7 .spx-blackcat-modal.is-heist .spx-blackcat-heist-sidebar{grid-template-rows:auto auto minmax(90px,1fr) minmax(180px,auto) auto;gap:9px;overflow:auto;padding-right:3px}
+.spx-blackcat-v7 .spx-blackcat-legend-panel{display:block;min-height:0;overflow:visible;padding:12px;border:1px solid rgba(117,222,255,.28);border-radius:17px;background:linear-gradient(145deg,rgba(3,13,30,.88),rgba(26,7,43,.92));box-shadow:inset 0 0 26px rgba(63,162,222,.1)}
+.spx-blackcat-v7 .spx-blackcat-legend-panel>span{display:block;margin-bottom:8px;color:#9ef7ff;font:900 10px/1 var(--bc-heist-font);letter-spacing:.13em;text-align:left;text-shadow:0 0 9px #3ddffb}
+.spx-blackcat-v7 .spx-blackcat-legend-panel>div{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}
+.spx-blackcat-v7 .spx-blackcat-legend-vitrine-item{position:relative;width:auto;height:auto;min-height:68px;display:grid;grid-template-columns:62px minmax(0,1fr);align-items:center;gap:7px;padding:4px;border:1px solid rgba(122,222,255,.25);border-radius:11px;background:rgba(3,8,21,.78);color:#eaffff;cursor:help;text-align:left;overflow:visible}
+.spx-blackcat-v7 .spx-blackcat-legend-vitrine-item:hover,.spx-blackcat-v7 .spx-blackcat-legend-vitrine-item.is-tooltip-locked{border-color:#94f4ff;box-shadow:0 0 16px rgba(70,219,255,.28),inset 0 0 17px rgba(145,67,255,.15)}
+.spx-blackcat-v7 .spx-blackcat-legend-vitrine-art{position:relative;display:grid;place-items:center;width:62px;height:62px;overflow:visible}
+.spx-blackcat-v7 .spx-blackcat-legend-case{position:absolute!important;inset:0;width:100%!important;height:100%!important;object-fit:contain;opacity:.82;filter:drop-shadow(0 0 5px rgba(99,223,255,.5))}
+.spx-blackcat-v7 .spx-blackcat-legend-reward{position:relative;z-index:2;display:grid;place-items:center;width:39px;height:39px}
+.spx-blackcat-v7 .spx-blackcat-legend-reward>img{width:36px!important;height:36px!important;object-fit:contain;filter:drop-shadow(0 0 7px #fff) drop-shadow(0 0 11px #3edcff)}
+.spx-blackcat-v7 .spx-blackcat-legend-reward .spx-blackcat-legend-card{display:grid;place-items:center;transform:scale(.5);transform-origin:center}
+.spx-blackcat-v7 .spx-blackcat-legend-copy{min-width:0;display:grid;gap:3px}
+.spx-blackcat-v7 .spx-blackcat-legend-copy b{font:900 8px/1.05 var(--bc-heist-font);letter-spacing:.06em;color:#f4fdff;text-shadow:0 0 7px #714dff}
+.spx-blackcat-v7 .spx-blackcat-legend-copy small{color:#a9becd;font:650 8px/1.18 "Exo 2",sans-serif}
+.spx-blackcat-v7 .spx-blackcat-heist-controls{display:grid;gap:7px;padding:10px;border:1px solid rgba(117,222,255,.24);border-radius:15px;background:rgba(2,8,20,.78)}
+.spx-blackcat-v7 .spx-blackcat-heist-controls>p{margin:0;color:#bcd0df;font:650 9px/1.3 "Exo 2",sans-serif}
+.spx-blackcat-v7 .spx-blackcat-heist-controls .spx-blackcat-actions{display:flex;gap:7px}
+.spx-blackcat-v7 .spx-blackcat-heist-controls .spx-blackcat-action{width:100%;min-height:39px}
+
+/* Gem activation is a physical crystal dock above the pack, not a modal panel. */
+#packStage{overflow:visible!important}
+.spx-blackcat-gem-portal{left:50%;right:auto;top:18px;width:min(760px,82vw);min-height:146px;padding:0;display:grid;grid-template-columns:78px minmax(170px,1fr) minmax(230px,auto);align-items:center;gap:10px;transform:translate(-50%,-100%);border:0;border-radius:0;background:transparent;box-shadow:none;overflow:visible;pointer-events:none;animation:bcPortalDockEnter .42s cubic-bezier(.2,.9,.2,1) both}
+.spx-blackcat-gem-portal .spx-blackcat-portal-mist{z-index:-4;inset:-55% -12%;background:radial-gradient(ellipse at 25% 50%,color-mix(in srgb,var(--gem-color) 40%,transparent),transparent 60%),radial-gradient(ellipse at 74% 50%,color-mix(in srgb,#b545ff 24%,transparent),transparent 64%);filter:blur(22px);opacity:.82}
+.spx-blackcat-portal-beam{position:absolute;z-index:-1;left:52px;right:172px;top:50%;height:6px;border-radius:99px;background:linear-gradient(90deg,transparent,var(--gem-color) 16%,#fff 48%,var(--gem-color) 83%,transparent);box-shadow:0 0 7px #fff,0 0 18px var(--gem-color),0 0 36px color-mix(in srgb,var(--gem-color) 68%,transparent);filter:blur(.3px);opacity:.92}
+.spx-blackcat-portal-beam:after{content:"";position:absolute;left:18%;right:12%;top:50%;height:34px;transform:translateY(-50%);border-radius:50%;background:linear-gradient(90deg,transparent,color-mix(in srgb,var(--gem-color) 24%,transparent),transparent);filter:blur(11px);animation:bcPortalBeamPulse 1.8s ease-in-out infinite}
+.spx-blackcat-portal-crystal{position:relative;z-index:2;display:grid;place-items:center;width:78px;height:100px;filter:drop-shadow(0 0 9px #fff) drop-shadow(0 0 20px var(--gem-color));animation:bcGemFloat 1.7s ease-in-out infinite}
+.spx-blackcat-portal-crystal:before{content:"";position:absolute;inset:8px;border-radius:50%;background:radial-gradient(circle,color-mix(in srgb,var(--gem-color) 42%,transparent),transparent 66%);filter:blur(9px);opacity:.9}
+.spx-blackcat-portal-crystal img{position:relative;width:72px;height:72px;object-fit:contain}
+.spx-blackcat-portal-copy{position:relative;z-index:2;min-width:0;text-align:left;pointer-events:none}
+.spx-blackcat-portal-copy span{display:block;color:var(--gem-color);font:900 8px/1 var(--bc-heist-font);letter-spacing:.16em;text-shadow:0 0 9px var(--gem-color)}
+.spx-blackcat-portal-copy h3{margin:4px 0 5px;font:900 clamp(14px,1.35vw,23px)/1 var(--bc-heist-font);color:#fff;text-shadow:0 0 12px var(--gem-color),0 0 22px #a646ff}
+.spx-blackcat-portal-copy p{margin:0;max-width:250px;color:#cfe1eb;font:650 9px/1.28 "Exo 2",sans-serif}
+.spx-blackcat-portal-cards{position:relative;z-index:3;display:flex;align-items:center;justify-content:center;gap:2px;min-height:148px;padding:0;pointer-events:auto}
+.spx-blackcat-gem-portal .spx-blackcat-portal-cards>.pack-card-btn,.spx-blackcat-gem-portal .spx-blackcat-portal-cards>.joker-card-btn{transform:scale(.56)!important;transform-origin:center!important;margin:-40px!important;filter:drop-shadow(0 0 12px var(--gem-color))!important}
+.spx-blackcat-portal-instruction{grid-column:2/-1;position:relative;z-index:3;margin:-3px 0 0!important;padding:5px 8px!important;border:1px dashed color-mix(in srgb,var(--gem-color) 58%,transparent)!important;border-radius:8px;text-align:left!important;color:#d6ecf3!important;font-size:9px!important;pointer-events:auto}
+@keyframes bcPortalDockEnter{from{opacity:0;transform:translate(-50%,-86%) scale(.78);filter:blur(7px)}to{opacity:1;transform:translate(-50%,-100%) scale(1);filter:none}}
+@keyframes bcPortalBeamPulse{50%{opacity:.52;transform:translateY(-50%) scaleX(.82)}}
+.spx-blackcat-v7 .spx-blackcat-summary.is-vault{background-position:left center;background-size:cover}
+.spx-blackcat-v7 .spx-blackcat-summary.is-vault:before{background:linear-gradient(90deg,rgba(2,7,19,.96) 0 36%,rgba(2,7,19,.67) 54%,rgba(2,7,19,.16) 82%),linear-gradient(180deg,rgba(1,4,12,.18),rgba(1,4,12,.62))}
+.spx-blackcat-v7 .spx-blackcat-summary-bag{width:min(560px,100%);transform:translateY(2%)}
+.spx-blackcat-v7 .spx-blackcat-bag-loot{left:22%;right:22%;top:17%;bottom:43%;transform:perspective(500px) rotateX(8deg)}
+.spx-blackcat-v7 .spx-blackcat-bag-loot>img{width:clamp(34px,4vw,64px);height:clamp(34px,4vw,64px);margin:-5px}
+.spx-blackcat-v7 .spx-blackcat-bag-card{transform:scale(.64);margin:-20px}
+@media(max-width:780px){.spx-blackcat-gem-portal{top:8px;width:94vw;grid-template-columns:56px minmax(0,1fr);gap:4px}.spx-blackcat-portal-crystal{width:56px;height:76px}.spx-blackcat-portal-crystal img{width:52px;height:52px}.spx-blackcat-portal-beam{left:36px;right:16px}.spx-blackcat-portal-cards{grid-column:1/-1;min-height:118px}.spx-blackcat-portal-instruction{grid-column:1/-1}.spx-blackcat-v7 .spx-blackcat-legend-panel>div{grid-template-columns:1fr}.spx-blackcat-v7 .spx-blackcat-modal.is-heist .spx-blackcat-board-frame{width:100%}}
+
+/* Final asset pass: interior museum atmosphere, visible lantern, and distinct laser scenes. */
+.spx-blackcat-v7 .spx-blackcat-modal.is-heist{
+    background:
+        linear-gradient(90deg,rgba(2,7,20,.76),rgba(2,5,15,.47) 42%,rgba(3,5,16,.78)),
+        url("draft-assets/blackcat_museum_interior_wide.png") center/cover no-repeat!important;
+}
+.spx-blackcat-v7 .spx-blackcat-event:before{
+    background:linear-gradient(180deg,rgba(2,5,17,.18),rgba(2,3,13,.62)),url("draft-assets/blackcat_museum_interior_wide.png") center/cover no-repeat;
+}
+.spx-blackcat-v7 .spx-blackcat-event.laser-dodge:before{
+    background:linear-gradient(180deg,rgba(22,6,52,.10),rgba(5,2,21,.70)),url("draft-assets/blackcat_laser_dodge_museum.png") center/cover no-repeat;
+    filter:blur(5px) saturate(1.08) brightness(.78);animation:bcLaserSceneDodge 7s ease-in-out infinite alternate;
+}
+.spx-blackcat-v7 .spx-blackcat-event.laser-hit:before{
+    background:linear-gradient(180deg,rgba(90,4,26,.16),rgba(11,2,18,.70)),url("draft-assets/blackcat_laser_hit_museum.png") center/cover no-repeat;
+    filter:blur(5px) saturate(.96) brightness(.68);animation:bcLaserSceneHit 7s ease-in-out infinite alternate;
+}
+.spx-blackcat-v7 .spx-blackcat-lantern-art{position:absolute!important;z-index:2!important;top:8px;right:8px;width:44px;height:44px;object-fit:contain;filter:drop-shadow(0 0 6px #ffe17a) drop-shadow(0 0 14px #a34cff);animation:bcLanternFloat 2.2s ease-in-out infinite}
+.spx-blackcat-v7 .spx-blackcat-lantern-tile>span,.spx-blackcat-v7 .spx-blackcat-lantern-tile>b,.spx-blackcat-v7 .spx-blackcat-lantern-tile>small{max-width:calc(100% - 34px);align-self:center}
+.spx-blackcat-v7 .spx-blackcat-heist-controls .lantern-action{display:flex;align-items:center;justify-content:center;gap:7px}
+.spx-blackcat-v7 .spx-blackcat-heist-controls .lantern-action>img{width:30px;height:30px;object-fit:contain;filter:drop-shadow(0 0 5px #ffe17a) drop-shadow(0 0 11px #a34cff);animation:bcLanternFloat 2.2s ease-in-out infinite}
+.spx-blackcat-v7 .spx-blackcat-summary-copy{position:relative;z-index:3}
+.spx-blackcat-v7 .spx-blackcat-summary-safe-art{position:absolute;z-index:1;left:-2%;bottom:-8%;width:min(48%,650px);height:48%;display:grid;place-items:center;pointer-events:none;opacity:.42;mix-blend-mode:screen;mask-image:linear-gradient(180deg,transparent 0,#000 30%,#000 80%,transparent 100%)}
+.spx-blackcat-v7 .spx-blackcat-summary-safe-art img{width:100%;height:100%;object-fit:cover;object-position:center 42%;filter:saturate(1.12) brightness(.8) drop-shadow(0 0 20px rgba(145,70,255,.34))}
+.spx-blackcat-v7 .spx-blackcat-summary-bag{z-index:3}
+@keyframes bcLanternFloat{50%{transform:translateY(-3px) rotate(2deg)}}
+@keyframes bcLaserSceneDodge{to{transform:scale(1.045) translateX(1%);filter:blur(5px) saturate(1.15) brightness(.86)}}
+@keyframes bcLaserSceneHit{to{transform:scale(1.045) translateX(-1%);filter:blur(5px) saturate(1.02) brightness(.74)}}
+@media(max-width:780px){.spx-blackcat-v7 .spx-blackcat-summary-safe-art{left:0;bottom:22%;width:100%;height:28%;opacity:.22}.spx-blackcat-v7 .spx-blackcat-lantern-art{width:34px;height:34px;top:5px;right:5px}.spx-blackcat-v7 .spx-blackcat-lantern-tile>span,.spx-blackcat-v7 .spx-blackcat-lantern-tile>b,.spx-blackcat-v7 .spx-blackcat-lantern-tile>small{max-width:calc(100% - 26px)}}
+
+/* Black Cat cumulative museum pass — entrance, heist rails and summary. */
+.spx-blackcat-v7 .spx-blackcat-header{grid-template-columns:minmax(0,1fr) auto auto auto}
+.spx-blackcat-v7 .spx-blackcat-header:before{filter:saturate(1.06) contrast(1.04) brightness(.83);animation:bcHeaderVaultPan 14s ease-in-out infinite alternate}
+.spx-blackcat-v7 .spx-blackcat-header:after{background:linear-gradient(90deg,rgba(2,5,14,.8) 0%,rgba(6,5,18,.42) 38%,rgba(17,5,27,.42) 69%,rgba(1,7,17,.82) 100%),linear-gradient(180deg,rgba(0,0,0,.03),rgba(1,3,10,.48))}
+.spx-blackcat-v7 .spx-blackcat-header-gems{display:flex;align-items:center;gap:2px;opacity:.82;filter:drop-shadow(0 0 9px rgba(255,255,255,.5)) drop-shadow(0 0 15px rgba(169,67,255,.46))}
+.spx-blackcat-v7 .spx-blackcat-header-gems img{width:30px;height:38px;object-fit:contain;animation:bcHeaderGem 2.8s ease-in-out infinite}
+.spx-blackcat-v7 .spx-blackcat-header-gems img:nth-child(2){animation-delay:-.9s}.spx-blackcat-v7 .spx-blackcat-header-gems img:nth-child(3){animation-delay:-1.8s}
+.spx-blackcat-v7 .spx-blackcat-header-status>span,.spx-blackcat-v7 .spx-blackcat-heist-header-tools>span{border-color:rgba(255,255,255,.5);background:linear-gradient(145deg,rgba(4,5,9,.96),rgba(31,31,38,.9) 52%,rgba(5,5,10,.97));color:#fff;box-shadow:inset 0 0 0 1px rgba(255,255,255,.08),inset 0 0 20px rgba(255,255,255,.06),0 0 14px rgba(192,155,255,.16)}
+.spx-blackcat-v7 .spx-blackcat-header-status b{color:#fff;text-shadow:0 0 6px #fff,0 0 15px #a84cff}
+.spx-blackcat-v7 .spx-blackcat-heist-header-tools{display:flex;align-items:stretch;gap:8px}
+.spx-blackcat-v7 .spx-blackcat-header-cashout{min-width:150px;padding:7px 14px;border:1px solid rgba(255,255,255,.55);border-radius:13px;background:linear-gradient(145deg,rgba(7,7,11,.97),rgba(39,12,53,.94));color:#fff;font:900 10px/1 var(--bc-heist-font);letter-spacing:.09em;cursor:pointer;box-shadow:inset 0 0 18px rgba(255,255,255,.06),0 0 16px rgba(145,58,211,.2)}
+.spx-blackcat-v7 .spx-blackcat-header-cashout:hover:not(:disabled){border-color:#fff;transform:translateY(-1px);box-shadow:0 0 20px rgba(209,157,255,.42),inset 0 0 14px rgba(255,255,255,.1)}
+.spx-blackcat-v7 .spx-blackcat-header-cashout:disabled{opacity:.34;cursor:not-allowed}
+@keyframes bcHeaderVaultPan{from{transform:scale(1.035) translateX(-.7%);background-position:center 55%}to{transform:scale(1.085) translateX(.7%);background-position:center 67%}}
+@keyframes bcHeaderGem{50%{transform:translateY(-4px) rotate(3deg);filter:brightness(1.2)}}
+
+.spx-blackcat-v7 .spx-blackcat-modal.is-target .spx-blackcat-footer{overflow:hidden;background:linear-gradient(90deg,rgba(2,5,14,.93),rgba(24,7,35,.78),rgba(2,6,15,.92)),url("draft-assets/blackcat_header_vault_banner.png") center 76%/cover no-repeat;box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 -8px 24px rgba(0,0,0,.45)}
+.spx-blackcat-v7 .spx-blackcat-modal.is-target .spx-blackcat-action.primary,.spx-blackcat-v7 .spx-blackcat-modal.is-summary .spx-blackcat-action.primary{border-color:rgba(255,255,255,.64);background:linear-gradient(145deg,rgba(8,8,12,.98),rgba(54,15,72,.96)),repeating-linear-gradient(25deg,rgba(255,255,255,.035) 0 1px,transparent 1px 4px);color:#fff;box-shadow:inset 0 0 0 1px rgba(255,255,255,.07),inset 0 -10px 24px rgba(0,0,0,.35),0 0 19px rgba(155,66,226,.32)}
+.spx-blackcat-v7 .spx-blackcat-player-gallery{height:250px;min-height:250px;box-sizing:border-box;padding:48px 18px 20px;overflow:hidden;border:2px solid rgba(211,174,111,.58);box-shadow:inset 0 0 0 5px rgba(27,14,29,.78),inset 0 0 46px rgba(0,0,0,.5),0 0 0 1px rgba(255,231,170,.2),0 0 20px rgba(99,55,145,.22)}
+.spx-blackcat-v7 .spx-blackcat-player-gallery:before{content:"";position:absolute;z-index:4;inset:6px;pointer-events:none;border:1px solid rgba(244,214,154,.46);border-radius:13px;box-shadow:inset 0 0 0 3px rgba(31,18,31,.7),inset 0 0 0 4px rgba(181,123,65,.22)}
+.spx-blackcat-v7 .spx-blackcat-player-gallery:after{content:"✦";position:absolute;z-index:6;left:12px;top:10px;color:#e7c684;font-size:16px;text-shadow:calc(100% - 24px) 0 #e7c684;pointer-events:none}
+.spx-blackcat-v7 .spx-blackcat-target-cards{height:188px;min-height:0;box-sizing:border-box;padding:27px 34px 28px;overflow-x:auto;overflow-y:hidden;overscroll-behavior-inline:contain;scroll-snap-type:x proximity;scrollbar-width:thin;scrollbar-color:#b759e9 rgba(9,4,18,.72)}
+.spx-blackcat-v7 .spx-blackcat-target-card-native{scroll-snap-align:center;overflow:visible!important;filter:drop-shadow(0 0 8px rgba(61,229,255,.78)) drop-shadow(0 0 16px rgba(199,46,255,.42))}
+.spx-blackcat-v7 .spx-blackcat-target-cards::-webkit-scrollbar{height:8px}.spx-blackcat-v7 .spx-blackcat-target-cards::-webkit-scrollbar-track{border-radius:99px;background:rgba(5,2,13,.82);box-shadow:inset 0 0 5px #000}.spx-blackcat-v7 .spx-blackcat-target-cards::-webkit-scrollbar-thumb{border:1px solid rgba(255,255,255,.34);border-radius:99px;background:linear-gradient(90deg,#3d175b,#bb4bdd,#522179);box-shadow:0 0 8px #b44cff}
+.spx-blackcat-v7 .spx-blackcat-player-gallery:only-child .spx-blackcat-target-cards:has(.spx-blackcat-target-card-native:nth-child(2)){justify-content:start}
+
+.spx-blackcat-v7 .spx-blackcat-display-pack-card{position:relative!important;inset:auto!important;transform:none!important;margin:0!important;pointer-events:none;overflow:visible!important;filter:drop-shadow(0 0 8px rgba(80,231,255,.5)) drop-shadow(0 0 14px rgba(165,67,255,.32))}
+.spx-blackcat-v7 .spx-blackcat-objective-card-slot,.spx-blackcat-v7 .spx-blackcat-summary-card-slot{min-height:168px;display:grid;place-items:center;padding:10px 22px 4px;overflow:visible}
+.spx-blackcat-v7 .spx-blackcat-objective-pack-card,.spx-blackcat-v7 .spx-blackcat-summary-pack-card{width:112px!important;height:148px!important}
+.spx-blackcat-v7 .spx-blackcat-heist-sidebar>section{min-width:0}
+.spx-blackcat-v7 .spx-blackcat-objective,.spx-blackcat-v7 .spx-blackcat-loot,.spx-blackcat-v7 .spx-blackcat-legend-panel{position:relative;isolation:isolate;background:linear-gradient(155deg,rgba(5,9,23,.94),rgba(35,9,49,.94));border-color:rgba(176,137,210,.4);box-shadow:inset 0 0 28px rgba(89,31,127,.16),0 0 15px rgba(47,202,255,.08)}
+.spx-blackcat-v7 .spx-blackcat-curtain-panel:before,.spx-blackcat-v7 .spx-blackcat-legend-panel:before{content:"";position:absolute;z-index:-1;left:0;right:0;top:0;height:35px;border-radius:16px 16px 45% 45%;background:radial-gradient(ellipse at 50% -35%,rgba(216,149,255,.3),transparent 62%),linear-gradient(180deg,rgba(86,22,111,.78),rgba(24,7,41,.28));border-bottom:1px solid rgba(221,175,255,.22);box-shadow:0 6px 12px rgba(0,0,0,.32)}
+.spx-blackcat-v7 .spx-blackcat-objective{max-height:270px;overflow:auto}.spx-blackcat-v7 .spx-blackcat-loot{max-height:170px;overflow:auto}.spx-blackcat-v7 .spx-blackcat-legend-panel{max-height:270px;overflow:auto!important}
+.spx-blackcat-v7 .spx-blackcat-heist-controls{padding:7px 9px;border-color:rgba(157,119,193,.25);background:rgba(6,7,17,.78)}
+.spx-blackcat-v7 .spx-blackcat-heist-controls>p{font-size:10px;line-height:1.35}
+.spx-blackcat-v7 .spx-blackcat-museum-tile{min-height:112px;border-color:rgba(225,239,247,.48);background:linear-gradient(155deg,rgba(16,27,38,.88),rgba(17,10,27,.94));box-shadow:inset 0 0 24px rgba(255,255,255,.05),0 0 17px rgba(120,85,155,.1)}
+.spx-blackcat-v7 .spx-blackcat-museum-tile:before{border-color:rgba(232,247,255,.48);background:linear-gradient(165deg,rgba(205,235,245,.13),rgba(22,26,35,.14) 62%,rgba(3,5,11,.5))}
+.spx-blackcat-v7 .spx-blackcat-museum-tile span{color:#eafcff;text-shadow:0 0 8px #fff,0 0 14px #7b55a8}.spx-blackcat-v7 .spx-blackcat-museum-tile b{color:#fff;text-shadow:0 0 8px #fff,0 0 18px #b447ff}
+.spx-blackcat-v7 .spx-blackcat-lantern-tool{position:relative;min-height:132px;display:grid;place-items:center;align-content:center;gap:2px;padding:4px;border:0;background:transparent;color:#fff;cursor:pointer;overflow:visible}
+.spx-blackcat-v7 .spx-blackcat-lantern-tool img{width:112px;height:100px;object-fit:contain;filter:drop-shadow(0 0 8px #fff2a0) drop-shadow(0 0 20px #a742ff);animation:bcLanternFloat 2.2s ease-in-out infinite;transition:.2s ease}
+.spx-blackcat-v7 .spx-blackcat-lantern-tool span{font:900 9px/1 var(--bc-heist-font);letter-spacing:.1em;text-shadow:0 0 8px #fff,0 0 15px #bd6aff}
+.spx-blackcat-v7 .spx-blackcat-lantern-tool:hover:not(:disabled) img{transform:translateY(-4px) scale(1.07);filter:drop-shadow(0 0 12px #fff7c4) drop-shadow(0 0 30px #cb63ff) brightness(1.14)}
+.spx-blackcat-v7 .spx-blackcat-lantern-tool:disabled{opacity:.33;filter:grayscale(1);cursor:not-allowed}
+.spx-blackcat-v7 .spx-blackcat-rail-note{margin-top:2px;padding:9px 8px 2px}.spx-blackcat-v7 .spx-blackcat-rail-note span{font-size:11px}.spx-blackcat-v7 .spx-blackcat-rail-note p{font-size:10px;line-height:1.42}
+.spx-blackcat-v7 .spx-blackcat-cell.is-lit:not(.is-visited) .spx-blackcat-fog{opacity:.36;background:radial-gradient(circle,rgba(128,173,210,.48),rgba(4,8,20,.88) 72%);box-shadow:inset 0 0 22px rgba(137,233,255,.24)}
+.spx-blackcat-v7 .spx-blackcat-cell.is-scouted:not(.is-visited){box-shadow:inset 0 0 22px rgba(224,242,255,.3),0 0 10px rgba(117,65,180,.24)}
+.spx-blackcat-v7 .spx-blackcat-loot-pop,.spx-blackcat-v7 .spx-blackcat-loot-pop-card,.spx-blackcat-v7 .spx-blackcat-loot-pop-card>img{animation-duration:2.25s}
+
+.spx-blackcat-v7 .spx-blackcat-summary{background-position:center;background-size:cover}
+.spx-blackcat-v7 .spx-blackcat-summary:before{background:linear-gradient(90deg,rgba(2,5,15,.95) 0 38%,rgba(10,4,21,.64) 58%,rgba(2,5,14,.18) 84%)}
+.spx-blackcat-v7 .spx-blackcat-summary-copy{background:linear-gradient(145deg,rgba(8,6,20,.94),rgba(48,10,63,.82));border-color:rgba(210,165,244,.38);box-shadow:inset 0 0 34px rgba(126,39,165,.18),0 18px 45px rgba(0,0,0,.4)}
+.spx-blackcat-v7 .spx-blackcat-main-result{position:relative;isolation:isolate;overflow:hidden;min-height:205px;background:linear-gradient(90deg,rgba(3,6,17,.84),rgba(20,7,34,.66)),url("draft-assets/blackcat_museum_interior_wide.png") center/cover no-repeat;border-color:rgba(198,158,231,.42)}
+.spx-blackcat-v7 .spx-blackcat-main-result:before{content:"";position:absolute;z-index:-1;inset:0;background:linear-gradient(90deg,rgba(2,5,14,.82),rgba(2,5,14,.28),rgba(2,5,14,.74))}
+.spx-blackcat-v7 .spx-blackcat-summary-copy li{background:linear-gradient(145deg,rgba(8,8,22,.92),rgba(42,10,57,.82));border-color:rgba(177,126,211,.33)}
+.spx-blackcat-v7 .spx-blackcat-summary-safe-art{left:-4%;bottom:-14%;width:min(62%,820px);height:72%;opacity:.62;mix-blend-mode:screen;mask-image:linear-gradient(180deg,transparent 0,#000 17%,#000 88%,transparent 100%)}
+.spx-blackcat-v7 .spx-blackcat-summary-safe-art img{object-position:center 43%;filter:saturate(1.18) brightness(.92) drop-shadow(0 0 28px rgba(162,75,255,.44))}
+.spx-blackcat-v7 .spx-blackcat-return-streak{position:absolute;z-index:90;inset:0;overflow:hidden;background:linear-gradient(90deg,rgba(3,4,13,.93),rgba(28,5,42,.68),rgba(2,6,16,.94));pointer-events:none;animation:bcReturnCurtain 1.05s ease both}
+.spx-blackcat-v7 .spx-blackcat-return-trail{position:absolute;left:-15%;top:48%;width:75%;height:12px;border-radius:50%;background:linear-gradient(90deg,transparent,#fff 45%,#b54dff 68%,transparent);box-shadow:0 0 10px #fff,0 0 32px #a74cff;filter:blur(2px);animation:bcReturnTrail 1s ease-in both}
+.spx-blackcat-v7 .spx-blackcat-return-cat{position:absolute;z-index:3;left:-18%;top:36%;width:150px;height:150px;object-fit:contain;filter:drop-shadow(0 0 12px #fff) drop-shadow(0 0 26px #a544ff);animation:bcReturnCat 1s cubic-bezier(.3,.78,.35,1) both}
+.spx-blackcat-v7 .spx-blackcat-return-loot{position:absolute;z-index:2;left:-12%;top:var(--loot-y,55%);width:52px;height:52px;object-fit:contain;filter:drop-shadow(0 0 8px #fff);animation:bcReturnLoot .95s calc(var(--loot-delay,0s)) ease-in both}.spx-blackcat-v7 .spx-blackcat-return-loot.loot-1{--loot-y:31%;--loot-delay:.08s}.spx-blackcat-v7 .spx-blackcat-return-loot.loot-2{--loot-y:57%;--loot-delay:.14s}.spx-blackcat-v7 .spx-blackcat-return-loot.loot-3{--loot-y:67%;--loot-delay:.2s}.spx-blackcat-v7 .spx-blackcat-return-loot.loot-4{--loot-y:42%;--loot-delay:.25s}
+@keyframes bcReturnCurtain{0%{opacity:0}16%,82%{opacity:1}100%{opacity:0}}@keyframes bcReturnCat{0%{left:-18%;transform:rotate(-8deg) scale(.7)}55%{left:48%;transform:rotate(3deg) scale(1.08)}100%{left:110%;transform:rotate(8deg) scale(.76)}}@keyframes bcReturnLoot{0%{left:-12%;transform:rotate(0) scale(.3);opacity:0}18%{opacity:1}100%{left:91%;transform:rotate(420deg) scale(.8);opacity:0}}@keyframes bcReturnTrail{0%{left:-70%;opacity:0}35%{opacity:1}100%{left:90%;opacity:0}}
+
+@media(max-width:1050px){.spx-blackcat-v7 .spx-blackcat-header-gems{display:none}.spx-blackcat-v7 .spx-blackcat-header{grid-template-columns:minmax(0,1fr) auto auto}.spx-blackcat-v7 .spx-blackcat-header-cashout{min-width:126px}.spx-blackcat-v7 .spx-blackcat-player-gallery{height:238px;min-height:238px}}
+@media(max-width:780px){.spx-blackcat-v7 .spx-blackcat-heist-header-tools .spx-blackcat-header-cashout{display:none}.spx-blackcat-v7 .spx-blackcat-target-cards{padding-inline:26px}.spx-blackcat-v7 .spx-blackcat-summary-safe-art{left:0;bottom:18%;width:100%;height:35%}.spx-blackcat-v7 .spx-blackcat-return-cat{width:110px;height:110px}}
+
+/* Surgical summary pass: one open museum scene, canonical pack cards and readable loot. */
+.spx-blackcat-v7 .spx-blackcat-summary-copy{
+    align-self:stretch;max-width:none;padding:30px 34px 18px;
+    display:grid;grid-template-columns:minmax(170px,.42fr) minmax(0,1fr);align-content:start;gap:12px 16px;
+    background:transparent!important;border:0!important;box-shadow:none!important;backdrop-filter:none!important;
+}
+.spx-blackcat-v7 .spx-blackcat-summary-copy>span{grid-column:1/-1;font-size:clamp(12px,.9vw,16px);color:#9cf8ff;text-shadow:0 0 10px #46dcff}
+.spx-blackcat-v7 .spx-blackcat-summary-copy>h3{grid-column:1/-1;margin:0 0 2px;font-size:clamp(24px,2.2vw,40px);color:#fff;text-shadow:0 0 9px #fff,0 0 22px #d05bff}
+.spx-blackcat-v7 .spx-blackcat-main-result{
+    grid-column:1/-1;min-height:245px;margin:0;padding:20px 24px;display:grid;grid-template-columns:150px minmax(0,1fr);align-items:center;gap:22px;
+    border:1px solid rgba(148,228,255,.42);border-radius:16px;background:linear-gradient(90deg,rgba(3,6,17,.66),rgba(22,7,38,.42)),url("draft-assets/blackcat_museum_interior_wide.png") center/cover no-repeat;box-shadow:inset 0 0 32px rgba(83,38,133,.18),0 0 16px rgba(98,45,155,.18)
+}
+.spx-blackcat-v7 .spx-blackcat-main-result p{font-size:clamp(13px,1vw,17px);line-height:1.45;text-shadow:0 0 8px rgba(255,255,255,.14)}
+.spx-blackcat-v7 .spx-blackcat-summary-card-slot{min-height:180px;padding:0;place-items:center}
+.spx-blackcat-v7 .spx-blackcat-summary-copy ul{grid-column:1/-1;margin:0;gap:9px;background:transparent}
+.spx-blackcat-v7 .spx-blackcat-summary-copy li{min-height:58px;padding:8px 12px;background:linear-gradient(145deg,rgba(8,7,23,.62),rgba(45,10,62,.52));border-color:rgba(201,151,235,.38)}
+.spx-blackcat-v7 .spx-blackcat-summary-copy li span{font-size:12px}.spx-blackcat-v7 .spx-blackcat-summary-copy li small{font-size:9px}
+.spx-blackcat-v7 .spx-blackcat-summary-safe-art{left:-10%;bottom:-23%;width:min(76%,1020px);height:96%;opacity:.7;mix-blend-mode:screen;mask-image:linear-gradient(180deg,transparent 0,#000 12%,#000 88%,transparent 100%)}
+.spx-blackcat-v7 .spx-blackcat-summary-safe-art img{object-fit:cover;object-position:center 43%;filter:saturate(1.2) brightness(.94) drop-shadow(0 0 30px rgba(164,75,255,.48))}
+.spx-blackcat-v7 .spx-blackcat-summary-bag{width:min(560px,100%);z-index:3}
+.spx-blackcat-v7 .spx-blackcat-bag-loot>img.is-gem{width:clamp(54px,5.2vw,88px);height:clamp(54px,5.2vw,88px);margin:-4px;filter:drop-shadow(0 0 10px #fff) drop-shadow(0 0 21px #b64cff);animation:bcBagGemPulse 1.7s ease-in-out infinite alternate}
+.spx-blackcat-v7 .spx-blackcat-bag-card-slot{position:relative;display:block;width:112px;height:148px;margin:-12px -4px;transform:scale(.76) rotate(-4deg);transform-origin:center;filter:drop-shadow(0 0 10px #fff) drop-shadow(0 0 20px #b64cff)}
+.spx-blackcat-v7 .spx-blackcat-bag-card-slot .spx-blackcat-bag-pack-card{position:absolute!important;inset:0!important;width:112px!important;height:148px!important}
+@keyframes bcBagGemPulse{to{transform:translateY(-5px) rotate(4deg);filter:drop-shadow(0 0 14px #fff) drop-shadow(0 0 31px #c74fff) brightness(1.16)}}
+@media(max-width:780px){.spx-blackcat-v7 .spx-blackcat-summary-copy{display:block;padding:18px}.spx-blackcat-v7 .spx-blackcat-summary-copy>span,.spx-blackcat-v7 .spx-blackcat-summary-copy>h3{margin-bottom:8px}.spx-blackcat-v7 .spx-blackcat-main-result{grid-template-columns:112px minmax(0,1fr);min-height:210px;padding:12px;gap:10px}.spx-blackcat-v7 .spx-blackcat-summary-safe-art{left:0;bottom:16%;width:100%;height:52%;opacity:.3}}
+
+/* 100% viewport fit: keep the Black Cat dialog inside the browser chrome. */
+.spx-blackcat-v7.spx-blackcat-overlay{padding:clamp(6px,.7vw,10px)}
+.spx-blackcat-v7 .spx-blackcat-modal{width:min(1760px,calc(100vw - 20px));height:min(1040px,calc(100dvh - 20px));min-height:0}
+.spx-blackcat-v7 .spx-blackcat-modal.is-target{height:min(980px,calc(100dvh - 20px));min-height:0}
+.spx-blackcat-v7 .spx-blackcat-modal.is-summary{height:min(920px,calc(100dvh - 20px));min-height:0}
+.spx-blackcat-v7 .spx-blackcat-modal.is-summary .spx-blackcat-content{min-height:0;overflow:hidden}
+.spx-blackcat-v7 .spx-blackcat-modal.is-summary .spx-blackcat-summary{min-height:0;height:100%;padding:16px;gap:12px}
+.spx-blackcat-v7 .spx-blackcat-modal.is-summary .spx-blackcat-summary-copy{padding:18px 22px 12px;gap:8px 12px}
+.spx-blackcat-v7 .spx-blackcat-modal.is-summary .spx-blackcat-main-result{min-height:190px;padding:12px 16px;grid-template-columns:124px minmax(0,1fr);gap:14px}
+.spx-blackcat-v7 .spx-blackcat-modal.is-summary .spx-blackcat-summary-card-slot{min-height:148px}
+.spx-blackcat-v7 .spx-blackcat-modal.is-summary .spx-blackcat-summary-copy li{min-height:48px;padding:6px 9px}
+.spx-blackcat-v7 .spx-blackcat-modal.is-summary .spx-blackcat-summary-bag{width:min(500px,100%);max-height:100%;aspect-ratio:1}
+
+@media(max-height:820px) and (min-width:781px){
+    .spx-blackcat-v7 .spx-blackcat-modal.is-summary .spx-blackcat-header{min-height:70px;padding-block:6px}
+    .spx-blackcat-v7 .spx-blackcat-modal.is-summary .spx-blackcat-brand>img{width:58px;height:58px}
+    .spx-blackcat-v7 .spx-blackcat-modal.is-summary .spx-blackcat-footer{min-height:50px;padding-block:5px}
+    .spx-blackcat-v7 .spx-blackcat-modal.is-summary .spx-blackcat-summary{padding:10px;gap:8px}
+    .spx-blackcat-v7 .spx-blackcat-modal.is-summary .spx-blackcat-summary-copy{padding:12px 16px 8px;gap:6px 10px}
+    .spx-blackcat-v7 .spx-blackcat-modal.is-summary .spx-blackcat-summary-copy>h3{font-size:clamp(21px,2vw,32px)}
+    .spx-blackcat-v7 .spx-blackcat-modal.is-summary .spx-blackcat-main-result{min-height:164px;padding:9px 12px;grid-template-columns:108px minmax(0,1fr);gap:10px}
+    .spx-blackcat-v7 .spx-blackcat-modal.is-summary .spx-blackcat-summary-card-slot{min-height:132px}
+    .spx-blackcat-v7 .spx-blackcat-modal.is-summary .spx-blackcat-summary-pack-card{width:100px!important;height:132px!important}
+    .spx-blackcat-v7 .spx-blackcat-modal.is-summary .spx-blackcat-summary-copy li{min-height:42px;padding:5px 8px}
+    .spx-blackcat-v7 .spx-blackcat-modal.is-summary .spx-blackcat-summary-copy li>img{width:28px;height:28px}
+    .spx-blackcat-v7 .spx-blackcat-modal.is-summary .spx-blackcat-summary-bag{width:min(430px,100%)}
+}
+
+/* Target gallery fit: leave breathing room at 100% zoom and keep each card isolated. */
+.spx-blackcat-v7 .spx-blackcat-modal.is-target{
+    width:min(1760px,calc(100vw - 44px));
+    height:min(920px,calc(100dvh - 44px));
+}
+.spx-blackcat-v7 .spx-blackcat-modal.is-target .spx-blackcat-target-stage{padding:12px 16px 16px}
+.spx-blackcat-v7 .spx-blackcat-modal.is-target .spx-blackcat-target-copy{margin-bottom:12px;padding-inline:14px}
+.spx-blackcat-v7 .spx-blackcat-modal.is-target .spx-blackcat-target-cards{
+    grid-auto-columns:112px;
+    gap:20px;
+    padding:18px 30px 14px;
+}
+.spx-blackcat-v7 .spx-blackcat-modal.is-target .spx-blackcat-target-card-native,
+.spx-blackcat-v7 .spx-blackcat-modal.is-target .spx-blackcat-target-card-native:hover,
+.spx-blackcat-v7 .spx-blackcat-modal.is-target .spx-blackcat-target-card-native.is-selected{
+    box-shadow:none!important;
+    filter:none!important;
+    animation:none!important;
+}
+.spx-blackcat-v7 .spx-blackcat-modal.is-target .spx-blackcat-target-card-native:hover{transform:translateY(-3px)!important}
+.spx-blackcat-v7 .spx-blackcat-modal.is-target .spx-blackcat-target-card-native.is-selected{transform:translateY(-5px) scale(1.025)!important}
+
+/* The loot legend lives in a scrollable museum shelf. Its readable tooltip is
+   therefore portalled to <body> by v7 instead of being cropped by that shelf. */
+.spx-blackcat-v7 [data-tooltip].has-floating-tooltip:after{display:none!important}
+.spx-blackcat-floating-tooltip{
+    position:fixed;
+    z-index:100000;
+    width:min(380px,calc(100vw - 28px));
+    padding:14px 16px;
+    border:1px solid rgba(137,235,255,.72);
+    border-radius:14px;
+    background:linear-gradient(145deg,rgba(5,12,29,.98),rgba(31,10,47,.98));
+    color:#f3fbff;
+    font:700 13px/1.45 "Exo 2","Segoe UI",sans-serif;
+    letter-spacing:.015em;
+    text-align:left;
+    white-space:normal;
+    box-shadow:0 0 0 1px rgba(191,83,255,.28),0 12px 34px rgba(0,0,0,.62),0 0 24px rgba(84,211,255,.22);
+    pointer-events:none;
+}
+.spx-blackcat-floating-tooltip[hidden]{display:none!important}
+
+@media(max-height:820px) and (min-width:781px){
+    .spx-blackcat-v7 .spx-blackcat-modal.is-target{height:min(880px,calc(100dvh - 36px))}
+    .spx-blackcat-v7 .spx-blackcat-modal.is-target .spx-blackcat-header{min-height:70px;padding-block:6px}
+    .spx-blackcat-v7 .spx-blackcat-modal.is-target .spx-blackcat-brand>img{width:58px;height:58px}
+    .spx-blackcat-v7 .spx-blackcat-modal.is-target .spx-blackcat-footer{min-height:50px;padding-block:5px}
+    .spx-blackcat-v7 .spx-blackcat-modal.is-target .spx-blackcat-target-stage{padding:9px 12px 12px}
+    .spx-blackcat-v7 .spx-blackcat-modal.is-target .spx-blackcat-target-copy{margin-bottom:8px;padding-bottom:6px}
+    .spx-blackcat-v7 .spx-blackcat-modal.is-target .spx-blackcat-target-copy img{max-height:88px}
+    .spx-blackcat-v7 .spx-blackcat-modal.is-target .spx-blackcat-player-gallery{min-height:190px;padding-top:42px;padding-bottom:22px}
+    .spx-blackcat-v7 .spx-blackcat-modal.is-target .spx-blackcat-target-cards{gap:16px;padding-top:12px;padding-bottom:10px}
+}
+
+/* Checkpoint polish: a dedicated crystal-warp shelf between Superpowers and the pack. */
+#packStage:has(> .spx-blackcat-gem-portal){padding-top:190px!important}
+#packStage>.spx-blackcat-gem-portal{
+    left:50%!important;right:auto!important;top:18px!important;transform:translateX(-50%)!important;
+    width:min(780px,86vw)!important;min-height:158px!important;
+    grid-template-columns:92px minmax(235px,1fr) 254px!important;gap:16px!important;
+    animation:bcPortalShelfEnter .42s cubic-bezier(.2,.9,.2,1) both!important;
+}
+#packStage .spx-blackcat-portal-crystal{width:92px!important;height:118px!important}
+#packStage .spx-blackcat-portal-crystal img{width:82px!important;height:82px!important;filter:drop-shadow(0 0 7px #fff) drop-shadow(0 0 22px var(--gem-color))}
+#packStage .spx-blackcat-portal-crystal:after{
+    content:"";position:absolute;z-index:4;left:72%;top:15%;width:11px;height:11px;
+    border:2px solid #fff;border-width:2px 0;transform:rotate(45deg);
+    box-shadow:0 0 8px #fff,0 0 17px var(--gem-color);animation:bcGemDiamond 1.65s ease-in-out infinite;
+}
+#packStage .spx-blackcat-portal-copy{padding:0!important;align-self:center}
+#packStage .spx-blackcat-portal-copy h3{position:relative;margin:0 0 12px!important;font-size:clamp(21px,1.75vw,30px)!important;letter-spacing:.075em!important;color:#fff!important;text-shadow:0 0 5px #fff,0 0 15px var(--gem-color),0 0 32px var(--gem-color)!important}
+#packStage .spx-blackcat-portal-copy h3:after{content:"✦";position:absolute;margin-left:10px;color:#fff;font-size:.62em;text-shadow:0 0 7px #fff,0 0 15px var(--gem-color);animation:bcGemTitleSpark 1.8s ease-in-out infinite}
+#packStage .spx-blackcat-portal-copy p{max-width:330px!important;color:#eefbff!important;font:800 clamp(11px,.82vw,13px)/1.32 "Rajdhani","Exo 2",sans-serif!important;letter-spacing:.035em;text-shadow:0 0 8px color-mix(in srgb,var(--gem-color) 70%,transparent)!important}
+#packStage .spx-blackcat-portal-beam{
+    z-index:0!important;left:68px!important;right:auto!important;top:53%!important;width:calc(100% - 230px)!important;height:92px!important;
+    transform:translateY(-50%);clip-path:polygon(0 46%,100% 4%,100% 96%,0 54%);
+    background:linear-gradient(90deg,color-mix(in srgb,var(--gem-color) 88%,#fff 12%),color-mix(in srgb,var(--gem-color) 24%,transparent) 62%,transparent)!important;
+    box-shadow:none!important;filter:drop-shadow(0 0 7px #fff) drop-shadow(0 0 19px var(--gem-color));opacity:.83!important;
+    animation:bcGemBeamBreathe 2.1s ease-in-out infinite;
+}
+#packStage .spx-blackcat-portal-beam:before{content:"";position:absolute;inset:44% 0;border-radius:99px;background:linear-gradient(90deg,#fff,var(--gem-color) 58%,transparent);box-shadow:0 0 9px #fff,0 0 18px var(--gem-color)}
+
+/* Black Cat final surgical polish: gallery orb, museum rails, readable loot and success exhibit. */
+.spx-blackcat-v7 .spx-blackcat-modal.is-target .spx-blackcat-target-card-native .pack-planet{
+    filter:none!important;
+    box-shadow:inset 0 0 12px rgba(255,255,255,.18)!important;
+}
+.spx-blackcat-v7 .spx-blackcat-modal.is-target .spx-blackcat-target-card-native .pack-planet:after{
+    box-shadow:none!important;
+}
+
+.spx-blackcat-v7 .spx-blackcat-header-gems{gap:9px;opacity:.92}
+.spx-blackcat-v7 .spx-blackcat-header-gems img{width:38px;height:48px}
+.spx-blackcat-v7 .spx-blackcat-header-status>span,
+.spx-blackcat-v7 .spx-blackcat-heist-header-tools>span{
+    display:grid;
+    place-items:center;
+    min-width:148px;
+    min-height:58px;
+    padding:9px 16px;
+    border:1px solid rgba(255,255,255,.58);
+    border-radius:18px;
+    text-align:center;
+}
+.spx-blackcat-v7 .spx-blackcat-heist-header-tools small{font:900 9px/1 var(--bc-heist-font);letter-spacing:.16em;color:#d9faff}
+.spx-blackcat-v7 .spx-blackcat-heist-header-tools b{display:block;margin-top:5px;font:900 17px/1 var(--bc-heist-font);letter-spacing:.08em;color:#fff;text-shadow:0 0 7px #fff,0 0 17px #a84cff}
+.spx-blackcat-v7 .spx-blackcat-heist-phase.is-alarm{border-color:rgba(255,90,128,.85);box-shadow:inset 0 0 24px rgba(255,35,91,.2),0 0 19px rgba(255,34,91,.34)}
+.spx-blackcat-v7 .spx-blackcat-heist-phase.is-alarm b{color:#ffd8e1;text-shadow:0 0 8px #fff,0 0 18px #ff2457}
+
+.spx-blackcat-v7 .spx-blackcat-heist-rail{align-content:start;gap:8px;padding-top:3px}
+.spx-blackcat-v7 .spx-blackcat-museum-tile{min-height:108px;padding:12px 10px 12px}
+.spx-blackcat-v7 .spx-blackcat-museum-tile b{max-width:100%;font-size:clamp(26px,2.35vw,38px);line-height:.94;white-space:nowrap}
+.spx-blackcat-v7 .spx-blackcat-museum-tile.is-alarm b{font-size:clamp(22px,1.85vw,31px)}
+.spx-blackcat-v7 .spx-blackcat-museum-tile small{color:#baffea;font-size:9.5px;line-height:1.3;text-shadow:0 0 8px rgba(79,255,191,.55)}
+.spx-blackcat-v7 .spx-blackcat-museum-tile.is-alarm small{color:#ffb8c9;text-shadow:0 0 8px rgba(255,36,87,.7)}
+.spx-blackcat-v7 .spx-blackcat-lantern-tool{min-height:148px;margin-top:1px;gap:4px}
+.spx-blackcat-v7 .spx-blackcat-lantern-tool img{width:128px;height:116px}
+.spx-blackcat-v7 .spx-blackcat-lantern-tool span{font-size:11px;letter-spacing:.105em}
+.spx-blackcat-v7 .spx-blackcat-rail-note{margin-top:9px;padding:10px 8px 2px}
+.spx-blackcat-v7 .spx-blackcat-rail-note span{font-size:12px}
+.spx-blackcat-v7 .spx-blackcat-rail-note p{margin-top:8px;font-size:11px;line-height:1.46}
+
+.spx-blackcat-v7 .spx-blackcat-legend-copy{max-width:none}
+.spx-blackcat-v7 .spx-blackcat-legend-copy b{
+    overflow:visible;
+    text-overflow:clip;
+    white-space:normal;
+    overflow-wrap:anywhere;
+    font-size:8.5px;
+    line-height:1.18;
+}
+.spx-blackcat-v7 .spx-blackcat-legend-vitrine-item{min-height:76px}
+.spx-blackcat-v7 .spx-blackcat-loot li[data-tooltip]{cursor:help}
+.spx-blackcat-v7 [data-tooltip].has-floating-tooltip:after{display:none!important}
+.spx-blackcat-floating-tooltip{
+    z-index:2147483600;
+    width:min(410px,calc(100vw - 28px));
+    padding:15px 18px;
+    font-size:14px;
+    line-height:1.5;
+}
+
+.spx-blackcat-v7 .spx-blackcat-objective-card-slot{
+    min-height:176px;
+    padding:2px 20px 5px;
+    background:url("draft-assets/blackcat_heist_vitrine.png") center/176px 176px no-repeat;
+}
+.spx-blackcat-v7 .spx-blackcat-objective-pack-card{
+    transform:scale(.74)!important;
+    transform-origin:center!important;
+    animation:none!important;
+    filter:none!important;
+}
+.spx-blackcat-v7 .spx-blackcat-board-main-card-slot{position:relative;display:grid;place-items:center;width:44%;height:64%;overflow:visible}
+.spx-blackcat-v7 .spx-blackcat-board-main-pack-card{
+    position:absolute!important;
+    left:50%!important;
+    top:50%!important;
+    width:112px!important;
+    height:148px!important;
+    margin:0!important;
+    transform:translate(-50%,-50%) scale(.29)!important;
+    transform-origin:center!important;
+    animation:none!important;
+    filter:none!important;
+}
+.spx-blackcat-v7 .spx-blackcat-legend-card-slot{position:relative;display:grid;place-items:center;width:44px;height:52px;overflow:visible}
+.spx-blackcat-v7 .spx-blackcat-legend-pack-card{
+    position:absolute!important;
+    left:50%!important;
+    top:50%!important;
+    width:112px!important;
+    height:148px!important;
+    margin:0!important;
+    transform:translate(-50%,-50%) scale(.34)!important;
+    transform-origin:center!important;
+    animation:none!important;
+    filter:none!important;
+}
+
+.spx-blackcat-v7 .spx-blackcat-event.success:before{
+    background:linear-gradient(180deg,rgba(3,6,18,.64),rgba(11,3,22,.82)),url("draft-assets/blackcat_heist_vault_success.png") center/cover no-repeat;
+    filter:blur(3px) saturate(1.05) brightness(.48);
+    opacity:.9;
+}
+.spx-blackcat-v7 .spx-blackcat-event-exhibit{
+    position:relative;
+    width:190px;
+    height:142px;
+    display:grid;
+    place-items:center;
+    margin:-18px auto 2px;
+}
+.spx-blackcat-v7 .spx-blackcat-event-exhibit>img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 0 10px #fff) drop-shadow(0 0 20px #a84cff)}
+.spx-blackcat-v7 .spx-blackcat-event-card-slot{position:relative;z-index:2;display:grid;place-items:center;width:92px;height:112px}
+.spx-blackcat-v7 .spx-blackcat-event-pack-card{
+    position:absolute!important;
+    left:50%!important;
+    top:50%!important;
+    width:112px!important;
+    height:148px!important;
+    margin:0!important;
+    transform:translate(-50%,-50%) scale(.62)!important;
+    transform-origin:center!important;
+    animation:none!important;
+    filter:none!important;
+}
+
+@media(max-height:760px) and (min-width:781px){
+    .spx-blackcat-v7 .spx-blackcat-museum-tile{min-height:96px}
+    .spx-blackcat-v7 .spx-blackcat-lantern-tool{min-height:126px}
+    .spx-blackcat-v7 .spx-blackcat-lantern-tool img{width:108px;height:94px}
+    .spx-blackcat-v7 .spx-blackcat-rail-note{margin-top:3px;padding-top:5px}
+}
+#packStage .spx-blackcat-portal-beam:after{left:25%!important;right:0!important;height:58px!important;background:radial-gradient(ellipse at 72% 50%,color-mix(in srgb,var(--gem-color) 40%,transparent),transparent 70%)!important;filter:blur(9px)!important}
+#packStage .spx-blackcat-portal-cards{min-height:158px!important;gap:8px!important;align-items:center!important;justify-content:center!important;overflow:visible!important}
+#packStage .spx-blackcat-gem-portal .spx-blackcat-portal-cards>.pack-card-btn,
+#packStage .spx-blackcat-gem-portal .spx-blackcat-portal-cards>.joker-card-btn{transform:scale(.80) rotate(-4deg)!important;transform-origin:center!important;margin:0 -8px!important;filter:drop-shadow(0 0 12px #fff) drop-shadow(0 0 24px var(--gem-color))!important}
+#packStage .spx-blackcat-gem-portal .spx-blackcat-portal-cards>:nth-child(2){transform:scale(.80) rotate(4deg)!important;margin-left:-12px!important}
+.spx-blackcat-v7 .spx-blackcat-target-cards{justify-content:safe center!important}
+.spx-blackcat-v7 .spx-blackcat-player-gallery:after{content:"✦";text-shadow:0 0 9px #e7c684!important}
+@keyframes bcPortalShelfEnter{from{opacity:0;transform:translate(-50%,-10px) scale(.84);filter:blur(7px)}to{opacity:1;transform:translate(-50%,0) scale(1);filter:none}}
+@keyframes bcGemBeamBreathe{50%{opacity:.58;filter:drop-shadow(0 0 10px #fff) drop-shadow(0 0 28px var(--gem-color));transform:translateY(-50%) scaleY(1.08)}}
+@keyframes bcGemDiamond{0%,100%{opacity:.24;transform:rotate(45deg) scale(.55)}48%{opacity:1;transform:rotate(45deg) scale(1.25)}}
+@keyframes bcGemTitleSpark{0%,100%{opacity:.25;transform:scale(.65) rotate(0)}50%{opacity:1;transform:scale(1.25) rotate(90deg)}}
+@media(max-width:900px){
+    #packStage:has(> .spx-blackcat-gem-portal){padding-top:225px!important}
+    #packStage>.spx-blackcat-gem-portal{top:12px!important;width:94vw!important;grid-template-columns:76px minmax(170px,1fr) 220px!important;gap:8px!important}
+    #packStage .spx-blackcat-portal-cards{min-height:145px!important}
+    #packStage .spx-blackcat-gem-portal .spx-blackcat-portal-cards>.pack-card-btn,#packStage .spx-blackcat-gem-portal .spx-blackcat-portal-cards>.joker-card-btn{transform:scale(.70) rotate(-4deg)!important;margin:0 -15px!important}
+    #packStage .spx-blackcat-gem-portal .spx-blackcat-portal-cards>:nth-child(2){transform:scale(.70) rotate(4deg)!important}
+}
+
+/* Summary breathing room: match the 75% composition while staying comfortable at 100%. */
+.spx-blackcat-v7 .spx-blackcat-modal.is-summary{
+    width:min(1760px,calc(100vw - 56px));
+    height:min(920px,calc(100dvh - 56px));
+}
+@media(max-height:820px) and (min-width:781px){
+    .spx-blackcat-v7 .spx-blackcat-modal.is-summary{
+        width:min(1680px,calc(100vw - 36px));
+        height:min(880px,calc(100dvh - 36px));
+    }
+}
+
+/* Final gallery calibration: retain the canonical Draft card, but give the
+   museum caption and neighbouring exhibits a little more breathing room. */
+.spx-blackcat-v7 .spx-blackcat-modal.is-target .spx-blackcat-target-cards{
+    grid-auto-columns:108px;
+    gap:21px;
+    padding:18px 30px 22px;
+}
+.spx-blackcat-v7 .spx-blackcat-modal.is-target .spx-blackcat-target-card-native{
+    transform:scale(.94)!important;
+    transform-origin:center!important;
+}
+.spx-blackcat-v7 .spx-blackcat-modal.is-target .spx-blackcat-target-card-native:hover{
+    transform:translateY(-3px) scale(.94)!important;
+}
+.spx-blackcat-v7 .spx-blackcat-modal.is-target .spx-blackcat-target-card-native.is-selected{
+    transform:translateY(-5px) scale(.965)!important;
+}
+.spx-blackcat-v7 .spx-blackcat-modal.is-target .spx-blackcat-target-card-label{bottom:-19px}
+
+/* The conditional sacrifice uses the same museum gallery, distinguished only
+   by Black Cat's red contract mark. Nothing leaves the deck until a successful heist. */
+.spx-blackcat-v7 .spx-blackcat-modal.is-target .spx-blackcat-own-gallery{
+    order:-1;
+    border-color:rgba(255,91,126,.72);
+    box-shadow:inset 0 0 0 5px rgba(29,8,20,.82),inset 0 0 46px rgba(76,0,24,.34),0 0 0 1px rgba(255,183,204,.26),0 0 24px rgba(255,48,101,.2);
+}
+.spx-blackcat-v7 .spx-blackcat-modal.is-target .spx-blackcat-own-gallery>h4 span{color:#ff9db7;text-shadow:0 0 9px rgba(255,72,118,.9)}
+.spx-blackcat-v7 .spx-blackcat-modal.is-target .spx-blackcat-own-gallery>h4 small{
+    display:block;margin-top:2px;color:#ffd6e1;font:900 .68em/1.15 "Rajdhani","Exo 2",sans-serif;letter-spacing:.14em;text-shadow:0 0 8px rgba(255,67,112,.75)
+}
+.spx-blackcat-v7 .spx-blackcat-modal.is-target .spx-blackcat-own-gallery .spx-blackcat-target-card-native.is-selected{
+    box-shadow:0 0 0 2px rgba(255,102,139,.92),0 0 18px rgba(255,35,88,.75)!important;
+}
+.spx-blackcat-v7 .spx-blackcat-modal.is-target .spx-blackcat-own-gallery .spx-blackcat-target-marker{
+    width:52px;height:52px;filter:drop-shadow(0 0 5px #fff) drop-shadow(0 0 14px #ff315f) drop-shadow(0 0 22px #8c32ff)
+}
+.spx-blackcat-v7 .spx-blackcat-sacrifice-x{
+    position:absolute;z-index:42;left:50%;top:49%;color:rgba(255,57,91,.96);font:900 82px/.7 "Orbitron","Exo 2",sans-serif;pointer-events:none;
+    opacity:0;transform:translate(-50%,-50%) scale(.45) rotate(-9deg);text-shadow:0 0 4px #fff,0 0 13px #ff244f,0 0 25px rgba(255,20,86,.86);transition:opacity .18s ease,transform .22s ease
+}
+.spx-blackcat-v7 .spx-blackcat-own-gallery .spx-blackcat-target-card-native.is-selected .spx-blackcat-sacrifice-x{opacity:.88;transform:translate(-50%,-50%) scale(1) rotate(-4deg)}
+.spx-blackcat-v7 .spx-blackcat-own-gallery .spx-blackcat-target-card-native.is-selected .spx-blackcat-target-card-label{color:#ffd5df;text-shadow:0 0 8px #ff315f,0 0 15px #8d35ff}
+
+/* Each gem reflection keeps the exact pack card renderer. The wrapper only
+   supplies the reason caption and the one-shot selection flare. */
+#packStage:has(> .spx-blackcat-gem-portal){padding-top:208px!important}
+#packStage>.spx-blackcat-gem-portal{min-height:174px!important}
+#packStage .spx-blackcat-portal-cards{
+    min-height:174px!important;
+    gap:8px!important;
+    align-items:center!important;
+    overflow:visible!important;
+}
+#packStage .spx-blackcat-portal-card-option{
+    position:relative;
+    flex:0 0 106px;
+    width:106px;
+    height:168px;
+    display:grid;
+    place-items:start center;
+    overflow:visible;
+    isolation:isolate;
+}
+#packStage .spx-blackcat-portal-card-option>.pack-card-btn,
+#packStage .spx-blackcat-portal-card-option>.joker-card-btn{
+    position:absolute!important;
+    left:50%!important;
+    top:10px!important;
+    right:auto!important;
+    bottom:auto!important;
+    margin:0!important;
+    transform:translateX(-50%) scale(.78) rotate(-4deg)!important;
+    transform-origin:top center!important;
+    filter:drop-shadow(0 0 10px #fff) drop-shadow(0 0 22px var(--gem-color))!important;
+    animation:bcPortalCard 2.3s ease-in-out infinite!important;
+    z-index:2;
+}
+#packStage .spx-blackcat-portal-card-option:nth-child(2)>.pack-card-btn,
+#packStage .spx-blackcat-portal-card-option:nth-child(2)>.joker-card-btn{
+    transform:translateX(-50%) scale(.78) rotate(4deg)!important;
+    animation-delay:-1.15s!important;
+}
+#packStage .spx-blackcat-portal-card-reason{
+    position:absolute;
+    left:-14px;
+    right:-14px;
+    bottom:0;
+    min-height:28px;
+    display:grid;
+    place-items:center;
+    color:#fff;
+    font:900 9px/1.16 "Orbitron","Exo 2",sans-serif;
+    letter-spacing:.07em;
+    text-align:center;
+    text-transform:uppercase;
+    text-wrap:balance;
+    text-shadow:0 0 4px #fff,0 0 10px var(--gem-color),0 0 20px var(--gem-color);
+    z-index:4;
+}
+#packStage .spx-blackcat-gem-portal.is-selecting{pointer-events:none}
+#packStage .spx-blackcat-gem-portal.is-selecting .spx-blackcat-portal-card-option:not(.is-chosen){opacity:.18;filter:blur(1px);transition:.18s ease}
+#packStage .spx-blackcat-portal-card-option.is-chosen{animation:bcGemChosenOption .52s cubic-bezier(.15,.85,.25,1) both;z-index:8}
+#packStage .spx-blackcat-portal-card-option.is-chosen:before,
+#packStage .spx-blackcat-portal-card-option.is-chosen:after{
+    content:"";
+    position:absolute;
+    left:50%;
+    top:48%;
+    width:128px;
+    height:128px;
+    border:3px solid #fff;
+    transform:translate(-50%,-50%) rotate(45deg) scale(.2);
+    box-shadow:0 0 16px #fff,0 0 34px var(--gem-color),inset 0 0 28px var(--gem-color);
+    animation:bcGemChosenBurst .52s cubic-bezier(.15,.85,.25,1) both;
+    pointer-events:none;
+    z-index:5;
+}
+#packStage .spx-blackcat-portal-card-option.is-chosen:after{
+    width:18px;
+    height:150px;
+    border:0;
+    background:linear-gradient(180deg,transparent,#fff 38%,#fff 62%,transparent);
+    filter:drop-shadow(0 0 12px var(--gem-color));
+    animation-delay:.04s;
+}
+#packStage .spx-blackcat-portal-card-option.is-chosen>.pack-card-btn,
+#packStage .spx-blackcat-portal-card-option.is-chosen>.joker-card-btn{
+    animation:bcGemChosenCard .52s cubic-bezier(.15,.85,.25,1) both!important;
+    z-index:7;
+}
+@keyframes bcGemChosenCard{
+    0%{transform:translateX(-50%) scale(.78) rotate(-4deg);filter:drop-shadow(0 0 10px #fff) drop-shadow(0 0 22px var(--gem-color))}
+    48%{transform:translateX(-50%) scale(.93) rotate(0);filter:brightness(1.45) drop-shadow(0 0 22px #fff) drop-shadow(0 0 42px var(--gem-color))}
+    100%{transform:translateX(-50%) scale(.84) rotate(0);filter:brightness(1.12) drop-shadow(0 0 15px #fff) drop-shadow(0 0 30px var(--gem-color))}
+}
+@keyframes bcGemChosenOption{
+    0%{transform:scale(1)}
+    48%{transform:scale(1.14)}
+    100%{transform:scale(1.05)}
+}
+@keyframes bcGemChosenBurst{
+    0%{opacity:0;transform:translate(-50%,-50%) rotate(45deg) scale(.2)}
+    42%{opacity:1}
+    100%{opacity:0;transform:translate(-50%,-50%) rotate(45deg) scale(1.45)}
+}
+@media(max-width:900px){
+    #packStage:has(> .spx-blackcat-gem-portal){padding-top:218px!important}
+    #packStage .spx-blackcat-portal-card-option{flex-basis:94px;width:94px;height:154px}
+    #packStage .spx-blackcat-portal-card-option>.pack-card-btn,
+    #packStage .spx-blackcat-portal-card-option>.joker-card-btn{transform:translateX(-50%) scale(.70) rotate(-4deg)!important}
+    #packStage .spx-blackcat-portal-card-option:nth-child(2)>.pack-card-btn,
+    #packStage .spx-blackcat-portal-card-option:nth-child(2)>.joker-card-btn{transform:translateX(-50%) scale(.70) rotate(4deg)!important}
+}
+@media(prefers-reduced-motion:reduce){
+    #packStage .spx-blackcat-portal-card-option.is-chosen:before,
+    #packStage .spx-blackcat-portal-card-option.is-chosen:after,
+    #packStage .spx-blackcat-portal-card-option.is-chosen,
+    #packStage .spx-blackcat-portal-card-option.is-chosen>.pack-card-btn,
+    #packStage .spx-blackcat-portal-card-option.is-chosen>.joker-card-btn{animation-duration:.01ms!important}
+}

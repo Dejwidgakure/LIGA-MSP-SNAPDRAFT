@@ -1,0 +1,33 @@
+MSP SNAPDRAFT — FINAL QA 02
+
+Baza: SITE FINAL POLISH 01 CUMULATIVE (102 MB).
+Audyt wykonany na realnie spakowanym ZIP-ie.
+
+NAPRAWY:
+- Sala Chwały: widoczna legenda Punktów Legend 8 / 4 / 3 / 2 / 1.
+- Sala Chwały: Punkty draftowe, Śr. punkty, graczowe ładowanie danych.
+- Encyklopedia: ostatnie widoczne „Zobacz addony” -> „Zobacz Rozszerzenia”.
+- Supermoce: „Wróć do Przewodnika” -> „Wróć do Encyklopedii SnapDraftu”.
+- Atlas Tagów: błąd nie pokazuje nazwy tags.js.
+- Kolekcja / profil karty: komunikaty awaryjne nie pokazują nazw cards.js / DraftStatsEngine.
+- Archiwum: widoczny LIVE -> NA ŻYWO; dekoracyjna telemetria po polsku.
+
+QA STATIC ASSETS:
+- sprawdzono wszystkie statyczne src/href w 20 HTML-ach;
+- brak odwołań do plików nieistniejących jednocześnie w patchu i pełnym projekcie bazowym;
+- dynamiczne template refs (${...}) świadomie pominięte.
+
+KANON:
+- Punkty Legend: 8 / 4 / 3 / 2 / 1.
+- globalne rekordy: ukończone drafty.
+- gameplay/database/stat engine: nietknięte.
+
+PATCH102 COMPAT QA — PASS
+- PATCH102 database preserved / not included in this package: PASS
+- stale archive refs draft.mode / draft.bans / draft.presetCard / draftInfo / flow.packBuffer: 0
+- DraftStatsEngine + PATCH102 database mode smoke: PASS (28/28)
+- D26 migrated bans Arishem + Loki visible through V2 path: PASS
+- draft.html inline JS syntax: PASS
+- hallOfFame.html inline JS syntax: PASS
+- archive10-bans.js syntax: PASS
+- draft-stats-engine.js syntax: PASS

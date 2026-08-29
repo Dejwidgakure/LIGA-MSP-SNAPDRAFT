@@ -1,0 +1,56 @@
+
+/* CARD 01J — Collection Hero/Vitrine polish. No navbar selectors. */
+.cards-page{width:min(1450px,calc(100% - 58px))!important}
+.cards-page .page-hero{
+  min-height:430px!important;padding:36px 40px!important;overflow:visible!important;
+  border-color:rgba(154,248,255,.34)!important;
+  background:linear-gradient(135deg,rgba(8,40,57,.42),rgba(6,17,41,.46))!important;
+  box-shadow:0 32px 80px rgba(0,0,0,.27),0 0 38px rgba(75,232,255,.15),0 0 86px rgba(45,208,255,.07),
+    inset 0 1px rgba(255,255,255,.16),inset 0 0 66px rgba(70,230,255,.05)!important;
+  backdrop-filter:blur(13px) saturate(1.25)!important;
+}
+.cards-page .hero-inner{grid-template-columns:minmax(0,1.08fr) minmax(390px,.92fr)!important;gap:38px!important;min-height:350px!important}
+.collection-hero-copy{position:relative;z-index:5;padding:12px 0 20px}
+.cards-page .hero-title{font-size:clamp(36px,4.2vw,60px)!important;line-height:.96!important;text-shadow:0 0 19px rgba(91,240,255,.28),0 0 44px rgba(73,218,255,.12)!important}
+.cards-page .hero-subtitle,.cards-page .museum-object-note{max-width:735px!important}
+.cards-page .hero-subtitle{font-size:16px!important;line-height:1.5!important}
+
+.museum-hero-counts{display:flex;flex-wrap:wrap;gap:10px;margin-top:21px}
+.museum-hero-counts>div{min-width:145px;padding:12px 14px;border:1px solid rgba(163,249,255,.19);border-radius:14px;background:rgba(6,30,47,.38);box-shadow:inset 0 1px rgba(255,255,255,.10),0 0 18px rgba(74,230,255,.06)}
+.museum-hero-counts b{display:block;color:#eaffff;font:900 19px Orbitron,sans-serif}.museum-hero-counts span{display:block;margin-top:4px;color:#83adb8;font-size:9px;font-weight:900;text-transform:uppercase}
+
+.collection-hero-exhibit{position:relative;min-height:350px;isolation:isolate}
+.collection-hidden-metrics{position:absolute;width:1px;height:1px;overflow:hidden;opacity:0;pointer-events:none}
+.hero-holo-vitrine{
+  position:absolute;z-index:5;right:36px;top:4px;width:210px;height:284px;border:1px solid rgba(177,251,255,.35);
+  border-radius:25px 25px 18px 18px;background:linear-gradient(120deg,rgba(255,255,255,.13),transparent 20%,transparent 68%,rgba(106,229,255,.06)),linear-gradient(180deg,rgba(108,239,255,.08),rgba(5,32,51,.24) 32%,rgba(3,18,38,.43));
+  box-shadow:inset 0 1px rgba(255,255,255,.22),inset 0 0 50px rgba(92,235,255,.07),0 0 27px rgba(93,238,255,.17),0 0 70px rgba(39,201,255,.08);
+  backdrop-filter:blur(9px) saturate(1.35);transform:perspective(900px) rotateY(-7deg) rotateX(2deg);
+}
+.hero-vitrine-label{position:absolute;left:50%;top:12px;transform:translateX(-50%);white-space:nowrap;color:#a8eef3;font:900 7px Orbitron,sans-serif;letter-spacing:.12em;opacity:.73}
+.hero-vitrine-beam{position:absolute;z-index:1;right:8px;top:-62px;width:300px;height:440px;opacity:.45;background:linear-gradient(180deg,rgba(118,245,255,.24),rgba(64,221,255,.05) 50%,transparent 84%);clip-path:polygon(42% 0,58% 0,93% 100%,7% 100%);filter:blur(13px)}
+.hero-holo-card{
+  position:absolute;left:50%;top:49px;width:112px;height:156px;transform:translateX(-50%) perspective(800px) rotateY(-8deg);
+  border:2px solid rgba(139,247,255,.73);border-radius:15px;overflow:hidden;color:#ecffff;background:linear-gradient(145deg,rgba(24,100,115,.31),rgba(7,34,65,.55) 48%,rgba(11,19,57,.66));
+  box-shadow:0 0 16px rgba(85,242,255,.48),0 0 36px rgba(46,215,255,.27),inset 0 0 29px rgba(99,238,255,.12);animation:heroMuseumCardFloat 4.2s ease-in-out infinite;transition:opacity .24s ease,filter .24s ease;
+}
+.hero-holo-card::before{content:"";position:absolute;inset:0;opacity:.70;background:radial-gradient(circle at 17% 17%,rgba(255,255,255,.95) 0 .7px,transparent 1.4px),radial-gradient(circle at 79% 26%,rgba(88,240,255,.95) 0 .8px,transparent 1.4px),radial-gradient(circle at 35% 73%,rgba(183,119,255,.92) 0 .7px,transparent 1.4px),radial-gradient(circle at 82% 84%,rgba(255,255,255,.88) 0 .6px,transparent 1.3px),linear-gradient(120deg,transparent 18%,rgba(255,255,255,.13) 37%,transparent 50%)}
+.hero-holo-card.is-changing{opacity:.20;filter:blur(2px) brightness(1.8)}
+.hero-holo-cost,.hero-holo-power{position:absolute;z-index:5;top:-2px;display:grid;place-items:center;width:37px;height:37px;color:#fff;font:900 16px Orbitron,sans-serif;text-shadow:0 2px 3px rgba(0,0,0,.75)}
+.hero-holo-cost{left:-2px;border-radius:50%;background:radial-gradient(circle at 32% 28%,#eaffff,#57caff 31%,#6757ff 63%,#130836);box-shadow:0 0 13px rgba(75,223,255,.70)}
+.hero-holo-power{right:-2px;background:radial-gradient(circle,#fffbdc 3%,#ffe16f 30%,#ffb52b 58%,#7b3100 100%);clip-path:polygon(50% 0%,62% 29%,94% 32%,70% 53%,79% 87%,50% 69%,21% 87%,30% 53%,6% 32%,38% 29%)}
+.hero-holo-name{position:absolute;z-index:4;left:9px;right:9px;bottom:18px;text-align:center;font:900 13px/1.02 Rajdhani,sans-serif;text-transform:uppercase;text-shadow:0 2px 4px rgba(0,0,0,.85),0 0 8px rgba(87,238,255,.50)}
+.hero-holo-scan{position:absolute;z-index:6;left:0;right:0;height:2px;top:20%;opacity:.66;background:linear-gradient(90deg,transparent,#b8ffff,transparent);box-shadow:0 0 8px #55efff;animation:heroHoloScan 2.8s linear infinite}
+.hero-vitrine-plinth{position:absolute;left:50%;bottom:26px;width:136px;height:18px;transform:translateX(-50%) perspective(240px) rotateX(64deg);border-radius:50%;background:rgba(109,241,255,.23);box-shadow:0 0 18px rgba(87,237,255,.58),0 0 44px rgba(79,213,255,.25)}
+.collection-jeff-sticker{position:absolute!important;z-index:7!important;right:196px!important;left:auto!important;bottom:-30px!important;width:clamp(220px,19vw,310px)!important;opacity:.98!important;transform:rotate(-4deg)!important;filter:drop-shadow(0 18px 22px rgba(0,0,0,.40)) drop-shadow(0 0 20px rgba(82,237,255,.25))!important;animation:collectionJeffFloat 6.8s ease-in-out infinite alternate!important}
+
+.cards-page .panel{border-radius:32px!important;border-color:rgba(158,249,255,.30)!important;background:linear-gradient(180deg,rgba(211,253,255,.07),transparent 15%),linear-gradient(145deg,rgba(10,47,64,.39),rgba(7,25,47,.44) 46%,rgba(6,13,32,.55))!important;box-shadow:0 25px 58px rgba(0,0,0,.24),0 0 30px rgba(79,235,255,.115),0 0 74px rgba(65,210,255,.06),inset 0 1px rgba(255,255,255,.16),inset 0 0 36px rgba(99,240,255,.055)!important;backdrop-filter:blur(15px) saturate(1.27)!important}
+.cards-page .panel-inner{padding:35px 37px!important}.cards-page .museum-nav-panel{margin-top:36px!important;margin-bottom:44px!important}
+.cards-page .museum-curator-strip{gap:20px!important;margin-top:44px!important;margin-bottom:50px!important}
+.cards-page .museum-curator-card{min-height:255px!important;padding:26px 24px!important;border-radius:25px!important;border-color:rgba(161,250,255,.32)!important;background:linear-gradient(180deg,rgba(219,254,255,.075),transparent 15%),linear-gradient(145deg,rgba(14,60,78,.37),rgba(8,29,53,.44) 48%,rgba(7,16,37,.57))!important;box-shadow:0 24px 50px rgba(0,0,0,.23),0 0 26px rgba(92,239,255,.12),0 0 62px rgba(70,218,255,.055),inset 0 1px rgba(255,255,255,.16)!important}
+.cards-page .collection-section-heading{margin-bottom:25px!important}.cards-page .section-title{font-size:clamp(25px,2.1vw,35px)!important}.cards-page .data-grid{gap:20px!important}
+@keyframes collectionJeffFloat{from{transform:translateY(3px) rotate(-4.5deg)}to{transform:translateY(-9px) rotate(-2.7deg)}}
+@keyframes heroMuseumCardFloat{0%,100%{translate:0 0}50%{translate:0 -9px}}@keyframes heroHoloScan{from{top:17%;opacity:.22}45%{opacity:.90}to{top:86%;opacity:.18}}
+@media(max-width:980px){.cards-page .hero-inner{grid-template-columns:1fr!important}.collection-hero-exhibit{min-height:315px}.hero-holo-vitrine{right:13%}.collection-jeff-sticker{right:35%!important}}
+@media(max-width:640px){.cards-page{width:calc(100% - 22px)!important}.cards-page .page-hero{padding:25px 18px!important}.hero-holo-vitrine{right:7%;width:180px;height:255px}.collection-jeff-sticker{right:auto!important;left:-3%!important;width:205px!important;opacity:.88!important}.museum-hero-counts>div{min-width:0;flex:1 1 115px}}
+@media(prefers-reduced-motion:reduce){.collection-jeff-sticker,.hero-holo-card,.hero-holo-scan{animation:none!important}}

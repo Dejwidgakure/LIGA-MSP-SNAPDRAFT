@@ -1,0 +1,294 @@
+
+/* =========================================================
+   ARCHIVE 10 — MOST BANNED CARDS
+   Gwiezdne Archiwum Danych only. Navbar untouched.
+========================================================= */
+
+.ban-archive-panel{
+  position:relative;
+  margin-top:22px;
+  padding:22px;
+  overflow:hidden;
+  border-color:rgba(255,78,103,.20)!important;
+  background:
+    linear-gradient(180deg,rgba(255,255,255,.025),transparent 18%),
+    radial-gradient(circle at 92% 0,rgba(255,65,96,.13),transparent 31%),
+    radial-gradient(circle at 8% 100%,rgba(0,240,255,.055),transparent 28%),
+    linear-gradient(145deg,rgba(41,5,20,.36),rgba(3,12,31,.67))!important;
+  box-shadow:
+    inset 0 0 42px rgba(255,61,91,.025),
+    0 0 30px rgba(255,61,91,.05)!important;
+}
+
+.ban-archive-panel::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  opacity:.20;
+  background:
+    linear-gradient(rgba(255,80,102,.13) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,80,102,.09) 1px,transparent 1px);
+  background-size:27px 27px;
+  mask-image:linear-gradient(90deg,transparent,black 12%,black 88%,transparent);
+}
+
+.ban-archive-panel::after{
+  content:"BAN ARCHIVE";
+  position:absolute;
+  right:-8px;
+  bottom:-22px;
+  color:rgba(255,83,107,.035);
+  font:900 clamp(54px,8vw,112px)/1 Orbitron,sans-serif;
+  letter-spacing:.08em;
+  pointer-events:none;
+}
+
+.ban-archive-head,
+.ban-card-grid{
+  position:relative;
+  z-index:2;
+}
+
+.ban-archive-head{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:24px;
+  margin-bottom:19px;
+}
+
+.ban-archive-head h3{
+  margin:4px 0 7px;
+  color:#fff;
+  font:900 21px Orbitron,sans-serif;
+  letter-spacing:.04em;
+  text-transform:uppercase;
+}
+
+.ban-archive-head p{
+  max-width:720px;
+  margin:0;
+  color:#a9c4ce;
+  line-height:1.48;
+}
+
+.permanent-ban-note{
+  flex:0 0 min(340px,35%);
+  padding:13px 15px;
+  border:1px solid rgba(255,78,103,.20);
+  border-radius:15px;
+  background:
+    linear-gradient(135deg,rgba(255,75,103,.08),rgba(4,13,31,.51));
+}
+
+.permanent-ban-note span{
+  display:block;
+  color:#ff8296;
+  font:900 8px Orbitron,sans-serif;
+  letter-spacing:.12em;
+}
+
+.permanent-ban-note b{
+  display:block;
+  margin-top:5px;
+  color:#fff1f3;
+  font:900 14px Orbitron,sans-serif;
+}
+
+.permanent-ban-note small{
+  display:block;
+  margin-top:5px;
+  color:#9fb4bc;
+  line-height:1.3;
+}
+
+.ban-card-grid{
+  display:grid;
+  grid-template-columns:repeat(5,minmax(0,1fr));
+  gap:13px;
+}
+
+.ban-stat-card{
+  position:relative;
+  min-width:0;
+  aspect-ratio:5/7;
+  display:block;
+  overflow:visible;
+  border-radius:15px;
+  text-decoration:none;
+  isolation:isolate;
+  transform:translateZ(0);
+}
+
+.ban-card-shell{
+  position:absolute;
+  inset:0;
+  overflow:hidden;
+  border:2px solid rgba(255,76,101,.82);
+  border-radius:15px;
+  background:
+    linear-gradient(rgba(31,4,14,.70),rgba(19,3,14,.78)),
+    url("galaxytool.png") center/cover no-repeat;
+  box-shadow:
+    0 15px 28px rgba(0,0,0,.43),
+    0 0 16px rgba(255,61,91,.23),
+    inset 0 0 28px rgba(255,55,89,.08);
+  transition:.22s ease;
+}
+
+.ban-card-shell::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:2;
+  pointer-events:none;
+  opacity:.44;
+  background:
+    linear-gradient(rgba(255,80,102,.18) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,80,102,.13) 1px,transparent 1px),
+    linear-gradient(112deg,transparent 0 44%,rgba(255,109,125,.12) 44.5%,transparent 45%);
+  background-size:14px 14px,14px 14px,100% 100%;
+}
+
+.ban-card-shell::after{
+  content:"NIEDOSTĘPNA";
+  position:absolute;
+  z-index:5;
+  left:50%;
+  top:49%;
+  width:115%;
+  padding:6px 3px;
+  border-top:2px solid rgba(255,213,218,.58);
+  border-bottom:2px solid rgba(255,213,218,.58);
+  color:rgba(255,238,241,.90);
+  background:rgba(131,8,30,.78);
+  box-shadow:0 0 18px rgba(255,49,79,.25);
+  font:900 clamp(8px,.75vw,11px) Orbitron,sans-serif;
+  letter-spacing:.13em;
+  text-align:center;
+  transform:translate(-50%,-50%) rotate(-11deg);
+}
+
+.ban-stat-card:hover .ban-card-shell{
+  transform:translateY(-4px) scale(1.015);
+  border-color:#ff8a9c;
+  box-shadow:
+    0 19px 34px rgba(0,0,0,.48),
+    0 0 24px rgba(255,61,91,.34),
+    inset 0 0 32px rgba(255,55,89,.10);
+}
+
+.ban-rank{
+  position:absolute;
+  z-index:7;
+  left:8px;
+  top:8px;
+  min-width:26px;
+  height:26px;
+  display:grid;
+  place-items:center;
+  border:1px solid rgba(255,189,198,.30);
+  border-radius:8px;
+  color:#ffd7de;
+  background:rgba(72,3,19,.88);
+  font:900 10px Orbitron,sans-serif;
+  box-shadow:0 0 12px rgba(255,60,89,.14);
+}
+
+.ban-cost,
+.ban-power{
+  position:absolute;
+  z-index:8;
+  top:-10px;
+  width:39px;
+  height:39px;
+  display:grid;
+  place-items:center;
+  color:white;
+  font:1000 15px Orbitron,sans-serif;
+  text-shadow:0 2px 4px rgba(0,0,0,.92);
+}
+
+.ban-cost{
+  left:-10px;
+  border-radius:50%;
+  background:
+    radial-gradient(circle at 35% 28%,#efffff 0 7%,#72c5ff 23%,#555dff 51%,#26145f 75%,#0b0827);
+  box-shadow:0 0 13px rgba(92,195,255,.62);
+}
+
+.ban-cost::after{
+  content:"";
+  position:absolute;
+  z-index:-1;
+  left:-6px;
+  top:20px;
+  width:49px;
+  height:6px;
+  border-radius:99px;
+  background:linear-gradient(90deg,transparent,rgba(202,247,255,.35),rgba(255,255,255,.44),rgba(154,195,255,.25),transparent);
+  transform:rotate(-17deg);
+}
+
+.ban-power{
+  right:-11px;
+  background:
+    radial-gradient(circle at 30% 27%,#fff 0 9%,#fff1b5 22%,#ffc64c 50%,#9e4b00 77%,#391200);
+  clip-path:polygon(50% 0%,62% 28%,92% 32%,70% 52%,78% 84%,50% 68%,22% 84%,30% 52%,8% 32%,38% 28%);
+  box-shadow:0 0 18px rgba(255,196,57,.47);
+}
+
+.ban-card-name{
+  position:absolute;
+  z-index:7;
+  left:8px;
+  right:8px;
+  bottom:38px;
+  color:#fff;
+  font:900 clamp(10px,.9vw,13px)/1.02 Rajdhani,sans-serif;
+  text-align:center;
+  text-shadow:0 2px 5px #000,0 0 9px rgba(255,72,103,.32);
+  text-wrap:balance;
+}
+
+.ban-card-count{
+  position:absolute;
+  z-index:7;
+  left:7px;
+  right:7px;
+  bottom:7px;
+  padding:6px 4px;
+  border:1px solid rgba(255,96,117,.18);
+  border-radius:8px;
+  color:#ffb2bd;
+  background:rgba(61,3,18,.72);
+  font:900 clamp(8px,.72vw,10px) Orbitron,sans-serif;
+  text-align:center;
+}
+
+.ban-cards-loading,
+.ban-cards-empty{
+  grid-column:1/-1;
+  padding:20px;
+  border:1px solid rgba(255,90,112,.13);
+  border-radius:14px;
+  color:#aebfc5;
+  background:rgba(34,4,17,.25);
+  text-align:center;
+}
+
+@media(max-width:1100px){
+  .ban-card-grid{grid-template-columns:repeat(4,minmax(0,1fr))}
+  .ban-archive-head{flex-direction:column}
+  .permanent-ban-note{flex-basis:auto;width:100%}
+}
+
+@media(max-width:760px){
+  .ban-card-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+  .ban-archive-panel{padding:16px}
+}
+
+@media(max-width:430px){
+  .ban-card-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+}

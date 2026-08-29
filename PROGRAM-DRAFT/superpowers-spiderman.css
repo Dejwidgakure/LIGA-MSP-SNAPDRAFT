@@ -1,0 +1,811 @@
+/*
+ * MSP SnapDraft — Spider-Man / PAJĘCZA SIEĆ
+ * PATCH 13. Wszystkie selektory są ograniczone do elementów spx-spider-*.
+ */
+
+#spxSpiderHud[hidden],
+#spxSpiderWebLayer[hidden]{
+    display:none!important;
+}
+
+#spxSpiderHud{
+    position:fixed;
+    z-index:9994;
+    left:50%;
+    top:14px;
+    width:min(880px,calc(100vw - 28px));
+    min-height:78px;
+    transform:translateX(-50%);
+    display:grid;
+    grid-template-columns:64px minmax(0,1fr) auto auto;
+    align-items:center;
+    gap:14px;
+    padding:9px 12px 9px 10px;
+    border:1px solid rgba(255,65,65,.84);
+    border-radius:22px;
+    color:#eef7ff;
+    background:
+        radial-gradient(circle at 9% 45%,rgba(255,48,48,.28),transparent 28%),
+        linear-gradient(110deg,rgba(9,15,38,.82),rgba(18,25,58,.76) 56%,rgba(7,12,31,.86)),
+        url("draft-assets/spiderman_modal_bg.png") center 47%/cover no-repeat,
+        #071127;
+    box-shadow:
+        0 0 0 1px rgba(85,181,255,.24) inset,
+        0 0 22px rgba(255,41,41,.34),
+        0 12px 34px rgba(0,0,0,.55);
+    overflow:hidden;
+}
+
+#spxSpiderHud::before,
+#spxSpiderHud::after{
+    content:"";
+    position:absolute;
+    width:118px;
+    height:118px;
+    opacity:.28;
+    pointer-events:none;
+    background:
+        repeating-conic-gradient(from 0deg,rgba(220,240,255,.84) 0 1deg,transparent 1deg 17deg);
+    border-radius:50%;
+}
+
+#spxSpiderHud::before{left:-55px;top:-62px}
+#spxSpiderHud::after{right:-52px;bottom:-68px}
+
+.spx-spider-hud-symbol{
+    position:relative;
+    z-index:1;
+    width:60px;
+    height:60px;
+    display:grid;
+    place-items:center;
+    border-radius:50%;
+    background:
+        radial-gradient(circle,#152c5f 0 44%,#e8333e 46% 52%,#071127 54%);
+    box-shadow:0 0 16px rgba(255,55,65,.7),0 0 22px rgba(77,172,255,.34) inset;
+}
+
+.spx-spider-hud-symbol::before{
+    content:"";
+    width:37px;
+    height:37px;
+    border:2px solid #eef8ff;
+    border-radius:50%;
+    background:
+        linear-gradient(90deg,transparent 47%,#eef8ff 48% 52%,transparent 53%),
+        linear-gradient(0deg,transparent 47%,#eef8ff 48% 52%,transparent 53%),
+        repeating-conic-gradient(from 0deg,transparent 0 19deg,#eef8ff 20deg 22deg,transparent 23deg 44deg);
+    filter:drop-shadow(0 0 5px rgba(211,238,255,.85));
+}
+
+.spx-spider-hud-copy{
+    position:relative;
+    z-index:1;
+    min-width:0;
+}
+
+.spx-spider-hud-copy strong{
+    display:block;
+    margin-bottom:3px;
+    color:#ff4b55;
+    font:900 18px/1 'Orbitron',sans-serif;
+    letter-spacing:.08em;
+    text-shadow:0 0 11px rgba(255,53,64,.78);
+}
+
+.spx-spider-hud-copy span{
+    display:block;
+    color:#dceeff;
+    font:700 15px/1.25 'Rajdhani',sans-serif;
+}
+
+.spx-spider-cancel,
+.spx-spider-confirm{
+    position:relative;
+    z-index:1;
+    min-height:38px;
+    padding:8px 15px;
+    border:1px solid rgba(112,195,255,.58);
+    border-radius:999px;
+    color:#dff5ff;
+    background:rgba(5,16,42,.8);
+    font:900 12px/1 'Orbitron',sans-serif;
+    cursor:pointer;
+    box-shadow:0 0 12px rgba(51,159,255,.2);
+}
+
+.spx-spider-confirm{
+    border-color:rgba(255,75,85,.72);
+    color:#fff4c6;
+    background:linear-gradient(135deg,rgba(142,12,34,.88),rgba(12,54,104,.9));
+    box-shadow:0 0 15px rgba(255,55,65,.3),0 0 12px rgba(51,159,255,.2) inset;
+}
+.spx-spider-confirm:disabled{
+    opacity:.4;
+    cursor:not-allowed;
+    filter:grayscale(.65);
+}
+
+.spx-spider-cancel:hover{
+    border-color:#ff4b55;
+    box-shadow:0 0 17px rgba(255,55,65,.4);
+}
+
+body.spx-spider-selecting #pack .pack-card-btn.spx-spider-selected{
+    filter:saturate(1.25) brightness(1.1);
+    box-shadow:
+        0 0 0 3px #f4fbff,
+        0 0 0 7px rgba(255,43,61,.72),
+        0 0 32px rgba(54,163,255,.72);
+    transform:translateY(-7px) scale(1.03);
+}
+
+body.spx-spider-selecting #pack .pack-card-btn.spx-spider-selected::after{
+    opacity:.82;
+    background:
+        radial-gradient(circle at 50% 50%,transparent 0 17%,rgba(244,251,255,.9) 18% 20%,transparent 21% 35%,rgba(244,251,255,.75) 36% 38%,transparent 39%),
+        repeating-conic-gradient(from 0deg,transparent 0 18deg,rgba(244,251,255,.92) 19deg 21deg,transparent 22deg 43deg);
+}
+
+body.spx-spider-selecting #pack .pack-card-btn{
+    transition:transform .18s ease,filter .18s ease,opacity .18s ease,box-shadow .18s ease;
+}
+
+body.spx-spider-selecting #pack .pack-card-btn.spx-spider-candidate{
+    position:relative;
+    z-index:3;
+    cursor:crosshair;
+    filter:saturate(1.18) brightness(1.08);
+    box-shadow:
+        0 0 0 2px rgba(255,54,65,.88),
+        0 0 0 5px rgba(61,158,255,.35),
+        0 0 28px rgba(255,44,58,.58),
+        0 0 44px rgba(45,151,255,.34);
+    animation:spxSpiderCandidatePulse 1.15s ease-in-out infinite alternate;
+}
+
+body.spx-spider-selecting #pack .pack-card-btn.spx-spider-candidate::before,
+body.spx-spider-selecting #pack .pack-card-btn.spx-spider-candidate::after{
+    content:"";
+    position:absolute;
+    inset:-4px;
+    z-index:5;
+    pointer-events:none;
+    border-radius:18px;
+    background:
+        linear-gradient(90deg,#f3fbff 0 14px,transparent 14px calc(100% - 14px),#f3fbff calc(100% - 14px)) top/100% 2px no-repeat,
+        linear-gradient(90deg,#f3fbff 0 14px,transparent 14px calc(100% - 14px),#f3fbff calc(100% - 14px)) bottom/100% 2px no-repeat,
+        linear-gradient(#f3fbff 0 14px,transparent 14px calc(100% - 14px),#f3fbff calc(100% - 14px)) left/2px 100% no-repeat,
+        linear-gradient(#f3fbff 0 14px,transparent 14px calc(100% - 14px),#f3fbff calc(100% - 14px)) right/2px 100% no-repeat;
+    opacity:.48;
+}
+
+body.spx-spider-selecting #pack .pack-card-btn.spx-spider-candidate:hover{
+    transform:translateY(-8px) scale(1.035);
+    filter:saturate(1.35) brightness(1.15);
+}
+
+body.spx-spider-selecting #pack .pack-card-btn.spx-spider-ineligible{
+    opacity:.34;
+    filter:grayscale(.72) brightness(.64);
+}
+
+@keyframes spxSpiderCandidatePulse{
+    from{box-shadow:0 0 0 2px rgba(255,54,65,.72),0 0 0 4px rgba(61,158,255,.25),0 0 18px rgba(255,44,58,.34)}
+    to{box-shadow:0 0 0 2px rgba(255,76,86,1),0 0 0 7px rgba(61,158,255,.42),0 0 38px rgba(255,44,58,.72)}
+}
+
+#pack .pack-card-btn.spx-spider-reserved{
+    position:relative;
+    isolation:isolate;
+    cursor:not-allowed;
+    filter:saturate(.82) brightness(.8);
+    box-shadow:
+        0 0 0 2px rgba(238,247,255,.88),
+        0 0 0 5px rgba(221,33,48,.48),
+        0 0 30px rgba(47,138,255,.46);
+}
+
+#pack .pack-card-btn.spx-spider-reserved::before{
+    content:"";
+    position:absolute;
+    inset:-5px;
+    z-index:8;
+    pointer-events:none;
+    border-radius:17px;
+    background:
+        radial-gradient(circle at 50% 50%,transparent 0 17%,rgba(237,248,255,.72) 18% 19%,transparent 20% 34%,rgba(237,248,255,.6) 35% 36%,transparent 37%),
+        repeating-conic-gradient(from 0deg,transparent 0 19deg,rgba(238,248,255,.84) 20deg 22deg,transparent 23deg 44deg);
+    opacity:.82;
+    filter:drop-shadow(0 0 4px rgba(184,224,255,.78));
+    animation:spxSpiderWebBreathe 1.8s ease-in-out infinite alternate;
+}
+
+#pack .pack-card-btn.spx-spider-reserved::after{
+    content:attr(data-spider-owner);
+    position:absolute;
+    z-index:12;
+    left:50%;
+    top:8px;
+    transform:translateX(-50%);
+    max-width:calc(100% - 12px);
+    padding:5px 8px;
+    border:1px solid rgba(255,255,255,.68);
+    border-radius:999px;
+    color:#fff;
+    background:linear-gradient(90deg,rgba(190,24,39,.94),rgba(13,59,126,.94));
+    font:900 9px/1.1 'Orbitron',sans-serif;
+    letter-spacing:.04em;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    text-shadow:0 1px 2px #000;
+    box-shadow:0 0 12px rgba(255,40,55,.45);
+}
+
+#pack .pack-card-btn.spx-spider-owner-ready{
+    cursor:pointer;
+    filter:saturate(1.18) brightness(1.08);
+    box-shadow:
+        0 0 0 2px #fff,
+        0 0 0 6px rgba(255,48,62,.62),
+        0 0 35px rgba(59,162,255,.75);
+    animation:spxSpiderOwnerReady .82s ease-in-out infinite alternate;
+}
+
+#pack .pack-card-btn.spx-spider-owner-ready::after{
+    content:"TWOJA SIEĆ — " attr(data-spider-owner);
+}
+
+#pack .pack-card-btn.spx-spider-blocked-hit{
+    animation:spxSpiderBlockedHit .38s ease 2!important;
+}
+
+@keyframes spxSpiderWebBreathe{
+    from{opacity:.58;transform:scale(.985)}
+    to{opacity:.96;transform:scale(1.018)}
+}
+
+@keyframes spxSpiderOwnerReady{
+    from{transform:translateY(0);filter:saturate(1.08) brightness(1)}
+    to{transform:translateY(-4px);filter:saturate(1.3) brightness(1.16)}
+}
+
+@keyframes spxSpiderBlockedHit{
+    0%,100%{transform:translateX(0)}
+    25%{transform:translateX(-7px) rotate(-1deg)}
+    75%{transform:translateX(7px) rotate(1deg)}
+}
+
+#spxSpiderWebLayer{
+    position:fixed;
+    inset:0;
+    z-index:9997;
+    pointer-events:none;
+    overflow:hidden;
+}
+
+.spx-spider-shot{
+    position:absolute;
+    left:var(--spx-spider-start-x);
+    top:var(--spx-spider-start-y);
+    width:var(--spx-spider-distance);
+    height:8px;
+    transform-origin:0 50%;
+    transform:rotate(var(--spx-spider-angle));
+    border-radius:999px;
+    background:
+        linear-gradient(180deg,transparent 0 20%,#f4fbff 21% 42%,rgba(101,184,255,.9) 43% 58%,#f4fbff 59% 80%,transparent 81%);
+    box-shadow:0 0 9px #fff,0 0 22px rgba(69,164,255,.88);
+    animation:spxSpiderShoot .62s cubic-bezier(.2,.8,.2,1) both;
+}
+
+.spx-spider-shot::before,
+.spx-spider-shot::after{
+    content:"";
+    position:absolute;
+    inset:-11px 0;
+    background:
+        repeating-linear-gradient(24deg,transparent 0 15px,rgba(237,248,255,.76) 16px 18px,transparent 19px 30px);
+    opacity:.8;
+}
+
+.spx-spider-impact{
+    position:absolute;
+    left:var(--spx-spider-end-x);
+    top:var(--spx-spider-end-y);
+    width:170px;
+    height:170px;
+    transform:translate(-50%,-50%);
+    border-radius:50%;
+    background:
+        radial-gradient(circle,rgba(255,255,255,.9) 0 3%,transparent 4% 20%,rgba(221,242,255,.82) 21% 23%,transparent 24% 42%,rgba(78,166,255,.58) 43% 45%,transparent 46%),
+        repeating-conic-gradient(transparent 0 18deg,rgba(241,250,255,.8) 19deg 21deg,transparent 22deg 43deg);
+    filter:drop-shadow(0 0 13px rgba(255,255,255,.9)) drop-shadow(0 0 22px rgba(255,41,57,.65));
+    animation:spxSpiderImpact .78s ease-out both;
+}
+
+@keyframes spxSpiderShoot{
+    from{clip-path:inset(0 100% 0 0);opacity:0}
+    18%{opacity:1}
+    to{clip-path:inset(0 0 0 0);opacity:1}
+}
+
+@keyframes spxSpiderImpact{
+    from{opacity:0;transform:translate(-50%,-50%) scale(.15) rotate(-35deg)}
+    48%{opacity:1}
+    to{opacity:0;transform:translate(-50%,-50%) scale(1.18) rotate(12deg)}
+}
+
+@media(max-width:720px){
+    #spxSpiderHud{
+        top:8px;
+        grid-template-columns:48px minmax(0,1fr);
+        gap:9px;
+        min-height:66px;
+        padding:8px;
+    }
+    .spx-spider-hud-symbol{width:46px;height:46px}
+    .spx-spider-hud-symbol::before{width:29px;height:29px}
+    .spx-spider-hud-copy strong{font-size:14px}
+    .spx-spider-hud-copy span{font-size:13px}
+    .spx-spider-confirm,
+    .spx-spider-cancel{grid-column:auto;min-height:32px}
+}
+
+@media(prefers-reduced-motion:reduce){
+    #pack .pack-card-btn.spx-spider-reserved,
+    #pack .pack-card-btn.spx-spider-owner-ready,
+    body.spx-spider-selecting #pack .pack-card-btn.spx-spider-candidate{
+        animation:none!important;
+    }
+}
+
+/* FINAL POLISH — Spider-Sense to pająk i krótkie, czerwono-niebieskie fale,
+   bez dawnych okręgów orbitujących wokół karty. */
+body.spx-spider-selecting #pack [data-pack-index].spx-spider-candidate::after{
+    right:-12px!important;top:4px!important;width:86px!important;height:74px!important;
+    border:0!important;border-radius:0!important;opacity:.9!important;
+    background:
+        radial-gradient(ellipse at 84% 22%,transparent 0 38%,rgba(244,247,255,.95) 40% 42%,transparent 44%),
+        radial-gradient(ellipse at 82% 46%,transparent 0 43%,rgba(51,159,255,.9) 45% 48%,transparent 50%),
+        radial-gradient(ellipse at 78% 72%,transparent 0 49%,rgba(239,39,61,.88) 51% 54%,transparent 56%)!important;
+    filter:drop-shadow(-3px 0 rgba(239,39,61,.5)) drop-shadow(3px 0 rgba(42,157,255,.55))!important;
+    animation:spxSpiderSenseWaves .9s ease-in-out infinite alternate!important;
+}
+body.spx-spider-selecting #pack [data-pack-index].spx-spider-selected::after{width:98px!important;height:84px!important;opacity:1!important;}
+@keyframes spxSpiderSenseWaves{from{transform:translateX(-4px) scale(.9);opacity:.5}to{transform:translateX(4px) scale(1.05);opacity:1}}
+
+/* PATCH 39.4 FULL VISUAL — Spider-Sense i zaakceptowane assety */
+body.spx-spider-selecting #pack .pack-card-btn.spx-spider-candidate{
+    isolation:isolate;
+    outline:0!important;
+    box-shadow:0 0 18px rgba(50,154,255,.28),0 0 22px rgba(236,38,55,.22)!important;
+    animation:none;
+}
+
+body.spx-spider-selecting #pack .pack-card-btn.spx-spider-candidate::before{
+    content:"";
+    position:absolute;
+    z-index:13;
+    right:7px;
+    top:5px;
+    width:62px;
+    height:84px;
+    inset:auto 7px auto auto;
+    border:0;
+    border-radius:0;
+    background:url("draft-assets/spiderman_chibi_spider_topdown.png") center/contain no-repeat;
+    opacity:.9;
+    filter:drop-shadow(-3px 0 0 rgba(255,32,50,.38)) drop-shadow(3px 0 0 rgba(30,154,255,.38)) drop-shadow(0 0 7px #fff);
+    animation:spxSpiderSenseGlitch 2.2s steps(1,end) infinite;
+}
+
+body.spx-spider-selecting #pack .pack-card-btn.spx-spider-candidate::after{
+    content:"";
+    position:absolute;
+    z-index:12;
+    right:-5px;
+    top:-5px;
+    width:70px;
+    height:70px;
+    inset:-5px -5px auto auto;
+    border:3px solid rgba(239,248,255,.92);
+    border-left-color:transparent;
+    border-bottom-color:rgba(55,158,255,.78);
+    border-radius:50%;
+    background:none;
+    opacity:.64;
+    filter:drop-shadow(0 0 5px rgba(255,255,255,.85)) drop-shadow(0 0 9px rgba(50,151,255,.72));
+    animation:spxSpiderSenseArc 1.05s ease-in-out infinite;
+}
+
+body.spx-spider-selecting #pack .pack-card-btn.spx-spider-candidate:hover::before,
+body.spx-spider-selecting #pack .pack-card-btn.spx-spider-selected::before{
+    width:72px;
+    height:98px;
+    opacity:1;
+    filter:drop-shadow(-5px 0 0 rgba(255,32,50,.55)) drop-shadow(5px 0 0 rgba(25,153,255,.55)) drop-shadow(0 0 11px #fff);
+}
+
+body.spx-spider-selecting #pack .pack-card-btn.spx-spider-selected{
+    box-shadow:0 0 0 2px #f7fbff,0 0 0 5px rgba(225,31,50,.72),0 0 28px rgba(48,157,255,.72)!important;
+}
+
+body.spx-spider-selecting #pack .pack-card-btn.spx-spider-selected::after{
+    width:82px;
+    height:82px;
+    inset:-11px -11px auto auto;
+    border:4px solid #fff;
+    border-left-color:#ee2e47;
+    border-bottom-color:#3ca3ff;
+    background:none;
+    opacity:.95;
+}
+
+#pack .pack-card-btn.spx-spider-reserved::before{
+    inset:-4px;
+    z-index:8;
+    border:0;
+    border-radius:17px;
+    background-image:url("draft-assets/spiderman_chibi_spider_topdown.png"),url("draft-assets/spiderman_web_overlay_portrait.png");
+    background-repeat:no-repeat,no-repeat;
+    background-size:40px 52px,100% 100%;
+    background-position:11% 21%,center;
+    opacity:.93;
+    filter:drop-shadow(-2px 0 rgba(239,37,56,.42)) drop-shadow(2px 0 rgba(39,154,255,.48)) drop-shadow(0 0 5px rgba(210,239,255,.9));
+    animation:spxSpiderWebAlive 6.2s steps(1,end) infinite,spxSpiderWebBreathe 1.8s ease-in-out infinite alternate,spxSpiderWebRgb 3.7s steps(1,end) infinite;
+}
+
+#pack .pack-card-btn.spx-spider-reserved::after{
+    content:"PAJĘCZYNA GRACZA: " attr(data-spider-owner);
+    left:8px;
+    right:8px;
+    top:auto;
+    bottom:5px;
+    transform:none;
+    max-width:none;
+    padding:3px 2px;
+    border:0;
+    border-radius:0;
+    color:#f8fbff;
+    background:none;
+    box-shadow:none;
+    font-size:9px;
+    line-height:1.25;
+    white-space:normal;
+    overflow:visible;
+    text-overflow:clip;
+    text-align:center;
+    overflow-wrap:anywhere;
+    text-shadow:-2px 0 #e72843,2px 0 #269cff,0 1px 3px #000,0 0 7px #fff;
+    animation:spxSpiderOwnerRgb 3.7s steps(1,end) infinite;
+}
+
+#pack .pack-card-btn.spx-spider-owner-ready::after{
+    content:"PAJĘCZYNA GOTOWA: " attr(data-spider-owner);
+    color:#fff4d0;
+}
+
+.spx-spider-hud-symbol{
+    width:74px;
+    height:74px;
+    border-radius:0;
+    background:url("draft-assets/spiderman_chibi_spider_front.png") center/145% auto no-repeat;
+    box-shadow:none;
+    filter:drop-shadow(-3px 0 rgba(232,39,59,.5)) drop-shadow(3px 0 rgba(39,155,255,.55)) drop-shadow(0 0 8px #fff);
+}
+#spxSpiderHud{grid-template-columns:76px minmax(0,1fr) auto auto}
+.spx-spider-hud-symbol::before{
+    position:absolute;
+    inset:-12px;
+    z-index:-1;
+    width:auto;
+    height:auto;
+    border:0;
+    border-radius:0;
+    background:url("draft-assets/spiderman_web_overlay_portrait.png") center/contain no-repeat;
+    opacity:.7;
+    filter:drop-shadow(0 0 5px rgba(213,241,255,.9));
+    animation:spxSpiderSenseArc 1.6s ease-in-out infinite alternate;
+}
+
+@keyframes spxSpiderSenseArc{
+    0%,100%{transform:scale(.82) rotate(-18deg);opacity:.38}
+    48%{transform:scale(1.06) rotate(9deg);opacity:1}
+}
+
+@keyframes spxSpiderSenseGlitch{
+    0%,82%,100%{transform:translate(0,0)}
+    84%{transform:translate(-3px,1px)}
+    87%{transform:translate(3px,-1px)}
+    90%{transform:translate(0,0)}
+}
+
+@keyframes spxSpiderWebAlive{
+    0%,72%,100%{background-position:11% 21%,center}
+    76%{background-position:42% 43%,center}
+    80%{background-position:68% 67%,center}
+    84%{background-position:70% 63%,center}
+}
+
+@keyframes spxSpiderWebRgb{
+    0%,76%,100%{filter:drop-shadow(-2px 0 rgba(239,37,56,.42)) drop-shadow(2px 0 rgba(39,154,255,.48)) drop-shadow(0 0 5px rgba(210,239,255,.9))}
+    79%{filter:drop-shadow(-6px 1px rgba(239,37,56,.74)) drop-shadow(5px -1px rgba(39,154,255,.76)) drop-shadow(0 0 8px #fff)}
+    82%{filter:drop-shadow(4px -1px rgba(239,37,56,.66)) drop-shadow(-5px 1px rgba(39,154,255,.72)) drop-shadow(0 0 6px #fff)}
+    85%{filter:drop-shadow(-2px 0 rgba(239,37,56,.42)) drop-shadow(2px 0 rgba(39,154,255,.48)) drop-shadow(0 0 5px rgba(210,239,255,.9))}
+}
+
+@keyframes spxSpiderOwnerRgb{
+    0%,76%,100%{transform:translate(0,0);text-shadow:-2px 0 #e72843,2px 0 #269cff,0 1px 3px #000,0 0 7px #fff}
+    79%{transform:translateX(-1px);text-shadow:-5px 0 #e72843,4px 0 #269cff,0 1px 3px #000}
+    82%{transform:translateX(1px);text-shadow:4px 0 #e72843,-5px 0 #269cff,0 1px 3px #000}
+    85%{transform:translate(0,0);text-shadow:-2px 0 #e72843,2px 0 #269cff,0 1px 3px #000,0 0 7px #fff}
+}
+
+@media(max-width:720px){
+    #spxSpiderHud{grid-template-columns:56px minmax(0,1fr)}
+    .spx-spider-hud-symbol{width:54px;height:54px;background-size:145% auto}
+}
+
+@media(prefers-reduced-motion:reduce){
+    body.spx-spider-selecting #pack .pack-card-btn.spx-spider-candidate::before,
+    body.spx-spider-selecting #pack .pack-card-btn.spx-spider-candidate::after,
+    #pack .pack-card-btn.spx-spider-reserved::before{animation:none!important}
+}
+
+
+/* =========================================================
+   PATCH100B — Spider-Man reserved-card layering on Jokers
+   ========================================================= */
+body.spx-spider-selecting #pack [data-pack-index].spx-spider-candidate:hover{
+    transform:translateY(-8px) scale(1.035);
+    filter:saturate(1.35) brightness(1.15);
+}
+body.spx-spider-selecting #pack [data-pack-index].spx-spider-ineligible{
+    opacity:.34;
+    filter:grayscale(.72) brightness(.64);
+}
+#pack [data-pack-index].spx-spider-reserved{
+    position:relative;
+    isolation:isolate;
+    overflow:visible;
+    cursor:not-allowed;
+    filter:saturate(.82) brightness(.8);
+    box-shadow:
+        0 0 0 2px rgba(238,247,255,.88),
+        0 0 0 5px rgba(221,33,48,.48),
+        0 0 30px rgba(47,138,255,.46);
+}
+#pack [data-pack-index].spx-spider-reserved::before{
+    content:"";
+    position:absolute;
+    inset:-5px;
+    z-index:9;
+    pointer-events:none;
+    border-radius:17px;
+    background:
+        radial-gradient(circle at 50% 50%,transparent 0 17%,rgba(237,248,255,.72) 18% 19%,transparent 20% 34%,rgba(237,248,255,.6) 35% 36%,transparent 37%),
+        repeating-conic-gradient(from 0deg,transparent 0 19deg,rgba(238,248,255,.84) 20deg 22deg,transparent 23deg 44deg);
+    opacity:.86;
+    filter:drop-shadow(0 0 4px rgba(184,224,255,.78));
+    animation:spxSpiderWebBreathe 1.8s ease-in-out infinite alternate;
+}
+#pack [data-pack-index].spx-spider-reserved::after{
+    content:"REZERWACJA DLA " attr(data-spider-owner);
+    position:absolute;
+    z-index:10;
+    left:50%;
+    bottom:8px;
+    transform:translateX(-50%);
+    width:min(132px,calc(100% - 16px));
+    padding:7px 10px 8px;
+    border:1px solid rgba(255,255,255,.68);
+    border-radius:14px;
+    color:#fff;
+    background:linear-gradient(90deg,rgba(190,24,39,.96),rgba(13,59,126,.96));
+    font:900 11px/1.18 'Orbitron',sans-serif;
+    letter-spacing:.04em;
+    white-space:normal;
+    overflow-wrap:anywhere;
+    text-align:center;
+    text-shadow:0 1px 2px #000;
+    box-shadow:0 0 12px rgba(255,40,55,.45);
+}
+#pack [data-pack-index].spx-spider-owner-ready::after{
+    content:"TWOJA SIEĆ — " attr(data-spider-owner);
+}
+#pack [data-pack-index].spx-spider-owner-ready{
+    cursor:pointer;
+    filter:saturate(1.18) brightness(1.08);
+    box-shadow:
+        0 0 0 2px #fff,
+        0 0 0 6px rgba(255,48,62,.62),
+        0 0 35px rgba(59,162,255,.75);
+    animation:spxSpiderOwnerReady .82s ease-in-out infinite alternate;
+}
+@media(max-width:760px){
+    #pack [data-pack-index].spx-spider-reserved::after{font-size:10px;width:min(118px,calc(100% - 14px));padding:6px 8px 7px;bottom:6px;}
+}
+
+/* =========================================================
+   PATCH100D — Spider-Man approved web asset restored above Jokers
+   PATCH100B correctly generalized reservation selectors to every
+   [data-pack-index], but its later CSS-web rule accidentally overrode
+   the accepted spiderman_web_overlay_portrait.png asset from PATCH39.4.
+   Keep Joker-safe selectors, restore the approved asset, and lock the
+   web + owner label above Joker V2 internal layers.
+   ========================================================= */
+body.spx-spider-selecting #pack [data-pack-index].spx-spider-candidate{
+    position:relative;
+    isolation:isolate;
+    outline:0!important;
+    box-shadow:0 0 18px rgba(50,154,255,.28),0 0 22px rgba(236,38,55,.22)!important;
+}
+body.spx-spider-selecting #pack [data-pack-index].spx-spider-candidate::before{
+    content:"";
+    position:absolute;
+    z-index:30;
+    right:7px;
+    top:5px;
+    width:62px;
+    height:84px;
+    inset:auto 7px auto auto;
+    border:0;
+    border-radius:0;
+    background:url("draft-assets/spiderman_chibi_spider_topdown.png") center/contain no-repeat;
+    opacity:.9;
+    pointer-events:none;
+    filter:drop-shadow(-3px 0 0 rgba(255,32,50,.38)) drop-shadow(3px 0 0 rgba(30,154,255,.38)) drop-shadow(0 0 7px #fff);
+    animation:spxSpiderSenseGlitch 2.2s steps(1,end) infinite;
+}
+body.spx-spider-selecting #pack [data-pack-index].spx-spider-candidate::after{
+    content:"";
+    position:absolute;
+    z-index:29;
+    right:-5px;
+    top:-5px;
+    width:70px;
+    height:70px;
+    inset:-5px -5px auto auto;
+    border:3px solid rgba(239,248,255,.92);
+    border-left-color:transparent;
+    border-bottom-color:rgba(55,158,255,.78);
+    border-radius:50%;
+    background:none;
+    opacity:.64;
+    pointer-events:none;
+    filter:drop-shadow(0 0 5px rgba(255,255,255,.85)) drop-shadow(0 0 9px rgba(50,151,255,.72));
+    animation:spxSpiderSenseArc 1.05s ease-in-out infinite;
+}
+body.spx-spider-selecting #pack [data-pack-index].spx-spider-candidate:hover::before,
+body.spx-spider-selecting #pack [data-pack-index].spx-spider-selected::before{
+    width:72px;
+    height:98px;
+    opacity:1;
+    filter:drop-shadow(-5px 0 0 rgba(255,32,50,.55)) drop-shadow(5px 0 0 rgba(25,153,255,.55)) drop-shadow(0 0 11px #fff);
+}
+body.spx-spider-selecting #pack [data-pack-index].spx-spider-selected{
+    box-shadow:0 0 0 2px #f7fbff,0 0 0 5px rgba(225,31,50,.72),0 0 28px rgba(48,157,255,.72)!important;
+}
+body.spx-spider-selecting #pack [data-pack-index].spx-spider-selected::after{
+    width:82px;
+    height:82px;
+    inset:-11px -11px auto auto;
+    border:4px solid #fff;
+    border-left-color:#ee2e47;
+    border-bottom-color:#3ca3ff;
+    background:none;
+    opacity:.95;
+}
+
+#pack [data-pack-index].spx-spider-reserved{
+    z-index:20;
+    overflow:visible;
+}
+#pack [data-pack-index].spx-spider-reserved::before{
+    content:"";
+    position:absolute;
+    inset:-4px;
+    z-index:30;
+    pointer-events:none;
+    border:0;
+    border-radius:17px;
+    background-image:
+        url("draft-assets/spiderman_chibi_spider_topdown.png"),
+        url("draft-assets/spiderman_web_overlay_portrait.png");
+    background-repeat:no-repeat,no-repeat;
+    background-size:40px 52px,100% 100%;
+    background-position:11% 21%,center;
+    opacity:.93;
+    filter:drop-shadow(-2px 0 rgba(239,37,56,.42)) drop-shadow(2px 0 rgba(39,154,255,.48)) drop-shadow(0 0 5px rgba(210,239,255,.9));
+    animation:spxSpiderWebAlive 6.2s steps(1,end) infinite,spxSpiderWebBreathe 1.8s ease-in-out infinite alternate,spxSpiderWebRgb 3.7s steps(1,end) infinite;
+}
+#pack [data-pack-index].spx-spider-reserved::after{
+    content:"PAJĘCZYNA GRACZA: " attr(data-spider-owner);
+    z-index:31;
+    left:8px;
+    right:8px;
+    top:auto;
+    bottom:5px;
+    transform:none;
+    width:auto;
+    max-width:none;
+    padding:3px 2px;
+    border:0;
+    border-radius:0;
+    color:#f8fbff;
+    background:none;
+    box-shadow:none;
+    font-size:9px;
+    line-height:1.25;
+    white-space:normal;
+    overflow:visible;
+    text-overflow:clip;
+    text-align:center;
+    overflow-wrap:anywhere;
+    text-shadow:-2px 0 #e72843,2px 0 #269cff,0 1px 3px #000,0 0 7px #fff;
+    animation:spxSpiderOwnerRgb 3.7s steps(1,end) infinite;
+}
+#pack [data-pack-index].spx-spider-owner-ready::after{
+    content:"PAJĘCZYNA GOTOWA: " attr(data-spider-owner);
+    color:#fff4d0;
+}
+
+@media(prefers-reduced-motion:reduce){
+    body.spx-spider-selecting #pack [data-pack-index].spx-spider-candidate::before,
+    body.spx-spider-selecting #pack [data-pack-index].spx-spider-candidate::after,
+    #pack [data-pack-index].spx-spider-reserved::before{
+        animation:none!important;
+    }
+}
+
+/* FINAL PATCH — Spider-Sense jak komiksowe zygzaki wokół głowy:
+   naprzemiennie czerwone i niebieskie, bez okręgów oraz miękkich fal. */
+body.spx-spider-selecting #pack [data-pack-index].spx-spider-candidate::before{
+    right:9px!important;
+    top:7px!important;
+    width:72px!important;
+    height:92px!important;
+    inset:7px 9px auto auto!important;
+    background-size:170% auto!important;
+    background-position:50% 49%!important;
+}
+body.spx-spider-selecting #pack [data-pack-index].spx-spider-candidate::after{
+    content:""!important;
+    position:absolute!important;
+    z-index:29!important;
+    right:-4px!important;
+    top:-3px!important;
+    width:112px!important;
+    height:110px!important;
+    inset:-3px -4px auto auto!important;
+    border:0!important;
+    border-radius:0!important;
+    pointer-events:none!important;
+    opacity:.96!important;
+    transform-origin:62% 53%!important;
+    background-color:transparent!important;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 126 122'%3E%3Cg fill='none' stroke-linecap='square' stroke-linejoin='miter' stroke-width='5'%3E%3Cpath stroke='%23ef334f' d='M62 26 55 12 64 16 60 1'/%3E%3Cpath stroke='%232459c7' d='M81 29 94 16 90 29 108 20'/%3E%3Cpath stroke='%23ef334f' d='M95 45 111 38 104 49 125 48'/%3E%3Cpath stroke='%232459c7' d='M98 65 114 67 105 74 124 82'/%3E%3Cpath stroke='%23ef334f' d='M87 83 92 100 84 94 87 120'/%3E%3Cpath stroke='%232459c7' d='M55 85 43 99 48 86 27 95'/%3E%3Cpath stroke='%23ef334f' d='M42 67 24 69 34 59 12 56'/%3E%3Cpath stroke='%232459c7' d='M46 42 33 30 44 34 34 15'/%3E%3C/g%3E%3C/svg%3E")!important;
+    background-position:center!important;
+    background-size:contain!important;
+    background-repeat:no-repeat!important;
+    filter:drop-shadow(-2px 0 2px rgba(239,51,79,.7)) drop-shadow(2px 0 2px rgba(36,89,199,.72)) drop-shadow(0 0 5px rgba(255,255,255,.65))!important;
+    animation:spxSpiderSenseZigzags .86s ease-in-out infinite alternate!important;
+}
+body.spx-spider-selecting #pack [data-pack-index].spx-spider-candidate:hover::after,
+body.spx-spider-selecting #pack [data-pack-index].spx-spider-selected::after{
+    width:122px!important;
+    height:120px!important;
+    right:-9px!important;
+    top:-8px!important;
+    inset:-8px -9px auto auto!important;
+    opacity:1!important;
+}
+@keyframes spxSpiderSenseZigzags{
+    from{transform:scale(.88) rotate(-2deg);opacity:.62}
+    to{transform:scale(1.04) rotate(2deg);opacity:1}
+}
+@media(prefers-reduced-motion:reduce){
+    body.spx-spider-selecting #pack [data-pack-index].spx-spider-candidate::after{animation:none!important;transform:none!important;opacity:.96!important}
+}

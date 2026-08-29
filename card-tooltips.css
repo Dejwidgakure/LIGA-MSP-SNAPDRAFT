@@ -1,0 +1,454 @@
+/* ============================================================
+   MSP SNAPDRAFT — KANONICZNY TOOLTIP KART
+   Wszystkie selektory są odizolowane prefiksem msp-card-tooltip.
+============================================================ */
+
+#mspCardTooltip{
+    --msp-ct-accent:#55eaff;
+    --msp-ct-x:0px;
+    --msp-ct-y:0px;
+    position:fixed;
+    left:0;
+    top:0;
+    z-index:2147483000;
+    width:min(720px,calc(100vw - 24px));
+    max-height:min(460px,calc(100vh - 24px),var(--msp-ct-max-height,460px));
+    padding:2px;
+    border-radius:20px;
+    pointer-events:none;
+    opacity:0;
+    visibility:hidden;
+    transform:translate3d(var(--msp-ct-x),calc(var(--msp-ct-y) + 8px),0) scale(.975);
+    transform-origin:top left;
+    transition:opacity .15s ease,transform .18s ease,visibility 0s linear .18s;
+    filter:
+        drop-shadow(0 18px 34px rgba(0,0,0,.54))
+        drop-shadow(0 0 21px rgba(80,225,255,.50))
+        drop-shadow(0 0 42px rgba(147,86,255,.30));
+    contain:layout paint style;
+}
+
+#mspCardTooltip.msp-card-tooltip--above{
+    transform-origin:bottom left;
+}
+
+#mspCardTooltip.msp-card-tooltip--visible{
+    opacity:1;
+    visibility:visible;
+    transform:translate3d(var(--msp-ct-x),var(--msp-ct-y),0) scale(1);
+    transition-delay:0s;
+    pointer-events:auto;
+}
+
+#mspCardTooltip.msp-card-tooltip--pinned{
+    filter:
+        drop-shadow(0 20px 36px rgba(0,0,0,.58))
+        drop-shadow(0 0 26px rgba(80,225,255,.70))
+        drop-shadow(0 0 54px rgba(147,86,255,.42));
+}
+
+#mspCardTooltip .msp-card-tooltip__shell{
+    position:relative;
+    max-height:inherit;
+    overflow:hidden auto;
+    padding:13px 15px 15px;
+    border:1px solid rgba(126,241,255,.94);
+    border-radius:19px;
+    color:#f6fbff;
+    background:
+        linear-gradient(145deg,rgba(4,12,33,.72),rgba(15,7,42,.78)),
+        var(--msp-ct-bg-image,url("cosmic_tlo.png")) center/115% auto no-repeat;
+    box-shadow:
+        inset 0 0 0 1px rgba(255,255,255,.09),
+        inset 0 0 34px rgba(58,201,255,.17),
+        inset 0 0 62px rgba(137,70,255,.15),
+        0 0 14px rgba(83,235,255,.48),
+        0 0 28px rgba(148,81,255,.28);
+    scrollbar-width:thin;
+    scrollbar-color:rgba(99,221,255,.52) rgba(255,255,255,.05);
+    animation:mspCardTooltipNebula 12s ease-in-out infinite alternate;
+}
+
+#mspCardTooltip .msp-card-tooltip__shell::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    border-radius:inherit;
+    background:
+        radial-gradient(circle at 12% 8%,rgba(98,232,255,.18),transparent 34%),
+        radial-gradient(circle at 90% 78%,rgba(167,93,255,.18),transparent 38%),
+        linear-gradient(110deg,transparent 0 42%,rgba(255,255,255,.09) 50%,transparent 58%);
+    pointer-events:none;
+    animation:mspCardTooltipSheen 5.5s ease-in-out infinite;
+}
+
+#mspCardTooltip .msp-card-tooltip__shell::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    border-radius:inherit;
+    opacity:.64;
+    background:
+        radial-gradient(circle at 18% 24%,#fff 0 1px,transparent 1.6px),
+        radial-gradient(circle at 74% 15%,#88efff 0 1px,transparent 1.7px),
+        radial-gradient(circle at 88% 62%,#c39aff 0 1px,transparent 1.7px),
+        radial-gradient(circle at 45% 86%,#fff 0 .8px,transparent 1.5px);
+    pointer-events:none;
+    animation:mspCardTooltipStars 2.6s ease-in-out infinite alternate;
+}
+
+#mspCardTooltip .msp-card-tooltip__content{
+    position:relative;
+    z-index:1;
+}
+
+#mspCardTooltip .msp-card-tooltip__toolbar{
+    position:relative;
+    z-index:2;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+    margin-bottom:11px;
+    user-select:none;
+}
+
+#mspCardTooltip.msp-card-tooltip--pinned .msp-card-tooltip__toolbar{
+    cursor:grab;
+}
+
+#mspCardTooltip.msp-card-tooltip--dragging .msp-card-tooltip__toolbar{
+    cursor:grabbing;
+}
+
+#mspCardTooltip .msp-card-tooltip__eyebrow{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    margin:0;
+    font-family:"Orbitron",sans-serif;
+    font-size:10px;
+    font-weight:900;
+    line-height:1;
+    letter-spacing:.16em;
+    text-transform:uppercase;
+    color:#a7f4ff;
+    text-shadow:0 0 10px rgba(67,226,255,.58);
+}
+
+#mspCardTooltip .msp-card-tooltip__eyebrow span{
+    color:#fff3a1;
+    font-size:9px;
+    text-shadow:0 0 8px #fff,0 0 13px rgba(85,234,255,.92);
+    animation:mspCardTooltipTinyStar 2.4s ease-in-out infinite alternate;
+}
+
+#mspCardTooltip .msp-card-tooltip__actions{
+    display:flex;
+    align-items:center;
+    gap:6px;
+}
+
+#mspCardTooltip .msp-card-tooltip__pin,
+#mspCardTooltip .msp-card-tooltip__close{
+    display:grid;
+    place-items:center;
+    width:29px;
+    height:29px;
+    padding:0;
+    border:1px solid rgba(102,231,255,.60);
+    border-radius:50%;
+    color:#dffcff;
+    background:rgba(5,15,42,.78);
+    box-shadow:inset 0 0 10px rgba(72,213,255,.12),0 0 10px rgba(72,213,255,.18);
+    font:900 17px/1 "Orbitron",sans-serif;
+    cursor:pointer;
+    transition:transform .16s ease,color .16s ease,box-shadow .16s ease;
+}
+
+#mspCardTooltip .msp-card-tooltip__pin:hover,
+#mspCardTooltip .msp-card-tooltip__pin[aria-pressed="true"]{
+    color:#ffe978;
+    transform:scale(1.08);
+    border-color:rgba(255,226,88,.86);
+    box-shadow:0 0 14px rgba(255,226,88,.50);
+}
+
+#mspCardTooltip .msp-card-tooltip__close{
+    display:none;
+    color:#ff9db9;
+    border-color:rgba(255,94,143,.50);
+}
+
+#mspCardTooltip.msp-card-tooltip--pinned .msp-card-tooltip__close{
+    display:grid;
+}
+
+#mspCardTooltip .msp-card-tooltip__close:hover{
+    transform:scale(1.08);
+    color:#fff;
+    box-shadow:0 0 14px rgba(255,72,126,.56);
+}
+
+#mspCardTooltip .msp-card-tooltip__eyebrow::before{
+    content:"";
+    width:22px;
+    height:2px;
+    border-radius:999px;
+    background:linear-gradient(90deg,#5cecff,#bb72ff);
+    box-shadow:0 0 9px rgba(83,232,255,.72);
+}
+
+#mspCardTooltip .msp-card-tooltip__card-name{
+    margin:0;
+    color:#f5fdff;
+    font-family:"Orbitron",sans-serif;
+    font-size:clamp(15px,1.35vw,20px);
+    font-weight:900;
+    line-height:1.12;
+    letter-spacing:.035em;
+    text-wrap:balance;
+    text-shadow:
+        0 0 8px rgba(104,236,255,.66),
+        0 0 18px rgba(157,92,255,.38),
+        0 2px 0 rgba(0,0,0,.88);
+}
+
+#mspCardTooltip .msp-card-tooltip__summary{
+    display:grid;
+    grid-template-columns:minmax(210px,1fr) auto;
+    align-items:center;
+    gap:18px;
+    margin-bottom:11px;
+    padding:0 2px 10px;
+    border-bottom:1px solid rgba(111,229,255,.20);
+}
+
+#mspCardTooltip .msp-card-tooltip__stats{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    margin:0;
+}
+
+#mspCardTooltip .msp-card-tooltip__stat{
+    display:flex;
+    align-items:center;
+    gap:9px;
+}
+
+#mspCardTooltip .msp-card-tooltip__stat-orb{
+    display:grid;
+    place-items:center;
+    width:36px;
+    height:36px;
+    border-radius:50%;
+    font-family:"Orbitron",sans-serif;
+    font-size:16px;
+    font-weight:900;
+    color:#fff;
+    border:2px solid rgba(134,245,255,.88);
+    background:radial-gradient(circle at 35% 28%,#84f3ff,#2174bf 56%,#10245f);
+    box-shadow:
+        inset 0 0 10px rgba(255,255,255,.28),
+        0 0 12px rgba(72,220,255,.72),
+        0 0 25px rgba(72,220,255,.34);
+    text-shadow:0 0 8px rgba(255,255,255,.76);
+}
+
+#mspCardTooltip .msp-card-tooltip__stat--power .msp-card-tooltip__stat-orb{
+    border-color:rgba(255,226,112,.92);
+    background:radial-gradient(circle at 35% 28%,#fff3a3,#e98124 55%,#8b1749);
+    box-shadow:
+        inset 0 0 10px rgba(255,255,255,.24),
+        0 0 12px rgba(255,193,75,.72),
+        0 0 25px rgba(255,125,96,.32);
+}
+
+#mspCardTooltip .msp-card-tooltip__stat-label{
+    font-size:10px;
+    font-weight:800;
+    line-height:1;
+    letter-spacing:.10em;
+    text-transform:uppercase;
+    color:rgba(225,249,255,.86);
+    text-shadow:0 0 9px rgba(79,225,255,.42);
+}
+
+#mspCardTooltip .msp-card-tooltip__groups{
+    display:grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    align-items:start;
+    gap:8px;
+}
+
+#mspCardTooltip .msp-card-tooltip__group{
+    --msp-tag-color:#79e8ff;
+    --msp-tag-glow:rgba(121,232,255,.36);
+    position:relative;
+    display:grid;
+    grid-template-columns:minmax(88px,116px) minmax(0,1fr);
+    align-items:start;
+    gap:8px;
+    min-height:48px;
+    padding:8px 9px;
+    border:1px solid color-mix(in srgb,var(--msp-tag-color) 64%,transparent);
+    border-radius:13px;
+    background:
+        linear-gradient(135deg,color-mix(in srgb,var(--msp-tag-color) 11%,rgba(7,12,34,.74)),rgba(7,9,29,.66));
+    box-shadow:
+        inset 3px 0 0 color-mix(in srgb,var(--msp-tag-color) 78%,transparent),
+        inset 0 0 16px color-mix(in srgb,var(--msp-tag-color) 5%,transparent),
+        0 0 15px color-mix(in srgb,var(--msp-tag-color) 21%,transparent);
+}
+
+#mspCardTooltip .msp-card-tooltip__group-title{
+    display:flex;
+    align-items:flex-start;
+    gap:5px;
+    margin:3px 0 0;
+    font-family:"Orbitron",sans-serif;
+    font-size:9.5px;
+    font-weight:900;
+    line-height:1.15;
+    letter-spacing:.105em;
+    text-transform:uppercase;
+    color:var(--msp-tag-color);
+    text-shadow:0 0 9px var(--msp-tag-glow);
+}
+
+#mspCardTooltip .msp-card-tooltip__group-title::before{
+    content:"✦";
+    flex:0 0 auto;
+    color:#fff4aa;
+    font-size:7px;
+    text-shadow:0 0 7px #fff,0 0 11px var(--msp-tag-glow);
+}
+
+#mspCardTooltip .msp-card-tooltip__chips{
+    display:flex;
+    flex-wrap:wrap;
+    gap:6px;
+}
+
+#mspCardTooltip .msp-card-tooltip__chip{
+    display:inline-flex;
+    align-items:center;
+    min-height:21px;
+    padding:3px 7px;
+    border:1px solid color-mix(in srgb,var(--msp-tag-color) 64%,transparent);
+    border-radius:999px;
+    font-size:10px;
+    font-weight:800;
+    line-height:1.1;
+    color:#f8fbff;
+    background:
+        linear-gradient(180deg,color-mix(in srgb,var(--msp-tag-color) 17%,rgba(13,15,42,.82)),rgba(7,9,27,.80));
+    box-shadow:
+        inset 0 0 8px color-mix(in srgb,var(--msp-tag-color) 8%,transparent),
+        0 0 9px color-mix(in srgb,var(--msp-tag-color) 18%,transparent);
+}
+
+#mspCardTooltip .msp-card-tooltip__group--special{
+    opacity:.88;
+}
+
+#mspCardTooltip .msp-card-tooltip__empty{
+    padding:9px 10px;
+    border:1px dashed rgba(168,219,255,.24);
+    border-radius:12px;
+    font-size:11px;
+    font-weight:700;
+    color:rgba(224,241,255,.68);
+    text-align:center;
+}
+
+#mspCardTooltip .msp-card-tooltip__collection-link{
+    position:relative;
+    z-index:2;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    min-height:35px;
+    margin-top:12px;
+    padding:7px 11px;
+    border:1px solid rgba(101,230,255,.52);
+    border-radius:11px;
+    color:#bff8ff;
+    background:linear-gradient(135deg,rgba(28,70,112,.54),rgba(45,20,92,.60));
+    box-shadow:inset 0 0 14px rgba(90,223,255,.10),0 0 12px rgba(90,223,255,.13);
+    font-family:"Orbitron",sans-serif;
+    font-size:9.5px;
+    font-weight:900;
+    line-height:1.3;
+    letter-spacing:.055em;
+    text-align:center;
+    text-decoration:none;
+    text-transform:uppercase;
+}
+
+#mspCardTooltip .msp-card-tooltip__collection-link[hidden]{
+    display:none;
+}
+
+#mspCardTooltip .msp-card-tooltip__collection-link:hover{
+    color:#fff;
+    border-color:#7deeff;
+    box-shadow:inset 0 0 18px rgba(90,223,255,.16),0 0 18px rgba(90,223,255,.34);
+}
+
+@keyframes mspCardTooltipNebula{
+    from{background-position:0 0,46% 48%}
+    to{background-position:0 0,58% 54%}
+}
+
+@keyframes mspCardTooltipSheen{
+    0%,62%{background-position:0 0,0 0,170% 0}
+    100%{background-position:0 0,0 0,-90% 0}
+}
+
+@keyframes mspCardTooltipStars{
+    from{opacity:.38;filter:brightness(.92)}
+    to{opacity:.78;filter:brightness(1.3)}
+}
+
+@keyframes mspCardTooltipTinyStar{
+    from{opacity:.42;transform:scale(.76) rotate(0deg)}
+    to{opacity:1;transform:scale(1.12) rotate(18deg)}
+}
+
+@media(max-width:760px),(pointer:coarse){
+    #mspCardTooltip{
+        width:min(560px,calc(100vw - 16px));
+    }
+
+    #mspCardTooltip .msp-card-tooltip__shell{
+        padding:13px;
+    }
+
+    #mspCardTooltip .msp-card-tooltip__groups{
+        grid-template-columns:1fr;
+    }
+}
+
+@media(max-width:460px){
+    #mspCardTooltip .msp-card-tooltip__summary{
+        grid-template-columns:1fr;
+        gap:9px;
+    }
+
+    #mspCardTooltip .msp-card-tooltip__group{
+        grid-template-columns:minmax(82px,105px) minmax(0,1fr);
+    }
+}
+
+@media(prefers-reduced-motion:reduce){
+    #mspCardTooltip{
+        transition:none;
+    }
+    #mspCardTooltip .msp-card-tooltip__shell,
+    #mspCardTooltip .msp-card-tooltip__shell::before,
+    #mspCardTooltip .msp-card-tooltip__shell::after{
+        animation:none;
+    }
+}

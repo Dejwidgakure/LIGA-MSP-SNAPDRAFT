@@ -1,0 +1,71 @@
+.spx-wolverine-overlay{
+    position:fixed;inset:0;z-index:61000;
+    display:flex;align-items:center;justify-content:center;padding:20px;
+    background:radial-gradient(circle at 50% 38%,rgba(34,48,72,.52),rgba(0,0,0,.9) 72%);
+    backdrop-filter:blur(8px);
+}
+.spx-wolverine-overlay[hidden]{display:none!important;}
+.spx-wolverine-dogtags{
+    position:relative;width:min(860px,94vw);max-height:90vh;overflow:auto;
+    padding:26px 28px 24px;border:2px solid #626d80;border-radius:34px 34px 22px 22px;
+    background:
+      radial-gradient(circle at 24px 24px,#111722 0 5px,#778193 6px 8px,#1b2330 9px 13px,transparent 14px),
+      radial-gradient(circle at calc(100% - 24px) 24px,#111722 0 5px,#778193 6px 8px,#1b2330 9px 13px,transparent 14px),
+      linear-gradient(150deg,#263142,#111923 46%,#202a38);
+    color:#f5f7fb;box-shadow:0 0 0 5px #101720,0 0 42px rgba(113,151,205,.45),inset 0 0 45px rgba(0,0,0,.72);
+}
+.spx-wolverine-dogtags::before{
+    content:"";position:absolute;inset:12px;border:1px dashed rgba(197,207,222,.34);border-radius:24px;pointer-events:none;
+}
+.spx-wolverine-header{position:relative;display:grid;grid-template-columns:94px 1fr;gap:18px;align-items:center;margin-bottom:18px;}
+.spx-wolverine-emblem{width:92px;height:92px;object-fit:contain;filter:drop-shadow(0 0 12px rgba(255,188,42,.48));}
+.spx-wolverine-kicker{color:#ffc642;font:900 10px/1 Orbitron,system-ui,sans-serif;letter-spacing:2.3px;text-transform:uppercase;}
+.spx-wolverine-title{margin:3px 0 4px;font:1000 clamp(25px,4vw,48px)/.94 Orbitron,system-ui,sans-serif;letter-spacing:-1px;text-transform:uppercase;text-shadow:2px 0 #f1b52e,-2px 0 #4d79b8;}
+.spx-wolverine-lead{margin:0;color:#d3dae5;font:700 13px/1.45 system-ui,sans-serif;}
+.spx-wolverine-cards{display:grid;grid-template-columns:repeat(3,minmax(150px,1fr));gap:12px;max-height:48vh;overflow:auto;padding:6px 3px 12px;}
+.spx-wolverine-card{
+    position:relative;min-height:116px;padding:17px 14px;border:1px solid #596578;border-radius:14px;
+    background:linear-gradient(145deg,rgba(21,29,40,.95),rgba(7,12,19,.98));color:#ecf2fb;text-align:left;cursor:pointer;
+    box-shadow:inset 0 0 18px rgba(73,91,117,.2);transition:.18s ease;
+}
+.spx-wolverine-card:hover:not(:disabled),.spx-wolverine-card.is-selected{transform:translateY(-3px);border-color:#ffc640;box-shadow:0 0 18px rgba(255,193,61,.36),inset 0 0 20px rgba(255,194,50,.11);}
+.spx-wolverine-card:disabled{opacity:.28;cursor:not-allowed;filter:grayscale(1);}
+.spx-wolverine-card strong{display:block;font:900 14px/1.2 Orbitron,system-ui,sans-serif;margin-bottom:12px;}
+.spx-wolverine-card span{color:#aeb9c9;font:800 11px/1.2 system-ui,sans-serif;}
+.spx-wolverine-card small{display:block;margin-top:8px;color:#ffc642;font:700 9px/1.25 system-ui,sans-serif;}
+.spx-wolverine-actions{position:relative;display:flex;justify-content:flex-end;gap:12px;margin-top:18px;}
+.spx-wolverine-action{
+    min-width:170px;padding:12px 18px;border:1px solid #6d7b90;border-radius:10px;background:#172130;color:white;
+    font:900 11px/1 Orbitron,system-ui,sans-serif;letter-spacing:.5px;cursor:pointer;
+}
+.spx-wolverine-action.primary{border-color:#ffc643;background:linear-gradient(90deg,#f5b42d,#ffe36d);color:#15130d;box-shadow:0 0 18px rgba(255,188,49,.4);}
+.spx-wolverine-action.green{border-color:#67ffc0;background:linear-gradient(90deg,#2ed989,#8effc8);color:#071810;box-shadow:0 0 18px rgba(57,255,160,.34);}
+.spx-wolverine-action:disabled{opacity:.35;cursor:not-allowed;}
+.spx-wolverine-summary-list{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:18px 0;}
+.spx-wolverine-summary-box{padding:14px;border:1px solid #566174;border-radius:14px;background:rgba(7,11,17,.72);}
+.spx-wolverine-summary-box b{display:block;color:#ffc640;font:900 10px/1 Orbitron,system-ui,sans-serif;margin-bottom:10px;letter-spacing:1px;}
+.spx-wolverine-summary-box span{display:block;color:#f2f5fa;font:800 14px/1.35 system-ui,sans-serif;margin:4px 0;}
+.spx-wolverine-protection{padding:12px 14px;border:1px solid #6effb6;border-radius:12px;background:rgba(18,94,59,.22);color:#caffdf;font:700 12px/1.45 system-ui,sans-serif;}
+.spx-wolverine-reveal{font:900 clamp(24px,5vw,56px)/1 Orbitron,system-ui,sans-serif;text-align:center;color:#ffc842;text-shadow:0 0 20px rgba(255,186,46,.56);margin:25px 0 8px;}
+.spx-wolverine-claw-finale{position:fixed;inset:0;z-index:62000;pointer-events:none;overflow:hidden;}
+.spx-wolverine-claw-finale[hidden]{display:none!important;}
+.spx-wolverine-claw-finale i{position:absolute;left:-25%;top:52%;width:150%;height:13px;border-radius:50%;background:#fff6be;box-shadow:0 0 10px #fff,0 0 30px #ffd239,0 0 70px #5f93d7;transform:rotate(-17deg) translateX(-130%);}
+.spx-wolverine-claw-finale i:nth-child(2){top:44%;animation-delay:.08s}.spx-wolverine-claw-finale i:nth-child(3){top:60%;animation-delay:.16s}
+.spx-wolverine-claw-finale.is-active i{animation:spxWolverineSlash .7s cubic-bezier(.2,.7,.15,1) forwards;}
+@keyframes spxWolverineSlash{0%{transform:rotate(-17deg) translateX(-130%);opacity:0}18%{opacity:1}100%{transform:rotate(-17deg) translateX(95%);opacity:0}}
+
+.card.spx-wolverine-protected{position:relative;border-color:#f5c441!important;box-shadow:0 0 12px rgba(255,194,53,.55),inset 0 0 16px rgba(82,139,205,.24)!important;}
+.spx-wolverine-claw-marker{position:absolute;right:5px;top:3px;width:29px;height:29px;object-fit:contain;pointer-events:none;filter:drop-shadow(0 0 6px #ffc43c);}
+.spx-wolverine-protected::after{content:"REGENERACJA";position:absolute;left:5px;bottom:3px;color:#aaffd2;font:900 6px/1 Orbitron,system-ui,sans-serif;letter-spacing:.45px;text-shadow:0 0 4px #32e98b;pointer-events:none;}
+
+@media(max-width:700px){
+    .spx-wolverine-dogtags{padding:20px 16px}.spx-wolverine-header{grid-template-columns:64px 1fr}.spx-wolverine-emblem{width:64px;height:64px}
+    .spx-wolverine-cards{grid-template-columns:repeat(2,minmax(120px,1fr))}.spx-wolverine-actions{flex-direction:column}.spx-wolverine-action{width:100%}
+}
+@media(prefers-reduced-motion:reduce){.spx-wolverine-claw-finale.is-active i{animation:none;}}
+
+
+.spx-wolverine-inline-warning{
+    margin:0 0 12px;padding:10px 12px;border:1px solid rgba(255,102,102,.55);border-left:4px solid #ff6262;
+    border-radius:10px;background:rgba(58,8,12,.72);color:#ffdede;font-weight:800;line-height:1.35;
+}

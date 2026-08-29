@@ -1,0 +1,89 @@
+.planetary-reserve-overlay{position:fixed;inset:0;z-index:100000;display:grid;place-items:center;padding:2vh 1.5vw;background:rgba(1,8,22,.91);backdrop-filter:blur(10px);font-family:Rajdhani,Arial,sans-serif;overflow:hidden;opacity:0;transition:opacity .28s ease}
+.planetary-reserve-overlay.is-visible{opacity:1}
+.planetary-reserve-space{position:absolute;inset:0;pointer-events:none;overflow:hidden;background:radial-gradient(circle at 50% 42%,rgba(42,176,255,.12),transparent 34%),radial-gradient(circle at 72% 22%,rgba(255,211,102,.08),transparent 24%)}
+.pr-planet{position:absolute;border-radius:50%;opacity:.45;filter:drop-shadow(0 0 24px rgba(94,219,255,.32));animation:prPlanetDrift 8s ease-in-out infinite alternate}
+.pr-planet::after{content:"";position:absolute;inset:42% -30%;border:1px solid rgba(164,236,255,.5);border-radius:50%;transform:rotate(-18deg)}
+.pr-planet-a{width:92px;height:92px;left:4%;top:18%;background:radial-gradient(circle at 34% 28%,#a8f3ff,#17628a 42%,#071a39 72%)}
+.pr-planet-b{width:54px;height:54px;right:8%;top:12%;animation-delay:-2s;background:radial-gradient(circle at 34% 28%,#ffe596,#886018 45%,#261708 74%)}
+.pr-planet-c{width:68px;height:68px;right:4%;bottom:12%;animation-delay:-4s;background:radial-gradient(circle at 34% 28%,#b2c7ff,#425a9d 46%,#111d42 74%)}
+.pr-star{position:absolute;width:12px;height:12px;transform:rotate(45deg);background:linear-gradient(135deg,#fff,#8defff);box-shadow:0 0 16px #82eaff,0 0 28px rgba(255,255,255,.5);opacity:0;animation:prStarTwinkle 2.8s ease-in-out infinite}
+.pr-star::after{content:"";position:absolute;inset:4px -7px;background:rgba(255,255,255,.8);filter:blur(2px)}
+.pr-star.s1{left:13%;top:9%;animation-delay:.2s}.pr-star.s2{left:26%;bottom:8%;animation-delay:1.1s}.pr-star.s3{right:18%;top:8%;animation-delay:.7s}.pr-star.s4{right:10%;top:54%;animation-delay:1.6s}.pr-star.s5{left:7%;top:60%;animation-delay:2s}.pr-star.s6{right:31%;bottom:5%;animation-delay:.35s}
+.pr-light-sweep{position:absolute;left:-45%;top:0;width:35%;height:100%;transform:skewX(-18deg);background:linear-gradient(90deg,transparent,rgba(161,239,255,.18),rgba(255,255,255,.13),transparent);filter:blur(10px);animation:prLightSweep 4.8s ease-in-out infinite}
+@keyframes prPlanetDrift{from{transform:translate3d(0,5px,0) rotate(-2deg)}to{transform:translate3d(10px,-9px,0) rotate(3deg)}}
+@keyframes prStarTwinkle{0%,100%{opacity:.08;transform:rotate(45deg) scale(.45)}45%{opacity:.96;transform:rotate(45deg) scale(1.15)}65%{opacity:.35;transform:rotate(45deg) scale(.72)}}
+@keyframes prLightSweep{0%,18%{transform:translateX(0) skewX(-18deg);opacity:0}35%{opacity:1}72%,100%{transform:translateX(520%) skewX(-18deg);opacity:0}}
+
+.planetary-reserve-modal{position:relative;z-index:2;width:min(1480px,96vw);height:min(880px,94vh);overflow:hidden;display:grid;grid-template-rows:116px minmax(0,1fr) 72px;border:1px solid rgba(109,224,255,.78);border-radius:28px;background:#071226 url("draft-assets/planetary_reserve_modal_bg.png") center/cover no-repeat;box-shadow:0 0 0 5px rgba(5,20,42,.9),0 0 55px rgba(29,180,255,.35),inset 0 0 90px rgba(3,10,26,.9);color:#f4fbff;transform:translateY(18px) scale(.965);opacity:0;transition:transform .42s cubic-bezier(.2,.8,.2,1),opacity .34s ease}
+.planetary-reserve-overlay.is-visible .planetary-reserve-modal{transform:none;opacity:1}
+.planetary-reserve-header{position:relative;display:grid;grid-template-columns:290px minmax(0,1fr) 105px;align-items:center;gap:18px;padding:10px 24px;overflow:hidden;border-bottom:1px solid rgba(83,207,255,.62);background:linear-gradient(90deg,rgba(2,12,28,.96),rgba(5,26,54,.82),rgba(2,12,28,.94))}
+.planetary-reserve-header::after{content:"";position:absolute;inset:auto 0 0;height:3px;background:linear-gradient(90deg,transparent,#52dcff,#f8ca60,#52dcff,transparent);box-shadow:0 0 18px #45d8ff}
+.planetary-reserve-logo{width:100%;max-height:94px;object-fit:contain;filter:drop-shadow(0 0 14px rgba(66,213,255,.45))}
+.planetary-reserve-head-copy small,.planetary-reserve-section-title span,.planetary-reserve-bench-heading small{color:#7be8ff;font-weight:900;letter-spacing:.15em}
+.planetary-reserve-head-copy h2{margin:2px 0;font:900 clamp(22px,1.8vw,34px) Orbitron,Rajdhani,sans-serif;letter-spacing:.04em;text-shadow:0 0 14px rgba(113,226,255,.5)}
+.planetary-reserve-head-copy h2 span{color:#ffe9a1}.planetary-reserve-head-copy p{margin:4px 0;color:#ccdef0;font-size:14px;font-weight:700}
+.planetary-reserve-step{display:grid;place-items:center;padding:11px 8px;border:1px solid rgba(105,224,255,.6);border-radius:16px;background:linear-gradient(180deg,rgba(13,49,76,.9),rgba(6,15,39,.92));box-shadow:inset 0 0 22px rgba(40,186,255,.13)}
+.planetary-reserve-step small{font-weight:900;letter-spacing:.16em;color:#8aeaff}.planetary-reserve-step strong{font:900 21px Orbitron,sans-serif;color:#ffe99a}
+.planetary-reserve-body{min-height:0;display:grid;grid-template-columns:minmax(0,1fr) 326px;gap:15px;padding:14px 17px;background:linear-gradient(90deg,rgba(1,9,24,.83),rgba(4,18,38,.56),rgba(1,9,24,.88))}
+.planetary-reserve-body.is-entering{animation:planetaryReserveEnter .42s ease both}@keyframes planetaryReserveEnter{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.planetary-reserve-main,.planetary-reserve-bench-panel{min-height:0;border:1px solid rgba(87,198,236,.35);border-radius:20px;background:rgba(3,13,31,.78);box-shadow:inset 0 0 38px rgba(15,82,128,.17)}
+.planetary-reserve-main{display:grid;grid-template-rows:42px minmax(0,1fr);padding:9px 11px}
+.planetary-reserve-section-title{display:flex;align-items:center;justify-content:space-between;gap:12px;border-bottom:1px solid rgba(89,212,255,.24)}
+.planetary-reserve-section-title span{font-size:15px}.planetary-reserve-tech-chip{padding:4px 8px;border:1px solid rgba(107,231,255,.35);border-radius:999px;background:rgba(15,77,105,.28);color:#99ecff!important;font-size:10px;font-weight:900!important;letter-spacing:.07em;white-space:nowrap}.planetary-reserve-tech-chip.is-warn{border-color:rgba(255,207,94,.55);background:rgba(92,62,6,.28);color:#ffe08b!important}
+.planetary-reserve-grid{min-height:0;display:grid;grid-template-columns:repeat(6,minmax(0,1fr));grid-template-rows:repeat(2,minmax(0,1fr));gap:8px;padding:9px 0 0;overflow:hidden;align-items:stretch}
+.planetary-reserve-candidate{position:relative;display:grid;grid-template-rows:minmax(0,1fr) 34px;place-items:center;min-width:0;min-height:0;border-radius:14px;background:linear-gradient(180deg,rgba(7,29,55,.5),rgba(3,10,25,.68));transition:background .2s ease,transform .2s ease;opacity:0;animation:prCandidateReveal .36s ease forwards;animation-delay:var(--pr-delay,0ms)}
+@keyframes prCandidateReveal{from{opacity:0;transform:translateY(10px) scale(.96);filter:brightness(1.7)}to{opacity:1;transform:none;filter:none}}
+.planetary-reserve-candidate:hover{background:linear-gradient(180deg,rgba(14,55,88,.64),rgba(4,15,35,.75))}.planetary-reserve-candidate.is-picking{transform:translateY(-8px) scale(1.025);filter:brightness(1.25);box-shadow:0 0 26px rgba(111,230,255,.36)}
+.planetary-reserve-card.pack-card-btn{margin:auto;zoom:.86;animation:none!important;opacity:1!important;filter:none!important}.planetary-reserve-card.pack-card-btn::before{background-image:url("draft-assets/cosmictool.webp")!important}
+.planetary-reserve-candidate:not(.is-selected)::before,.planetary-reserve-bench-slot.is-filled::before{content:"";position:absolute;width:126px;height:172px;inset:48% auto auto 50%;transform:translate(-50%,-52%);pointer-events:none;background:url("draft-assets/planetary_reserve_card_glow.png") center/contain no-repeat;opacity:.34;mix-blend-mode:screen}
+.planetary-reserve-reason{position:relative;z-index:2;width:94%;min-height:26px;display:flex;align-items:center;justify-content:center;overflow:hidden;padding:4px 6px;border:1px solid rgba(91,216,255,.24);border-radius:8px;background:rgba(4,25,47,.8);color:#c9f4ff;font:900 10px/1.05 Rajdhani,Arial,sans-serif;text-align:center;letter-spacing:.055em;text-transform:uppercase}
+.planetary-reserve-return{width:96px;height:126px;border:1px dashed rgba(102,218,255,.58);border-radius:13px;background:rgba(4,18,39,.75);color:#a8edff;cursor:pointer}.planetary-reserve-return span{display:block;font-weight:900;letter-spacing:.08em}.planetary-reserve-return small{display:block;margin-top:8px;color:#f3d985;font-size:8px}
+.planetary-reserve-bench-panel{display:grid;grid-template-rows:auto minmax(0,1fr) auto;padding:12px}
+.planetary-reserve-bench-heading{display:grid;grid-template-columns:48px minmax(0,1fr) auto;align-items:center;gap:8px;padding-bottom:9px;border-bottom:1px solid rgba(90,209,252,.28)}
+.planetary-reserve-bench-heading img{width:48px;height:48px;object-fit:contain}.planetary-reserve-bench-heading strong{display:block;font:900 14px Orbitron,sans-serif;color:#f8fbff}.planetary-reserve-bench-heading b{font:900 17px Orbitron,sans-serif;color:#ffe487}
+.planetary-reserve-bench{min-height:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));align-items:center;gap:5px;padding:11px 0}
+.planetary-reserve-bench-slot{position:relative;min-width:0;height:208px;display:flex;flex-direction:column;align-items:center;justify-content:center;border:1px solid rgba(91,209,247,.28);border-radius:15px;background:linear-gradient(180deg,rgba(13,39,65,.58),rgba(3,12,29,.74));overflow:visible}.planetary-reserve-bench-slot.is-filled{box-shadow:inset 0 0 22px rgba(91,219,255,.12),0 0 13px rgba(255,214,100,.12)}
+.planetary-reserve-bench-slot>img{width:44px;opacity:.4}.planetary-reserve-bench-slot>span{margin-top:7px;color:#79dff6;font-size:9px;font-weight:900;text-align:center}.planetary-reserve-bench-slot .planetary-reserve-card{zoom:.66!important}.planetary-reserve-bench-slot .planetary-reserve-remove{position:relative;z-index:4;margin-top:-1px;border:0;background:none;color:#ffe8a0;font-size:8px;font-weight:900;cursor:pointer}
+.planetary-reserve-bench-panel>p{margin:0;color:#a7bdd3;font-size:10px;font-weight:700;line-height:1.25;text-align:center}
+.planetary-reserve-footer{display:flex;align-items:center;justify-content:space-between;gap:18px;padding:10px 22px;border-top:1px solid rgba(80,206,250,.46);background:rgba(2,9,23,.95)}
+.planetary-reserve-footer span{color:#a8c3da;font-size:12px;font-weight:700}.planetary-reserve-footer button{min-width:285px;padding:13px 19px;border:1px solid #f4d475;border-radius:14px;background:linear-gradient(135deg,#126f91,#10324f);box-shadow:0 0 20px rgba(75,217,255,.27);color:#fff5c9;font:900 13px Orbitron,sans-serif;letter-spacing:.07em;cursor:pointer}.planetary-reserve-footer button:disabled{filter:grayscale(.8);opacity:.42;cursor:not-allowed}
+
+.planetary-reserve-launch{position:relative;z-index:5;margin-top:16px;min-width:min(470px,86%);padding:12px 20px;border:1px solid rgba(255,220,112,.82);border-radius:17px;background:linear-gradient(135deg,rgba(9,89,125,.94),rgba(15,42,77,.97));box-shadow:0 0 20px rgba(78,223,255,.3),inset 0 0 18px rgba(255,221,114,.06);color:#fff;cursor:pointer}.planetary-reserve-launch span,.planetary-reserve-launch small{display:block;font-weight:900;letter-spacing:.12em}.planetary-reserve-launch span{color:#78e8ff;font-size:9px}.planetary-reserve-launch strong{display:block;margin:3px 0;color:#fff0aa;font:900 14px Orbitron,sans-serif;letter-spacing:.06em}.planetary-reserve-launch small{color:#bdd8ea;font-size:9px}.planetary-reserve-launch.is-pulsing{animation:prLaunchPulse 1.05s ease 2}@keyframes prLaunchPulse{50%{transform:scale(1.025);box-shadow:0 0 34px rgba(99,231,255,.55),0 0 22px rgba(255,219,107,.24)}}
+
+/* Main program panels: Sideboard is part of the player's deck, but remains a separate visual zone. */
+.planetary-reserve-live-divider{grid-column:1/-1;display:flex;align-items:center;justify-content:center;gap:7px;min-height:25px;margin:4px 0 1px;padding:4px 7px;border-top:1px solid rgba(255,212,101,.5);border-bottom:1px solid rgba(91,220,255,.18);color:#ffe390;font:900 9px Orbitron,Rajdhani,sans-serif;letter-spacing:.08em}.planetary-reserve-live-divider img{width:20px;height:20px;object-fit:contain}.planetary-reserve-live-divider small{color:#76ddf8;font:900 8px Rajdhani,Arial,sans-serif;letter-spacing:.1em}
+.planetary-reserve-live-card{position:relative;border-color:#f4d36c!important;background:linear-gradient(145deg,rgba(8,32,60,.95),rgba(24,17,45,.94))!important;box-shadow:0 0 0 1px rgba(93,224,255,.32),0 0 10px rgba(255,210,90,.16),inset 0 0 12px rgba(91,218,255,.08)!important;padding-right:25px!important;cursor:default!important}.planetary-reserve-live-marker{position:absolute;right:3px;top:50%;width:20px;height:20px;object-fit:contain;transform:translateY(-50%);filter:drop-shadow(0 0 5px rgba(255,220,119,.68));pointer-events:none}
+
+@media(max-width:1180px){.planetary-reserve-modal{grid-template-rows:102px minmax(0,1fr) 66px}.planetary-reserve-header{grid-template-columns:220px minmax(0,1fr) 88px}.planetary-reserve-body{grid-template-columns:minmax(0,1fr) 270px}.planetary-reserve-grid{grid-template-columns:repeat(4,minmax(0,1fr));grid-template-rows:repeat(3,minmax(0,1fr))}.planetary-reserve-card.pack-card-btn{zoom:.72}.planetary-reserve-candidate{grid-template-rows:minmax(0,1fr) 28px}.planetary-reserve-reason{font-size:8px}.planetary-reserve-bench{grid-template-columns:1fr}.planetary-reserve-bench-slot{height:128px}.planetary-reserve-bench-slot .planetary-reserve-card{zoom:.52!important}}
+@media(max-height:760px){.planetary-reserve-modal{height:96vh;grid-template-rows:88px minmax(0,1fr) 58px}.planetary-reserve-header{padding:6px 18px}.planetary-reserve-logo{max-height:72px}.planetary-reserve-head-copy p{display:none}.planetary-reserve-body{padding:9px 13px}.planetary-reserve-card.pack-card-btn{zoom:.72}.planetary-reserve-bench-slot{height:166px}.planetary-reserve-footer{padding:7px 18px}}
+@media(prefers-reduced-motion:reduce){.planetary-reserve-overlay,.planetary-reserve-modal,.planetary-reserve-candidate,.pr-planet,.pr-star,.pr-light-sweep,.planetary-reserve-launch{animation:none!important;transition:none!important}.planetary-reserve-overlay{opacity:1}.planetary-reserve-modal,.planetary-reserve-candidate{opacity:1;transform:none}.pr-light-sweep{display:none}}
+
+
+/* SNAPDRAFT 1.0 — FINAL UI POLISH PASS 1: true center for the post-draft Reserve CTA. */
+#draftFinishPanel .planetary-reserve-launch{
+    display:block!important;
+    align-self:center!important;
+    width:min(470px,86%)!important;
+    min-width:0!important;
+    max-width:86%!important;
+    margin:16px auto 0!important;
+    left:auto!important;
+    right:auto!important;
+    box-sizing:border-box!important;
+}
+
+
+/* FINAL RC — subtle reserve opening + transfer feedback. */
+.planetary-reserve-overlay.is-opening .planetary-reserve-space::before{
+    content:"";position:absolute;left:50%;top:50%;width:min(900px,86vw);aspect-ratio:1/1;border-radius:50%;
+    transform:translate(-50%,-50%) scale(.48);opacity:0;pointer-events:none;
+    border:1px solid rgba(104,230,255,.42);box-shadow:0 0 34px rgba(68,214,255,.30),inset 0 0 48px rgba(84,194,255,.08);
+    background:radial-gradient(circle,rgba(83,217,255,.10),transparent 58%);
+    animation:prReserveArrival 1.05s cubic-bezier(.18,.78,.25,1) both;
+}
+.planetary-reserve-bench-slot.is-transfer-arrival{animation:prBenchArrival .72s cubic-bezier(.2,.8,.2,1) both}
+.planetary-reserve-candidate.is-picking .planetary-reserve-card{animation:prCandidateTransfer .42s ease-out both!important}
+@keyframes prReserveArrival{0%{opacity:0;transform:translate(-50%,-50%) scale(.48)}35%{opacity:.62}100%{opacity:0;transform:translate(-50%,-50%) scale(1.08)}}
+@keyframes prCandidateTransfer{0%{filter:brightness(1);transform:none}45%{filter:brightness(1.55) drop-shadow(0 0 18px #67e8ff);transform:translateY(-7px) scale(1.05)}100%{filter:brightness(1.16);transform:translateY(-2px) scale(.98);opacity:.36}}
+@keyframes prBenchArrival{0%{box-shadow:0 0 0 rgba(86,224,255,0);transform:scale(.94)}45%{box-shadow:0 0 30px rgba(86,224,255,.52),0 0 18px rgba(255,216,105,.32);transform:scale(1.035)}100%{transform:none}}
+@media(prefers-reduced-motion:reduce){.planetary-reserve-overlay.is-opening .planetary-reserve-space::before,.planetary-reserve-bench-slot.is-transfer-arrival,.planetary-reserve-candidate.is-picking .planetary-reserve-card{animation:none!important}}

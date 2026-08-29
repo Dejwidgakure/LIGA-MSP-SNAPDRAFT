@@ -1,0 +1,28 @@
+const fs=require('fs');
+const path=require('path');
+const root=__dirname;
+const read=n=>fs.readFileSync(path.join(root,n),'utf8');
+const economy=read('economy.css');
+const shop=read('economy-shop-core.js');
+const tradeCss=read('trade-market.css');
+const tradeUi=read('trade-market-ui.js');
+const reserve=read('planetary-reserve.css');
+const html=read('snap-draft.html');
+function ok(v,msg){ if(!v) throw new Error(msg); }
+ok(economy.includes('SNAPDRAFT 1.0 — FINAL UI POLISH PASS 1'),'economy polish block missing');
+ok(/economy-shop-customer-card b\{[\s\S]*?#ffd75b[\s\S]*?Orbitron[\s\S]*?animation:none!important/.test(economy),'customer name must use gold JeffCoin display language');
+ok(economy.includes('economyFinalClientLabelRgb 4.8s'),'client RGB cadence missing');
+ok(economy.includes('economyFinalSaleTileRgb 4.8s'),'sale tiles must share RGB cadence');
+ok(economy.includes('transition-delay:.34s'),'footer deliberate-hover enlargement missing');
+ok(economy.includes('economyFinalConfirmFrameRgb'),'purchase confirm RGB frame missing');
+ok(economy.includes('shop_footer_shelf_center.png'),'post-draft chooser shelf background missing');
+ok(economy.includes('shop_purchase_cart.png'),'post-draft chooser cart missing');
+ok(shop.includes('panel?.insertAdjacentHTML("beforeend",`<img class="economy-flow-shop-logo"'),'shop logo must attach to panel, not commit cart grid');
+ok(!/content\.innerHTML=`\s*<img class="economy-flow-shop-logo"/.test(shop),'shop logo still rendered inside commit content');
+ok(tradeCss.includes('transform:rotate(-2deg) scale(.5)!important'),'listed-card badge must be half size');
+ok(tradeUi.includes('1 PROPOZYCJA NA RUCH.'),'negotiation player hint missing');
+ok(!tradeUi.includes('Ten filar steruje żywym stołem'),'technical market hint must be removed');
+ok(reserve.includes('#draftFinishPanel .planetary-reserve-launch'),'Reserve CTA centering rule missing');
+ok(html.includes('economy.css?v=system-closure-01'),'economy cache bust missing');
+ok(html.includes('trade-market-ui.js?v=1.0.5-final-audit-01'),'trade ui cache bust missing');
+console.log('FINAL UI POLISH PASS 1 — PASS');

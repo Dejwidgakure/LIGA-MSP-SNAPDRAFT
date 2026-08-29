@@ -1,0 +1,383 @@
+/* ============================================================
+   MSP SNAPDRAFT — DRAFT TURN TIMER v1
+   Cosmic fixed HUD timer + host pause/play controls.
+   ============================================================ */
+
+.timerSettingsSection{
+    position:relative;
+    overflow:hidden;
+}
+.timerSettingsSection::after{
+    content:"";
+    position:absolute;
+    width:150px;
+    height:150px;
+    right:-42px;
+    top:-48px;
+    border-radius:50%;
+    background:radial-gradient(circle,rgba(96,231,255,.20),rgba(159,74,255,.08) 46%,transparent 72%);
+    pointer-events:none;
+}
+.turnTimerSettingsRow{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:16px;
+    flex-wrap:wrap;
+}
+.turnTimerSettingsCopy{
+    min-width:220px;
+    flex:1 1 330px;
+}
+.turnTimerSettingsCopy strong{
+    display:block;
+    font-family:"Orbitron",sans-serif;
+    font-size:14px;
+    letter-spacing:1.2px;
+    color:#efffff;
+    text-shadow:0 0 9px rgba(99,230,255,.82),0 0 18px rgba(170,79,255,.44);
+}
+.turnTimerSettingsCopy small{
+    display:block;
+    margin-top:5px;
+    color:rgba(226,246,255,.74);
+    line-height:1.45;
+}
+#turnTimerSeconds{
+    min-width:170px;
+    padding:10px 14px;
+    border-radius:13px;
+    border:1px solid rgba(113,234,255,.55);
+    color:#f5ffff;
+    background:linear-gradient(145deg,rgba(3,18,50,.96),rgba(28,14,74,.96));
+    box-shadow:0 0 14px rgba(64,218,255,.25),inset 0 0 12px rgba(255,255,255,.04);
+    font-family:"Orbitron",sans-serif;
+    font-weight:800;
+    letter-spacing:.7px;
+    cursor:pointer;
+}
+#turnTimerSeconds option{background:#071532;color:#fff;}
+
+/* Wrapper keeps the old picker banner layout untouched when timer is disabled. */
+#draftTurnHud{
+    position:relative;
+    z-index:35;
+    width:100%;
+}
+
+/* FINAL NATURAL TIMER LAYOUT — timer extends the normal WYBIERA slot, never the viewport. */
+body.draft-turn-timer-enabled.draft-active #draftTurnHud{
+    position:relative;
+    left:auto;
+    top:auto;
+    bottom:auto;
+    width:max-content;
+    max-width:calc(100% - 16px);
+    margin:18px auto 4px;
+    transform:none;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:12px;
+    z-index:35;
+    pointer-events:auto;
+    filter:drop-shadow(0 8px 18px rgba(0,0,0,.36));
+}
+body.draft-turn-timer-enabled.draft-active #draftTurnHud.timer-hud-hidden{
+    display:none !important;
+}
+body.draft-turn-timer-enabled.draft-active #draftTurnHud #currentPickerBanner,
+body.draft-turn-timer-enabled.draft-active #draftTurnHud #draftTurnTimer{
+    pointer-events:auto;
+}
+body.draft-turn-timer-enabled.draft-active #draftTurnHud #currentPickerBanner{
+    margin:0 !important;
+    flex:0 1 auto;
+}
+
+#draftTurnTimer{
+    --timer-angle:360deg;
+    --timer-accent:#80f6ff;
+    --timer-accent-2:#be74ff;
+    position:relative;
+    width:108px;
+    height:108px;
+    flex:0 0 108px;
+    isolation:isolate;
+    user-select:none;
+}
+#draftTurnTimer[hidden]{display:none !important;}
+
+.draft-turn-timer-frame{
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+    object-fit:contain;
+    pointer-events:none;
+    transform-origin:50% 50%;
+    filter:drop-shadow(0 0 8px rgba(75,230,255,.70)) drop-shadow(0 0 16px rgba(189,82,255,.44));
+    animation:draftTurnTimerOrbit 31s linear infinite;
+    z-index:1;
+}
+@keyframes draftTurnTimerOrbit{to{transform:rotate(360deg);}}
+
+.draft-turn-timer-progress{
+    position:absolute;
+    inset:6px;
+    border-radius:50%;
+    background:conic-gradient(
+        from -90deg,
+        var(--timer-accent) 0deg,
+        var(--timer-accent-2) var(--timer-angle),
+        rgba(105,156,255,.09) var(--timer-angle),
+        rgba(105,156,255,.09) 360deg
+    );
+    -webkit-mask:radial-gradient(circle,transparent 0 72%,#000 73% 79%,transparent 80% 100%);
+    mask:radial-gradient(circle,transparent 0 72%,#000 73% 79%,transparent 80% 100%);
+    filter:drop-shadow(0 0 5px var(--timer-accent));
+    z-index:2;
+    pointer-events:none;
+}
+
+.draft-turn-timer-glass{
+    position:absolute;
+    inset:22px;
+    border-radius:50%;
+    z-index:3;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    overflow:hidden;
+    background:
+        radial-gradient(circle at 35% 28%,rgba(117,236,255,.15),transparent 34%),
+        radial-gradient(circle at 68% 70%,rgba(208,80,255,.16),transparent 42%),
+        radial-gradient(circle,rgba(2,10,34,.34),rgba(2,7,25,.70));
+    box-shadow:inset 0 0 12px rgba(124,235,255,.12),inset 0 0 24px rgba(178,82,255,.10);
+    pointer-events:none;
+}
+.draft-turn-timer-glass::before{
+    content:"";
+    position:absolute;
+    inset:-30%;
+    background:linear-gradient(120deg,transparent 34%,rgba(159,242,255,.10) 48%,rgba(240,137,255,.09) 54%,transparent 67%);
+    animation:draftTimerGlassSweep 7.6s ease-in-out infinite;
+}
+@keyframes draftTimerGlassSweep{
+    0%,30%{transform:translateX(-28%) rotate(8deg);opacity:.18;}
+    52%{opacity:.8;}
+    75%,100%{transform:translateX(31%) rotate(8deg);opacity:.16;}
+}
+
+#draftTurnTimerValue{
+    position:absolute;
+    left:50%;
+    top:50%;
+    transform:translate(-50%,-50%);
+    z-index:4;
+    min-width:2.2ch;
+    text-align:center;
+    font-family:"Orbitron",sans-serif;
+    font-size:31px;
+    line-height:1;
+    font-weight:1000;
+    letter-spacing:-1.6px;
+    color:#f5ffff;
+    -webkit-text-stroke:.35px rgba(255,255,255,.72);
+    text-shadow:
+        0 0 4px #fff,
+        0 0 9px var(--timer-accent),
+        0 0 18px var(--timer-accent),
+        0 0 30px var(--timer-accent-2);
+    transition:color .22s ease,text-shadow .22s ease,transform .22s ease;
+    font-variant-numeric:tabular-nums;
+}
+
+#draftTurnTimerStatus{
+    position:absolute;
+    left:50%;
+    top:84px;
+    transform:translateX(-50%);
+    z-index:6;
+    width:max-content;
+    max-width:132px;
+    padding:2px 7px 3px;
+    border-radius:999px;
+    border:1px solid rgba(142,236,255,.32);
+    background:rgba(3,9,28,.84);
+    color:rgba(232,253,255,.92);
+    font-family:"Orbitron",sans-serif;
+    font-size:7px;
+    font-weight:900;
+    letter-spacing:.65px;
+    text-align:center;
+    text-transform:uppercase;
+    text-shadow:0 0 7px rgba(104,225,255,.72);
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    opacity:0;
+    transition:opacity .18s ease;
+    pointer-events:none;
+}
+#draftTurnTimer.is-paused #draftTurnTimerStatus,
+#draftTurnTimer.is-expired #draftTurnTimerStatus{
+    opacity:1;
+}
+
+.draft-turn-timer-controls{
+    position:absolute;
+    z-index:7;
+    right:-4px;
+    bottom:-5px;
+    display:flex;
+    gap:4px;
+}
+.draft-turn-timer-control{
+    width:24px;
+    height:24px;
+    padding:0;
+    display:grid;
+    place-items:center;
+    border-radius:50%;
+    border:1px solid rgba(127,235,255,.52);
+    background:linear-gradient(150deg,rgba(3,20,51,.96),rgba(31,12,71,.96));
+    color:#f5ffff;
+    box-shadow:0 0 8px rgba(75,219,255,.30),inset 0 0 8px rgba(255,255,255,.04);
+    font-size:10px;
+    cursor:pointer;
+    transition:transform .15s ease,opacity .15s ease,filter .15s ease;
+}
+.draft-turn-timer-control:hover:not(:disabled){transform:scale(1.12);filter:brightness(1.2);}
+.draft-turn-timer-control:disabled{opacity:.28;cursor:default;}
+
+#draftTurnTimerBonus{
+    position:absolute;
+    z-index:8;
+    left:50%;
+    top:-7px;
+    transform:translate(-50%,-100%) scale(.94);
+    padding:4px 8px;
+    border-radius:999px;
+    border:1px solid rgba(149,242,255,.46);
+    background:linear-gradient(90deg,rgba(4,27,64,.93),rgba(58,16,101,.93));
+    color:#fff;
+    font-family:"Orbitron",sans-serif;
+    font-size:8px;
+    font-weight:1000;
+    letter-spacing:.55px;
+    text-transform:uppercase;
+    text-shadow:0 0 8px #70ecff,0 0 15px #bd6cff;
+    white-space:nowrap;
+    opacity:0;
+    pointer-events:none;
+}
+#draftTurnTimerBonus.is-visible{
+    animation:draftTimerBonus 2.7s ease both;
+}
+@keyframes draftTimerBonus{
+    0%{opacity:0;transform:translate(-50%,-75%) scale(.82);}
+    14%,68%{opacity:1;transform:translate(-50%,-100%) scale(1);}
+    100%{opacity:0;transform:translate(-50%,-118%) scale(.94);}
+}
+
+#draftTurnTimer.is-paused .draft-turn-timer-frame{
+    animation-play-state:paused;
+    filter:grayscale(.18) brightness(.84) drop-shadow(0 0 7px rgba(91,211,255,.42));
+}
+#draftTurnTimer.is-paused .draft-turn-timer-progress{opacity:.54;}
+#draftTurnTimer.is-paused #draftTurnTimerValue{
+    opacity:.74;
+    text-shadow:0 0 7px rgba(119,226,255,.64),0 0 17px rgba(178,90,255,.40);
+}
+
+#draftTurnTimer.is-warning{
+    --timer-accent:#ff82b8;
+    --timer-accent-2:#ff4f75;
+}
+#draftTurnTimer.is-warning #draftTurnTimerValue{
+    color:#fff2f6;
+    animation:draftTimerWarningPulse .78s ease-in-out infinite alternate;
+}
+@keyframes draftTimerWarningPulse{
+    from{transform:translate(-50%,-50%) scale(1);filter:brightness(1);}
+    to{transform:translate(-50%,-50%) scale(1.08);filter:brightness(1.35);}
+}
+
+#draftTurnTimer.is-critical{
+    --timer-accent:#ff315a;
+    --timer-accent-2:#ff1747;
+}
+#draftTurnTimer.is-critical .draft-turn-timer-frame{
+    animation-duration:17s;
+    filter:drop-shadow(0 0 8px rgba(255,52,93,.86)) drop-shadow(0 0 19px rgba(255,32,94,.58));
+}
+#draftTurnTimer.is-critical #draftTurnTimerValue{
+    color:#fff;
+    animation:draftTimerCriticalPulse .42s ease-in-out infinite alternate;
+    text-shadow:0 0 4px #fff,0 0 10px #ff3d62,0 0 22px #ff1747,0 0 36px #ff005d;
+}
+@keyframes draftTimerCriticalPulse{
+    from{transform:translate(-50%,-50%) scale(1);opacity:.82;}
+    to{transform:translate(-50%,-50%) scale(1.14);opacity:1;}
+}
+
+#draftTurnTimer.is-expired{
+    --timer-accent:#ff234d;
+    --timer-accent-2:#ff0055;
+}
+#draftTurnTimer.is-expired .draft-turn-timer-frame{animation-play-state:paused;}
+#draftTurnTimer.is-expired #draftTurnTimerValue{
+    animation:draftTimerExpired .55s ease-in-out infinite alternate;
+    color:#fff;
+}
+@keyframes draftTimerExpired{
+    from{transform:translate(-50%,-50%) scale(1);filter:brightness(.9);}
+    to{transform:translate(-50%,-50%) scale(1.14);filter:brightness(1.5);}
+}
+
+@media(max-width:760px){
+    body.draft-turn-timer-enabled.draft-active #draftTurnHud{
+        top:auto;
+        bottom:auto;
+        gap:7px;
+        max-width:calc(100% - 12px);
+    }
+    body.draft-turn-timer-enabled.draft-active #draftTurnHud #currentPickerBanner{
+        max-width:calc(100vw - 102px) !important;
+        padding:8px 11px 9px !important;
+        font-size:17px !important;
+        letter-spacing:1.4px !important;
+    }
+    #draftTurnTimer{
+        width:88px;
+        height:88px;
+        flex-basis:88px;
+    }
+    .draft-turn-timer-glass{inset:18px;}
+    #draftTurnTimerValue{font-size:25px;}
+    #draftTurnTimerStatus{top:68px;font-size:6px;max-width:106px;}
+    .draft-turn-timer-controls{right:-2px;bottom:-4px;}
+    .draft-turn-timer-control{width:21px;height:21px;font-size:9px;}
+}
+
+@media(prefers-reduced-motion:reduce){
+    .draft-turn-timer-frame,
+    .draft-turn-timer-glass::before,
+    #draftTurnTimer.is-warning #draftTurnTimerValue,
+    #draftTurnTimer.is-critical #draftTurnTimerValue,
+    #draftTurnTimer.is-expired #draftTurnTimerValue{
+        animation:none !important;
+    }
+}
+.timerSettingsSection .sr-only{
+    position:absolute!important;
+    width:1px!important;
+    height:1px!important;
+    padding:0!important;
+    margin:-1px!important;
+    overflow:hidden!important;
+    clip:rect(0,0,0,0)!important;
+    white-space:nowrap!important;
+    border:0!important;
+}

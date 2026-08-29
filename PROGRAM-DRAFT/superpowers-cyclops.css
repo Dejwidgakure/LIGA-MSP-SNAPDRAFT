@@ -1,0 +1,736 @@
+/* =========================================================
+   MSP SNAPDRAFT — CYCLOPS / PATCH 15
+   Każdy selektor jest unikatowy dla interfejsu tej Supermocy.
+   ========================================================= */
+
+#spxCyclopsHud[hidden],
+#spxCyclopsTagOverlay[hidden],
+#spxCyclopsCandidateOverlay[hidden],
+#spxCyclopsFinalOverlay[hidden]{
+    display:none!important;
+}
+
+.spx-cyclops-hud{
+    --spx-cyclops-red:#ff2638;
+    --spx-cyclops-gold:#ffd52a;
+    position:fixed;
+    left:50%;
+    top:18px;
+    z-index:16020;
+    width:min(720px,calc(100vw - 32px));
+    min-height:72px;
+    transform:translateX(-50%);
+    display:grid;
+    grid-template-columns:82px 1fr auto;
+    align-items:center;
+    gap:15px;
+    padding:10px 13px 10px 8px;
+    border:1px solid rgba(255,213,42,.86);
+    border-radius:22px;
+    color:#fff;
+    background:
+        linear-gradient(100deg,rgba(7,12,36,.97),rgba(50,7,19,.95)),
+        url("draft-assets/powerstormtile.webp") center/520px repeat;
+    box-shadow:
+        0 0 0 2px rgba(255,38,56,.16) inset,
+        0 0 24px rgba(255,38,56,.36),
+        0 0 42px rgba(255,213,42,.18),
+        0 18px 46px rgba(0,0,0,.58);
+    overflow:hidden;
+}
+
+.spx-cyclops-hud::before{
+    content:"";
+    position:absolute;
+    left:-14%;
+    right:-14%;
+    top:50%;
+    height:3px;
+    transform:translateY(-50%);
+    background:linear-gradient(90deg,transparent,#ff2036,#fff,#ff2036,transparent);
+    box-shadow:0 0 8px #fff,0 0 22px #ff2036,0 0 44px rgba(255,32,54,.72);
+    opacity:.36;
+    animation:spxCyclopsHudBeam 2.2s ease-in-out infinite;
+    pointer-events:none;
+}
+
+.spx-cyclops-hud > *{
+    position:relative;
+    z-index:1;
+}
+
+.spx-cyclops-hud-visor{
+    position:relative;
+    width:75px;
+    height:42px;
+    border:3px solid #ffd52a;
+    clip-path:polygon(7% 10%,93% 10%,100% 33%,91% 88%,9% 88%,0 33%);
+    background:linear-gradient(180deg,#b3071d,#ff2438 48%,#7e0012);
+    box-shadow:0 0 14px #ff2638,0 0 25px rgba(255,213,42,.48);
+}
+
+.spx-cyclops-hud-visor span{
+    position:absolute;
+    left:7px;
+    right:7px;
+    top:50%;
+    height:4px;
+    transform:translateY(-50%);
+    background:#fff;
+    box-shadow:0 0 7px #fff,0 0 18px #ff2638,0 0 30px #ff2638;
+    animation:spxCyclopsVisorPulse 1.25s ease-in-out infinite alternate;
+}
+
+.spx-cyclops-hud-copy{
+    min-width:0;
+    display:flex;
+    flex-direction:column;
+    gap:3px;
+}
+
+.spx-cyclops-hud-copy strong{
+    font-family:"Orbitron",sans-serif;
+    font-size:clamp(13px,1.5vw,18px);
+    line-height:1.1;
+    letter-spacing:.055em;
+    color:#ffe772;
+    text-shadow:0 0 8px rgba(255,213,42,.82),0 0 18px rgba(255,38,56,.48);
+}
+
+.spx-cyclops-hud-copy span{
+    font-family:"Rajdhani",sans-serif;
+    font-size:16px;
+    font-weight:800;
+    color:#fff;
+}
+
+.spx-cyclops-cancel,
+.spx-cyclops-secondary-btn,
+.spx-cyclops-confirm-btn,
+.spx-cyclops-tag-btn,
+.spx-cyclops-candidate{
+    font:inherit;
+}
+
+.spx-cyclops-cancel{
+    padding:9px 13px;
+    border:1px solid rgba(255,255,255,.28);
+    border-radius:999px;
+    color:#fff;
+    font-family:"Orbitron",sans-serif;
+    font-size:11px;
+    font-weight:900;
+    letter-spacing:.07em;
+    background:rgba(4,7,22,.72);
+    cursor:pointer;
+    transition:.2s ease;
+}
+
+.spx-cyclops-cancel:hover{
+    color:#ffe772;
+    border-color:#ffcf2c;
+    box-shadow:0 0 17px rgba(255,213,42,.38);
+}
+
+.spx-cyclops-overlay{
+    position:fixed;
+    inset:0;
+    z-index:17020;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:22px;
+    background:
+        radial-gradient(circle at 50% 44%,rgba(255,36,56,.19),transparent 34%),
+        rgba(2,3,13,.89);
+    backdrop-filter:blur(9px);
+}
+
+.spx-cyclops-panel{
+    --spx-cyclops-red:#ff2638;
+    --spx-cyclops-gold:#ffd52a;
+    position:relative;
+    width:min(920px,96vw);
+    max-height:92vh;
+    overflow:auto;
+    padding:23px;
+    border:2px solid rgba(255,213,42,.82);
+    border-radius:28px;
+    color:#fff;
+    background:
+        radial-gradient(circle at 12% 0%,rgba(255,213,42,.18),transparent 29%),
+        radial-gradient(circle at 88% 15%,rgba(255,38,56,.19),transparent 31%),
+        linear-gradient(155deg,rgba(7,13,40,.98),rgba(35,4,17,.97)),
+        url("draft-assets/powerstormtile.webp") center/620px repeat;
+    box-shadow:
+        0 0 0 2px rgba(255,38,56,.13) inset,
+        0 0 30px rgba(255,38,56,.38),
+        0 0 62px rgba(255,213,42,.22),
+        0 28px 70px rgba(0,0,0,.7);
+}
+
+.spx-cyclops-panel::before,
+.spx-cyclops-panel::after{
+    content:"";
+    position:absolute;
+    pointer-events:none;
+}
+
+.spx-cyclops-panel::before{
+    inset:8px;
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:20px;
+}
+
+.spx-cyclops-panel::after{
+    left:5%;
+    right:5%;
+    top:108px;
+    height:2px;
+    background:linear-gradient(90deg,transparent,#ff2638,#fff,#ff2638,transparent);
+    box-shadow:0 0 8px #fff,0 0 24px #ff2638;
+    opacity:.7;
+}
+
+.spx-cyclops-laser-scan{
+    position:absolute;
+    inset:0;
+    overflow:hidden;
+    border-radius:inherit;
+    pointer-events:none;
+}
+
+.spx-cyclops-laser-scan::before{
+    content:"";
+    position:absolute;
+    left:-25%;
+    right:-25%;
+    top:23%;
+    height:2px;
+    background:linear-gradient(90deg,transparent,#ff2638,#fff,#ff2638,transparent);
+    box-shadow:0 0 8px #fff,0 0 23px #ff2638,0 0 45px rgba(255,38,56,.6);
+    animation:spxCyclopsPanelScan 4.8s ease-in-out infinite;
+}
+
+.spx-cyclops-header{
+    position:relative;
+    z-index:1;
+    display:grid;
+    grid-template-columns:92px 1fr;
+    align-items:center;
+    gap:17px;
+    margin-bottom:28px;
+}
+
+.spx-cyclops-header img{
+    width:88px;
+    height:88px;
+    object-fit:contain;
+    filter:
+        drop-shadow(0 0 10px rgba(255,213,42,.55))
+        drop-shadow(0 0 17px rgba(255,38,56,.48));
+}
+
+.spx-cyclops-header span{
+    display:block;
+    margin-bottom:5px;
+    color:#ff7180;
+    font-family:"Orbitron",sans-serif;
+    font-size:11px;
+    font-weight:900;
+    letter-spacing:.14em;
+}
+
+.spx-cyclops-header h2{
+    margin:0;
+    color:#ffe66d;
+    font-family:"Orbitron",sans-serif;
+    font-size:clamp(25px,4vw,43px);
+    line-height:1.02;
+    letter-spacing:.045em;
+    text-transform:uppercase;
+    text-shadow:0 0 10px rgba(255,213,42,.64),0 0 25px rgba(255,38,56,.38);
+}
+
+.spx-cyclops-header p{
+    margin:8px 0 0;
+    color:rgba(255,255,255,.84);
+    font-family:"Rajdhani",sans-serif;
+    font-size:18px;
+    font-weight:700;
+}
+
+.spx-cyclops-anchor-card{
+    position:relative;
+    z-index:1;
+    display:grid;
+    grid-template-columns:1fr auto;
+    gap:4px 18px;
+    padding:15px 17px;
+    margin-bottom:16px;
+    border:1px solid rgba(255,38,56,.62);
+    border-radius:17px;
+    background:linear-gradient(110deg,rgba(90,4,19,.54),rgba(7,13,38,.82));
+    box-shadow:0 0 18px rgba(255,38,56,.2) inset;
+}
+
+.spx-cyclops-anchor-card span,
+.spx-cyclops-anchor-card small{
+    color:#ff8290;
+    font-family:"Orbitron",sans-serif;
+    font-size:10px;
+    font-weight:900;
+    letter-spacing:.1em;
+}
+
+.spx-cyclops-anchor-card strong{
+    color:#fff;
+    font-family:"Orbitron",sans-serif;
+    font-size:19px;
+}
+
+.spx-cyclops-anchor-card b{
+    grid-row:1/3;
+    grid-column:2;
+    align-self:center;
+    color:#ffe46a;
+    font-family:"Orbitron",sans-serif;
+    font-size:13px;
+}
+
+.spx-cyclops-anchor-card small{
+    grid-column:1/-1;
+    color:#ffe46a;
+    opacity:.86;
+}
+
+.spx-cyclops-tag-choices,
+.spx-cyclops-candidates{
+    position:relative;
+    z-index:1;
+    display:grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:12px;
+}
+
+.spx-cyclops-tag-btn,
+.spx-cyclops-candidate{
+    position:relative;
+    min-height:92px;
+    padding:13px 15px;
+    overflow:hidden;
+    border:1px solid rgba(255,213,42,.37);
+    border-radius:16px;
+    text-align:left;
+    color:#fff;
+    background:
+        linear-gradient(135deg,rgba(47,5,18,.82),rgba(5,11,34,.88)),
+        url("draft-assets/powerstormtile.webp") center/360px repeat;
+    box-shadow:0 0 14px rgba(255,38,56,.13);
+    cursor:pointer;
+    transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease;
+}
+
+.spx-cyclops-tag-btn::before,
+.spx-cyclops-candidate::before{
+    content:"";
+    position:absolute;
+    left:-20%;
+    right:-20%;
+    top:52%;
+    height:2px;
+    background:linear-gradient(90deg,transparent,#ff2438,#fff,#ff2438,transparent);
+    opacity:.22;
+    box-shadow:0 0 12px #ff2438;
+}
+
+.spx-cyclops-tag-btn:hover:not(:disabled),
+.spx-cyclops-candidate:hover{
+    transform:translateY(-2px);
+    border-color:#ffe16a;
+    box-shadow:0 0 21px rgba(255,213,42,.27),0 0 25px rgba(255,38,56,.23);
+}
+
+.spx-cyclops-tag-btn:disabled{
+    opacity:.34;
+    cursor:not-allowed;
+    filter:grayscale(.75);
+}
+
+.spx-cyclops-tag-btn.spx-cyclops-selected,
+.spx-cyclops-candidate.spx-cyclops-selected{
+    border-color:#fff08a;
+    background:linear-gradient(135deg,rgba(121,9,28,.88),rgba(35,24,4,.88));
+    box-shadow:
+        0 0 0 2px rgba(255,213,42,.19) inset,
+        0 0 25px rgba(255,38,56,.42),
+        0 0 32px rgba(255,213,42,.25);
+}
+
+.spx-cyclops-tag-btn span,
+.spx-cyclops-candidate span{
+    position:relative;
+    display:block;
+    color:#ff7887;
+    font-family:"Orbitron",sans-serif;
+    font-size:9px;
+    font-weight:900;
+    letter-spacing:.11em;
+}
+
+.spx-cyclops-tag-btn strong,
+.spx-cyclops-candidate strong{
+    position:relative;
+    display:block;
+    margin:5px 0;
+    color:#ffe56b;
+    font-family:"Orbitron",sans-serif;
+    font-size:15px;
+    line-height:1.18;
+}
+
+.spx-cyclops-tag-btn small,
+.spx-cyclops-candidate small{
+    position:relative;
+    display:block;
+    color:rgba(255,255,255,.7);
+    font-family:"Rajdhani",sans-serif;
+    font-size:14px;
+    font-weight:700;
+}
+
+.spx-cyclops-candidate b{
+    position:relative;
+    display:block;
+    margin-top:7px;
+    color:#fff3ad;
+    font-family:"Orbitron",sans-serif;
+    font-size:10px;
+}
+
+.spx-cyclops-tag-hint,
+.spx-cyclops-choice{
+    position:relative;
+    z-index:1;
+    margin:14px 0 0;
+    padding:10px 13px;
+    border-left:3px solid #ff2638;
+    color:#fff4b4;
+    font-family:"Rajdhani",sans-serif;
+    font-size:16px;
+    font-weight:800;
+    background:rgba(255,38,56,.075);
+}
+
+.spx-cyclops-actions{
+    position:relative;
+    z-index:1;
+    display:flex;
+    justify-content:flex-end;
+    gap:12px;
+    margin-top:19px;
+}
+
+.spx-cyclops-secondary-btn,
+.spx-cyclops-confirm-btn{
+    min-height:45px;
+    padding:10px 17px;
+    border-radius:999px;
+    font-family:"Orbitron",sans-serif;
+    font-size:11px;
+    font-weight:900;
+    letter-spacing:.075em;
+    cursor:pointer;
+    transition:.2s ease;
+}
+
+.spx-cyclops-secondary-btn{
+    border:1px solid rgba(255,255,255,.3);
+    color:#fff;
+    background:rgba(4,7,23,.72);
+}
+
+.spx-cyclops-secondary-btn:hover{
+    border-color:#ff7a88;
+    box-shadow:0 0 17px rgba(255,38,56,.3);
+}
+
+.spx-cyclops-confirm-btn{
+    border:1px solid #fff2a7;
+    color:#260107;
+    background:linear-gradient(180deg,#fff27e,#ffc928);
+    box-shadow:0 0 17px rgba(255,213,42,.43),0 0 24px rgba(255,38,56,.17);
+}
+
+.spx-cyclops-confirm-btn:hover:not(:disabled){
+    transform:translateY(-1px);
+    box-shadow:0 0 25px rgba(255,213,42,.68),0 0 37px rgba(255,38,56,.36);
+}
+
+.spx-cyclops-confirm-btn:disabled{
+    opacity:.35;
+    cursor:not-allowed;
+    filter:grayscale(.7);
+}
+
+.spx-cyclops-candidate-panel{
+    width:min(1040px,96vw);
+}
+
+.spx-cyclops-candidates{
+    max-height:42vh;
+    overflow:auto;
+    padding:2px 5px 8px 2px;
+    grid-template-columns:repeat(3,minmax(0,1fr));
+}
+
+.spx-cyclops-candidates::-webkit-scrollbar{
+    width:9px;
+}
+
+.spx-cyclops-candidates::-webkit-scrollbar-thumb{
+    border-radius:999px;
+    background:linear-gradient(#ff2638,#ffd52a);
+}
+
+.spx-cyclops-final-summary{
+    position:relative;
+    z-index:1;
+    display:grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:13px;
+}
+
+.spx-cyclops-final-summary article{
+    padding:16px;
+    border:1px solid rgba(255,213,42,.44);
+    border-radius:18px;
+    background:linear-gradient(135deg,rgba(85,4,20,.62),rgba(4,10,32,.84));
+    box-shadow:0 0 19px rgba(255,38,56,.14) inset;
+}
+
+.spx-cyclops-final-summary article > span{
+    color:#ff7887;
+    font-family:"Orbitron",sans-serif;
+    font-size:9px;
+    font-weight:900;
+    letter-spacing:.12em;
+}
+
+.spx-cyclops-final-summary article div{
+    display:grid;
+    grid-template-columns:1fr auto 1fr;
+    align-items:center;
+    gap:10px;
+    margin-top:9px;
+}
+
+.spx-cyclops-final-summary strong{
+    color:#fff;
+    font-family:"Orbitron",sans-serif;
+    font-size:13px;
+    line-height:1.2;
+}
+
+.spx-cyclops-final-summary strong:last-child{
+    color:#ffe46a;
+}
+
+.spx-cyclops-final-summary i{
+    color:#ff3346;
+    font-size:24px;
+    font-style:normal;
+    text-shadow:0 0 10px #ff2638;
+}
+
+body.spx-cyclops-selecting-anchor .card.spx-cyclops-anchor-eligible,
+body.spx-cyclops-selecting-target .card.spx-cyclops-target-eligible,
+body.spx-cyclops-selecting-target .card.spx-cyclops-anchor-locked,
+body.spx-cyclops-selecting-target .card.spx-cyclops-target-locked{
+    position:relative;
+    overflow:visible;
+}
+
+body.spx-cyclops-selecting-anchor .card.spx-cyclops-anchor-eligible{
+    z-index:4;
+    outline:2px solid #ffd52a;
+    background:
+        linear-gradient(90deg,rgba(72,4,17,.78),rgba(15,18,43,.84))!important;
+    box-shadow:
+        0 0 0 2px rgba(255,38,56,.26) inset,
+        0 0 15px #ff2638,
+        0 0 28px rgba(255,213,42,.48)!important;
+    cursor:crosshair!important;
+    animation:spxCyclopsCardTarget 1.3s ease-in-out infinite alternate;
+}
+
+body.spx-cyclops-selecting-anchor .card.spx-cyclops-anchor-eligible::before,
+body.spx-cyclops-selecting-target .card.spx-cyclops-target-eligible::before,
+body.spx-cyclops-selecting-target .card.spx-cyclops-anchor-locked::before{
+    content:"";
+    position:absolute;
+    left:6%;
+    right:6%;
+    top:50%;
+    height:3px;
+    transform:translateY(-50%);
+    pointer-events:none;
+    background:linear-gradient(90deg,transparent,#ff2638,#fff,#ff2638,transparent);
+    box-shadow:0 0 7px #fff,0 0 17px #ff2638,0 0 26px #ff2638;
+    animation:spxCyclopsCardBeam 1.1s ease-in-out infinite alternate;
+}
+
+body.spx-cyclops-selecting-anchor .card.spx-cyclops-anchor-eligible::after{
+    content:attr(data-cyclops-tags);
+    position:absolute;
+    left:50%;
+    bottom:calc(100% + 9px);
+    z-index:30;
+    width:max-content;
+    max-width:280px;
+    padding:9px 11px;
+    transform:translate(-50%,5px);
+    border:1px solid rgba(255,213,42,.74);
+    border-radius:11px;
+    color:#fff4ad;
+    font-family:"Orbitron",sans-serif;
+    font-size:9px;
+    line-height:1.35;
+    letter-spacing:.05em;
+    text-align:center;
+    white-space:normal;
+    background:linear-gradient(135deg,rgba(45,3,14,.97),rgba(5,11,32,.98));
+    box-shadow:0 0 19px rgba(255,38,56,.38);
+    opacity:0;
+    visibility:hidden;
+    pointer-events:none;
+    transition:.18s ease;
+}
+
+body.spx-cyclops-selecting-anchor .card.spx-cyclops-anchor-eligible:hover::after{
+    opacity:1;
+    visibility:visible;
+    transform:translate(-50%,0);
+}
+
+body.spx-cyclops-selecting-target .card.spx-cyclops-anchor-locked{
+    outline:2px solid #ff2638;
+    box-shadow:0 0 17px rgba(255,38,56,.72),0 0 29px rgba(255,213,42,.27)!important;
+}
+
+body.spx-cyclops-selecting-target .card.spx-cyclops-target-eligible{
+    outline:2px solid rgba(255,213,42,.86);
+    box-shadow:0 0 14px rgba(255,213,42,.51),0 0 22px rgba(255,38,56,.27)!important;
+    cursor:crosshair!important;
+}
+
+body.spx-cyclops-selecting-target .card.spx-cyclops-target-locked{
+    outline:2px solid #fff080;
+    background:linear-gradient(90deg,rgba(93,6,22,.87),rgba(48,37,5,.85))!important;
+    box-shadow:0 0 18px rgba(255,38,56,.58),0 0 28px rgba(255,213,42,.42)!important;
+}
+
+body.spx-cyclops-selecting-target .card.spx-cyclops-target-locked::after{
+    content:"TEAM CALL → " attr(data-cyclops-replacement);
+    position:absolute;
+    inset:3px;
+    z-index:3;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:4px;
+    border-radius:inherit;
+    color:#fff4a4;
+    font-family:"Orbitron",sans-serif;
+    font-size:8px;
+    line-height:1.2;
+    text-align:center;
+    background:rgba(38,2,11,.9);
+    text-shadow:0 0 8px #ff2638;
+    pointer-events:none;
+}
+
+body.spx-cyclops-selecting-anchor .card.spx-cyclops-ineligible,
+body.spx-cyclops-selecting-target .card.spx-cyclops-ineligible{
+    opacity:.24!important;
+    filter:grayscale(.82)!important;
+}
+
+@keyframes spxCyclopsHudBeam{
+    0%,100%{opacity:.2;transform:translateY(-50%) scaleX(.84)}
+    50%{opacity:.63;transform:translateY(-50%) scaleX(1)}
+}
+
+@keyframes spxCyclopsVisorPulse{
+    from{opacity:.58;transform:translateY(-50%) scaleX(.82)}
+    to{opacity:1;transform:translateY(-50%) scaleX(1)}
+}
+
+@keyframes spxCyclopsPanelScan{
+    0%,12%{top:18%;opacity:0}
+    25%{opacity:.68}
+    64%{top:82%;opacity:.4}
+    100%{top:82%;opacity:0}
+}
+
+@keyframes spxCyclopsCardTarget{
+    from{transform:translateY(0)}
+    to{transform:translateY(-2px)}
+}
+
+@keyframes spxCyclopsCardBeam{
+    from{opacity:.43;transform:translateY(-50%) scaleX(.7)}
+    to{opacity:1;transform:translateY(-50%) scaleX(1)}
+}
+
+@media(max-width:760px){
+    .spx-cyclops-hud{
+        grid-template-columns:58px 1fr;
+        top:8px;
+    }
+
+    .spx-cyclops-hud-visor{
+        width:55px;
+        height:34px;
+    }
+
+    .spx-cyclops-cancel{
+        grid-column:1/-1;
+        justify-self:end;
+    }
+
+    .spx-cyclops-panel{
+        padding:17px;
+    }
+
+    .spx-cyclops-header{
+        grid-template-columns:68px 1fr;
+    }
+
+    .spx-cyclops-header img{
+        width:64px;
+        height:64px;
+    }
+
+    .spx-cyclops-tag-choices,
+    .spx-cyclops-candidates,
+    .spx-cyclops-final-summary{
+        grid-template-columns:1fr;
+    }
+
+    .spx-cyclops-actions{
+        flex-direction:column-reverse;
+    }
+}
+
+@media(prefers-reduced-motion:reduce){
+    .spx-cyclops-hud::before,
+    .spx-cyclops-hud-visor span,
+    .spx-cyclops-laser-scan::before,
+    body.spx-cyclops-selecting-anchor .card.spx-cyclops-anchor-eligible,
+    body.spx-cyclops-selecting-anchor .card.spx-cyclops-anchor-eligible::before,
+    body.spx-cyclops-selecting-target .card.spx-cyclops-target-eligible::before,
+    body.spx-cyclops-selecting-target .card.spx-cyclops-anchor-locked::before{
+        animation:none!important;
+    }
+}

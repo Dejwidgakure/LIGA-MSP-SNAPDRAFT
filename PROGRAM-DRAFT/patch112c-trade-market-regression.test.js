@@ -1,0 +1,68 @@
+const fs=require('fs');
+const assert=require('assert');
+
+const ui=fs.readFileSync(__dirname+'/trade-market-ui.js','utf8');
+const css=fs.readFileSync(__dirname+'/trade-market.css','utf8');
+const html=fs.readFileSync(__dirname+'/snap-draft.html','utf8');
+const engine=fs.readFileSync(__dirname+'/trade-market-engine.js','utf8');
+const runtime=fs.readFileSync(__dirname+'/trade-market-runtime.js','utf8');
+
+assert.match(ui,/1\.0\.3-trade-market-open-runtime-fix/);
+assert.match(html,/trade-market\.css\?v=1\.0\.4-final-polish-1/);
+assert.match(html,/trade-market-ui\.js\?v=1\.0\.5-final-audit-01/);
+assert.match(ui,/Array\.from\(\{length:18\}/,'shared planet header uses denser lamps');
+assert.doesNotMatch(ui,/NEGOTIATION HUB/);
+assert.doesNotMatch(ui,/ZIMNA KOSMICZNA KORPORACJA/);
+assert.match(ui,/trade-neg-table-arena/,'negotiation table is the live arena');
+assert.match(ui,/galactic_market_negotiation_table_stage\.png/,'live table uses the alpha-safe cropped stage asset');
+assert.match(ui,/trade-market-v2-layout trade-neg-v2-layout/,'negotiations use a rail and a separate living scene');
+assert.match(ui,/trade-market-v2-layout trade-market-bazaar-layout-v2/,'market uses a rail and a separate bazaar scene');
+assert.match(ui,/trade-stall-inline-buy/,'market purchase confirmation stays inside the selected stall');
+assert.match(ui,/trade-neg-table-decision/,'accept and reject controls are mounted on the table');
+assert.match(ui,/trade-neg-inline-deal/,'accepted negotiation resolves on the table');
+assert.match(ui,/pendingNegotiationForPlayer/,'seller and buyer can see a pending contract on the table');
+assert.match(ui,/trade-neg-live-zone is-left/);
+assert.match(ui,/trade-neg-live-zone is-right/);
+assert.match(ui,/renderTradeCoinStack\(model\.price/,'live coin stack is rendered onto table');
+assert.match(ui,/renderTradeTableCard\(model\.targetCard/,'target card is rendered onto table');
+assert.match(ui,/pendingNegotiationForBuyer/,'submitted pending offer can remain represented on the table');
+assert.match(ui,/data-trade-hard-disabled/,'form has explicit locked state');
+assert.match(ui,/submit\.disabled=hardLocked\|\|!model\.ready/,'submit follows complete live contract state');
+assert.match(ui,/TYLKO JEFFCOINY/,'coin-only transaction model exists');
+assert.match(ui,/TYLKO KARTA/,'card-only transaction model exists');
+assert.match(ui,/JEFFCOINY \+ KARTA/,'hybrid transaction model exists');
+assert.match(ui,/KARTA ZASTĘPOWANA W TWOIM DECKU/,'coin-only mode asks for the buyer slot that will be replaced');
+assert.match(ui,/priceField\.hidden=!usesCoins/,'card-only mode hides the coin amount');
+assert.doesNotMatch(ui,/>FOR SALE</,'listed badge does not repeat FOR SALE text');
+assert.doesNotMatch(ui,/<i>JC<\/i>/,'listed badge shows only JeffCoin icon and numeral');
+assert.match(ui,/isInstanceInNegotiation/,'listing selections ignore market overlap but still block a second active negotiation');
+assert.match(ui,/CZEKA NA HANDLARZA/,'empty stall copy supports Polish-capable typography');
+assert.match(engine,/buyerReleaseInstanceId/,'coin-only deal preserves deck size through an explicit buyer release slot');
+assert.match(engine,/transactionMode=\["cash","card","hybrid"\]/,'engine persists all three contract modes');
+assert.match(engine,/closeListingsForInstances/,'a committed transaction automatically closes overlapping market listings');
+assert.match(engine,/expireNegotiationsForInstances/,'the first committed transaction invalidates stale parallel negotiations');
+assert.match(runtime,/function executeCoinPurchase/,'runtime can execute a coin-only acquisition');
+
+assert.match(css,/width:min\(97\.8vw,1780px\)/,'final modal uses nearly the full desktop width');
+assert.match(css,/height:96\.5dvh/,'final modal fits at browser zoom 100 percent');
+assert.match(css,/grid-template-columns:minmax\(270px,26%\) minmax\(0,74%\)/,'desktop layout reserves a narrow rail and a large live scene');
+assert.match(css,/\.trade-market-ui-frame\{[\s\S]*inset:-\.55%/,'asset frame overlaps outer modal edge');
+assert.match(css,/\.trade-market-control-rail\{[\s\S]*overflow-y:auto/,'only the control rail owns the main internal scroll');
+assert.match(css,/galactic_market_backdrop_v2\.png"\) center 84%\/cover no-repeat/,'market district reuses lower part of planet backdrop');
+assert.match(css,/Negotiations — bright cyan\/white corporate room/);
+assert.match(css,/\.trade-neg-table-arena/);
+assert.match(css,/\.trade-neg-live-zone/);
+assert.match(css,/aspect-ratio:1536\/952/,'table arena follows the cropped asset geometry');
+assert.match(css,/Accepted\/rejected deals happen on the physical table/);
+assert.match(css,/\.trade-neg-command-box>h3,\.trade-neg-pending-box>h3/,'negotiation controls get corporate headers instead of market awnings');
+assert.match(css,/color-scheme:dark/,'select controls avoid bright default option styling');
+
+assert.match(css,/TRADE MARKET V5/);
+assert.match(css,/TRADE MARKET V6/,'final market micro-polish is present');
+assert.match(css,/tradeV6HoloCaption/,'table-zone labels use the requested holographic treatment');
+assert.match(css,/tradeV6LauncherRail/,'launcher has a moving RGB border');
+assert.match(css,/tradeV5BillboardScan/,'stats use mounted LED billboard screens');
+assert.match(css,/tradeV5BulbPulse/,'active tab lights bulbs without moving its awning');
+assert.match(css,/tradeV5LiveRail/,'negotiation bay has a moving cyan-white LED rail');
+
+console.log('Trade Market V5 regression OK');

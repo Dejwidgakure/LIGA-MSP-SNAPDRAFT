@@ -1,0 +1,251 @@
+
+/* =========================================================
+   MSP SNAPDRAFT — KRONIKI 01
+   Cosmic Library Polish
+   IMPORTANT: no navbar selectors in this stylesheet.
+========================================================= */
+
+:root{
+  --kroniki-cyan:#66ecff;
+  --kroniki-violet:#826bff;
+  --kroniki-book:#b898ff;
+}
+
+/* NEW COSMIC LIBRARY ENVIRONMENT */
+body{
+  background:
+    linear-gradient(rgba(2,7,24,.38), rgba(2,7,24,.72) 52%, rgba(2,6,20,.88)),
+    url("kronikitlo.png") center top / cover fixed no-repeat !important;
+  background-color:#03071a !important;
+}
+
+/* Existing generic overlay becomes a very subtle moving archive haze. */
+body::before{
+  background:
+    radial-gradient(circle at 16% 20%,rgba(62,207,255,.10),transparent 25%),
+    radial-gradient(circle at 84% 18%,rgba(139,87,255,.11),transparent 25%),
+    linear-gradient(120deg,transparent 24%,rgba(102,231,255,.025) 43%,transparent 62%) !important;
+  opacity:1 !important;
+  mix-blend-mode:screen;
+  background-size:auto,auto,220% 100% !important;
+  animation:kronikiArchiveSweep 18s linear infinite !important;
+}
+body::after{
+  background:
+    radial-gradient(circle at 50% 18%,rgba(52,126,255,.08),transparent 30%),
+    radial-gradient(circle at 9% 61%,rgba(95,226,255,.07),transparent 24%),
+    radial-gradient(circle at 91% 64%,rgba(139,80,255,.08),transparent 25%) !important;
+}
+@keyframes kronikiArchiveSweep{
+  to{background-position:0 0,0 0,-220% 0}
+}
+
+/* HERO REGION */
+.header-wrap{
+  min-height:445px;
+  overflow:visible;
+}
+.header-wrap::before{
+  height:520px !important;
+  background:
+    linear-gradient(to bottom,rgba(2,8,26,.52),rgba(3,9,29,.24) 52%,transparent),
+    radial-gradient(ellipse at 50% 15%,rgba(67,209,255,.085),transparent 52%) !important;
+}
+.hero{
+  position:relative;
+  z-index:3;
+}
+.hero-logo{
+  filter:
+    drop-shadow(0 0 17px rgba(92,232,255,.48))
+    drop-shadow(0 0 34px rgba(123,83,255,.24)) !important;
+}
+
+/* Big librarian Jeff sticker — content only, never navbar. */
+.kroniki-jeff-sticker{
+  position:absolute;
+  z-index:1;
+  left:max(-28px,calc(50% - 720px));
+  right:auto;
+  bottom:-58px;
+  top:auto;
+  width:min(370px,27vw);
+  pointer-events:none;
+  opacity:.34;
+  transform:rotate(-3deg);
+  transform-origin:center bottom;
+  filter:
+    drop-shadow(0 0 10px rgba(127,233,255,.18))
+    drop-shadow(0 0 24px rgba(120,85,255,.12))
+    drop-shadow(0 0 42px rgba(53,183,255,.08));
+  animation:kronikiJeffFloat 8.4s ease-in-out infinite alternate;
+}
+.kroniki-jeff-sticker img{
+  display:block;
+  width:100%;
+  height:auto;
+}
+@keyframes kronikiJeffFloat{
+  from{transform:translate3d(0,8px,0) rotate(-3.6deg)}
+  to{transform:translate3d(6px,-8px,0) rotate(-1.6deg)}
+}
+
+/* Slightly more transparent glass so the new library is actually visible. */
+.meta-grid{
+  background:
+    linear-gradient(90deg,rgba(4,9,30,.64),rgba(7,14,42,.72),rgba(4,9,30,.64)) !important;
+  border-color:rgba(103,232,255,.23) !important;
+  box-shadow:
+    0 0 28px rgba(0,226,255,.11),
+    0 0 70px rgba(105,77,255,.055),
+    inset 0 0 35px rgba(111,233,255,.045) !important;
+}
+.section-card{
+  background:
+    linear-gradient(145deg,rgba(5,13,38,.75),rgba(6,11,34,.67)) !important;
+  border-color:rgba(104,231,255,.28) !important;
+  box-shadow:
+    0 0 31px rgba(0,227,255,.13),
+    0 0 78px rgba(116,76,255,.065),
+    inset 0 1px 0 rgba(255,255,255,.045) !important;
+}
+.section-card::before{
+  opacity:.035 !important;
+}
+.section-card:hover{
+  border-color:rgba(112,237,255,.38);
+  box-shadow:
+    0 0 36px rgba(0,232,255,.16),
+    0 0 86px rgba(117,79,255,.08),
+    inset 0 1px 0 rgba(255,255,255,.05) !important;
+}
+
+/* QUICK JUMP BUGFIX:
+   force the browser select + its native option popup to use a dark palette. */
+#draftJumpSelect{
+  color:#edfaff !important;
+  background-color:#08152f !important;
+  color-scheme:dark !important;
+  -webkit-text-fill-color:#edfaff;
+}
+#draftJumpSelect option{
+  color:#edfaff !important;
+  background:#08152f !important;
+}
+#draftJumpSelect option:checked,
+#draftJumpSelect option:hover{
+  color:#fff !important;
+  background:#153b62 !important;
+}
+#draftJumpSelect:focus{
+  border-color:rgba(107,237,255,.52) !important;
+  box-shadow:0 0 21px rgba(0,228,255,.17) !important;
+}
+
+/* AMBIENT FLOATING CARDS / BOOKS — intentionally on the page sides. */
+.kroniki-ambient{
+  position:fixed;
+  inset:0;
+  z-index:0;
+  overflow:hidden;
+  pointer-events:none;
+}
+.kroniki-float-card,
+.kroniki-float-book{
+  position:absolute;
+  display:grid;
+  place-items:center;
+  border:1px solid rgba(114,225,255,.20);
+  color:rgba(222,248,255,.68);
+  background:
+    radial-gradient(circle at 50% 35%,rgba(103,216,255,.12),transparent 42%),
+    linear-gradient(145deg,rgba(15,33,76,.45),rgba(27,17,71,.48));
+  box-shadow:
+    0 0 13px rgba(72,211,255,.12),
+    0 0 28px rgba(113,72,255,.08);
+  backdrop-filter:blur(2px);
+}
+.kroniki-float-card{
+  width:48px;
+  height:68px;
+  border-radius:7px;
+  font:900 18px Orbitron,sans-serif;
+}
+.kroniki-float-book{
+  width:62px;
+  height:45px;
+  border-radius:7px 12px 12px 7px;
+  font-size:19px;
+}
+.kc1{left:1.2%;top:25%;transform:rotate(-14deg);animation:kronikiFloatA 12s ease-in-out infinite alternate}
+.kc2{right:1.5%;top:38%;transform:rotate(12deg);animation:kronikiFloatB 15s ease-in-out infinite alternate}
+.kc3{left:3.5%;top:68%;transform:rotate(8deg);animation:kronikiFloatB 18s ease-in-out infinite alternate-reverse}
+.kc4{right:3%;top:78%;transform:rotate(-11deg);animation:kronikiFloatA 16s ease-in-out infinite alternate-reverse}
+.kb1{left:1%;top:48%;transform:rotate(-8deg);animation:kronikiFloatB 14s ease-in-out infinite alternate}
+.kb2{right:.8%;top:58%;transform:rotate(9deg);animation:kronikiFloatA 13s ease-in-out infinite alternate}
+.kb3{left:2.5%;top:87%;transform:rotate(-5deg);animation:kronikiFloatB 19s ease-in-out infinite alternate}
+@keyframes kronikiFloatA{
+  to{translate:10px -34px;rotate:5deg;filter:brightness(1.18)}
+}
+@keyframes kronikiFloatB{
+  to{translate:-12px 29px;rotate:-4deg;filter:brightness(1.13)}
+}
+
+/* Thin orbit traces on the side walls. */
+.kroniki-orbit{
+  position:absolute;
+  width:260px;
+  height:120px;
+  border:1px solid rgba(91,214,255,.075);
+  border-radius:50%;
+}
+.ko1{left:-155px;top:18%;transform:rotate(63deg)}
+.ko2{right:-155px;top:63%;transform:rotate(-60deg)}
+
+/* Readability keeps priority over the background. */
+.content{
+  position:relative;
+  z-index:2;
+}
+.toolbar{
+  z-index:6 !important;
+}
+
+/* Desktop content gets just a little more breathing room. */
+@media(min-width:1200px){
+  .content{max-width:1360px !important}
+  .section-inner{padding:31px !important}
+}
+
+@media(max-width:1120px){
+  .kroniki-jeff-sticker{
+    left:-34px;
+    bottom:-44px;
+    width:min(320px,34vw);
+    opacity:.28;
+  }
+}
+@media(max-width:820px){
+  .header-wrap{min-height:400px}
+  .kroniki-jeff-sticker{
+    position:relative;
+    left:auto;
+    bottom:auto;
+    width:min(390px,72vw);
+    margin:8px auto -58px;
+    opacity:.24;
+  }
+  .kroniki-ambient{opacity:.50}
+}
+@media(max-width:600px){
+  .kroniki-jeff-sticker{display:none}
+  .kroniki-ambient{display:none}
+}
+@media(prefers-reduced-motion:reduce){
+  .kroniki-jeff-sticker,
+  .kroniki-float-card,
+  .kroniki-float-book,
+  body::before{
+    animation:none !important;
+  }
+}

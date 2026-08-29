@@ -1,0 +1,174 @@
+
+/* =========================================================
+   CARD 01K — PROGRESSIVE GALLERY + LIGHTER GLASS
+   Collection content only. Navbar untouched.
+========================================================= */
+
+/* The large gallery halls let more of the museum environment through. */
+.cards-page .collection-exhibit-panel,
+.cards-page .unused-exhibit-panel{
+  position:relative;
+  overflow:hidden;
+  background:
+    linear-gradient(180deg,rgba(223,254,255,.045),transparent 14%),
+    linear-gradient(145deg,rgba(8,43,57,.22),rgba(6,24,44,.27) 48%,rgba(5,12,30,.35))!important;
+  border-color:rgba(157,247,255,.26)!important;
+  box-shadow:
+    0 24px 55px rgba(0,0,0,.21),
+    0 0 25px rgba(84,236,255,.075),
+    inset 0 1px rgba(255,255,255,.13),
+    inset 0 0 38px rgba(91,238,255,.035)!important;
+  backdrop-filter:blur(12px) saturate(1.16)!important;
+}
+
+/* Soft museum-glass reflection travelling across the whole hall. */
+.cards-page .collection-exhibit-panel::after,
+.cards-page .unused-exhibit-panel::after{
+  content:"";
+  position:absolute;
+  z-index:1;
+  top:-22%;
+  bottom:-22%;
+  left:-42%;
+  width:28%;
+  pointer-events:none;
+  transform:skewX(-17deg);
+  opacity:0;
+  background:
+    linear-gradient(90deg,
+      transparent,
+      rgba(210,254,255,.025) 18%,
+      rgba(220,255,255,.12) 50%,
+      rgba(116,237,255,.035) 74%,
+      transparent);
+  filter:blur(5px);
+  animation:collectionHallGlassSheen 11.5s ease-in-out infinite;
+}
+
+/* Individual vitrines: distinctly more transparent, less flat-blue. */
+.cards-page #cardGrid .collection-card,
+.cards-page #unusedCardGrid .collection-card{
+  background:
+    linear-gradient(180deg,rgba(228,255,255,.065),rgba(228,255,255,0) 15%),
+    linear-gradient(145deg,rgba(12,58,75,.26),rgba(8,30,53,.32) 46%,rgba(6,16,38,.41))!important;
+  border-color:rgba(161,248,255,.27)!important;
+  box-shadow:
+    0 18px 38px rgba(0,0,0,.26),
+    0 0 18px rgba(86,228,255,.065),
+    inset 0 1px rgba(255,255,255,.15),
+    inset 0 0 24px rgba(100,238,255,.035)!important;
+  backdrop-filter:blur(10px) saturate(1.14)!important;
+}
+
+/* The inner reflection is softer and moves very slightly even without hover. */
+.cards-page #cardGrid .collection-card::before,
+.cards-page #unusedCardGrid .collection-card::before{
+  background:
+    linear-gradient(112deg,
+      rgba(255,255,255,.11),
+      rgba(255,255,255,.028) 16%,
+      transparent 32%,
+      transparent 61%,
+      rgba(116,239,255,.045))!important;
+  opacity:.78!important;
+  animation:collectionCardGlassBreath 7.5s ease-in-out infinite alternate;
+}
+
+.cards-page #cardGrid .collection-card:hover,
+.cards-page #unusedCardGrid .collection-card:hover{
+  background:
+    linear-gradient(180deg,rgba(236,255,255,.085),rgba(236,255,255,0) 15%),
+    linear-gradient(145deg,rgba(14,69,86,.34),rgba(9,35,59,.39) 46%,rgba(7,18,41,.48))!important;
+  border-color:rgba(186,254,255,.48)!important;
+  box-shadow:
+    0 24px 46px rgba(0,0,0,.30),
+    0 0 24px rgba(98,241,255,.11),
+    inset 0 1px rgba(255,255,255,.20)!important;
+}
+
+/* Load-more presentation */
+.gallery-progress-row{
+  position:relative;
+  z-index:4;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:14px;
+  margin:27px auto 4px;
+  padding-top:21px;
+  border-top:1px solid rgba(147,242,255,.075);
+}
+
+.gallery-progress-row[hidden]{
+  display:none!important;
+}
+
+.gallery-progress-row>span{
+  color:#789ca6;
+  font-size:10px;
+  font-weight:900;
+  letter-spacing:.025em;
+}
+
+.gallery-load-more{
+  min-width:190px;
+  padding:11px 18px;
+  border:1px solid rgba(149,244,255,.26);
+  border-radius:999px;
+  color:#dfffff;
+  background:
+    linear-gradient(180deg,rgba(215,254,255,.07),transparent 42%),
+    rgba(7,30,48,.52);
+  box-shadow:
+    inset 0 1px rgba(255,255,255,.10),
+    0 0 17px rgba(72,229,255,.065);
+  font:900 10px Orbitron,sans-serif;
+  cursor:pointer;
+  transition:.22s ease;
+}
+
+.gallery-load-more:hover{
+  transform:translateY(-2px);
+  border-color:rgba(181,253,255,.50);
+  background:rgba(10,42,62,.61);
+  box-shadow:
+    inset 0 1px rgba(255,255,255,.15),
+    0 0 24px rgba(84,238,255,.12);
+}
+
+.gallery-load-more[hidden]{
+  display:none!important;
+}
+
+@keyframes collectionHallGlassSheen{
+  0%,58%{left:-42%;opacity:0}
+  66%{opacity:.20}
+  78%{opacity:.34}
+  91%{left:118%;opacity:.10}
+  100%{left:118%;opacity:0}
+}
+
+@keyframes collectionCardGlassBreath{
+  from{opacity:.62;filter:brightness(.97)}
+  to{opacity:.88;filter:brightness(1.08)}
+}
+
+@media(max-width:640px){
+  .gallery-progress-row{
+    flex-direction:column;
+    gap:9px;
+  }
+  .gallery-load-more{
+    width:100%;
+    max-width:280px;
+  }
+}
+
+@media(prefers-reduced-motion:reduce){
+  .cards-page .collection-exhibit-panel::after,
+  .cards-page .unused-exhibit-panel::after,
+  .cards-page #cardGrid .collection-card::before,
+  .cards-page #unusedCardGrid .collection-card::before{
+    animation:none!important;
+  }
+}

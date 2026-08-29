@@ -1,0 +1,506 @@
+/* MSP SnapDraft — Rocket / Ładunek Wybuchowy
+   Wszystkie selektory są ograniczone do klas spx-rocket-* lub nowych logo promptów. */
+
+.spx-power-prompt-logo{
+    width:54px;
+    height:54px;
+    flex:0 0 54px;
+    object-fit:contain;
+    filter:drop-shadow(0 0 8px rgba(255,225,92,.78))
+           drop-shadow(0 0 16px rgba(90,220,255,.34));
+}
+
+.spx-power-prompt-decoration{
+    opacity:.34;
+    filter:blur(.4px);
+}
+
+.spx-rocket-hud[hidden],
+.spx-rocket-explosion[hidden]{
+    display:none !important;
+}
+
+.spx-rocket-hud{
+    --rocket:#ff9a3c;
+    position:fixed;
+    left:50%;
+    top:18px;
+    z-index:10030;
+    transform:translateX(-50%);
+    width:min(780px,calc(100vw - 28px));
+    min-height:82px;
+    display:flex;
+    align-items:center;
+    gap:14px;
+    padding:12px 16px;
+    border:1px solid rgba(255,154,60,.78);
+    border-radius:22px;
+    color:#fff;
+    background:
+        linear-gradient(100deg,rgba(13,8,7,.97),rgba(34,15,8,.94)),
+        url("draft-assets/powerstormtile.webp") center/520px repeat;
+    box-shadow:
+        0 0 0 1px rgba(255,227,155,.12) inset,
+        0 0 22px rgba(255,119,36,.40),
+        0 14px 42px rgba(0,0,0,.58);
+    overflow:hidden;
+}
+
+.spx-rocket-hud::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    pointer-events:none;
+    opacity:.25;
+    background:url("draft-assets/powerstormtile.webp") center/440px repeat;
+    animation:spxRocketCloudDrift 12s linear infinite;
+}
+
+.spx-rocket-hud > *{position:relative;z-index:1}
+
+.spx-rocket-hud-copy{
+    display:flex;
+    flex:1 1 auto;
+    min-width:0;
+    flex-direction:column;
+    gap:4px;
+}
+
+.spx-rocket-hud-copy strong{
+    font-family:"Orbitron",sans-serif;
+    color:#ffd072;
+    letter-spacing:.07em;
+    text-shadow:0 0 10px rgba(255,143,49,.72);
+}
+
+.spx-rocket-hud-copy span{
+    color:#f3f7ff;
+    font-weight:800;
+    line-height:1.15;
+}
+
+.spx-rocket-arm,
+.spx-rocket-cancel{
+    flex:0 0 auto;
+    border-radius:999px;
+    border:1px solid rgba(255,180,70,.72);
+    padding:10px 14px;
+    font-family:"Orbitron",sans-serif;
+    font-size:11px;
+    font-weight:900;
+    letter-spacing:.04em;
+    color:#241006;
+    background:linear-gradient(180deg,#ffe178,#ff8d31);
+    box-shadow:0 0 14px rgba(255,141,49,.38);
+    cursor:pointer;
+}
+
+.spx-rocket-arm:disabled{
+    opacity:.38;
+    filter:grayscale(.7);
+    cursor:not-allowed;
+}
+
+.spx-rocket-cancel{
+    color:#ffd8b3;
+    background:rgba(39,14,7,.76);
+}
+
+#pack [data-pack-index].spx-rocket-candidate{
+    cursor:crosshair;
+    box-shadow:
+        0 0 0 2px rgba(255,167,73,.58),
+        0 0 20px rgba(255,116,34,.38);
+}
+
+#pack [data-pack-index].spx-rocket-candidate::after{
+    content:"";
+    position:absolute;
+    right:-8px;
+    top:-9px;
+    z-index:11;
+    width:43px;
+    height:43px;
+    border:0;
+    background:url("draft-assets/rocketbomb.png") center/contain no-repeat;
+    filter:drop-shadow(0 0 8px rgba(255,116,34,.78));
+    opacity:.72;
+    pointer-events:none;
+}
+
+#pack [data-pack-index].spx-rocket-selected{
+    animation:spxRocketSelectedPulse .72s ease-in-out infinite alternate;
+}
+
+#pack [data-pack-index].spx-rocket-selected::after{
+    content:"";
+    opacity:1;
+    transform:scale(1.12) rotate(-7deg);
+    filter:drop-shadow(0 0 13px rgba(255,188,64,1));
+}
+
+#pack [data-pack-index].spx-rocket-armed{
+    box-shadow:
+        0 0 0 2px rgba(255,119,34,.88),
+        0 0 24px rgba(255,60,12,.70),
+        0 0 42px rgba(255,169,50,.32);
+}
+
+.spx-rocket-bomb-marker{
+    position:absolute;
+    right:-13px;
+    top:-15px;
+    z-index:15;
+    width:58px;
+    height:58px;
+    display:grid;
+    place-items:center;
+    border-radius:50%;
+    background:radial-gradient(circle,rgba(255,194,66,.36),transparent 68%);
+    filter:drop-shadow(0 0 9px rgba(255,129,34,.92));
+    pointer-events:none;
+    animation:spxRocketBombTick .52s steps(2,end) infinite;
+}
+
+.spx-rocket-bomb-marker img{
+    width:100%;
+    height:100%;
+    object-fit:contain;
+}
+
+.card.spx-rocket-salvage-target{
+    cursor:pointer;
+    box-shadow:
+        0 0 0 2px rgba(255,172,70,.82),
+        0 0 25px rgba(255,105,30,.52);
+    animation:spxRocketSalvagePulse .8s ease-in-out infinite alternate;
+}
+
+.card.spx-rocket-salvage-locked{
+    filter:saturate(.3) brightness(.55);
+    pointer-events:auto;
+}
+
+.spx-rocket-explosion{
+    position:fixed;
+    inset:0;
+    z-index:10080;
+    display:grid;
+    place-items:center;
+    overflow:hidden;
+    pointer-events:auto;
+    background:rgba(4,3,8,.72);
+    backdrop-filter:blur(4px);
+}
+
+.spx-rocket-bomb-drop{
+    position:absolute;
+    left:50%;
+    top:-180px;
+    z-index:4;
+    width:150px;
+    height:150px;
+    transform:translateX(-50%);
+}
+
+.spx-rocket-bomb-drop img{
+    width:100%;
+    height:100%;
+    object-fit:contain;
+    filter:drop-shadow(0 0 22px rgba(255,154,48,.94));
+}
+
+.spx-rocket-explosion-play .spx-rocket-bomb-drop{
+    animation:spxRocketBombDrop .72s cubic-bezier(.7,.05,.9,.35) forwards;
+}
+
+.spx-rocket-flash{
+    position:absolute;
+    left:50%;
+    top:48%;
+    width:20px;
+    height:20px;
+    border-radius:50%;
+    transform:translate(-50%,-50%);
+    background:#fffbd0;
+    opacity:0;
+}
+
+.spx-rocket-explosion-play .spx-rocket-flash{
+    animation:spxRocketFlash .7s .68s ease-out forwards;
+}
+
+.spx-rocket-shockwave{
+    position:absolute;
+    left:50%;
+    top:48%;
+    width:70px;
+    height:70px;
+    border:8px solid rgba(255,181,63,.88);
+    border-radius:50%;
+    transform:translate(-50%,-50%) scale(.1);
+    opacity:0;
+}
+
+.spx-rocket-explosion-play .spx-rocket-shockwave-one{
+    animation:spxRocketShockwave .85s .72s ease-out forwards;
+}
+
+.spx-rocket-explosion-play .spx-rocket-shockwave-two{
+    animation:spxRocketShockwave 1s .84s ease-out forwards;
+}
+
+.spx-rocket-debris{
+    position:absolute;
+    left:50%;
+    top:48%;
+    width:12px;
+    height:12px;
+    opacity:0;
+    transform:translate(-50%,-50%);
+    background:#ff9a36;
+    box-shadow:
+        -130px -42px 0 #ffd86f,
+        112px -70px 0 #ff702b,
+        -95px 90px 0 #ffb43e,
+        145px 64px 0 #fff0a2,
+        -35px -135px 0 #ff7b2b,
+        42px 128px 0 #ffc256;
+}
+
+.spx-rocket-explosion-play .spx-rocket-debris{
+    animation:spxRocketDebris .85s .72s ease-out forwards;
+}
+
+.spx-rocket-result{
+    position:relative;
+    z-index:8;
+    width:min(560px,calc(100vw - 34px));
+    margin-top:190px;
+    padding:24px;
+    text-align:center;
+    border:1px solid rgba(255,171,64,.72);
+    border-radius:26px;
+    color:#fff;
+    background:
+        linear-gradient(rgba(17,7,5,.92),rgba(29,10,6,.94)),
+        url("draft-assets/powerstormtile.webp") center/520px repeat;
+    box-shadow:0 0 32px rgba(255,112,29,.48),0 20px 60px rgba(0,0,0,.66);
+    opacity:0;
+    transform:translateY(30px) scale(.92);
+}
+
+.spx-rocket-explosion-play .spx-rocket-result{
+    animation:spxRocketResultIn .42s 1.12s ease-out forwards;
+}
+
+.spx-rocket-result > img{
+    width:76px;
+    height:76px;
+    object-fit:contain;
+    filter:drop-shadow(0 0 14px rgba(255,167,63,.78));
+}
+
+.spx-rocket-result > span{
+    display:block;
+    margin-top:-10px;
+    font-family:"Bangers","Orbitron",sans-serif;
+    font-size:32px;
+    letter-spacing:.12em;
+    color:#ffb845;
+    text-shadow:0 0 14px rgba(255,101,25,.88);
+}
+
+.spx-rocket-result h2{
+    margin:4px 0 8px;
+    font-family:"Orbitron",sans-serif;
+    font-size:22px;
+    color:#ffe097;
+}
+
+.spx-rocket-result p{
+    margin:0;
+    font-size:18px;
+    font-weight:800;
+    line-height:1.3;
+}
+
+.spx-rocket-result-actions{
+    display:flex;
+    justify-content:center;
+    gap:12px;
+    margin-top:20px;
+}
+
+.spx-rocket-result-primary,
+.spx-rocket-result-secondary{
+    min-width:150px;
+    min-height:42px;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    padding:11px 16px;
+    border-radius:999px;
+    border:1px solid rgba(255,179,68,.78);
+    font-family:"Orbitron",sans-serif;
+    font-size:11px;
+    font-weight:900;
+    line-height:1;
+    text-align:center;
+    letter-spacing:.045em;
+    cursor:pointer;
+}
+
+.spx-rocket-result-primary{
+    color:#241006;
+    background:linear-gradient(180deg,#ffe278,#ff8b30);
+    box-shadow:0 0 17px rgba(255,132,38,.52);
+}
+
+.spx-rocket-result-secondary{
+    color:#ffd6a3;
+    background:rgba(28,10,7,.82);
+}
+
+.spx-rocket-result-primary:disabled,
+.spx-rocket-result-secondary:disabled{
+    opacity:.38;
+    cursor:wait;
+}
+
+@keyframes spxRocketCloudDrift{
+    to{background-position:180px 80px}
+}
+
+@keyframes spxRocketSelectedPulse{
+    to{transform:translateY(-5px) scale(1.025);filter:saturate(1.35) brightness(1.12)}
+}
+
+@keyframes spxRocketBombTick{
+    50%{transform:rotate(-4deg) scale(1.08);filter:drop-shadow(0 0 14px rgba(255,76,22,1))}
+}
+
+@keyframes spxRocketSalvagePulse{
+    to{transform:translateY(-4px);filter:saturate(1.25) brightness(1.1)}
+}
+
+@keyframes spxRocketBombDrop{
+    0%{top:-180px;transform:translateX(-50%) rotate(-18deg) scale(.72)}
+    78%{top:calc(48% - 70px);transform:translateX(-50%) rotate(12deg) scale(1.05)}
+    100%{top:calc(48% - 70px);transform:translateX(-50%) rotate(0) scale(.12);opacity:0}
+}
+
+@keyframes spxRocketFlash{
+    0%{opacity:0;transform:translate(-50%,-50%) scale(.1)}
+    24%{opacity:1;transform:translate(-50%,-50%) scale(18)}
+    100%{opacity:0;transform:translate(-50%,-50%) scale(34)}
+}
+
+@keyframes spxRocketShockwave{
+    0%{opacity:.95;transform:translate(-50%,-50%) scale(.1)}
+    100%{opacity:0;transform:translate(-50%,-50%) scale(8)}
+}
+
+@keyframes spxRocketDebris{
+    0%{opacity:1;transform:translate(-50%,-50%) scale(.1) rotate(0)}
+    100%{opacity:0;transform:translate(-50%,-50%) scale(2.4) rotate(180deg)}
+}
+
+@keyframes spxRocketResultIn{
+    to{opacity:1;transform:translateY(0) scale(1)}
+}
+
+@media(max-width:760px){
+    .spx-rocket-hud{
+        top:8px;
+        flex-wrap:wrap;
+        padding:10px;
+    }
+    .spx-rocket-hud-copy{min-width:calc(100% - 78px)}
+    .spx-rocket-arm,.spx-rocket-cancel{flex:1 1 42%}
+}
+
+@media(prefers-reduced-motion:reduce){
+    .spx-rocket-hud::before,
+    #pack [data-pack-index].spx-rocket-selected,
+    .spx-rocket-bomb-marker,
+    .card.spx-rocket-salvage-target{
+        animation:none !important;
+    }
+}
+
+/* PATCH 39.4 FULL VISUAL — celownik bez obramowania hitboxa */
+#pack [data-pack-index].spx-rocket-candidate{
+    position:relative;
+    cursor:crosshair;
+    outline:0!important;
+    box-shadow:none!important;
+}
+
+#pack [data-pack-index].spx-rocket-candidate::after{
+    right:50%;
+    top:50%;
+    width:74px;
+    height:74px;
+    transform:translate(50%,-50%);
+    background:url("draft-assets/rocket_crosshair.png") center/contain no-repeat;
+    filter:drop-shadow(0 0 7px rgba(255,177,61,.95));
+    opacity:.82;
+    animation:spxRocketCrosshairScan 1.45s ease-in-out infinite;
+}
+
+#pack [data-pack-index].spx-rocket-candidate:hover::after{
+    width:84px;
+    height:84px;
+    opacity:1;
+    filter:drop-shadow(0 0 5px #fff) drop-shadow(0 0 13px rgba(255,125,24,1));
+}
+
+#pack [data-pack-index].spx-rocket-selected{
+    outline:2px solid rgba(255,193,80,.82)!important;
+    outline-offset:3px;
+    box-shadow:0 0 20px rgba(255,120,28,.42)!important;
+    animation:none;
+}
+
+#pack [data-pack-index].spx-rocket-selected::after{
+    transform:translate(50%,-50%) scale(1.14);
+    animation:spxRocketCrosshairLocked .34s steps(2,end) infinite;
+}
+
+#pack [data-pack-index].spx-rocket-armed{
+    outline:0!important;
+    box-shadow:none!important;
+}
+
+.spx-rocket-bomb-marker{
+    right:-9px;
+    top:-13px;
+    width:54px;
+    height:54px;
+    border:0;
+    border-radius:0;
+    background:none!important;
+    box-shadow:none!important;
+}
+
+.joker-card-btn.spx-rocket-armed,
+.joker-card-btn.spx-rocket-armed:hover{
+    outline:0!important;
+    box-shadow:var(--joker-card-shadow,none)!important;
+}
+
+@keyframes spxRocketCrosshairScan{
+    0%,100%{transform:translate(50%,-50%) scale(.9);opacity:.62}
+    50%{transform:translate(50%,-50%) scale(1.04);opacity:1}
+}
+
+@keyframes spxRocketCrosshairLocked{
+    0%{transform:translate(48%,-52%) scale(1.13) rotate(-2deg)}
+    50%{transform:translate(52%,-48%) scale(1.2) rotate(2deg)}
+}
+
+@media(prefers-reduced-motion:reduce){
+    #pack [data-pack-index].spx-rocket-candidate::after,
+    #pack [data-pack-index].spx-rocket-selected::after{animation:none!important}
+}

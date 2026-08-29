@@ -1,0 +1,250 @@
+/* =========================================================
+   CARD 01G — AQUA GLASS VITRINES
+   Light-blue shimmering glass treatment for museum tiles.
+========================================================= */
+
+:root{
+  --glass-aqua-1: rgba(146, 244, 255, .22);
+  --glass-aqua-2: rgba(99, 228, 255, .14);
+  --glass-aqua-3: rgba(172, 247, 255, .10);
+  --glass-deep-1: rgba(11, 44, 66, .54);
+  --glass-deep-2: rgba(8, 23, 44, .48);
+  --glass-deep-3: rgba(7, 14, 31, .62);
+  --glass-glow: rgba(104, 238, 255, .22);
+  --glass-glow-strong: rgba(127, 248, 255, .34);
+}
+
+/* General museum panels: clearer blue-glass vibe */
+.cards-page .panel,
+.card-profile-page .panel,
+.cards-page .control-grid,
+.cards-page .museum-curator-card,
+.card-profile-page .heritage-stat,
+.card-profile-page .pilot-ledger-card,
+.card-profile-page .card-trend-fact,
+.card-profile-page .momentum-card,
+.card-profile-page .card-record-card{
+  border-color: var(--glass-aqua-1) !important;
+  background:
+    linear-gradient(180deg, rgba(194,250,255,.085), rgba(194,250,255,0) 17%),
+    linear-gradient(145deg, var(--glass-deep-1), var(--glass-deep-2) 45%, var(--glass-deep-3)) !important;
+  box-shadow:
+    0 18px 42px rgba(0,0,0,.26),
+    0 0 0 1px rgba(190,251,255,.045),
+    inset 0 1px 0 rgba(255,255,255,.13),
+    inset 0 0 28px rgba(112, 234, 255, .05),
+    inset -30px -20px 70px rgba(81, 199, 255, .04) !important;
+  backdrop-filter: blur(20px) saturate(1.22) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(1.22) !important;
+}
+
+.cards-page .panel,
+.card-profile-page .panel,
+.cards-page .museum-curator-card,
+.card-profile-page .heritage-stat,
+.card-profile-page .pilot-ledger-card,
+.card-profile-page .card-trend-fact,
+.card-profile-page .momentum-card,
+.card-profile-page .card-record-card{
+  position: relative;
+  overflow: hidden;
+}
+
+.cards-page .panel::before,
+.card-profile-page .panel::before,
+.cards-page .museum-curator-card::before,
+.card-profile-page .heritage-stat::before,
+.card-profile-page .pilot-ledger-card::before,
+.card-profile-page .card-trend-fact::before,
+.card-profile-page .momentum-card::before,
+.card-profile-page .card-record-card::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  background:
+    linear-gradient(110deg, rgba(255,255,255,.12) 0%, rgba(255,255,255,.03) 16%, rgba(255,255,255,0) 28%),
+    radial-gradient(circle at 12% 0%, rgba(137, 248, 255, .14), transparent 34%),
+    radial-gradient(circle at 88% 8%, rgba(105, 211, 255, .10), transparent 24%);
+  opacity:.95;
+}
+
+/* Main collection vitrines */
+.cards-page #cardGrid .collection-card,
+.cards-page #unusedCardGrid .collection-card{
+  border-color: rgba(151, 247, 255, .32) !important;
+  background:
+    linear-gradient(180deg, rgba(205,252,255,.11), rgba(205,252,255,0) 16%),
+    linear-gradient(145deg, rgba(17, 66, 88, .48), rgba(10, 32, 58, .58) 45%, rgba(7, 18, 41, .70)) !important;
+  box-shadow:
+    0 20px 40px rgba(0,0,0,.31),
+    0 0 0 1px rgba(191,251,255,.05),
+    0 0 20px rgba(92, 223, 255, .09),
+    inset 0 1px 0 rgba(255,255,255,.18),
+    inset 0 0 30px rgba(106, 230, 255, .06),
+    inset -26px -20px 60px rgba(73, 194, 255, .06) !important;
+}
+
+.cards-page #cardGrid .collection-card::before,
+.cards-page #unusedCardGrid .collection-card::before{
+  inset:4px !important;
+  border-radius:14px !important;
+  border:1px solid rgba(218,255,255,.12) !important;
+  background:
+    linear-gradient(112deg, rgba(255,255,255,.16), rgba(255,255,255,.04) 15%, transparent 31%, transparent 65%, rgba(84,229,255,.07)),
+    radial-gradient(circle at 20% 0%, rgba(124,240,255,.18), transparent 34%),
+    radial-gradient(circle at 85% 100%, rgba(82,199,255,.08), transparent 32%) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.12),
+    inset 0 0 22px rgba(99, 241, 255, .05);
+}
+
+.cards-page #cardGrid .collection-card::after,
+.cards-page #unusedCardGrid .collection-card::after{
+  left:15% !important;
+  right:15% !important;
+  bottom:-12px !important;
+  height:18px !important;
+  opacity:.75 !important;
+  background: rgba(109, 239, 255, .28) !important;
+  filter: blur(12px) !important;
+}
+
+.cards-page #cardGrid .collection-card:hover,
+.cards-page #unusedCardGrid .collection-card:hover{
+  border-color: rgba(177, 253, 255, .58) !important;
+  background:
+    linear-gradient(180deg, rgba(225,254,255,.13), rgba(225,254,255,0) 16%),
+    linear-gradient(145deg, rgba(21, 78, 98, .58), rgba(11, 39, 69, .66) 45%, rgba(8, 22, 48, .80)) !important;
+  box-shadow:
+    0 26px 50px rgba(0,0,0,.35),
+    0 0 24px rgba(104, 241, 255, .14),
+    inset 0 1px 0 rgba(255,255,255,.24),
+    inset 0 0 38px rgba(122, 236, 255, .09) !important;
+}
+
+/* Curator vitrines look more like elegant glass cabinets */
+.cards-page .museum-curator-card{
+  background:
+    linear-gradient(180deg, rgba(211,252,255,.09), rgba(211,252,255,0) 16%),
+    linear-gradient(145deg, rgba(16, 61, 79, .46), rgba(11, 30, 55, .55) 44%, rgba(8, 17, 39, .70)) !important;
+}
+.cards-page .museum-curator-card .holo-slot{
+  border:1px solid rgba(169, 248, 255, .22) !important;
+  background:
+    linear-gradient(180deg, rgba(220,255,255,.08), rgba(220,255,255,0) 18%),
+    linear-gradient(145deg, rgba(21, 68, 91, .34), rgba(9, 24, 45, .54)) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.14),
+    0 0 18px rgba(95, 237, 255, .10);
+}
+
+/* Filter console as a glossy glass control bar */
+.cards-page .collection-filter-console{
+  border-color: rgba(158, 248, 255, .28) !important;
+  background:
+    linear-gradient(180deg, rgba(225,254,255,.08), rgba(225,254,255,0) 18%),
+    linear-gradient(145deg, rgba(16, 57, 77, .52), rgba(10, 28, 50, .60) 44%, rgba(8, 16, 36, .74)) !important;
+  box-shadow:
+    0 16px 34px rgba(0,0,0,.26),
+    inset 0 1px 0 rgba(255,255,255,.14),
+    inset 0 0 20px rgba(108,236,255,.05) !important;
+}
+
+.cards-page .collection-filter-console .control{
+  background:
+    linear-gradient(180deg, rgba(214,252,255,.09), rgba(214,252,255,0) 20%),
+    linear-gradient(145deg, rgba(12, 49, 71, .58), rgba(8, 22, 43, .80)) !important;
+  border-color: rgba(154, 246, 255, .22) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.12),
+    inset 0 0 18px rgba(111,236,255,.04),
+    0 0 0 1px rgba(255,255,255,.02) !important;
+}
+
+/* Stronger glow for never-used wing too, but softer/desaturated */
+.never-used-card{
+  border-color: rgba(146, 214, 232, .22) !important;
+  background:
+    linear-gradient(180deg, rgba(210,245,255,.07), rgba(210,245,255,0) 16%),
+    linear-gradient(145deg, rgba(18, 49, 64, .40), rgba(9, 23, 44, .55) 45%, rgba(8, 14, 32, .66)) !important;
+}
+
+/* Subtle moving shimmer */
+.cards-page #cardGrid .collection-card,
+.cards-page #unusedCardGrid .collection-card,
+.cards-page .museum-curator-card,
+.cards-page .panel,
+.card-profile-page .panel,
+.card-profile-page .heritage-stat,
+.card-profile-page .pilot-ledger-card,
+.card-profile-page .card-trend-fact,
+.card-profile-page .momentum-card,
+.card-profile-page .card-record-card{
+  isolation:isolate;
+}
+
+.cards-page #cardGrid .collection-card > *,
+.cards-page #unusedCardGrid .collection-card > *,
+.cards-page .museum-curator-card > *,
+.cards-page .panel > *,
+.card-profile-page .panel > *,
+.card-profile-page .heritage-stat > *,
+.card-profile-page .pilot-ledger-card > *,
+.card-profile-page .card-trend-fact > *,
+.card-profile-page .momentum-card > *,
+.card-profile-page .card-record-card > *{
+  position:relative;
+  z-index:2;
+}
+
+.cards-page #cardGrid .collection-card .glass-glint,
+.cards-page #unusedCardGrid .collection-card .glass-glint,
+.cards-page .museum-curator-card .glass-glint,
+.cards-page .panel .glass-glint,
+.card-profile-page .panel .glass-glint,
+.card-profile-page .heritage-stat .glass-glint,
+.card-profile-page .pilot-ledger-card .glass-glint,
+.card-profile-page .card-trend-fact .glass-glint,
+.card-profile-page .momentum-card .glass-glint,
+.card-profile-page .card-record-card .glass-glint{
+  display:none;
+}
+
+.cards-page #cardGrid .collection-card::marker{content:""}
+
+.cards-page #cardGrid .collection-card:hover::before,
+.cards-page #unusedCardGrid .collection-card:hover::before,
+.cards-page .museum-curator-card:hover::before,
+.cards-page .panel:hover::before,
+.card-profile-page .panel:hover::before,
+.card-profile-page .heritage-stat:hover::before,
+.card-profile-page .pilot-ledger-card:hover::before,
+.card-profile-page .card-trend-fact:hover::before,
+.card-profile-page .momentum-card:hover::before,
+.card-profile-page .card-record-card:hover::before{
+  animation: aquaGlassSweep 1.45s ease;
+}
+
+@keyframes aquaGlassSweep{
+  0%{transform:translateX(-8px); opacity:.88}
+  50%{transform:translateX(7px); opacity:1}
+  100%{transform:translateX(0); opacity:.95}
+}
+
+/* Slightly brighter typography support inside curator boxes */
+.cards-page .museum-curator-meta > span,
+.cards-page .active-filter-line,
+.collection-section-heading > p{
+  color:#90b7c2 !important;
+}
+
+@media (max-width: 680px){
+  .cards-page #cardGrid .collection-card,
+  .cards-page #unusedCardGrid .collection-card{
+    box-shadow:
+      0 16px 28px rgba(0,0,0,.28),
+      0 0 14px rgba(104, 241, 255, .08),
+      inset 0 1px 0 rgba(255,255,255,.15) !important;
+  }
+}

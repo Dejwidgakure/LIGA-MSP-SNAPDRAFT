@@ -1,0 +1,149 @@
+/* =========================================================
+   PLAYER 02D — FORTRESS LIGHTS / PAPARAZZI POLISH
+   Pure CSS visual layer. No stats/layout logic changes.
+========================================================= */
+
+/* Two additional giant search beams over the entire Warrior Base. */
+.searchlight-field::before,
+.searchlight-field::after{
+  content:"";
+  position:absolute;
+  top:-28vh;
+  width:18vw;
+  height:126vh;
+  pointer-events:none;
+  transform-origin:50% 0;
+  filter:blur(10px);
+  clip-path:polygon(47% 0,53% 0,100% 100%,0 100%);
+  mix-blend-mode:screen;
+}
+.searchlight-field::before{
+  left:21%;
+  opacity:.075;
+  background:linear-gradient(180deg,rgba(188,250,255,.82),rgba(53,208,255,.15) 59%,transparent);
+  animation:fortressSearchFour 17s ease-in-out infinite alternate;
+}
+.searchlight-field::after{
+  right:19%;
+  opacity:.065;
+  background:linear-gradient(180deg,rgba(224,194,255,.74),rgba(145,79,255,.12) 61%,transparent);
+  animation:fortressSearchFive 20s ease-in-out infinite alternate;
+}
+@keyframes fortressSearchFour{
+  0%{transform:rotate(-24deg) translateX(-15vw)}
+  46%{transform:rotate(5deg) translateX(10vw)}
+  100%{transform:rotate(25deg) translateX(28vw)}
+}
+@keyframes fortressSearchFive{
+  0%{transform:rotate(23deg) translateX(15vw)}
+  54%{transform:rotate(-3deg) translateX(-9vw)}
+  100%{transform:rotate(-24deg) translateX(-26vw)}
+}
+
+/* Slightly stronger existing beams: still background ambience, not data-lab neon. */
+.searchlight.s1{opacity:.145!important}
+.searchlight.s2{opacity:.125!important}
+.searchlight.s3{opacity:.09!important}
+
+/* PROFILE — hero is periodically caught by a camera / arena flash. */
+@keyframes fortressHeroFlash{
+  0%,20%,20.9%,52%,52.65%,83%,83.7%,100%{
+    filter:brightness(.39) saturate(.88) contrast(1.12)
+      drop-shadow(0 0 20px rgba(0,194,255,.38))
+      drop-shadow(0 0 34px rgba(132,75,255,.20));
+  }
+  20.25%{
+    filter:brightness(.88) saturate(1.04) contrast(1.05)
+      drop-shadow(0 0 28px rgba(210,252,255,.72))
+      drop-shadow(0 0 54px rgba(98,192,255,.42));
+  }
+  52.2%{
+    filter:brightness(.69) saturate(1) contrast(1.08)
+      drop-shadow(0 0 25px rgba(255,255,255,.54))
+      drop-shadow(0 0 46px rgba(160,108,255,.34));
+  }
+  83.22%{
+    filter:brightness(.78) saturate(1.03) contrast(1.06)
+      drop-shadow(0 0 28px rgba(225,252,255,.64))
+      drop-shadow(0 0 49px rgba(100,205,255,.36));
+  }
+}
+.stage-character{
+  animation:fortressHeroFlash 18.5s linear infinite!important;
+}
+
+/* A brief flash bloom across the stage edge — deliberately rare and short. */
+.profile-stage{
+  animation:fortressStageFlash 18.5s linear infinite;
+}
+@keyframes fortressStageFlash{
+  0%,20%,20.9%,52%,52.65%,83%,83.7%,100%{
+    box-shadow:0 30px 90px rgba(0,0,0,.45),inset 0 0 80px rgba(0,240,255,.035);
+  }
+  20.25%{
+    box-shadow:0 30px 90px rgba(0,0,0,.45),inset 0 0 115px rgba(210,252,255,.13),0 0 28px rgba(190,247,255,.14);
+  }
+  52.2%,83.22%{
+    box-shadow:0 30px 90px rgba(0,0,0,.45),inset 0 0 105px rgba(167,129,255,.09),0 0 22px rgba(153,108,255,.10);
+  }
+}
+
+/* The central spotlight now feels like a security/search beam rather than a static cone. */
+.stage-spotlight{
+  animation:fortressStageSearch 10.6s cubic-bezier(.45,.02,.55,.98) infinite alternate!important;
+}
+@keyframes fortressStageSearch{
+  0%{transform:rotate(-11deg) translateX(-16%);opacity:.20}
+  34%{transform:rotate(-3deg) translateX(-5%);opacity:.34}
+  66%{transform:rotate(5deg) translateX(8%);opacity:.27}
+  100%{transform:rotate(12deg) translateX(17%);opacity:.40}
+}
+
+/* LOBBY — individual tiles occasionally get "photographed" at offset timings. */
+@keyframes warriorPhotoPulse{
+  0%,36%,36.7%,74%,74.55%,100%{
+    filter:brightness(.42) saturate(.84) contrast(1.08)
+      drop-shadow(0 0 12px rgba(0,161,255,.35))
+      drop-shadow(0 0 20px rgba(137,74,255,.20));
+  }
+  36.2%{
+    filter:brightness(.68) saturate(.99) contrast(1.05)
+      drop-shadow(0 0 22px rgba(214,253,255,.55))
+      drop-shadow(0 0 39px rgba(81,199,255,.28));
+  }
+  74.2%{
+    filter:brightness(.58) saturate(.96) contrast(1.06)
+      drop-shadow(0 0 19px rgba(239,224,255,.42))
+      drop-shadow(0 0 35px rgba(150,92,255,.25));
+  }
+}
+.warrior-card .hero-image{
+  animation:warriorPhotoPulse 21s linear infinite;
+}
+.warrior-card:nth-child(3n+2) .hero-image{animation-delay:-6.7s}
+.warrior-card:nth-child(3n) .hero-image{animation-delay:-13.4s}
+.warrior-card:nth-child(4n) .hero-image{animation-duration:24s}
+
+/* Soft floor light under cards — more arena / fortress, less sterile dashboard. */
+.warrior-card{
+  background:
+    radial-gradient(ellipse at 50% 108%,rgba(0,228,255,.085),transparent 45%),
+    linear-gradient(155deg,rgba(5,17,43,.94),rgba(18,10,48,.88))!important;
+}
+.warrior-card:hover{
+  box-shadow:
+    0 23px 56px rgba(0,0,0,.40),
+    0 0 26px rgba(0,240,255,.12),
+    inset 0 -35px 55px rgba(0,240,255,.035)!important;
+}
+
+/* Mobile: keep the mood, reduce bloom. */
+@media(max-width:760px){
+  .searchlight-field::before,.searchlight-field::after{opacity:.035}
+  .searchlight.s1,.searchlight.s2,.searchlight.s3{opacity:.055!important}
+}
+
+@media(prefers-reduced-motion:reduce){
+  .stage-character,.profile-stage,.stage-spotlight,.warrior-card .hero-image,
+  .searchlight-field::before,.searchlight-field::after{animation:none!important}
+}

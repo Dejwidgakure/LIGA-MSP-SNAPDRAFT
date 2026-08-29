@@ -1,0 +1,538 @@
+
+/* =========================================================
+   CARD 01B — COLLECTOR'S COSMIC MUSEUM
+   Visual layer only. Data logic stays on CARD 01A foundation.
+========================================================= */
+
+:root{
+  --museum-cyan:#79f7ff;
+  --museum-aqua:#35e7e2;
+  --museum-teal:#38d6c9;
+  --museum-blue:#61bfff;
+  --museum-violet:#8e72ff;
+  --museum-coral:#ff8fa1;
+  --museum-gold:#f6d998;
+  --museum-glass:rgba(10,22,43,.52);
+  --museum-glass-strong:rgba(7,18,38,.72);
+  --museum-border:rgba(136,246,255,.21);
+}
+
+body{
+  background:
+    linear-gradient(rgba(3,8,24,.54),rgba(3,8,24,.72)),
+    url("kolekcja-kart-muzeum.png") center top / cover fixed no-repeat,
+    #050817!important;
+}
+
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  z-index:-2;
+  pointer-events:none;
+  background:
+    radial-gradient(circle at 50% 11%,rgba(69,229,236,.08),transparent 29%),
+    linear-gradient(180deg,rgba(0,10,32,.18),rgba(0,4,18,.64) 76%,rgba(0,3,14,.86));
+}
+
+body::after{
+  content:"";
+  position:fixed;
+  inset:0;
+  z-index:-1;
+  pointer-events:none;
+  opacity:.22;
+  background:
+    repeating-linear-gradient(90deg,transparent 0 82px,rgba(99,239,255,.025) 83px 84px),
+    repeating-linear-gradient(0deg,transparent 0 82px,rgba(114,91,255,.02) 83px 84px);
+  mask-image:linear-gradient(to bottom,rgba(0,0,0,.82),transparent 77%);
+}
+
+.page{
+  position:relative;
+  z-index:1;
+}
+
+/* Museum atmosphere */
+.museum-ambient{
+  position:fixed;
+  inset:0;
+  z-index:0;
+  pointer-events:none;
+  overflow:hidden;
+}
+.museum-led{
+  position:absolute;
+  height:2px;
+  border-radius:999px;
+  filter:blur(.3px);
+  opacity:.55;
+  background:linear-gradient(90deg,transparent,var(--museum-aqua),var(--museum-blue),transparent);
+  box-shadow:0 0 14px rgba(86,236,255,.42),0 0 30px rgba(41,209,217,.16);
+  animation:museumLedDrift 9s ease-in-out infinite alternate;
+}
+.museum-led.l1{left:3%;top:26%;width:34%;transform:rotate(4deg)}
+.museum-led.l2{right:2%;top:34%;width:31%;transform:rotate(-5deg);animation-delay:-3s}
+.museum-led.l3{left:23%;bottom:14%;width:48%;animation-delay:-5s}
+@keyframes museumLedDrift{
+  from{opacity:.24;filter:blur(.4px)}
+  to{opacity:.68;filter:blur(0)}
+}
+
+.museum-dust{
+  position:absolute;
+  width:3px;height:3px;
+  border-radius:50%;
+  background:#bffcff;
+  box-shadow:0 0 9px rgba(120,244,255,.8);
+  opacity:0;
+  animation:museumDust 9s linear infinite;
+}
+@keyframes museumDust{
+  0%{transform:translateY(30px) scale(.4);opacity:0}
+  18%{opacity:.65}
+  75%{opacity:.22}
+  100%{transform:translateY(-180px) scale(1);opacity:0}
+}
+
+/* Hero becomes a glass museum lobby */
+.page-hero{
+  position:relative;
+  overflow:hidden;
+  border:1px solid rgba(144,247,255,.20)!important;
+  background:
+    linear-gradient(135deg,rgba(4,16,37,.69),rgba(16,8,37,.52))!important;
+  backdrop-filter:blur(15px) saturate(1.22);
+  -webkit-backdrop-filter:blur(15px) saturate(1.22);
+  box-shadow:
+    0 30px 80px rgba(0,0,0,.30),
+    0 0 32px rgba(89,236,255,.08),
+    inset 0 1px 0 rgba(255,255,255,.08),
+    inset 0 0 42px rgba(49,220,224,.025)!important;
+}
+.page-hero::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  background:
+    linear-gradient(112deg,transparent 19%,rgba(255,255,255,.08) 31%,transparent 44%),
+    radial-gradient(circle at 76% 22%,rgba(73,231,223,.11),transparent 27%),
+    radial-gradient(circle at 12% 75%,rgba(136,90,255,.10),transparent 30%);
+  transform:translateX(-45%);
+  animation:museumGlassSweep 8.5s ease-in-out infinite;
+}
+@keyframes museumGlassSweep{
+  0%,20%{transform:translateX(-62%)}
+  46%{transform:translateX(38%)}
+  100%{transform:translateX(64%)}
+}
+
+.kicker{
+  color:#94f6f0!important;
+  text-shadow:0 0 14px rgba(65,234,222,.25);
+}
+.hero-title{
+  text-shadow:
+    0 2px 0 rgba(0,0,0,.65),
+    0 0 18px rgba(93,233,255,.16),
+    0 0 30px rgba(128,95,255,.10)!important;
+}
+.hero-subtitle,.summary-copy{
+  color:#afcbd2!important;
+}
+
+/* Identity strip styled as a museum accession plaque */
+.museum-identity-strip,
+.identity-strip,
+.card-identity-strip{
+  border:1px solid rgba(126,241,255,.15)!important;
+  background:rgba(5,16,34,.55)!important;
+  backdrop-filter:blur(9px);
+  -webkit-backdrop-filter:blur(9px);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.035);
+}
+
+/* Controls as curatorial console */
+.control-grid,
+.cards-control-grid{
+  position:relative;
+  padding:14px;
+  border:1px solid rgba(124,242,255,.12);
+  border-radius:18px;
+  background:rgba(4,14,31,.62);
+  backdrop-filter:blur(13px);
+  -webkit-backdrop-filter:blur(13px);
+  box-shadow:0 18px 44px rgba(0,0,0,.22),inset 0 1px 0 rgba(255,255,255,.035);
+}
+.control{
+  border-color:rgba(124,242,255,.15)!important;
+  background:rgba(3,11,27,.72)!important;
+}
+.control:focus{
+  border-color:rgba(104,243,238,.47)!important;
+  box-shadow:0 0 0 3px rgba(77,229,225,.08),0 0 18px rgba(55,220,215,.07)!important;
+}
+
+/* General museum glass sections */
+.panel,
+.glass,
+.data-tile,
+.stat-cluster{
+  backdrop-filter:blur(12px) saturate(1.13);
+  -webkit-backdrop-filter:blur(12px) saturate(1.13);
+}
+
+.panel{
+  position:relative;
+  overflow:hidden;
+  border-color:rgba(135,245,255,.13)!important;
+  background:
+    linear-gradient(145deg,rgba(5,15,34,.73),rgba(13,8,32,.66))!important;
+  box-shadow:
+    0 20px 50px rgba(0,0,0,.25),
+    inset 0 1px 0 rgba(255,255,255,.045)!important;
+}
+.panel::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  background:
+    linear-gradient(113deg,transparent 25%,rgba(255,255,255,.027) 38%,transparent 51%);
+  transform:translateX(-110%);
+  transition:transform .8s ease;
+}
+.panel:hover::after{transform:translateX(110%)}
+
+/* Card collection = actual wall vitrines */
+.card-grid{
+  align-items:stretch;
+}
+.collection-card{
+  position:relative;
+  padding:13px 11px 12px!important;
+  overflow:visible!important;
+  border-radius:21px!important;
+  border:1px solid rgba(125,242,255,.14)!important;
+  background:
+    linear-gradient(145deg,rgba(12,27,47,.66),rgba(7,12,31,.71))!important;
+  box-shadow:
+    0 16px 34px rgba(0,0,0,.27),
+    inset 0 1px 0 rgba(255,255,255,.055),
+    0 0 0 1px rgba(45,222,218,.015)!important;
+  backdrop-filter:blur(10px);
+  -webkit-backdrop-filter:blur(10px);
+  transition:transform .25s ease,border-color .25s ease,box-shadow .25s ease,background .25s ease!important;
+}
+.collection-card::before{
+  content:"";
+  position:absolute;
+  z-index:-1;
+  inset:4px;
+  border-radius:17px;
+  border:1px solid rgba(255,255,255,.035);
+  background:
+    linear-gradient(120deg,rgba(255,255,255,.035),transparent 31%),
+    radial-gradient(circle at 50% 0%,rgba(47,232,226,.07),transparent 38%);
+}
+.collection-card::after{
+  content:"";
+  position:absolute;
+  z-index:-2;
+  left:13%;
+  right:13%;
+  bottom:-8px;
+  height:13px;
+  border-radius:50%;
+  background:rgba(65,236,225,.17);
+  filter:blur(8px);
+  opacity:.48;
+  transition:.25s ease;
+}
+.collection-card:hover{
+  transform:translateY(-7px) scale(1.015)!important;
+  border-color:rgba(105,246,238,.42)!important;
+  background:
+    linear-gradient(145deg,rgba(14,35,53,.78),rgba(13,13,39,.79))!important;
+  box-shadow:
+    0 24px 44px rgba(0,0,0,.34),
+    0 0 23px rgba(50,224,220,.09),
+    inset 0 1px 0 rgba(255,255,255,.09)!important;
+}
+.collection-card:hover::after{
+  opacity:.9;
+  background:rgba(74,246,228,.28);
+}
+
+.cosmo-card{
+  position:relative;
+  overflow:hidden;
+  border-radius:15px!important;
+  box-shadow:
+    0 11px 21px rgba(0,0,0,.38),
+    0 0 0 1px rgba(255,255,255,.04),
+    0 0 19px color-mix(in srgb,var(--card-accent) 18%,transparent)!important;
+}
+.cosmo-card::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  background:
+    linear-gradient(112deg,transparent 14%,rgba(255,255,255,.12) 29%,transparent 43%);
+  transform:translateX(-120%);
+  transition:transform .7s ease;
+}
+.collection-card:hover .cosmo-card::after{
+  transform:translateX(120%);
+}
+.card-foot{
+  margin-top:9px!important;
+  border-top:1px solid rgba(133,241,255,.07);
+  padding-top:8px!important;
+}
+
+/* Exhibition plinths on top metrics */
+.hero-mini-grid .mini-stat,
+.data-grid .data-tile{
+  position:relative;
+  overflow:hidden;
+  border-color:rgba(121,241,255,.12)!important;
+  background:
+    linear-gradient(145deg,rgba(4,18,38,.66),rgba(12,9,31,.60))!important;
+}
+.hero-mini-grid .mini-stat::after,
+.data-grid .data-tile::after{
+  content:"";
+  position:absolute;
+  left:12%;
+  right:12%;
+  bottom:0;
+  height:1px;
+  background:linear-gradient(90deg,transparent,var(--museum-aqua),transparent);
+  box-shadow:0 0 11px rgba(67,234,223,.37);
+}
+
+/* Card profile feature = central museum vitrine */
+.detail-hero-grid{
+  align-items:center!important;
+}
+.feature-card{
+  position:relative;
+  min-height:330px;
+  display:grid;
+  place-items:center;
+  padding:34px 30px;
+  border:1px solid rgba(122,243,255,.20);
+  border-radius:28px;
+  background:
+    linear-gradient(145deg,rgba(11,30,50,.52),rgba(7,11,29,.67));
+  box-shadow:
+    inset 0 0 44px rgba(67,234,223,.045),
+    0 24px 55px rgba(0,0,0,.28);
+}
+.feature-card::before{
+  content:"";
+  position:absolute;
+  inset:13px;
+  border-radius:21px;
+  border:1px solid rgba(255,255,255,.055);
+  background:
+    linear-gradient(105deg,rgba(255,255,255,.045),transparent 32%),
+    radial-gradient(circle at 50% 100%,rgba(55,230,220,.12),transparent 34%);
+}
+.feature-card::after{
+  content:"";
+  position:absolute;
+  left:18%;
+  right:18%;
+  bottom:18px;
+  height:10px;
+  border-radius:50%;
+  background:rgba(57,239,225,.28);
+  filter:blur(9px);
+  box-shadow:0 0 22px rgba(77,239,230,.22);
+}
+.feature-card > *{
+  position:relative;
+  z-index:2;
+}
+
+/* Tag taxonomy = exhibit labels */
+.taxonomy-section,
+.card-taxonomy{
+  border-color:rgba(130,242,255,.14)!important;
+  background:
+    linear-gradient(145deg,rgba(7,19,39,.68),rgba(14,8,33,.63))!important;
+}
+.tag{
+  border-color:rgba(105,235,229,.15)!important;
+  background:rgba(8,24,43,.58)!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.025);
+}
+.tag:hover{
+  border-color:rgba(96,244,234,.42)!important;
+  background:rgba(17,42,57,.74)!important;
+}
+
+/* Decorative holographic showcase slots */
+.museum-showcase{
+  position:relative;
+  min-height:190px;
+  overflow:hidden;
+  border:1px solid rgba(116,243,255,.17);
+  border-radius:22px;
+  background:
+    linear-gradient(145deg,rgba(8,23,43,.56),rgba(9,9,29,.66));
+  box-shadow:
+    inset 0 0 32px rgba(48,230,225,.04),
+    0 16px 36px rgba(0,0,0,.23);
+}
+.museum-showcase::before{
+  content:"";
+  position:absolute;
+  inset:10px;
+  border-radius:16px;
+  border:1px solid rgba(255,255,255,.045);
+}
+.museum-showcase-title{
+  position:absolute;
+  left:14px;
+  top:12px;
+  color:#7aa9b2;
+  font:900 8px Orbitron,sans-serif;
+  letter-spacing:.10em;
+  text-transform:uppercase;
+}
+.holo-slot{
+  position:absolute;
+  left:50%;
+  top:54%;
+  width:78px;
+  height:109px;
+  transform:translate(-50%,-50%);
+  border:1px solid rgba(107,241,255,.26);
+  border-radius:10px;
+  background:
+    linear-gradient(145deg,rgba(50,220,218,.06),rgba(122,76,255,.09)),
+    radial-gradient(circle at 50% 45%,rgba(91,242,233,.14),transparent 43%);
+  box-shadow:
+    0 0 19px rgba(58,235,227,.14),
+    inset 0 0 19px rgba(134,94,255,.05);
+  opacity:.14;
+  animation:holoMuseumCard 8.5s ease-in-out infinite;
+}
+.holo-slot::before{
+  content:"✦";
+  position:absolute;
+  inset:0;
+  display:grid;
+  place-items:center;
+  color:#aefcf6;
+  font:900 28px Orbitron,sans-serif;
+  text-shadow:0 0 16px rgba(100,248,239,.62);
+}
+.holo-slot::after{
+  content:"";
+  position:absolute;
+  inset:7px;
+  border:1px solid rgba(171,134,255,.19);
+  border-radius:7px;
+}
+.holo-slot:nth-child(3){animation-delay:-2.5s}
+.holo-slot:nth-child(4){animation-delay:-5s}
+@keyframes holoMuseumCard{
+  0%,12%{opacity:.08;filter:blur(1.5px);transform:translate(-50%,-47%) scale(.95)}
+  29%,55%{opacity:.76;filter:blur(0);transform:translate(-50%,-53%) scale(1)}
+  72%,100%{opacity:.06;filter:blur(2px);transform:translate(-50%,-58%) scale(.96)}
+}
+
+/* Museum curator strip */
+.museum-curator-strip{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:12px;
+  margin:20px 0 26px;
+}
+.museum-curator-card{
+  position:relative;
+  min-height:178px;
+  overflow:hidden;
+  padding:16px;
+  border-radius:20px;
+  border:1px solid rgba(118,241,255,.13);
+  background:rgba(5,16,34,.58);
+  backdrop-filter:blur(11px);
+  -webkit-backdrop-filter:blur(11px);
+}
+.museum-curator-card:nth-child(2){
+  border-color:rgba(255,216,110,.14);
+}
+.museum-curator-card:nth-child(3){
+  border-color:rgba(255,143,161,.13);
+}
+.museum-curator-meta{
+  position:relative;
+  z-index:3;
+}
+.museum-curator-meta b{
+  display:block;
+  color:#ecffff;
+  font:900 14px Orbitron,sans-serif;
+}
+.museum-curator-meta span{
+  display:block;
+  margin-top:4px;
+  color:#789aa4;
+  font-size:10px;
+  font-weight:800;
+  line-height:1.25;
+}
+.museum-curator-card .holo-slot{
+  left:auto;
+  right:24px;
+  top:58%;
+  transform:translateY(-50%) rotate(3deg);
+}
+.museum-curator-card:nth-child(2) .holo-slot{
+  transform:translateY(-50%) rotate(-4deg);
+}
+.museum-curator-card:nth-child(3) .holo-slot{
+  transform:translateY(-50%) rotate(5deg);
+}
+
+/* Explicit page identity */
+.museum-object-note{
+  margin-top:10px;
+  max-width:780px;
+  color:#8eaeb8;
+  font-size:11px;
+  font-weight:800;
+  line-height:1.4;
+}
+.museum-object-note strong{
+  color:#c9fffa;
+}
+
+/* Reduced motion */
+@media(prefers-reduced-motion:reduce){
+  .page-hero::before,
+  .museum-led,
+  .museum-dust,
+  .holo-slot{
+    animation:none!important;
+  }
+  .holo-slot{opacity:.4!important}
+}
+
+/* Responsive */
+@media(max-width:920px){
+  body{background-attachment:scroll!important}
+  .museum-curator-strip{grid-template-columns:1fr}
+  .museum-curator-card{min-height:145px}
+}
+@media(max-width:620px){
+  .feature-card{min-height:260px;padding:26px 18px}
+  .museum-curator-card .holo-slot{right:10px;opacity:.35}
+}

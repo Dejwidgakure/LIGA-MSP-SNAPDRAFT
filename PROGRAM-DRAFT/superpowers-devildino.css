@@ -1,0 +1,428 @@
+:root{
+    --spx-dino-red:#ff4b35;
+    --spx-dino-orange:#ff8b3d;
+    --spx-dino-gold:#ffd75b;
+    --spx-dino-cyan:#65ecff;
+    --spx-dino-violet:#d66cff;
+    --spx-dino-ink:#071226;
+}
+
+/* Moon Girl Call — wybór przekąski */
+.spx-dino-hud{
+    position:fixed;
+    left:50%;
+    top:12px;
+    z-index:63500;
+    width:min(1120px,calc(100vw - 24px));
+    transform:translateX(-50%);
+    display:grid;
+    grid-template-columns:minmax(300px,390px) minmax(0,1fr) auto;
+    align-items:center;
+    gap:15px;
+    padding:10px;
+    overflow:hidden;
+    border:1px solid rgba(255,111,78,.66);
+    border-radius:25px;
+    background:linear-gradient(135deg,rgba(22,7,18,.99),rgba(6,20,42,.99));
+    box-shadow:0 16px 42px rgba(0,0,0,.58),0 0 28px rgba(255,72,46,.22),0 0 26px rgba(74,217,255,.14);
+    color:#fff;
+    isolation:isolate;
+}
+.spx-dino-hud::before{content:"";position:absolute;inset:0;z-index:-1;background:radial-gradient(circle at 8% 20%,rgba(255,79,54,.22),transparent 28%),radial-gradient(circle at 92% 80%,rgba(87,225,255,.14),transparent 32%);}
+.spx-dino-hud[hidden]{display:none!important;}
+.spx-dino-call-scene{
+    position:relative;
+    width:100%;
+    aspect-ratio:16/9;
+    overflow:hidden;
+    border:1px solid rgba(100,235,255,.38);
+    border-radius:18px;
+    background:#06172d url("draft-assets/devildino_moongirl_call_bg.png") 48% 50%/106% auto no-repeat;
+    box-shadow:inset 0 0 28px rgba(4,8,28,.55),0 0 18px rgba(75,222,255,.12);
+    animation:spxDinoCityPan 10s ease-in-out infinite alternate;
+}
+.spx-dino-call-scene::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent 62%,rgba(4,10,31,.18)),linear-gradient(0deg,rgba(4,9,28,.32),transparent 45%);pointer-events:none;}
+.spx-dino-blueprint-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(80,232,255,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(80,232,255,.07) 1px,transparent 1px);background-size:22px 22px;mix-blend-mode:screen;opacity:.62;}
+.spx-dino-communicator{position:absolute;right:13px;top:12px;z-index:3;display:grid;place-items:center;width:58px;height:58px;border:2px solid var(--spx-dino-cyan);border-radius:18px;background:rgba(6,14,42,.82);color:#fff1a2;box-shadow:0 0 16px rgba(74,231,255,.5),inset 0 0 12px rgba(80,226,255,.18);animation:spxDinoPhoneShake 1.4s ease-in-out infinite;}
+.spx-dino-communicator b{font:900 29px/1 "Segoe UI Symbol",sans-serif;transform:rotate(-22deg);text-shadow:0 0 9px #ff4f9b;}
+.spx-dino-communicator i{position:absolute;border:1px solid rgba(255,73,160,.7);border-radius:50%;animation:spxDinoPhoneWave 1.65s ease-out infinite;}
+.spx-dino-communicator i:nth-of-type(1){inset:-7px;}.spx-dino-communicator i:nth-of-type(2){inset:-15px;animation-delay:.35s}.spx-dino-communicator i:nth-of-type(3){inset:-24px;animation-delay:.7s}
+@keyframes spxDinoCityPan{from{background-position:43% 50%}to{background-position:57% 50%}}
+@keyframes spxDinoPhoneShake{0%,88%,100%{transform:rotate(0)}91%{transform:rotate(-8deg)}94%{transform:rotate(8deg)}97%{transform:rotate(-5deg)}}
+@keyframes spxDinoPhoneWave{0%{opacity:.85;transform:scale(.72)}100%{opacity:0;transform:scale(1.2)}}
+.spx-dino-hud-copy{min-width:0;padding:2px 2px 2px 4px;}
+.spx-dino-hud-copy>span{font:900 9px/1 Orbitron,"Segoe UI",sans-serif;letter-spacing:2.2px;color:var(--spx-dino-cyan);}
+.spx-dino-hud-copy>strong{display:block;margin-top:6px;font:1000 clamp(17px,2.2vw,27px)/1 Orbitron,"Segoe UI",sans-serif;color:#fff2d7;text-shadow:0 0 14px rgba(255,104,57,.35);}
+.spx-dino-hud-copy>p{margin:8px 0 0;font:700 12px/1.4 "Segoe UI",sans-serif;color:#d7f7ff;}
+.spx-dino-hud-selection{display:flex;flex-wrap:wrap;gap:6px;margin-top:9px;min-height:24px;}
+.spx-dino-hud-selection span,.spx-dino-hud-selection em{padding:5px 8px;border:1px solid rgba(255,155,87,.3);border-radius:999px;background:rgba(255,90,48,.12);font:800 9px/1 Orbitron,"Segoe UI",sans-serif;color:#ffe5bd;font-style:normal;}
+.spx-dino-hud-actions{display:flex;flex-direction:column;gap:8px;}
+.spx-dino-hud-actions button,.spx-dino-footer button,.spx-dino-moon-call-copy button{min-height:44px;padding:11px 14px;border:1px solid rgba(111,226,255,.3);border-radius:13px;background:rgba(7,29,54,.94);color:#e7fbff;font:900 10px/1 Orbitron,"Segoe UI",sans-serif;letter-spacing:.7px;cursor:pointer;}
+.spx-dino-hud-actions button.is-primary,.spx-dino-footer button.is-primary,.spx-dino-moon-call-copy button{border-color:rgba(255,218,91,.6);background:linear-gradient(90deg,#ff633e,#ff9b46 54%,#ffd85e);color:#2b0b04;box-shadow:0 0 18px rgba(255,93,49,.28);}
+.spx-dino-hud-actions button:disabled,.spx-dino-footer button:disabled{opacity:.36;cursor:not-allowed;}
+.spx-dino-hud.is-fed{animation:spxDinoFed .5s ease-out;}
+@keyframes spxDinoFed{0%{transform:translateX(-50%) scale(1)}42%{transform:translateX(-50%) scale(1.025)}100%{transform:translateX(-50%) scale(1)}}
+
+/* Paczka — pazur dopiero po kliknięciu */
+#pack [data-pack-index].spx-dino-candidate{position:relative;outline:1px solid transparent;outline-offset:3px;}
+#pack [data-pack-index].spx-dino-candidate:hover{outline:2px solid rgba(255,67,48,.92);filter:brightness(1.06) drop-shadow(0 0 13px rgba(255,67,48,.38));}
+#pack [data-pack-index].spx-dino-selected{outline:3px solid rgba(255,74,49,.96);box-shadow:0 0 25px rgba(255,55,37,.5),0 0 22px rgba(255,220,80,.18)!important;}
+#pack [data-pack-index].spx-dino-blocked{opacity:.42;filter:grayscale(.55);cursor:not-allowed;}
+.spx-dino-pack-mark{position:absolute;right:-10px;top:-13px;z-index:52;width:88px;height:88px;display:grid;place-items:center;pointer-events:none;animation:spxDinoClawDrop .34s cubic-bezier(.16,.86,.26,1.2) both;}
+.spx-dino-pack-mark img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 0 12px rgba(255,84,46,.7));transform:rotate(-8deg);}
+@keyframes spxDinoClawDrop{from{opacity:0;transform:translateY(-55px) rotate(-14deg) scale(1.35)}70%{opacity:1;transform:translateY(4px) rotate(3deg) scale(.96)}to{transform:none}}
+
+/* Brzuch Dino — pełne wnętrze */
+.spx-dino-overlay{position:fixed;inset:0;z-index:64600;display:grid;place-items:center;padding:18px;background:radial-gradient(circle at 18% 12%,rgba(255,66,45,.2),transparent 32%),radial-gradient(circle at 82% 88%,rgba(74,221,255,.12),transparent 34%),rgba(2,6,16,.95);backdrop-filter:blur(10px);}
+.spx-dino-overlay[hidden]{display:none!important;}
+.spx-dino-dialog{position:relative;width:min(1160px,96vw);max-height:min(94vh,940px);display:grid;grid-template-rows:auto minmax(0,1fr) auto;overflow:hidden;border:2px solid rgba(255,117,56,.82);border-radius:32px;background:linear-gradient(rgba(48,5,20,.28),rgba(36,5,17,.36)),url("draft-assets/devildino_belly_interior.png") center/cover no-repeat;box-shadow:0 28px 90px rgba(0,0,0,.72),0 0 38px rgba(255,78,44,.28),inset 0 0 0 1px rgba(255,226,183,.1);color:#fff;animation:spxDinoStomachBreathe 8s ease-in-out infinite alternate;}
+.spx-dino-dialog::before{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(circle at 8% 18%,rgba(255,190,48,.18) 0 5px,transparent 6px),radial-gradient(circle at 92% 35%,rgba(255,177,43,.16) 0 8px,transparent 9px),radial-gradient(circle at 14% 74%,rgba(255,207,73,.12) 0 4px,transparent 5px);background-size:180px 180px,260px 260px,140px 140px;animation:spxDinoBubbles 12s linear infinite;}
+@keyframes spxDinoStomachBreathe{from{background-position:48% 50%}to{background-position:52% 48%}}
+@keyframes spxDinoBubbles{from{background-position:0 80px,0 110px,0 50px}to{background-position:0 -220px,0 -270px,0 -190px}}
+.spx-dino-head,.spx-dino-body,.spx-dino-footer{position:relative;z-index:1;}
+.spx-dino-head{display:grid;grid-template-columns:126px minmax(0,1fr) 46px;align-items:center;gap:17px;min-height:130px;padding:12px 22px 9px;border-bottom:1px solid rgba(255,189,83,.28);background:linear-gradient(90deg,rgba(70,5,20,.82),rgba(46,5,19,.46),rgba(56,7,17,.8));backdrop-filter:blur(5px);}
+.spx-dino-belly-emblem{width:124px;height:124px;object-fit:contain;filter:drop-shadow(0 7px 11px rgba(0,0,0,.48)) drop-shadow(0 0 12px rgba(255,141,38,.3));animation:spxDinoBellyBreathe 3.2s ease-in-out infinite;}
+.spx-dino-belly-kicker{font:900 10px/1 Orbitron,"Segoe UI",sans-serif;letter-spacing:2.5px;color:#ffc75f;}
+.spx-dino-head h2{margin:7px 0 7px;font:1000 clamp(30px,5vw,58px)/.92 Orbitron,"Segoe UI",sans-serif;letter-spacing:-1.2px;color:#fff0d4;text-transform:uppercase;text-shadow:0 0 18px rgba(255,84,44,.42);}
+.spx-dino-head p{max-width:800px;margin:0;font:700 13px/1.46 "Segoe UI",sans-serif;color:#ffe9d5;text-shadow:0 1px 4px #3b0710;}
+.spx-dino-close{align-self:start;width:44px;height:44px;border:1px solid rgba(255,188,88,.4);border-radius:50%;background:rgba(67,8,17,.86);color:#ffe8d2;font-size:26px;cursor:pointer;}
+.spx-dino-body{overflow:auto;padding:20px 24px 26px;scrollbar-width:thin;scrollbar-color:#ff7b38 rgba(44,4,17,.5);}
+.spx-dino-footer{display:flex;justify-content:flex-end;gap:10px;flex-wrap:wrap;padding:14px 22px;border-top:1px solid rgba(255,190,82,.28);background:rgba(46,5,18,.85);backdrop-filter:blur(6px);}
+.spx-dino-status{display:grid;grid-template-columns:1fr auto;gap:6px 18px;align-items:center;padding:14px 16px;border:1px solid rgba(255,178,69,.35);border-radius:18px;background:rgba(64,5,21,.7);box-shadow:inset 0 0 20px rgba(255,89,35,.12);}
+.spx-dino-status>span{font:900 10px/1 Orbitron,"Segoe UI",sans-serif;letter-spacing:1.8px;color:#ffbc68;}
+.spx-dino-status>strong{grid-row:1/3;grid-column:2;font:1000 22px/1 Orbitron,"Segoe UI",sans-serif;color:#fff2c6;}
+.spx-dino-status>small{font:800 10px/1.2 "Segoe UI",sans-serif;color:#ffe3ca;}
+.spx-dino-status.is-ready{border-color:rgba(255,217,85,.5);background:rgba(82,10,24,.68);}
+
+.spx-dino-belly-vessel{position:relative;display:block;width:min(520px,100%);min-height:320px;margin:14px auto 7px;filter:drop-shadow(0 18px 24px rgba(0,0,0,.45));}
+.spx-dino-belly-vessel>img{display:block;width:100%;height:320px;object-fit:contain;animation:spxDinoBellyBreathe 3.2s ease-in-out infinite;}
+.spx-dino-belly-vessel.is-locked>img{filter:saturate(.7) brightness(.76);}
+.spx-dino-belly-count{position:absolute;left:50%;top:47%;z-index:4;transform:translate(-50%,-50%);display:grid;place-items:center;min-width:52px;min-height:52px;border:2px solid #ffd865;border-radius:50%;background:rgba(65,7,23,.88);color:#fff3c3;font:1000 26px/1 Orbitron,"Segoe UI",sans-serif;box-shadow:0 0 18px rgba(255,130,47,.58);}
+.spx-dino-belly-caption{position:absolute;left:50%;bottom:10%;z-index:5;transform:translateX(-50%);padding:6px 10px;border-radius:999px;background:rgba(57,5,20,.82);color:#ffd773;font:900 8px/1 Orbitron,"Segoe UI",sans-serif;letter-spacing:1.2px;white-space:nowrap;}
+.spx-dino-belly-floaters{position:absolute;inset:16% 21% 17%;z-index:3;pointer-events:none;}
+.spx-dino-floating-card{position:absolute;left:50%;top:50%;display:grid;place-items:center;width:64px;height:84px;animation:spxDinoCardFloat 3.2s ease-in-out infinite;animation-delay:calc(var(--dino-float-index) * -.55s);}
+.spx-dino-floating-card:nth-child(1){left:27%;top:34%;transform:rotate(-8deg)}.spx-dino-floating-card:nth-child(2){left:55%;top:30%;transform:rotate(7deg)}.spx-dino-floating-card:nth-child(3){left:35%;top:62%;transform:rotate(5deg)}.spx-dino-floating-card:nth-child(4){left:67%;top:60%;transform:rotate(-6deg)}
+.spx-dino-floating-card .spx-dino-card-visual{animation:none!important;transform:scale(.52);transform-origin:center;pointer-events:none;}
+@keyframes spxDinoBellyBreathe{0%,100%{transform:scale(1)}50%{transform:scale(1.025)}}
+@keyframes spxDinoCardFloat{0%,100%{margin-top:0}50%{margin-top:-9px}}
+.spx-dino-belly-sleeper{position:absolute;inset:21% 18% 17%;z-index:6;display:grid;place-items:center;background:radial-gradient(circle,rgba(52,5,20,.22),transparent 68%);}
+.spx-dino-belly-sleeper img{width:74%;height:74%;object-fit:contain;filter:drop-shadow(0 8px 12px rgba(0,0,0,.48));}
+.spx-dino-belly-sleeper b{position:absolute;right:22%;top:18%;color:#79ecff;font:1000 22px/1 Orbitron,"Segoe UI",sans-serif;text-shadow:0 0 10px #2ac9ff;animation:spxDinoZzz 1.5s ease-in-out infinite;}
+
+.spx-dino-inventory,.spx-dino-actions-map{margin-top:19px;padding:16px;border:1px solid rgba(255,181,67,.24);border-radius:22px;background:rgba(53,4,18,.56);backdrop-filter:blur(4px);}
+.spx-dino-inventory h3,.spx-dino-actions-map h3,.spx-dino-step h3{margin:0;font:900 11px/1 Orbitron,"Segoe UI",sans-serif;letter-spacing:1.4px;color:#ffd071;}
+.spx-dino-belly-grid,.spx-dino-target-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px;margin-top:15px;}
+.spx-dino-belly-card,.spx-dino-target{min-height:116px;padding:14px;border:1px solid rgba(255,157,68,.32);border-radius:19px;background:radial-gradient(circle at 90% 10%,rgba(255,192,62,.1),transparent 34%),linear-gradient(155deg,rgba(81,8,24,.94),rgba(36,5,25,.96));color:#fff;text-align:left;cursor:pointer;transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease,filter .18s ease;}
+.spx-dino-belly-card:hover,.spx-dino-target:hover{transform:translateY(-3px);filter:brightness(1.08);border-color:rgba(255,205,84,.75);box-shadow:0 10px 22px rgba(0,0,0,.3),0 0 16px rgba(255,82,44,.22);}
+.spx-dino-belly-card.is-preview{cursor:default;}.spx-dino-belly-card.is-preview:hover{transform:none;filter:none;border-color:rgba(255,157,68,.32);box-shadow:none;}
+.spx-dino-belly-card.is-selected,.spx-dino-target.is-selected{border-color:#ffd35c;box-shadow:0 0 0 2px rgba(255,87,46,.58),0 0 22px rgba(255,90,45,.32);}
+.spx-dino-belly-card>span:not(.spx-dino-card-shell){font:900 9px/1 Orbitron,"Segoe UI",sans-serif;letter-spacing:1.2px;color:#ffb466;}
+.spx-dino-card-shell{display:grid;place-items:center;width:92px;height:118px;margin:0 auto 8px;}
+.spx-dino-card-shell .spx-dino-card-visual{animation:none!important;transform:scale(.72);transform-origin:center;pointer-events:none;}
+.spx-dino-card-visual{display:block;pointer-events:none;}
+.spx-dino-belly-card>strong,.spx-dino-target>strong{display:block;margin-top:8px;font:900 14px/1.18 Orbitron,"Segoe UI",sans-serif;color:#fff0d4;}
+.spx-dino-belly-card>small,.spx-dino-target>span{display:block;margin-top:8px;font:700 10px/1.35 "Segoe UI",sans-serif;color:#ffdccc;overflow-wrap:anywhere;}
+.spx-dino-contexts{display:grid;grid-template-columns:repeat(auto-fit,minmax(225px,1fr));gap:12px;margin-top:15px;}
+.spx-dino-contexts button{position:relative;min-height:148px;padding:16px 54px 15px 16px;overflow:hidden;border:1px solid rgba(255,183,65,.3);border-radius:19px;background:linear-gradient(145deg,rgba(91,9,24,.9),rgba(46,5,23,.94));color:#fff;text-align:left;cursor:pointer;}
+.spx-dino-contexts button.is-available:hover{border-color:rgba(255,220,89,.82);filter:brightness(1.09);box-shadow:0 0 20px rgba(255,108,42,.23);}
+.spx-dino-contexts button.is-locked{cursor:not-allowed;filter:saturate(.55);opacity:.72;}
+.spx-dino-contexts b{display:block;font:900 12px/1.18 Orbitron,"Segoe UI",sans-serif;color:#ffe095;}
+.spx-dino-contexts span{display:block;margin-top:8px;font:700 11px/1.42 "Segoe UI",sans-serif;color:#ffe0cd;}
+.spx-dino-contexts small{display:block;margin-top:10px;color:#ffbd72;font:800 9px/1.3 "Segoe UI",sans-serif;}
+.spx-dino-context-claw{position:absolute;right:-8px;top:4px;width:66px;height:66px;opacity:.68;transform:rotate(-10deg);}
+.spx-dino-context-claw img{width:100%;height:100%;object-fit:contain;filter:grayscale(.35) drop-shadow(0 0 7px rgba(255,71,42,.4));}
+.spx-dino-moon-tip{display:grid;grid-template-columns:auto minmax(0,1fr);gap:11px;align-items:center;margin-top:16px;padding:11px 14px;border:1px solid rgba(88,229,255,.3);border-radius:15px;background:rgba(6,28,48,.64);}
+.spx-dino-moon-tip b{color:#79edff;font:900 9px/1 Orbitron,"Segoe UI",sans-serif;letter-spacing:1.2px;}.spx-dino-moon-tip span{color:#d9f7ff;font:700 10px/1.35 "Segoe UI",sans-serif;}
+.spx-dino-step+.spx-dino-step{margin-top:24px;padding-top:20px;border-top:1px solid rgba(255,174,70,.2);}
+.spx-dino-empty{grid-column:1/-1;margin:0;padding:22px;border:1px dashed rgba(255,181,86,.35);border-radius:17px;text-align:center;color:#ffe0ca;}
+
+/* Duży, klikalny Brzuch obok logo supermocy */
+.spg-deck-power.spg-dino-belly-ready{max-width:230px;opacity:1!important;filter:none!important;}
+.spg-deck-power.spg-dino-belly-ready .spg-deck-power-btn{display:grid;grid-template-columns:64px 112px;place-items:center;width:196px;height:92px;padding:6px 8px;border-radius:26px;}
+.spg-deck-power.spg-dino-belly-ready .spg-deck-power-symbol{width:62px;height:62px;}.spg-deck-power.spg-dino-belly-ready .spg-deck-power-icon{width:60px;height:60px;}
+.spg-deck-power.spg-dino-belly-ready .spg-deck-power-btn,.deckInspectorPowerBtn.is-dino-belly-ready{box-shadow:0 0 0 2px rgba(255,86,48,.52),0 0 20px rgba(255,84,47,.4),0 0 17px rgba(76,220,255,.2);}
+.spg-deck-power.spg-dino-belly-ready .spg-deck-power-used-label{color:#ffd56f;}
+.spg-roster-item.spg-dino-belly-ready{opacity:1!important;filter:none!important;}.spg-roster-item.spg-dino-belly-ready .spg-roster-status{background:#ff7647!important;box-shadow:0 0 12px rgba(255,91,47,.52)!important;}
+.spg-dino-belly-badge{position:relative;display:block;width:110px;height:78px;z-index:5;pointer-events:none;}
+.spg-dino-belly-art{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;animation:spxDinoBellyBreathe 3s ease-in-out infinite;filter:drop-shadow(0 4px 6px rgba(0,0,0,.58));}
+.spg-dino-belly-badge>.spg-dino-belly-floaters{position:absolute;inset:20% 21% 23%;z-index:2;}
+.spg-dino-belly-badge .spx-dino-floating-card{width:18px;height:24px;}.spg-dino-belly-badge .spx-dino-floating-card .spx-dino-card-visual{transform:scale(.16);}
+.spg-dino-belly-badge>b{position:absolute;left:50%;top:48%;z-index:3;transform:translate(-50%,-50%);color:#fff7d4;font:1000 12px/1 Orbitron,"Segoe UI",sans-serif;text-shadow:0 1px 3px #000;}
+.spg-dino-belly-badge>small{position:absolute;left:50%;bottom:-1px;z-index:4;transform:translateX(-50%);padding:3px 6px;border-radius:999px;background:rgba(53,5,20,.86);color:#ffd875;white-space:nowrap;font:900 6px/1 Orbitron,"Segoe UI",sans-serif;}
+.spg-dino-belly-zzz{position:absolute;inset:8% 10%;z-index:5;display:grid;place-items:center;color:#76eaff;font:1000 8px/1 Orbitron,"Segoe UI",sans-serif;text-shadow:0 0 8px #20c8ff;}.spg-dino-belly-zzz img{width:58%;height:58%;object-fit:contain;filter:drop-shadow(0 2px 4px #260511);}
+.deckInspectorPowerBtn.is-dino-belly-ready{display:grid;grid-template-columns:30px 58px;width:96px;height:44px;padding:3px 4px;border-radius:22px;}.deckInspectorPowerBtn.is-dino-belly-ready .spg-inspector-power-symbol{width:29px;height:29px;}.deckInspectorPowerBtn.is-dino-belly-ready .spg-inspector-power-icon{width:29px;height:29px;}.spg-dino-belly-badge.is-compact{width:58px;height:40px;}.spg-dino-belly-badge.is-compact .spx-dino-floating-card{width:11px;height:15px;}.spg-dino-belly-badge.is-compact .spx-dino-floating-card .spx-dino-card-visual{transform:scale(.09)}.spg-dino-belly-badge.is-compact>small{display:none;}
+
+/* Moon Girl Call po ugryzieniu i podczas drzemki */
+.spx-dino-moon-call{position:fixed;inset:0;z-index:65000;display:grid;place-items:center;padding:16px;background:rgba(2,6,17,.9);backdrop-filter:blur(10px);animation:spxDinoCallIn .28s ease-out;}
+.spx-dino-moon-call.is-leaving{opacity:0;transform:scale(.985);transition:opacity .18s ease,transform .18s ease;}
+.spx-dino-moon-call-card{width:min(980px,96vw);max-height:94vh;overflow:auto;border:2px solid rgba(94,231,255,.62);border-radius:28px;background:#07162f;box-shadow:0 26px 80px rgba(0,0,0,.68),0 0 28px rgba(255,73,55,.25),0 0 25px rgba(75,224,255,.2);}
+.spx-dino-moon-call-city{position:relative;width:100%;aspect-ratio:16/9;overflow:hidden;border-radius:26px 26px 0 0;background:#04152d url("draft-assets/devildino_moongirl_call_bg.png") center/102% auto no-repeat;animation:spxDinoCityPan 11s ease-in-out infinite alternate;}
+.spx-dino-moon-call-city::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(4,14,39,.5),transparent 35%);}
+.spx-dino-moon-call-city .spx-dino-communicator{right:5%;top:8%;width:72px;height:72px;}
+.spx-dino-moon-call-city>img{display:none;position:absolute;z-index:2;right:4%;bottom:-3%;width:39%;height:78%;object-fit:contain;filter:drop-shadow(0 12px 16px rgba(0,0,0,.55));}
+.spx-dino-moon-call.is-sleep .spx-dino-moon-call-city>img{display:block;}
+.spx-dino-moon-call-copy{position:relative;padding:20px 24px 22px;background:linear-gradient(120deg,rgba(44,7,20,.98),rgba(6,23,48,.98));}
+.spx-dino-moon-call-copy>span{color:#72ebff;font:900 10px/1 Orbitron,"Segoe UI",sans-serif;letter-spacing:2.4px;}.spx-dino-moon-call-copy h2{margin:8px 0 10px;color:#fff0d2;font:1000 clamp(23px,4vw,43px)/1 Orbitron,"Segoe UI",sans-serif;text-shadow:0 0 16px rgba(255,90,47,.36);}.spx-dino-moon-call-copy p{max-width:820px;margin:0;color:#dff8ff;font:700 14px/1.5 "Segoe UI",sans-serif;}.spx-dino-moon-call-copy button{display:block;margin:18px 0 0 auto;min-width:180px;}.spx-dino-moon-call-copy>em{position:absolute;right:8%;top:12%;color:#75eaff;font:1000 24px/1 Orbitron,"Segoe UI",sans-serif;font-style:normal;animation:spxDinoZzz 1.5s ease-in-out infinite;}
+@keyframes spxDinoCallIn{from{opacity:0;transform:scale(.96)}to{opacity:1;transform:none}}@keyframes spxDinoZzz{50%{transform:translateY(-8px);opacity:.45}}
+
+/* Ugryzienie, pęknięcie starej karty, odsłonięcie 6+ */
+.spx-dino-chomp-burst{position:absolute;inset:-18%;z-index:90;display:block;pointer-events:none;overflow:visible;}
+.spx-dino-chomp-old{position:absolute;inset:15%;z-index:3;display:grid;place-items:center;animation:spxDinoOldCardBreak 1.22s ease-in both;}
+.spx-dino-chomp-old .spx-dino-card-visual{animation:none!important;transform:scale(1.02);transform-origin:center;}
+.spx-dino-chomp-burst>img{position:absolute;left:50%;z-index:6;width:115%;height:72%;object-fit:contain;transform:translateX(-50%);animation-duration:.62s;animation-timing-function:cubic-bezier(.15,.86,.35,1);animation-fill-mode:both;}
+.spx-dino-chomp-burst .top{top:-12%;animation-name:spxDinoChompTop;}.spx-dino-chomp-burst .bottom{bottom:-12%;animation-name:spxDinoChompBottom;}
+.spx-dino-card-crack{position:absolute;inset:20%;z-index:8;opacity:0;animation:spxDinoCrackFlash .75s .42s ease-out both;}.spx-dino-card-crack i{position:absolute;left:50%;top:8%;width:4px;height:82%;border-radius:4px;background:#fff6b2;box-shadow:0 0 8px #ff7a36;transform-origin:50% 35%;clip-path:polygon(30% 0,100% 0,62% 38%,100% 42%,36% 100%,0 100%,32% 49%,0 44%);}.spx-dino-card-crack i:nth-child(2){transform:rotate(42deg) scale(.72)}.spx-dino-card-crack i:nth-child(3){transform:rotate(-52deg) scale(.66)}
+.spx-dino-chomp-burst>strong{position:absolute;left:50%;bottom:4%;z-index:10;transform:translateX(-50%);padding:6px 9px;border-radius:999px;background:#3c0c09;color:#ffe48c;white-space:nowrap;font:1000 8px/1 Orbitron,"Segoe UI",sans-serif;animation:spxDinoImpact 1.25s .52s ease-out both;}
+@keyframes spxDinoChompTop{from{transform:translate(-50%,-90%)}to{transform:translate(-50%,0)}}@keyframes spxDinoChompBottom{from{transform:translate(-50%,90%)}to{transform:translate(-50%,0)}}@keyframes spxDinoOldCardBreak{0%,38%{opacity:1;transform:none;filter:none}58%{filter:brightness(1.8);transform:scale(1.05) rotate(-2deg)}76%{opacity:1;transform:scale(.82) rotate(5deg)}100%{opacity:0;transform:scale(.25) rotate(13deg)}}@keyframes spxDinoCrackFlash{0%{opacity:0;transform:scale(.35)}28%{opacity:1;transform:scale(1.08)}100%{opacity:0;transform:scale(1.25)}}@keyframes spxDinoImpact{0%{opacity:0;transform:translate(-50%,12px) scale(.7)}35%,78%{opacity:1;transform:translate(-50%,0) scale(1)}100%{opacity:0;transform:translate(-50%,-5px)}}
+#pack [data-pack-index].spx-dino-chomp-hit{animation:spxDinoCardHit .68s ease-out;}@keyframes spxDinoCardHit{35%{transform:translateY(-5px) rotate(-1deg);filter:brightness(1.35)}70%{transform:translate(2px,1px) rotate(1deg)}}
+
+/* Śpiący Dino w kolejce */
+#roundQueue>div.spx-dino-queue-sleeping{position:relative;padding-right:46px;}
+.spx-dino-queue-sleep-badge{position:absolute;right:2px;top:50%;display:grid;place-items:center;width:42px;height:34px;transform:translateY(-50%);pointer-events:none;}.spx-dino-queue-sleep-badge img{width:40px;height:30px;object-fit:contain;filter:drop-shadow(0 2px 4px rgba(0,0,0,.55));}.spx-dino-queue-sleep-badge b{position:absolute;right:-2px;top:-5px;color:#72e9ff;font:1000 7px/1 Orbitron,"Segoe UI",sans-serif;text-shadow:0 0 7px #2bcfff;animation:spxDinoZzz 1.5s ease-in-out infinite;}
+
+@media(max-width:800px){
+    .spx-dino-hud{top:6px;grid-template-columns:150px minmax(0,1fr);gap:9px;padding:8px;max-height:calc(100dvh - 12px);overflow:auto;}
+    .spx-dino-hud-actions{grid-column:1/-1;flex-direction:row;}.spx-dino-hud-actions button{flex:1;min-height:46px;}
+    .spx-dino-communicator{width:44px;height:44px;}.spx-dino-communicator b{font-size:22px;}
+    .spx-dino-overlay{padding:6px;}.spx-dino-dialog{width:calc(100vw - 12px);max-height:calc(100dvh - 12px);border-radius:22px;}
+    .spx-dino-head{grid-template-columns:78px minmax(0,1fr) 38px;min-height:92px;gap:9px;padding:8px 10px 7px;}.spx-dino-belly-emblem{width:78px;height:78px;}.spx-dino-head h2{font-size:23px;line-height:1;}.spx-dino-head p{font-size:11px;line-height:1.3;}.spx-dino-close{width:38px;height:38px;font-size:22px;}
+    .spx-dino-body{padding:13px 12px 16px;}.spx-dino-footer{padding:10px;}.spx-dino-footer button{flex:1 1 44%;min-height:48px;}
+    .spx-dino-belly-vessel{min-height:250px}.spx-dino-belly-vessel>img{height:250px}.spx-dino-belly-grid,.spx-dino-target-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;}.spx-dino-belly-card,.spx-dino-target{min-height:102px;padding:10px;}.spx-dino-contexts{grid-template-columns:1fr;}.spx-dino-moon-tip{grid-template-columns:1fr;}
+    .spx-dino-moon-call{padding:6px;}.spx-dino-moon-call-card{width:calc(100vw - 12px);max-height:calc(100dvh - 12px);border-radius:21px;}.spx-dino-moon-call-city{border-radius:19px 19px 0 0;}.spx-dino-moon-call-copy{padding:15px;}.spx-dino-moon-call-copy p{font-size:12px;}.spx-dino-moon-call-copy button{width:100%;min-height:48px;}
+}
+@media(max-width:430px){.spx-dino-hud{grid-template-columns:110px minmax(0,1fr)}.spx-dino-hud-copy>strong{font-size:15px}.spx-dino-hud-copy>p{font-size:10px}.spx-dino-belly-grid,.spx-dino-target-grid{grid-template-columns:1fr}.spx-dino-status{grid-template-columns:1fr}.spx-dino-status>strong{grid-row:auto;grid-column:auto}.spx-dino-belly-vessel{min-height:220px}.spx-dino-belly-vessel>img{height:220px}.spx-dino-card-shell{height:105px}.spg-deck-power.spg-dino-belly-ready .spg-deck-power-btn{width:178px;grid-template-columns:56px 104px}}
+
+@media(prefers-reduced-motion:reduce){
+    .spx-dino-hud,.spx-dino-hud.is-fed,.spx-dino-call-scene,.spx-dino-communicator,.spx-dino-communicator i,.spx-dino-pack-mark,.spx-dino-dialog,.spx-dino-dialog::before,.spx-dino-belly-emblem,.spx-dino-belly-vessel>img,.spx-dino-floating-card,.spg-dino-belly-art,.spx-dino-moon-call,.spx-dino-moon-call-city,.spx-dino-moon-call-copy>em,.spx-dino-queue-sleep-badge b,.spx-dino-belly-sleeper b,.spx-dino-chomp-burst *{animation:none!important;transition:opacity .12s ease,filter .12s ease!important;scroll-behavior:auto!important;}
+    .spx-dino-belly-card:hover,.spx-dino-target:hover{transform:none!important;}
+    .spx-dino-chomp-old{opacity:0!important;}.spx-dino-chomp-burst>strong{opacity:1!important;}
+}
+
+/* =========================================================
+   PATCH102 — pełnoformatowy Moon Girl Call i miniatury Brzucha
+   ========================================================= */
+.spx-dino-hud{
+    min-height:300px;
+    grid-template-columns:minmax(0,1fr) auto;
+    align-content:end;
+    gap:14px 20px;
+    padding:70px 26px 24px 30px;
+    background:#06152c;
+}
+.spx-dino-hud::before{
+    inset:0;
+    z-index:-2;
+    background-image:linear-gradient(90deg,rgba(3,9,27,.38),rgba(4,12,31,.04) 48%,rgba(3,9,27,.28)),linear-gradient(0deg,rgba(4,9,27,.9),rgba(4,9,27,.06) 68%),url("draft-assets/devildino_moongirl_call_bg.png");
+    background-position:center 60%;
+    background-size:cover;
+    background-repeat:no-repeat;
+    animation:spxDinoCallBackdrop 13s ease-in-out infinite alternate;
+}
+.spx-dino-hud::after{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;background:radial-gradient(circle at 8% 18%,rgba(255,74,50,.16),transparent 24%),radial-gradient(circle at 88% 72%,rgba(76,224,255,.12),transparent 28%);}
+.spx-dino-hud>.spx-dino-blueprint-grid{z-index:0;opacity:.48;mix-blend-mode:screen;pointer-events:none;}
+.spx-dino-hud>.spx-dino-communicator{right:24px;top:20px;width:60px;height:60px;}
+.spx-dino-hud-copy,.spx-dino-hud-actions{position:relative;z-index:2;}
+.spx-dino-hud-copy{max-width:760px;padding:14px 16px;border-radius:18px;background:linear-gradient(90deg,rgba(4,16,37,.84),rgba(5,18,39,.5));box-shadow:inset 0 0 0 1px rgba(99,230,255,.11);}
+.spx-dino-hud-copy>span{font-size:10px;}
+.spx-dino-hud-copy>strong{font-size:clamp(23px,2.8vw,36px);}
+.spx-dino-hud-copy>p{font-size:14px;line-height:1.45;}
+.spx-dino-hud-actions{align-self:end;min-width:190px;}
+@keyframes spxDinoCallBackdrop{from{background-position:center 66%}to{background-position:center 48%}}
+
+.spx-dino-card-visual .pack-card-inner{position:absolute!important;inset:0!important;display:grid!important;place-items:center!important;}
+.spx-dino-card-visual .pack-card-name{
+    position:absolute!important;
+    left:50%!important;
+    top:50%!important;
+    width:82%!important;
+    max-width:82%!important;
+    margin:0!important;
+    padding:0!important;
+    transform:translate(-50%,-50%)!important;
+    text-align:center!important;
+    font-size:14px!important;
+    line-height:1.08!important;
+}
+
+.spg-dino-belly-badge>.spg-dino-belly-floaters{
+    inset:25% 25% 28%!important;
+    overflow:hidden;
+    border-radius:46%;
+    clip-path:ellipse(48% 46% at 50% 50%);
+}
+.spg-dino-belly-badge>.spg-dino-belly-floaters .spx-dino-floating-card{width:20px!important;height:27px!important;margin:0!important;}
+.spg-dino-belly-badge>.spg-dino-belly-floaters .spx-dino-floating-card:nth-child(1){left:16%!important;top:24%!important;transform:rotate(-9deg)!important;}
+.spg-dino-belly-badge>.spg-dino-belly-floaters .spx-dino-floating-card:nth-child(2){left:52%!important;top:19%!important;transform:rotate(7deg)!important;}
+.spg-dino-belly-badge>.spg-dino-belly-floaters .spx-dino-floating-card:nth-child(3){left:34%!important;top:56%!important;transform:rotate(3deg)!important;}
+.spg-dino-belly-badge>.spg-dino-belly-floaters .spx-dino-card-visual{position:absolute!important;left:50%!important;top:50%!important;transform:translate(-50%,-50%) scale(.16)!important;transform-origin:center!important;}
+.spg-dino-belly-badge.is-compact>.spg-dino-belly-floaters .spx-dino-card-visual{transform:translate(-50%,-50%) scale(.09)!important;}
+
+.spx-dino-moon-call{padding:12px;background:rgba(2,6,17,.78);}
+.spx-dino-moon-call-card{
+    position:relative;
+    width:min(680px,calc(100vw - 24px));
+    min-height:280px;
+    max-height:calc(100dvh - 24px);
+    overflow:hidden;
+    border-radius:24px;
+    background:#06152c;
+    isolation:isolate;
+}
+.spx-dino-moon-call-card::after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;background-image:linear-gradient(rgba(80,232,255,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(80,232,255,.07) 1px,transparent 1px);background-size:22px 22px;mix-blend-mode:screen;opacity:.62;}
+.spx-dino-moon-call-city{
+    position:absolute;
+    inset:0;
+    z-index:0;
+    width:auto;
+    aspect-ratio:auto;
+    border-radius:22px;
+    background-position:center 62%;
+    background-size:cover;
+    animation:spxDinoCallBackdrop 12s ease-in-out infinite alternate;
+}
+.spx-dino-moon-call-city::after{background:linear-gradient(90deg,rgba(4,12,34,.93),rgba(5,15,36,.65) 60%,rgba(4,12,34,.2)),linear-gradient(0deg,rgba(4,12,34,.88),transparent 75%);}
+.spx-dino-moon-call-city .spx-dino-communicator{right:22px;top:18px;width:56px;height:56px;}
+.spx-dino-moon-call-city>img{right:2%;bottom:-3%;width:210px;height:210px;z-index:3;}
+.spx-dino-moon-call-copy{position:relative;z-index:3;min-height:280px;padding:34px 28px 25px;background:none;display:flex;flex-direction:column;justify-content:flex-end;}
+.spx-dino-moon-call-copy>span{font-size:10px;}
+.spx-dino-moon-call-copy h2{max-width:570px;margin:8px 0 10px;font-size:clamp(24px,4vw,38px);}
+.spx-dino-moon-call-copy p{max-width:570px;font-size:13px;line-height:1.45;}
+.spx-dino-moon-call-copy button{margin:16px 0 0;align-self:flex-start;}
+.spx-dino-moon-call.is-sleep .spx-dino-moon-call-copy{padding-right:210px;}
+.spx-dino-moon-call.is-sleep .spx-dino-moon-call-copy h2,.spx-dino-moon-call.is-sleep .spx-dino-moon-call-copy p{max-width:420px;}
+.spx-dino-moon-call-copy>em{right:25%;top:16%;z-index:5;}
+
+@media(max-width:800px){
+    .spx-dino-hud{top:6px;min-height:310px;grid-template-columns:1fr;padding:72px 10px 10px;overflow:auto;}
+    .spx-dino-hud-copy{padding:11px 12px;}.spx-dino-hud-copy>strong{font-size:20px}.spx-dino-hud-copy>p{font-size:11px;}
+    .spx-dino-hud-actions{width:100%;min-width:0;flex-direction:row;}.spx-dino-hud-actions button{flex:1;}
+    .spx-dino-moon-call-card{width:calc(100vw - 16px);min-height:250px;}
+    .spx-dino-moon-call-copy{min-height:250px;padding:24px 18px 18px;}
+    .spx-dino-moon-call-copy h2{font-size:24px;padding-right:45px;}
+    .spx-dino-moon-call.is-sleep .spx-dino-moon-call-copy{padding-right:145px;}
+    .spx-dino-moon-call-city>img{width:145px;height:160px;}
+    .spx-dino-moon-call-copy p{font-size:11px;}
+}
+@media(max-width:470px){
+    .spx-dino-hud{min-height:330px;}
+    .spx-dino-moon-call-card{min-height:330px;}
+    .spx-dino-moon-call-copy,.spx-dino-moon-call.is-sleep .spx-dino-moon-call-copy{min-height:330px;padding:150px 14px 14px;}
+    .spx-dino-moon-call-city>img{right:50%;bottom:auto;top:4px;transform:translateX(50%);width:150px;height:145px;}
+    .spx-dino-moon-call-copy>em{right:17%;top:9%;}
+    .spx-dino-moon-call-copy button{width:100%;min-height:48px;}
+}
+@media(prefers-reduced-motion:reduce){
+    .spx-dino-hud::before,.spx-dino-moon-call-city{animation:none!important;background-position:center 58%!important;}
+}
+
+/* PATCH103 — czytelny licznik, wyśrodkowane karty i osobny, żywy Brzuch w decku. */
+.spx-dino-belly-vessel>.spx-dino-belly-floaters[data-card-count],
+.spx-dino-belly-vessel>.spx-dino-belly-floaters{overflow:visible!important;}
+.spx-dino-belly-vessel[data-card-count="1"] .spx-dino-floating-card:nth-child(1){left:50%!important;top:50%!important;}
+.spx-dino-belly-vessel[data-card-count="2"] .spx-dino-floating-card:nth-child(1){left:37%!important;top:50%!important;}
+.spx-dino-belly-vessel[data-card-count="2"] .spx-dino-floating-card:nth-child(2){left:63%!important;top:50%!important;}
+.spx-dino-belly-vessel[data-card-count="3"] .spx-dino-floating-card:nth-child(1){left:31%!important;top:49%!important;}
+.spx-dino-belly-vessel[data-card-count="3"] .spx-dino-floating-card:nth-child(2){left:50%!important;top:43%!important;}
+.spx-dino-belly-vessel[data-card-count="3"] .spx-dino-floating-card:nth-child(3){left:69%!important;top:49%!important;}
+.spx-dino-belly-count{
+    top:13%!important;
+    left:50%!important;
+    width:38px!important;
+    min-width:38px!important;
+    height:38px!important;
+    min-height:38px!important;
+    transform:translateX(-50%)!important;
+    font-size:17px!important;
+    line-height:38px!important;
+    z-index:12!important;
+}
+
+.spg-deck-power.spg-dino-belly-ready{overflow:visible!important;}
+.spg-deck-power.spg-dino-belly-ready .spg-deck-power-btn{
+    overflow:visible!important;
+    background:transparent!important;
+    border-color:transparent!important;
+    box-shadow:none!important;
+}
+.spg-dino-belly-badge{
+    overflow:visible!important;
+    transform-origin:center!important;
+    transition:transform .3s ease,filter .3s ease!important;
+}
+.spg-deck-power.spg-dino-belly-ready:hover .spg-dino-belly-badge,
+.spg-deck-power.spg-dino-belly-ready:focus-within .spg-dino-belly-badge{
+    z-index:80!important;
+    transform:scale(1.65)!important;
+    filter:drop-shadow(0 15px 24px rgba(0,0,0,.62)) drop-shadow(0 0 18px rgba(255,67,43,.34))!important;
+    transition-delay:.85s!important;
+}
+.spg-dino-belly-badge[data-card-count="1"]>.spg-dino-belly-floaters .spx-dino-floating-card:nth-child(1){left:50%!important;top:42%!important;}
+.spg-dino-belly-badge[data-card-count="2"]>.spg-dino-belly-floaters .spx-dino-floating-card:nth-child(1){left:24%!important;top:40%!important;}
+.spg-dino-belly-badge[data-card-count="2"]>.spg-dino-belly-floaters .spx-dino-floating-card:nth-child(2){left:60%!important;top:40%!important;}
+.spg-dino-belly-badge>b{top:4%!important;right:7%!important;left:auto!important;width:23px!important;height:23px!important;min-width:23px!important;font-size:11px!important;line-height:23px!important;}
+
+.spx-dino-moon-call.is-sleep .spx-dino-moon-call-city>img{transform-origin:50% 88%;animation:spxDinoSleepBreath 2.6s ease-in-out infinite;}
+@keyframes spxDinoSleepBreath{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(2px) scale(1.018,.985)}}
+
+@media(max-width:470px){
+    .spx-dino-moon-call.is-sleep .spx-dino-moon-call-city>img{animation-name:spxDinoSleepBreathMobile;}
+    @keyframes spxDinoSleepBreathMobile{0%,100%{transform:translateX(50%) translateY(0) scale(1)}50%{transform:translateX(50%) translateY(2px) scale(1.018,.985)}}
+}
+@media(prefers-reduced-motion:reduce){
+    .spx-dino-moon-call.is-sleep .spx-dino-moon-call-city>img{animation:spxDinoSleepFade 1.8s ease-in-out infinite!important;}
+    .spg-deck-power.spg-dino-belly-ready:hover .spg-dino-belly-badge{transition-delay:0s!important;transform:scale(1.16)!important;}
+    @keyframes spxDinoSleepFade{0%,100%{opacity:.92}50%{opacity:1}}
+}
+
+/* PATCH106 — grupy kart są centrowane jako całość, nigdy od środka. */
+.spx-dino-belly-vessel>.spx-dino-belly-floaters{display:flex!important;align-items:center!important;justify-content:center!important;gap:10px!important;}
+.spx-dino-belly-vessel>.spx-dino-belly-floaters .spx-dino-floating-card{
+    position:relative!important;left:auto!important;top:auto!important;flex:0 0 64px!important;transform:none!important;
+}
+/* Starsze pozycje dla 1/2/3 kart miały większą specyficzność. Zerujemy je,
+   aby Flexbox naprawdę centrował całą grupę, a nie jej punkt startowy. */
+.spx-dino-belly-vessel[data-card-count]>.spx-dino-belly-floaters .spx-dino-floating-card:nth-child(n){
+    left:auto!important;right:auto!important;top:auto!important;bottom:auto!important;transform:none!important;
+}
+.spx-dino-belly-vessel>.spx-dino-belly-floaters .spx-dino-floating-card .spx-dino-card-visual{
+    position:absolute!important;left:50%!important;top:50%!important;
+    transform:translate(-50%,-50%) scale(.52)!important;transform-origin:center!important;
+}
+.spx-dino-belly-vessel[data-card-count="1"]>.spx-dino-belly-floaters .spx-dino-floating-card{margin-inline:auto!important;}
+.spx-dino-belly-vessel[data-card-count="2"]>.spx-dino-belly-floaters{gap:18px!important;}
+.spx-dino-belly-vessel[data-card-count="3"]>.spx-dino-belly-floaters{gap:8px!important;}
+.spx-dino-moon-effect{display:block;margin-top:10px;padding:9px 11px;border-radius:11px;border:1px solid rgba(95,224,255,.24);background:rgba(3,20,45,.64);color:#dff8ff;font:800 11px/1.35 "Segoe UI",sans-serif;}
+
+/* Brzuch w kafelku przydziału mocy jest czytelną miniaturą, nie kolejną kartą. */
+.spg-roster-item{position:relative;}
+.spg-roster-item .spg-roster-belly-preview{
+    position:absolute!important;right:8px!important;top:50%!important;bottom:auto!important;z-index:12!important;
+    width:66px!important;height:46px!important;opacity:1!important;filter:none!important;pointer-events:none!important;
+    transform:translateY(-50%)!important;
+}
+
+/* FINAL POLISH — kompaktowy Moon Girl Call i trwały, wyłącznie paczkowy ślad
+   pazura na ciężkich Ogryzkach po Wgryzieniu. */
+.spx-dino-hud{width:min(920px,calc(100vw - 24px))!important;min-height:218px!important;padding:54px 18px 16px 20px!important;grid-template-columns:minmax(0,1fr) 168px!important;}
+.spx-dino-hud-copy{max-width:630px!important;padding:10px 13px!important}.spx-dino-hud-copy>strong{font-size:clamp(20px,2.35vw,30px)!important}.spx-dino-hud-copy>p{font-size:12px!important;line-height:1.35!important}.spx-dino-hud-actions{min-width:0!important;width:168px!important}
+.spx-dino-heavy-scrap-mark{position:absolute;right:-7px;top:-9px;z-index:44;width:70px;height:70px;pointer-events:none;opacity:.82;mix-blend-mode:screen;filter:drop-shadow(0 0 8px rgba(255,65,38,.78))}
+.spx-dino-heavy-scrap-mark img{width:100%;height:100%;object-fit:contain;transform:rotate(-8deg)}
+.spg-deck-power.spg-dino-belly-ready .spg-deck-power-btn::before{display:none!important;animation:none!important}.spg-deck-power.spg-dino-belly-ready .spg-deck-power-btn{animation:none!important;filter:none!important}
+@media(max-width:720px){.spx-dino-hud{min-height:238px!important;grid-template-columns:1fr!important;padding:52px 12px 12px!important}.spx-dino-hud-actions{width:100%!important;flex-direction:row!important}.spx-dino-hud-actions button{flex:1}}
+@media(prefers-reduced-motion:reduce){.spx-dino-heavy-scrap-mark{animation:none!important}.spg-deck-power.spg-dino-belly-ready .spg-deck-power-btn::before{animation:none!important}}
+
+/* Odruch Bezwarunkowy pojawia się dopiero po domknięciu wrogiej sekwencji. */
+.spx-dino-backup-prompt{position:fixed;inset:0;z-index:10080;display:grid;place-items:center;padding:18px;background:rgba(8,2,8,.7);backdrop-filter:blur(7px)}
+.spx-dino-backup-prompt[hidden]{display:none!important}
+.spx-dino-backup-prompt>section{width:min(680px,calc(100vw - 28px));display:grid;grid-template-columns:112px minmax(0,1fr);gap:16px;padding:20px;border:2px solid #ff824f;border-radius:24px;background:radial-gradient(circle at 12% 35%,rgba(255,100,45,.24),transparent 35%),linear-gradient(145deg,#33040b,#6d0d18 62%,#260207);box-shadow:0 24px 80px #000,0 0 35px rgba(255,78,36,.28);color:#fff7df}
+.spx-dino-backup-prompt>section>img{width:108px;height:108px;object-fit:contain;filter:drop-shadow(0 0 16px rgba(255,116,54,.65))}
+.spx-dino-backup-prompt small{font:900 11px/1.2 "Segoe UI",sans-serif;letter-spacing:.18em;color:#ffbd6b}.spx-dino-backup-prompt h2{margin:5px 0 7px;font:1000 clamp(22px,4vw,34px)/.98 "Segoe UI",sans-serif}.spx-dino-backup-prompt p{margin:0;font:700 14px/1.45 "Segoe UI",sans-serif;color:#ffe7cf}
+.spx-dino-backup-prompt footer{grid-column:1/-1;display:flex;justify-content:flex-end;gap:10px}.spx-dino-backup-prompt button{min-height:46px;padding:0 18px;border:1px solid rgba(255,211,163,.45);border-radius:13px;background:#230913;color:#fff;font:900 12px "Segoe UI",sans-serif;letter-spacing:.05em;cursor:pointer}.spx-dino-backup-prompt button.is-primary{border-color:#ffd46f;background:linear-gradient(135deg,#ff633d,#ffc24d);color:#260407;box-shadow:0 0 20px rgba(255,100,54,.34)}
+@media(max-width:520px){.spx-dino-backup-prompt>section{grid-template-columns:72px minmax(0,1fr);padding:15px}.spx-dino-backup-prompt>section>img{width:72px;height:72px}.spx-dino-backup-prompt footer{display:grid;grid-template-columns:1fr 1fr}.spx-dino-backup-prompt button{padding:0 8px}}
+@media(prefers-reduced-motion:reduce){.spx-dino-backup-prompt,.spx-dino-backup-prompt *{animation:none!important;transition-duration:.12s!important}}
+
+
+.spx-dino-inline-message{
+    margin:0 0 12px;padding:10px 12px;border:1px solid rgba(255,190,90,.58);border-left:4px solid #ffbd55;
+    border-radius:11px;background:rgba(53,24,7,.78);color:#fff0d2;font-weight:850;line-height:1.35;
+}

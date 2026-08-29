@@ -1,0 +1,315 @@
+MSP SNAPDRAFT — SITE FINAL POLISH 01
+
+Duży patch końcowego audytu podstron.
+
+NAPRAWIONO:
+- 165x font-rodzina -> font-family w Encyklopedii
+- Google Fonts rodzina= -> family=
+- settings-rodzina -> settings-family
+- aktywny kafel navbara trafia w kanoniczne miejsce w kolejności:
+  Centrum / Encyklopedia / Sala / Kroniki / Baza / Kolekcja / Archiwum / Arena
+- styl/font/glow/wymiary kafli navbara nie są redesignowane
+- wszystkie podstrony Encyklopedii pokazują w aktywnym navbarze Encyklopedia SnapDraftu
+- JokerDex -> Jokeropedia
+- Custom Pack Database -> Biblioteka Custom Packów
+- Addony -> Rozszerzenia
+- legalny/legalność -> dozwolony/dostępny
+- naprawione uszkodzone fleksje tekstów po wcześniejszych replacementach
+- Home: usunięty martwy assets/hero-draft.png
+- QuestDex: dołączony PROGRAM-DRAFT/draft-quests-registry.js
+- Hall of Fame: Punkty Legend i graczowe komunikaty błędów
+- Baza: usunięty DraftStatsEngine/cards.js z widocznych opisów
+- Kolekcja: usunięte techniczne cards.js/tags.js z widocznego opisu
+- zachowane najnowsze patche: Kroniki 02, Player 03A, Card 01K, Home 01, Archive 09, Encyclopedia 10
+
+NIE RUSZONO:
+- database.js
+- draft-stats-engine.js
+- gameplay core PROGRAM-DRAFT
+- logiki statystycznej
+
+
+=========================================================
+ENCYCLOPEDIA 11 — POKER DRAFT
+=========================================================
+
+NOWA PODSTRONA:
+- poker-draft.html
+- assets/encyclopedia11-poker.css
+
+ZASADY OPISANE NA PODSTAWIE AKTUALNEGO POKER DRAFTU:
+- osobny Tryb Draftowania, bez standardowych paczek
+- 5000 Cosmic Jeffs na start dla każdego gracza
+- jedna karta / obiekt na rundę
+- 20 sekund bazowego czasu aukcji
+- pierwsza oferta 100
+- przebicia +50 / +100 / +200 / +500 lub własna dodatnia kwota
+- przy przebiciu na 5 s lub mniej: +6 s
+- zwycięzca płaci najwyższą ofertę i otrzymuje kartę
+- każdy przegrany aukcji otrzymuje +200 Cosmic Jeffs
+- jeżeli nie ma żadnej oferty: +200 dostają wszyscy
+- pierwszy BAN danego gracza darmowy
+- każdy kolejny BAN kosztuje 1000 Cosmic Jeffs
+- BAN natychmiast rozpoczyna nową rundę i nie wypłaca +200
+- 10% szansy na Poker-Jokera
+- Poker-Joker ma obecnie własne uproszczone rozstrzygnięcie
+- gracz z 12 kartami nie może dalej licytować ani używać BAN-u
+- koniec dopiero wtedy, gdy każdy gracz ma 12 kart
+- Custom Packi są w aktualnym programie wyłączone dla Poker Draftu
+- Cosmic Jeffs opisane jako osobny budżet od JeffCoinów Economy
+
+PRZEWODNIK:
+- Poker Draft ma pełny link z sekcji Trybów
+- Poker Draft dodany do Podręczników i katalogów Encyklopedii
+- usunięta błędna wisząca resztka „PÓŹNIEJ” po Bibliotece Custom Packów
+- „Katalogi Encyklopedii” -> „Podręczniki i katalogi Encyklopedii”
+
+NIE RUSZONO:
+- pokerDraft.js
+- PROGRAM-DRAFT gameplay core
+- database.js
+- DraftStatsEngine
+- istniejących zasad innych Trybów i Rozszerzeń
+
+
+=========================================================
+NAVBAR REVERT HOTFIX
+=========================================================
+
+COFNIĘTO WYŁĄCZNIE globalny patch kolejności navbara z SITE FINAL POLISH:
+- .nav-current nie znajduje się już wewnątrz .nav-links
+- aktywna naklejka strony wróciła do starego miejsca:
+  LOGO -> AKTYWNA NAKLEJKA -> PRZYCISKI STRON
+- usunięto assets/nav-final-order.css
+- usunięto wszystkie odwołania do nav-final-order.css
+
+ZACHOWANO:
+- Encyclopedia 11 / Poker Draft
+- FINAL QA 02
+- poprawki fontów Encyklopedii
+- nazwy Encyklopedia SnapDraftu
+- Collection 01K
+- Player 03A
+- Kroniki 02
+- Archive 09
+- Home 01
+- pozostałe poprawki językowe i QA
+
+NIE ZMIENIONO:
+- fontów navbara
+- rozmiarów navbara
+- glow
+- kolorów
+- CSS poszczególnych kafli
+- gameplay core
+- database.js
+
+
+=========================================================
+PLAYER 03B — PROFILE SECTIONS POLISH
+=========================================================
+
+1. NICK GRACZA
+- zawsze jedna linia
+- dynamiczne zmniejszanie fontu na podstawie realnej szerokości tekstu
+- większa bezpieczna szerokość kompozycji na desktopie
+- bardzo długie nicki dostają ciaśniejsze litery i wyrównanie od lewej
+- brak sztucznego zawijania typu „DEJWIDGAKUR / E”
+
+2. MAPA WSZYSTKICH RYWALI
+- maksymalnie 4 rywali naraz
+- paginacja poprzedni / następny
+- licznik strony
+- jeżeli rywali jest <= 4, kontrolki znikają
+
+3. KARTY SYGNATUROWE
+- zachowany poziomy charakter kafli
+- mini-karta korzysta z wizualnego DNA zwykłej karty Draftu:
+  galaxytool, neonowa ramka, mikro-gwiazdki,
+  planetka Kosztu i gwiazda Siły
+- statystyki pozostają po prawej stronie mini-karty
+
+4. HISTORIA DRAFTÓW
+- długa pionowa lista zamieniona na poziomą kronikę
+- scroll-snap
+- przyciski lewo / prawo
+- lazy-loaded miniatury pozostają bez zmian
+
+5. OSIĄGNIĘCIA HISTORYCZNE
+- mocniejsze kosmiczne/gwiezdne tło
+- CSS-owe rombowe gwiazdki w panelach
+
+6. GALAKTYCZNE RYWALIZACJE
+- subtelny motyw skrzyżowanych mieczy w tle
+- mocniejsze czerwono-cyanowe światło pojedynku
+
+NIE RUSZONO:
+- navbara (pozostaje dokładnie NAVBAR REVERT)
+- database.js
+- DraftStatsEngine
+- player02a/player02b/player02c — logika statystyczna
+- gameplay core PROGRAM-DRAFT
+
+
+=========================================================
+CARD 01L — COLLECTION LOBBY + SINGLE CARD PROFILE POLISH
+=========================================================
+
+KOLEKCJA KART WSZECHŚWIATA — LOBBY
+- kolejność sekcji:
+  HERO -> GABLOTY KURATORSKIE -> NAWIGACJA/FILTRY -> KOLEKCJA -> NIEUŻYTE
+- gabloty są teraz przed filtrowaniem
+- panel „Nawigacja po wystawie” ma CSS-owe cyfrowe karty materializujące się w tle
+- poprawione select/dropdowny:
+  dark color-scheme, ciemne option/optgroup, brak białej listy na Windows/Chrome
+- zaktualizowano opis filtrów do nowej kolejności sekcji
+
+PROFIL POJEDYNCZEJ KARTY
+1. KLASYFIKACJA
+- rdzeń Koszt/Siła/Seria/Typ zdolności jest kompaktowym flexem
+- rodziny tagów są małymi dynamicznymi wyspami
+- maksymalnie 3 wyspy w rzędzie na dużym ekranie
+- opisy rodzin nie zajmują już osobnych szerokich linii
+- tagi pozostają czytelnymi chipami
+
+2. PILOCI
+- pełna lista pokazuje pierwszych 5 pilotów
+- reszta rozwijana jednym przyciskiem
+- przycisk pokazuje ile osób pozostaje
+- można ponownie zwinąć listę
+
+3. NAJWAŻNIEJSZE TALIE
+- obraz decku animowany:
+  dół -> środek -> góra
+- delikatne powiększanie/zmniejszanie
+- różne opóźnienia animacji między gablotami
+- fallback bez obrazka pozostaje bez zmian
+
+4. HISTORIA WYSTĘPÓW
+- tabela pozostaje źródłem danych, ale jest ukryta wizualnie
+- historia renderowana jako poziomy carousel
+- scroll-snap
+- przyciski lewo/prawo
+- każdy draft jest osobną kartą historii
+- na mobile przewijanie w bok pozostaje naturalne
+
+NIE RUSZONO:
+- navbara
+- database.js
+- DraftStatsEngine
+- cards.js / tags.js
+- statystyk i sposobu ich liczenia
+- Galaktycznej Bazy Wojowników
+- gameplay core PROGRAM-DRAFT
+
+
+=========================================================
+ARCHIVE 10 — BANS + PLAYER LANGUAGE CLEANUP
+=========================================================
+
+GWIEZDNE ARCHIWUM DANYCH
+- w sekcji Rekordy Kart dodano „Najczęściej banowane karty”
+- ranking liczy wyłącznie ukończone drafty
+- ta sama karta liczy się maksymalnie raz na jedną edycję
+- Arishem i Loki są pomijani w rankingu jako stałe bany
+- topka jest liczona bezpośrednio z historycznych list bans
+- DraftStatsEngine nie został zmieniony
+- karty otrzymały draftowy wygląd:
+  galaxy background, planetka Kosztu, gwiazda Siły
+- nałożono czerwony blueprint / scan-grid
+- każda karta ma stempel „NIEDOSTĘPNA”
+- kliknięcie prowadzi do profilu karty, jeśli karta istnieje w aktualnej bazie kart
+
+LANGUAGE CLEANUP
+- usunięto pozostałości typu:
+  subsystem, flow, warstwa konfiguracji, instancja,
+  wallet, Cost/Power, launchery, Deck Inspector,
+  techniczny reroll, „Nie traktuj…”, „Nie ma sensu…”
+- Graveyard w języku graczowym zastąpiony nazwą „Kosmiczne Cmentarzysko”
+- „Kanon danych” -> „Jak liczymy rekordy”
+- „Bazy systemowe” -> „Katalogi i podręczniki”
+- złagodzono instrukcje dla nowych graczy i zapisy o aktywności
+- poprawiono uszkodzone zdanie w sekcji początkującego przewodnika
+- zachowano sens wszystkich zasad
+
+NIE RUSZONO
+- navbarów
+- database.js
+- DraftStatsEngine
+- cards.js / tags.js
+- gameplay core PROGRAM-DRAFT
+- sposobu liczenia istniejących rekordów
+
+
+=========================================================
+KRONIKI 03 — DATA CONTRACT V2
+=========================================================
+
+ŹRÓDŁO KONFIGURACJI
+- Kroniki czytają:
+  draft.draftConfigV2 ?? draft.draftInfo?.draftConfigV2 ?? null
+- stare draft.mode jest wyłącznie fallbackiem dla rekordów bez DATA CONTRACT V2
+- logika nie opiera się na tekstowych polach name
+
+PANEL INFORMACJI DRAFTU
+- „Tryb” -> „Tryb Draftowania”
+- wspiera:
+  Classic
+  Gwiezdny Prąd + wariant
+  Poker Draft
+- dodano zwarty wiersz „Rozszerzenia”
+- pokazuje wyłącznie aktywne Rozszerzenia
+- dodano zwarty wiersz „Ustawienia specjalne”
+- wspiera:
+  Timer
+  Cerebro Autopilot
+  Bufor Paczki (gdy różni się od domyślnego)
+  Bany + listę kart
+  Lucky Cards
+  Ograniczenia Serii
+  Filtry Tagów
+  Profil Puli
+  Preset Card
+  Championy
+  Specjalny Twist
+- opis Twista pojawia się tylko wtedy, gdy istnieje
+- puste kategorie pokazują dyskretne „Brak”
+- panel zachowuje kompaktową wysokość
+
+LEGACY
+- jeżeli draftConfigV2 nie istnieje:
+  * Tryb bierze draft.mode
+  * dotychczasowa lista Banów pozostaje fallbackiem
+
+ZWYCIĘSKI DECK W TLE
+- delikatnie zwiększona widoczność
+- mniej bluru
+- lekko wyższe nasycenie / kontrast
+- deck zaczyna się wyżej, żeby był obecny także za tytułem i panelem
+- tint wykorzystuje kolor konkretnej edycji draftu (--draft-accent)
+- zachowany gradient wygaszający pod tekstem
+- nadal pozostaje elementem tła, nie dominuje UI
+
+NIE RUSZONO
+- navbara
+- database.js
+- DraftStatsEngine
+- stats-v2.js
+- gameplay core PROGRAM-DRAFT
+- danych, wyników, rankingów i scoringu
+
+=========================================================
+PATCH102 COMPATIBILITY OVERRIDE — FINAL
+=========================================================
+This cumulative Kroniki package is now aligned to MSP SnapDraft PATCH102 / Data Contract V2 Archive Freeze.
+
+- draftConfigV2 is the only archive configuration source.
+- no top-level draft.mode / draft.bans / draft.presetCard fallbacks remain in runtime consumers.
+- draft-stats-engine.js and Hall of Fame resolve the mode from draftConfigV2.
+- the Draft page exposes exactly three player-facing families:
+  Tryb Draftowania / Rozszerzenia / Ustawienia Specjalne.
+- Bans, Lucky Cards, Preset Card and Twist are rendered as historical detail payloads below the families.
+- Kroniki do not display Timer seconds or the exact extra-buffer runtime value.
+- old packBuffer archive logic is replaced by additionalPackBuffer.
+- Archive 10 reads ban history from specialSettings.poolRules.bans.cards.
+- database.js is intentionally NOT included. Install PATCH102 first.

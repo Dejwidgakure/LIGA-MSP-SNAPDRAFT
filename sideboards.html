@@ -1,0 +1,1925 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MSP SnapDraft – Planetarna Rezerwa / Sideboard</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@400;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root{
+    --cyan:#00f0ff;
+    --violet:#7D3CFF;
+    --purple:#8a2be2;
+    --magenta:#ff00ff;
+    --gold:#ffd700;
+    --dark:#050816;
+}
+
+*{ box-sizing:border-box; }
+html{ scroll-behavior:smooth; }
+
+body{
+    margin:0;
+    font-family:'Rajdhani', sans-serif;
+    color:white;
+    background:
+        linear-gradient(rgba(2,4,18,0.72), rgba(2,4,18,0.88)),
+        url("assets/cosmic_tło.png") center center fixed,
+        url("assets/cosmic_tlo.png") center center fixed,
+        url("assets/cosmic-bg.png") center center fixed,
+        #050816;
+    background-size:cover;
+    overflow-x:hidden;
+}
+
+body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    background:url("assets/cosmictool.png") center center / 1150px auto no-repeat;
+    opacity:0.115;
+    pointer-events:none;
+    z-index:0;
+    animation:cosmicToolFloat 18s ease-in-out infinite alternate;
+    mix-blend-mode:screen;
+}
+
+body::after{
+    content:"";
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    z-index:1;
+    background:
+        radial-gradient(circle at 18% 20%, rgba(0,240,255,0.16), transparent 28%),
+        radial-gradient(circle at 82% 12%, rgba(255,0,255,0.12), transparent 26%),
+        radial-gradient(circle at 52% 88%, rgba(125,60,255,0.13), transparent 35%),
+        repeating-linear-gradient(0deg, rgba(120,248,255,0.035) 0 1px, transparent 1px 42px),
+        repeating-linear-gradient(90deg, rgba(120,248,255,0.025) 0 1px, transparent 1px 42px);
+}
+
+@keyframes cosmicToolFloat{
+    from{ transform:translateY(0) scale(1); }
+    to{ transform:translateY(-26px) scale(1.04); }
+}
+
+.page{
+    position:relative;
+    z-index:2;
+    max-width:1180px;
+    margin:0 auto;
+    padding:24px 22px 70px;
+}
+
+.topbar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:16px;
+    margin-bottom:28px;
+}
+
+.back-link{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    padding:12px 18px;
+    border-radius:999px;
+    text-decoration:none;
+    color:#eaffff;
+    font-family:'Orbitron', sans-serif;
+    font-weight:800;
+    font-size:13px;
+    letter-spacing:1px;
+    background:rgba(4,14,36,0.72);
+    border:1px solid rgba(120,248,255,0.55);
+    box-shadow:0 0 16px rgba(0,240,255,0.32), inset 0 0 20px rgba(0,240,255,0.07);
+    backdrop-filter:blur(10px);
+    transition:0.22s ease;
+}
+.back-link:hover{
+    transform:translateY(-2px);
+    color:#001018;
+    background:linear-gradient(90deg,#00f0ff,#b8ffff);
+    box-shadow:0 0 28px rgba(0,240,255,0.75);
+}
+
+.mini-badge{
+    padding:10px 14px;
+    border-radius:999px;
+    color:#ffeaa6;
+    background:rgba(255,215,0,0.08);
+    border:1px solid rgba(255,215,0,0.30);
+    box-shadow:0 0 18px rgba(255,215,0,0.13);
+    font-weight:800;
+    letter-spacing:1px;
+}
+
+.hero{
+    position:relative;
+    overflow:hidden;
+    border-radius:30px;
+    padding:118px 300px 42px 40px;
+    margin-bottom:26px;
+    background:
+        linear-gradient(135deg, rgba(4,18,48,0.86), rgba(9,22,68,0.72) 42%, rgba(32,8,68,0.68)),
+        radial-gradient(circle at 15% 25%, rgba(0,240,255,0.22), transparent 28%),
+        radial-gradient(circle at 80% 30%, rgba(255,0,255,0.16), transparent 28%);
+    border:1px solid rgba(136,250,255,0.50);
+    box-shadow:0 0 30px rgba(0,240,255,0.26), 0 0 90px rgba(125,60,255,0.18), inset 0 0 70px rgba(0,240,255,0.06);
+    backdrop-filter:blur(12px);
+}
+.hero::before{
+    content:"";
+    position:absolute;
+    inset:-30%;
+    background:url("assets/cosmictool.png") center / 850px auto no-repeat;
+    opacity:0.10;
+    pointer-events:none;
+    animation:heroToolDrift 16s ease-in-out infinite alternate;
+}
+.hero::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent) -50% 0 / 45% 100% no-repeat;
+    animation:shine 6s ease-in-out infinite;
+    pointer-events:none;
+}
+@keyframes heroToolDrift{
+    from{ transform:translate(-18px,0) rotate(-2deg); }
+    to{ transform:translate(24px,-20px) rotate(2deg); }
+}
+@keyframes shine{
+    0%,55%{ background-position:-55% 0; }
+    100%{ background-position:155% 0; }
+}
+
+.hero-logo{
+    position:absolute;
+    left:50%;
+    top:18px;
+    transform:translateX(-50%);
+    z-index:2;
+    width:min(170px, 34vw);
+    display:block;
+    margin:0;
+    filter:drop-shadow(0 0 18px rgba(0,240,255,0.65)) drop-shadow(0 0 26px rgba(255,0,255,0.28));
+}
+.hero-content{ position:relative; z-index:2; max-width:740px; }
+.hero-guide{
+    position:absolute;
+    right:26px;
+    top:92px;
+    width:min(280px, 25vw);
+    max-width:280px;
+    z-index:2;
+    pointer-events:none;
+    filter:drop-shadow(0 0 18px rgba(0,240,255,0.30)) drop-shadow(0 0 28px rgba(125,60,255,0.24));
+}
+
+.kicker{
+    font-family:'Orbitron', sans-serif;
+    color:#b57cff;
+    font-weight:900;
+    letter-spacing:2px;
+    text-transform:uppercase;
+    text-shadow:0 0 14px rgba(181,124,255,0.65);
+    margin-bottom:10px;
+}
+h1{
+    font-family:'Orbitron', sans-serif;
+    font-size:clamp(38px, 7vw, 76px);
+    line-height:1.05;
+    margin:0 0 18px;
+    letter-spacing:2px;
+    background:linear-gradient(90deg,#eaffff,#8ff7ff,#bfa2ff,#ffffff);
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+    text-shadow:0 0 16px rgba(0,240,255,0.42), 0 0 30px rgba(125,60,255,0.24);
+}
+.lead{
+    max-width:900px;
+    font-size:22px;
+    line-height:1.55;
+    color:#dffaff;
+    margin:0 0 26px;
+}
+.quick-nav{
+    display:flex;
+    flex-wrap:wrap;
+    gap:12px;
+    margin-top:22px;
+}
+.quick-nav a{
+    color:#eaffff;
+    text-decoration:none;
+    font-weight:800;
+    border:1px solid rgba(120,248,255,0.35);
+    background:rgba(0,0,30,0.34);
+    border-radius:14px;
+    padding:10px 14px;
+    transition:.2s ease;
+}
+.quick-nav a:hover{
+    transform:translateY(-2px);
+    background:rgba(0,240,255,0.16);
+    box-shadow:0 0 18px rgba(0,240,255,0.28);
+}
+
+.video-section{
+    margin:26px 0 34px;
+    border-radius:26px;
+    padding:24px;
+    background:rgba(5,10,30,0.74);
+    border:1px solid rgba(255,215,0,0.28);
+    box-shadow:0 0 24px rgba(255,215,0,0.13), 0 0 50px rgba(0,240,255,0.10);
+    backdrop-filter:blur(12px);
+}
+
+
+.video-frame iframe{
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+    border:0;
+}
+
+.video-placeholder{
+    position:relative;
+    min-height:360px;
+    border-radius:22px;
+    overflow:hidden;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:30px;
+    background:
+        linear-gradient(135deg, rgba(0,0,0,0.62), rgba(12,20,62,0.62)),
+        radial-gradient(circle at 50% 45%, rgba(0,240,255,0.18), transparent 35%);
+    border:1px dashed rgba(255,215,0,0.55);
+}
+.video-placeholder::before{
+    content:"▶";
+    position:absolute;
+    font-size:96px;
+    color:rgba(255,215,0,0.28);
+    text-shadow:0 0 40px rgba(255,215,0,0.38);
+}
+.video-placeholder div{
+    position:relative;
+    z-index:2;
+    max-width:650px;
+}
+.video-placeholder h2{
+    margin:0 0 8px;
+    font-family:'Orbitron', sans-serif;
+    color:#ffeaa6;
+}
+.video-placeholder p{
+    font-size:20px;
+    line-height:1.45;
+    color:#eaffff;
+    margin:0;
+}
+
+.section{
+    position:relative;
+    margin:30px 0;
+    padding:34px;
+    border-radius:26px;
+    background:
+        linear-gradient(135deg, rgba(5,12,38,0.82), rgba(9,21,55,0.68)),
+        radial-gradient(circle at 10% 0%, rgba(0,240,255,0.08), transparent 34%),
+        radial-gradient(circle at 95% 20%, rgba(255,0,255,0.07), transparent 34%);
+    border:1px solid rgba(120,248,255,0.32);
+    box-shadow:0 0 22px rgba(0,240,255,0.13), inset 0 0 45px rgba(0,240,255,0.035);
+    backdrop-filter:blur(12px);
+}
+.section h2{
+    margin:0 0 18px;
+    font-family:'Orbitron', sans-serif;
+    font-size:clamp(28px, 4vw, 42px);
+    color:#eaffff;
+    text-shadow:0 0 14px rgba(0,240,255,0.55), 0 0 28px rgba(125,60,255,0.30);
+}
+.section h3{
+    margin:28px 0 10px;
+    font-family:'Orbitron', sans-serif;
+    font-size:22px;
+    color:#8ff7ff;
+    text-shadow:0 0 12px rgba(0,240,255,0.35);
+}
+.section p{
+    font-size:20px;
+    line-height:1.62;
+    margin:13px 0;
+    color:#e6fbff;
+}
+.section strong{
+    color:#ffffff;
+    text-shadow:0 0 8px rgba(0,240,255,0.35);
+}
+.callout{
+    margin:20px 0;
+    padding:18px 20px;
+    border-radius:18px;
+    background:rgba(0,240,255,0.08);
+    border-left:4px solid var(--cyan);
+    box-shadow:inset 0 0 20px rgba(0,240,255,0.05);
+    font-size:20px;
+    line-height:1.55;
+}
+.gold-callout{
+    background:rgba(255,215,0,0.08);
+    border-left-color:var(--gold);
+}
+ul{ margin:14px 0 0 0; padding-left:22px; }
+li{
+    font-size:20px;
+    line-height:1.55;
+    margin:8px 0;
+    color:#e6fbff;
+}
+.codebox{
+    margin:14px 0;
+    padding:15px 18px;
+    border-radius:16px;
+    font-family:'Orbitron', sans-serif;
+    font-weight:800;
+    color:#001018;
+    background:linear-gradient(90deg,#00f0ff,#b8ffff);
+    box-shadow:0 0 18px rgba(0,240,255,0.35);
+    display:inline-block;
+}
+.example{
+    margin:16px 0;
+    padding:17px 20px;
+    border-radius:18px;
+    background:rgba(0,0,0,0.34);
+    border:1px solid rgba(120,248,255,0.22);
+    color:#dffaff;
+    font-size:19px;
+}
+.grid-list{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:14px;
+    margin-top:16px;
+}
+.feature-card{
+    padding:18px;
+    border-radius:18px;
+    background:rgba(0,0,30,0.38);
+    border:1px solid rgba(120,248,255,0.22);
+    box-shadow:0 0 18px rgba(0,240,255,0.08);
+    font-size:18px;
+    line-height:1.45;
+}
+.feature-card b{
+    display:block;
+    margin-bottom:8px;
+    color:#ffeaa6;
+    font-family:'Orbitron', sans-serif;
+    font-size:15px;
+    letter-spacing:1px;
+}
+.feature-card-link{
+    display:block;
+    color:#dffaff;
+    text-decoration:none;
+    cursor:pointer;
+    transition:transform .2s ease,border-color .2s ease,box-shadow .2s ease,background .2s ease;
+}
+.feature-card-link:hover{
+    transform:translateY(-3px);
+    border-color:rgba(181,124,255,.65);
+    background:
+        radial-gradient(circle at 88% 12%,rgba(255,0,255,.12),transparent 35%),
+        radial-gradient(circle at 12% 88%,rgba(0,240,255,.12),transparent 35%),
+        rgba(0,0,35,.54);
+    box-shadow:0 0 24px rgba(125,60,255,.22),0 0 34px rgba(0,240,255,.12);
+}
+.feature-card-cta{
+    display:block;
+    margin-top:12px;
+    color:#8ff7ff;
+    font-family:'Orbitron',sans-serif;
+    font-size:12px;
+    font-weight:900;
+    letter-spacing:.7px;
+    text-transform:uppercase;
+}
+.final-cta{
+    text-align:center;
+    padding:44px 32px;
+    border-color:rgba(255,215,0,0.48);
+    box-shadow:0 0 30px rgba(255,215,0,0.14), 0 0 70px rgba(0,240,255,0.14);
+}
+.final-cta .cta-buttons{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    gap:16px;
+    margin-top:24px;
+}
+.btn{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    min-height:48px;
+    padding:14px 22px;
+    border-radius:15px;
+    text-decoration:none;
+    font-family:'Orbitron', sans-serif;
+    font-weight:900;
+    letter-spacing:1px;
+    color:#001018;
+    background:linear-gradient(90deg,#00f0ff,#b8ffff);
+    box-shadow:0 0 22px rgba(0,240,255,0.48);
+    transition:.22s ease;
+}
+.btn.gold{
+    background:linear-gradient(90deg,#ffd700,#fff1a8);
+    box-shadow:0 0 22px rgba(255,215,0,0.42);
+}
+.btn:hover{
+    transform:translateY(-3px) scale(1.02);
+    filter:brightness(1.1);
+}
+.footer-note{
+    text-align:center;
+    opacity:.75;
+    margin-top:34px;
+    font-size:16px;
+}
+@media(max-width:900px){
+    .hero{ padding:38px 24px 30px; }
+    .hero-content{ max-width:none; }
+    .hero-guide{
+        position:relative;
+        right:auto;
+        top:auto;
+        display:block;
+        margin:18px auto 0;
+        width:min(250px, 55vw);
+    }
+}
+@media(max-width:720px){
+    .page{ padding:16px 12px 50px; }
+    .topbar{ flex-direction:column; align-items:flex-start; }
+    .hero{ padding:36px 22px 30px; border-radius:22px; }
+    .section{ padding:24px 18px; border-radius:22px; }
+    .video-placeholder{ min-height:240px; }
+    .section p, li, .callout{ font-size:18px; }
+}
+
+/* FINAL video section patch — full card, no clipped section */
+.video-section{
+    margin-top:34px;
+    padding:28px;
+    border-radius:26px;
+    background:
+        linear-gradient(rgba(0,0,28,0.78), rgba(0,0,40,0.86)),
+        repeating-linear-gradient(0deg, rgba(0,240,255,0.055) 0 1px, transparent 1px 34px),
+        repeating-linear-gradient(90deg, rgba(255,0,255,0.045) 0 1px, transparent 1px 34px);
+    border:1px solid rgba(0,240,255,0.32);
+    box-shadow:
+        0 0 26px rgba(0,240,255,0.22),
+        0 0 54px rgba(138,43,226,0.16),
+        inset 0 0 28px rgba(255,255,255,0.035);
+}
+
+.video-title{
+    margin:0 0 10px;
+    text-align:center;
+    font-family:'Orbitron', sans-serif;
+    font-size:clamp(28px, 4vw, 46px);
+    color:#eaffff;
+    text-shadow:
+        0 0 10px rgba(0,240,255,0.85),
+        0 0 22px rgba(138,43,226,0.55);
+}
+
+.video-note{
+    text-align:center;
+    margin:0 auto 20px;
+    max-width:850px;
+    color:rgba(230,255,255,0.82);
+    font-size:18px;
+    line-height:1.45;
+}
+
+.video-frame{
+    position:relative;
+    width:min(980px, 100%);
+    aspect-ratio:16 / 9;
+    margin:0 auto;
+    border-radius:22px;
+    overflow:hidden;
+    background:#000;
+    border:1px solid rgba(255,215,0,0.42);
+    box-shadow:
+        0 0 24px rgba(255,215,0,0.18),
+        0 0 50px rgba(0,240,255,0.14);
+}
+
+.video-frame iframe{
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+    border:0;
+}
+
+.video-direct-card{
+    width:min(980px, 100%);
+    margin:18px auto 0;
+    border-radius:22px;
+    overflow:hidden;
+    border:1px solid rgba(0,240,255,0.42);
+    background:rgba(0,0,20,0.72);
+    box-shadow:
+        0 0 20px rgba(0,240,255,0.20),
+        0 0 40px rgba(255,0,255,0.11);
+}
+
+.video-direct-card a{
+    display:grid;
+    grid-template-columns:220px 1fr;
+    gap:18px;
+    align-items:center;
+    padding:14px;
+    color:white;
+    text-decoration:none;
+}
+
+.video-direct-card img{
+    width:100%;
+    border-radius:14px;
+    box-shadow:0 0 14px rgba(0,240,255,0.22);
+}
+
+.video-direct-card strong{
+    display:block;
+    font-family:'Orbitron', sans-serif;
+    font-size:22px;
+    color:#ffd700;
+    text-shadow:0 0 10px rgba(255,215,0,0.55);
+}
+
+.video-direct-card span{
+    display:block;
+    margin-top:8px;
+    color:rgba(230,255,255,0.82);
+    font-size:17px;
+    line-height:1.35;
+}
+
+@media(max-width:720px){
+    .video-section{padding:18px;}
+    .video-direct-card a{
+        grid-template-columns:1fr;
+    }
+}
+
+</style>
+
+<style id="msp-navbar-canon-from-index-only">
+/* MSP SNAPDRAFT NAVBAR — KANON Z INDEXU, TYLKO NAVBAR */
+
+/* NAVBAR MASTER FINAL */
+.msp-nav{
+    position:sticky;
+    top:0;
+    z-index:50;
+    width:100%;
+    min-height:114px;
+    display:flex;
+    align-items:center;
+    border-bottom:1px solid rgba(105,237,255,.28);
+    background:
+        linear-gradient(90deg,rgba(4,8,27,.96),rgba(9,13,40,.86) 42%,rgba(16,8,44,.92)),
+        url("assets/cosmictool.png") center/900px repeat;
+    box-shadow:
+        0 10px 34px rgba(0,0,0,.30),
+        0 0 20px rgba(105,237,255,.12),
+        0 0 48px rgba(155,92,255,.10);
+    overflow:hidden;
+}
+
+.msp-nav::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:
+        radial-gradient(circle at 18% 50%,rgba(105,237,255,.18),transparent 30%),
+        radial-gradient(circle at 78% 48%,rgba(155,92,255,.16),transparent 32%),
+        url("assets/cosmictool.png") center/760px repeat;
+    opacity:.18;
+    mix-blend-mode:screen;
+    animation:navTex 26s linear infinite;
+    pointer-events:none;
+}
+
+.msp-nav::after{
+    content:"";
+    position:absolute;
+    top:-60%;
+    bottom:-60%;
+    width:220px;
+    left:-260px;
+    background:linear-gradient(105deg,transparent,rgba(255,255,255,.26),rgba(105,237,255,.18),transparent);
+    transform:skewX(-18deg);
+    animation:sheen 7.5s ease-in-out infinite;
+    pointer-events:none;
+}
+
+@keyframes navTex{
+    to{background-position:center center,center center,180px 110px}
+}
+
+@keyframes sheen{
+    0%,58%{left:-280px;opacity:0}
+    68%{opacity:.85}
+    100%{left:calc(100% + 280px);opacity:0}
+}
+
+.nav-shell{
+    position:relative;
+    z-index:1;
+    width:min(1780px,calc(100% - 68px));
+    margin:0 auto;
+    display:grid;
+    grid-template-columns:auto minmax(610px,1.28fr) minmax(680px,1.15fr);
+    align-items:center;
+    gap:18px;
+}
+
+.nav-logos{
+    display:flex;
+    align-items:center;
+    gap:16px;
+    min-width:118px;
+}
+
+.nav-logos img{
+    width:64px;
+    height:64px;
+    object-fit:contain;
+    filter:
+        drop-shadow(0 0 8px rgba(105,237,255,.45))
+        drop-shadow(0 0 14px rgba(155,92,255,.24));
+}
+
+.nav-logos img:first-child{
+    width:112px;
+    height:112px;
+}
+
+.nav-current{
+    display:flex;
+    align-items:center;
+    justify-content:flex-start;
+    gap:14px;
+    min-width:0;
+    position:relative;
+    padding:7px 44px 7px 0;
+    overflow:visible;
+}
+
+.nav-current::before{
+    content:"";
+    position:absolute;
+    inset:-12px -14px -12px -12px;
+    pointer-events:none;
+    opacity:.92;
+    background:
+        radial-gradient(circle at 6% 26%, rgba(255,214,107,.98) 0 1.35px, transparent 2.15px),
+        radial-gradient(circle at 13% 62%, rgba(0,240,255,.90) 0 1.05px, transparent 1.95px),
+        radial-gradient(circle at 20% 8%, rgba(255,214,107,.95) 0 1.25px, transparent 2.1px),
+        radial-gradient(circle at 28% 84%, rgba(180,105,255,.82) 0 1px, transparent 1.9px),
+        radial-gradient(circle at 35% 18%, rgba(255,214,107,.92) 0 1.18px, transparent 2px),
+        radial-gradient(circle at 43% 72%, rgba(0,240,255,.84) 0 1px, transparent 1.9px),
+        radial-gradient(circle at 51% 4%, rgba(255,214,107,.96) 0 1.28px, transparent 2.1px),
+        radial-gradient(circle at 59% 86%, rgba(180,105,255,.82) 0 1px, transparent 1.9px),
+        radial-gradient(circle at 68% 16%, rgba(255,214,107,.94) 0 1.22px, transparent 2.05px),
+        radial-gradient(circle at 77% 70%, rgba(0,240,255,.84) 0 1px, transparent 1.9px),
+        radial-gradient(circle at 86% 18%, rgba(255,214,107,.94) 0 1.15px, transparent 2px),
+        radial-gradient(circle at 95% 62%, rgba(180,105,255,.78) 0 1px, transparent 1.9px);
+    filter:
+        drop-shadow(0 0 6px rgba(255,214,107,.80))
+        drop-shadow(0 0 6px rgba(0,240,255,.52));
+    animation:activeSectionParticles 1.9s ease-in-out infinite alternate;
+}
+
+@keyframes activeSectionParticles{
+    from{
+        transform:translate3d(0,0,0) scale(.98);
+        opacity:.58;
+    }
+    to{
+        transform:translate3d(2px,-3px,0) scale(1.045);
+        opacity:.96;
+    }
+}
+    to{transform:translateY(-3px) scale(1.04);opacity:.88}
+}
+
+.current-text{
+    position:relative;
+    z-index:1;
+    overflow:visible;
+}
+
+.current-title{
+    margin:0;
+    font-family:'Orbitron', sans-serif;
+    font-size:clamp(19px,1.38vw,26px);
+    font-weight:900;
+    line-height:1.03;
+    letter-spacing:.075em;
+    text-transform:uppercase;
+    color:#ffffff;
+    text-shadow:
+        0 0 7px #00f0ff,
+        0 0 17px rgba(0,240,255,.72),
+        0 0 32px rgba(138,43,226,.42),
+        0 0 54px rgba(0,240,255,.25);
+    white-space:nowrap;
+    overflow:visible;
+    text-overflow:clip;
+}
+
+.current-jeff{
+    position:relative;
+    z-index:1;
+    width:84px;
+    height:84px;
+    object-fit:contain;
+    flex:0 0 auto;
+    filter:
+        drop-shadow(0 0 8px rgba(105,237,255,.50))
+        drop-shadow(0 0 13px rgba(155,92,255,.34));
+}
+
+.active-diamond{
+    position:absolute;
+    width:8px;
+    height:8px;
+    background:linear-gradient(135deg,#fff8c9,#ffd66b,#ffb83a);
+    transform:rotate(45deg);
+    pointer-events:none;
+    z-index:2;
+    box-shadow:0 0 8px rgba(255,214,107,.95),0 0 15px rgba(255,180,58,.55);
+    animation:activeDiamondTwinkle 1.8s ease-in-out infinite alternate;
+}
+
+.ad1{left:6px;top:9px}
+.ad2{left:42%;top:-3px;animation-delay:.35s}
+.ad3{right:18px;top:14px;animation-delay:.7s}
+.ad4{left:26%;bottom:2px;animation-delay:1.05s}
+.ad5{right:72px;bottom:7px;animation-delay:.55s}
+.ad6{left:14%;bottom:14px;animation-delay:.85s}
+.ad7{left:55%;top:11px;animation-delay:1.15s}
+.ad8{right:34px;bottom:17px;animation-delay:1.35s}
+.ad9{right:4px;top:48%;animation-delay:.18s}
+
+@keyframes activeDiamondTwinkle{
+    from{opacity:.36;transform:rotate(45deg) scale(.65) translateY(0)}
+    to{opacity:1;transform:rotate(45deg) scale(1.12) translateY(-2px)}
+}
+
+.nav-links{
+    display:flex;
+    align-items:center;
+    justify-content:flex-end;
+    padding-left:22px;
+    gap:8px;
+    flex-wrap:nowrap;
+}
+
+.nav-link{
+    --spark:0;
+    position:relative;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    min-height:31px;
+    padding:5px 9px;
+    border-radius:999px;
+    text-decoration:none;
+    color:#f1fdff;
+    font-size:11.4px;
+    font-weight:800;
+    line-height:.96;
+    white-space:normal;
+    text-align:center;
+    max-width:158px;
+    border:1px solid rgba(105,237,255,.34);
+    background:
+        linear-gradient(180deg,rgba(8,10,34,.36),rgba(8,8,30,.28)),
+        url("assets/galaxytool.png") center/260px repeat;
+    box-shadow:
+        0 0 0 1px rgba(255,255,255,.035) inset,
+        0 0 9px rgba(105,237,255,.16),
+        0 0 16px rgba(155,92,255,.08);
+    transition:.2s ease;
+    overflow:visible;
+    animation:mainBtnGalaxy 14s linear infinite;
+}
+
+.nav-link::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    border-radius:inherit;
+    background:
+        linear-gradient(115deg,transparent,rgba(105,237,255,.18),transparent),
+        url("assets/galaxytool.png") center/240px repeat;
+    opacity:.38;
+    mix-blend-mode:screen;
+    animation:linkTex 13s linear infinite;
+    pointer-events:none;
+}
+
+.nav-link::after{
+    content:"";
+    position:absolute;
+    inset:-10px;
+    pointer-events:none;
+    opacity:var(--spark);
+    background:
+        radial-gradient(circle at 9% 16%,rgba(105,237,255,.95) 0 1.25px,transparent 2.1px),
+        radial-gradient(circle at 20% 5%,rgba(255,214,107,.98) 0 1.35px,transparent 2.2px),
+        radial-gradient(circle at 34% 92%,rgba(194,104,255,.95) 0 1.25px,transparent 2.1px),
+        radial-gradient(circle at 51% 8%,rgba(255,214,107,.95) 0 1.15px,transparent 2px),
+        radial-gradient(circle at 69% 92%,rgba(105,237,255,.88) 0 1.15px,transparent 2px),
+        radial-gradient(circle at 88% 20%,rgba(194,104,255,.95) 0 1.25px,transparent 2.1px),
+        radial-gradient(circle at 96% 72%,rgba(255,214,107,.95) 0 1.15px,transparent 2px),
+        radial-gradient(circle at 13% 76%,rgba(105,237,255,.86) 0 1.15px,transparent 2px);
+    filter:
+        drop-shadow(0 0 7px rgba(255,214,107,.75))
+        drop-shadow(0 0 7px rgba(105,237,255,.65));
+    animation:sparkles 1.25s ease-in-out infinite alternate;
+}
+
+@keyframes mainBtnGalaxy{
+    0%{background-position:0 0,0 0}
+    100%{background-position:0 0,180px 140px}
+}
+
+@keyframes linkTex{
+    0%{background-position:0 0,0 0}
+    50%{background-position:80px 55px,110px 90px}
+    100%{background-position:160px 110px,220px 180px}
+}
+
+@keyframes sparkles{
+    to{transform:translateY(-2px) scale(1.06)}
+}
+
+.nav-link span{
+    position:relative;
+    z-index:1;
+    display:block;
+    max-width:150px;
+    text-wrap:balance;
+    text-shadow:
+        0 0 7px rgba(105,237,255,.52),
+        0 0 14px rgba(155,92,255,.28);
+}
+
+.nav-link .diamond{
+    position:absolute;
+    width:7px;
+    height:7px;
+    opacity:var(--spark);
+    transform:rotate(45deg) scale(.72);
+    background:linear-gradient(135deg,#fff6c7,#ffd66b,#ffb62e);
+    box-shadow:
+        0 0 8px rgba(255,214,107,.95),
+        0 0 14px rgba(255,180,55,.62);
+    pointer-events:none;
+    transition:.2s ease;
+}
+
+.d1{top:-5px;left:18%}
+.d2{right:-3px;top:30%}
+.d3{bottom:-5px;left:70%}
+
+.nav-link:hover{
+    --spark:1;
+    transform:translateY(-1px);
+    color:#fff;
+    border-color:rgba(105,237,255,.78);
+    box-shadow:
+        0 0 0 1px rgba(105,237,255,.22) inset,
+        0 0 20px rgba(105,237,255,.42),
+        0 0 34px rgba(155,92,255,.28);
+}
+
+.nav-link:hover .diamond{
+    transform:rotate(45deg) scale(1);
+}
+
+.nav-link.arena{
+    color:#051323;
+    border-color:rgba(105,237,255,.75);
+    background:linear-gradient(180deg,rgba(105,237,255,.92),rgba(39,216,255,.78));
+    box-shadow:0 0 14px rgba(105,237,255,.30);
+}
+
+.nav-link.arena:hover{
+    color:#020b18;
+    box-shadow:
+        0 0 0 1px rgba(255,255,255,.38) inset,
+        0 0 20px rgba(105,237,255,.48),
+        0 0 34px rgba(155,92,255,.16);
+}
+
+@media(max-width:1420px){
+    .nav-shell{
+        width:calc(100% - 44px);
+        grid-template-columns:auto 1fr;
+        gap:18px;
+    }
+
+    .nav-links{
+        grid-column:1/-1;
+        justify-content:center;
+        padding-bottom:2px;
+        flex-wrap:wrap;
+    }
+}
+
+@media(max-width:820px){
+    .msp-nav{
+        min-height:auto;
+    }
+
+    .nav-shell{
+        width:calc(100% - 22px);
+        grid-template-columns:1fr;
+        gap:10px;
+        padding:12px 0;
+    }
+
+    .nav-logos{
+        justify-content:center;
+    }
+
+    .nav-current{
+        justify-content:center;
+        text-align:center;
+    }
+
+    .current-title{
+    margin:0;
+    font-family:'Orbitron', sans-serif;
+    font-size:clamp(19px,1.38vw,26px);
+    font-weight:900;
+    line-height:1.03;
+    letter-spacing:.075em;
+    text-transform:uppercase;
+    color:#ffffff;
+    text-shadow:
+        0 0 7px #00f0ff,
+        0 0 17px rgba(0,240,255,.72),
+        0 0 32px rgba(138,43,226,.42),
+        0 0 54px rgba(0,240,255,.25);
+    white-space:nowrap;
+    overflow:visible;
+    text-overflow:clip;
+}
+
+    .nav-links{
+        display:grid;
+        grid-template-columns:repeat(2,minmax(0,1fr));
+        justify-content:stretch;
+        gap:8px;
+    }
+
+    .nav-link{
+        white-space:normal;
+        min-height:36px;
+        font-size:13px;
+        padding:7px 8px;
+    }
+}
+
+@media(max-width:480px){
+    .nav-logos img{
+        width:48px;
+        height:48px;
+    }
+
+    .nav-logos img:first-child{
+        width:72px;
+        height:72px;
+    }
+
+    .current-jeff{
+        width:66px;
+        height:66px;
+    }
+
+    .nav-links{
+        grid-template-columns:1fr;
+    }
+}
+
+.msp-corner-logo{
+    position:fixed;
+    left:22px;
+    bottom:18px;
+    z-index:20;
+    width:82px;
+    height:82px;
+    object-fit:contain;
+    opacity:.92;
+    filter:
+        drop-shadow(0 0 12px rgba(105,237,255,.55))
+        drop-shadow(0 0 20px rgba(155,92,255,.32));
+    pointer-events:none;
+}
+
+@media(max-width:560px){
+    .msp-corner-logo{
+        width:58px;
+        height:58px;
+        left:12px;
+        bottom:10px;
+        opacity:.72;
+    }
+}
+
+
+/* MOBILE COMPACT PATCH — tylko navbar, bez ruszania przewodnika */
+@media(max-width:900px){
+    .msp-nav{
+        position:relative;
+        min-height:auto;
+        overflow:visible;
+        padding-bottom:8px !important;
+    }
+
+    .nav-shell{
+        width:100% !important;
+        max-width:720px !important;
+        grid-template-columns:1fr;
+        gap:6px !important;
+        padding:8px 12px 10px !important;
+    }
+
+    .nav-logos{
+        justify-content:center;
+        min-width:0;
+        order:1;
+    }
+
+    .nav-logos img:first-child{
+        width:68px !important;
+        height:68px !important;
+    }
+
+    .nav-current{
+        order:2;
+        width:100%;
+        justify-content:center;
+        padding:0 0 4px !important;
+        gap:8px !important;
+        min-height:0 !important;
+        overflow:visible;
+        text-align:center;
+    }
+
+    .current-title{
+        max-width:calc(100vw - 116px) !important;
+        font-size:clamp(18px, 5.2vw, 27px) !important;
+        line-height:1.02 !important;
+        letter-spacing:.045em !important;
+        white-space:normal;
+        overflow:visible;
+        text-align:center;
+        text-wrap:balance;
+    }
+
+    .current-jeff{
+        width:54px !important;
+        height:54px !important;
+    }
+
+    .active-diamond{
+        transform:scale(.72) rotate(45deg) !important;
+        opacity:.72 !important;
+        width:6px;
+        height:6px;
+    }
+
+    .nav-links{
+        order:3;
+        width:min(560px, calc(100vw - 28px)) !important;
+        margin:2px auto 0 !important;
+        padding:0 !important;
+        display:grid !important;
+        grid-template-columns:repeat(2, minmax(0, 1fr)) !important;
+        gap:7px 10px !important;
+        align-items:center !important;
+        justify-content:center !important;
+        flex-wrap:unset;
+    }
+
+    .nav-link{
+        width:100% !important;
+        max-width:none !important;
+        min-width:0 !important;
+        min-height:38px !important;
+        height:auto !important;
+        padding:7px 8px !important;
+        border-radius:18px !important;
+        font-size:clamp(13px, 3.8vw, 18px) !important;
+        line-height:1.02 !important;
+        letter-spacing:.01em !important;
+        white-space:normal !important;
+        text-align:center !important;
+        transform:none !important;
+        box-shadow:
+            0 0 10px rgba(0,240,255,.20),
+            inset 0 0 14px rgba(255,255,255,.035) !important;
+    }
+
+    .nav-link:hover{
+        transform:none !important;
+    }
+
+    .nav-link span{
+        max-width:100% !important;
+        display:block !important;
+        white-space:normal !important;
+        overflow:visible !important;
+        text-overflow:clip !important;
+        text-wrap:balance !important;
+    }
+
+    .nav-link.arena{
+        grid-column:1 / -1 !important;
+        width:62% !important;
+        justify-self:center !important;
+        min-height:39px !important;
+        font-size:clamp(13px, 3.9vw, 18px) !important;
+    }
+
+    .msp-corner-logo{
+        width:54px;
+        height:54px;
+        left:10px;
+        bottom:8px;
+        opacity:.62;
+        z-index:20;
+    }
+
+    /* Mobile: wyłączamy tylko główny biały przejazd po całym navbarze.
+       Particle aktywnego tytułu i iskry kafelków zostają jak w indexie. */
+    .msp-nav::after{
+        animation:none !important;
+        transition:none !important;
+        opacity:0 !important;
+        display:none !important;
+        content:none !important;
+    }
+}
+
+@media(max-width:560px){
+    .nav-shell{ padding:7px 10px 9px !important; }
+    .nav-logos img:first-child{ width:58px !important; height:58px !important; }
+
+    .current-title{
+        max-width:calc(100vw - 98px) !important;
+        font-size:clamp(17px, 5vw, 23px) !important;
+    }
+
+    .current-jeff{ width:48px !important; height:48px !important; }
+
+    .nav-links{
+        width:calc(100vw - 34px) !important;
+        grid-template-columns:repeat(2, minmax(0, 1fr)) !important;
+        gap:6px 8px !important;
+    }
+
+    .nav-link{
+        min-height:35px !important;
+        padding:6px 7px !important;
+        border-radius:17px !important;
+        font-size:clamp(12.5px, 3.85vw, 16px) !important;
+    }
+
+    .nav-link.arena{
+        width:66% !important;
+        min-height:36px !important;
+    }
+
+    .msp-corner-logo{
+        width:46px !important;
+        height:46px !important;
+        opacity:.58 !important;
+    }
+}
+
+@media(max-width:380px){
+    .nav-links{
+        grid-template-columns:repeat(2, minmax(0, 1fr)) !important;
+        gap:6px !important;
+    }
+
+    .nav-link{
+        font-size:12px !important;
+        min-height:34px !important;
+    }
+
+    .nav-link.arena{ width:72% !important; }
+}
+
+@media(min-width:901px){
+    .nav-link{
+        transform:scale(1.034);
+        transform-origin:center;
+        flex:0 0 auto;
+        width:auto;
+        max-width:158px;
+    }
+
+    .nav-links{
+        justify-content:flex-end;
+    }
+}
+
+
+
+/* Odstęp pod navbarem */
+.msp-nav{ margin-bottom:34px; }
+@media(max-width:900px){ .msp-nav{ margin-bottom:22px; } }
+
+
+/* Restore index-like navbar particles/sparkles */
+@media(min-width:901px){
+    .nav-current::before{
+        display:block;
+        opacity:.92;
+        animation:activeSectionParticles 1.9s ease-in-out infinite alternate;
+    }
+
+    .nav-link::before{
+        display:block;
+        opacity:.38;
+        animation:linkTex 13s linear infinite;
+    }
+
+    .nav-link::after{
+        display:block;
+        animation:sparkles 1.25s ease-in-out infinite alternate;
+    }
+
+    .nav-link:hover{
+        --spark:1;
+    }
+}
+
+@media(max-width:900px){
+    .nav-current::before{
+        display:block !important;
+        opacity:.72 !important;
+    }
+
+    .nav-link::before{
+        display:block !important;
+        opacity:.30 !important;
+    }
+
+    .nav-link::after{
+        display:block !important;
+    }
+
+    .nav-link:hover{
+        --spark:1;
+    }
+}
+
+
+/* GUIDE NAV KANON PATCH — kafelki jak index/Kroniki, max 2 linie */
+.msp-nav .nav-link{
+    display:inline-flex !important;
+    align-items:center !important;
+    justify-content:center !important;
+    min-height:31px !important;
+    padding:5px 9px !important;
+    border-radius:999px !important;
+    color:#f1fdff !important;
+    font-size:11.4px !important;
+    font-weight:800 !important;
+    line-height:.96 !important;
+    white-space:normal !important;
+    text-align:center !important;
+    max-width:158px !important;
+    text-decoration:none !important;
+    overflow:visible !important;
+    background:
+        linear-gradient(180deg,rgba(8,10,34,.36),rgba(8,8,30,.28)),
+        url("assets/galaxytool.png") center/260px repeat;
+    animation:mainBtnGalaxy 14s linear infinite !important;
+}
+
+.msp-nav .nav-link::before{
+    background:
+        linear-gradient(115deg,transparent,rgba(105,237,255,.18),transparent),
+        url("assets/galaxytool.png") center/240px repeat;
+    opacity:.38 !important;
+    mix-blend-mode:screen !important;
+    animation:linkTex 13s linear infinite !important;
+}
+
+.msp-nav .nav-link::after{
+    animation:sparkles 1.25s ease-in-out infinite alternate !important;
+}
+
+.msp-nav .nav-link span{
+    display:block !important;
+    max-width:150px !important;
+    white-space:normal !important;
+    text-wrap:balance !important;
+    overflow:visible !important;
+    text-overflow:clip !important;
+    line-height:1.02 !important;
+}
+
+.msp-nav .nav-link:hover{
+    --spark:1;
+}
+
+.msp-nav .nav-link:hover .diamond{
+    transform:rotate(45deg) scale(1) !important;
+}
+
+.msp-nav .nav-link .diamond{
+    transition:.2s ease !important;
+}
+
+/* Arena jak w indexie — czarny napis i niebieskie tło */
+.msp-nav .nav-link.arena{
+    color:#051323 !important;
+    border-color:rgba(105,237,255,.75) !important;
+    background:linear-gradient(180deg,rgba(105,237,255,.92),rgba(39,216,255,.78)) !important;
+    box-shadow:0 0 14px rgba(105,237,255,.30) !important;
+}
+
+.msp-nav .nav-link.arena span{
+    color:#051323 !important;
+    text-shadow:none !important;
+}
+
+.msp-nav .nav-link.arena:hover{
+    color:#020b18 !important;
+}
+
+/* PC: skala jak w Kronikach, bez sztucznego poszerzania kafli */
+@media(min-width:901px){
+    .msp-nav .nav-link{
+        transform:scale(1.034);
+        transform-origin:center;
+    }
+
+    .msp-nav .nav-link:hover{
+        transform:translateY(-1px) scale(1.034) !important;
+    }
+}
+
+/* Mobile: zachowaj wcześniejszy układ, tylko dopilnuj czarnej Areny */
+@media(max-width:900px){
+    .msp-nav .nav-link.arena,
+    .msp-nav .nav-link.arena span{
+        color:#051323 !important;
+        text-shadow:none !important;
+    }
+}
+
+</style>
+<link rel="stylesheet" href="assets/encyclopedia01.css">
+<link rel="stylesheet" href="assets/encyclopedia02.css">
+<link rel="stylesheet" href="assets/encyclopedia03.css">
+<link rel="stylesheet" href="assets/encyclopedia04.css">
+<link rel="stylesheet" href="assets/encyclopedia05-catalog-identities.css">
+<link rel="stylesheet" href="assets/encyclopedia06.css">
+<link rel="stylesheet" href="assets/arena-guide.css">
+<link rel="stylesheet" href="assets/encyclopedia07.css">
+<link rel="stylesheet" href="assets/encyclopedia10.css">
+
+<style id="economy-encyclopedia-live-shop-cards">
+/* Product cards are intentionally transplanted from the live Jeff's Cosmic Shop V2 grammar. */
+.ency-shop-showcase.economy-shop-panel.economy-shop-v2{
+  position:relative;
+  padding:18px;
+  border:1px solid rgba(87,222,255,.25);
+  border-radius:22px;
+  background:
+    linear-gradient(180deg,rgba(8,12,33,.84),rgba(4,7,22,.96)),
+    url("PROGRAM-DRAFT/draft-assets/shop_background.png") center 42%/cover no-repeat;
+  box-shadow:0 0 28px rgba(79,216,255,.10),inset 0 0 42px rgba(255,179,73,.055);
+  overflow:hidden;
+}
+.ency-shop-showcase::before{
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(105deg,transparent 0 46%,rgba(255,255,255,.05) 52%,transparent 59%);
+  opacity:.34;
+}
+.ency-shop-grid{
+  position:relative;z-index:1;
+  display:grid;
+  grid-template-columns:repeat(5,minmax(0,1fr));
+  gap:12px;
+}
+.ency-shop-grid.extensions{grid-template-columns:repeat(4,minmax(0,1fr));}
+.ency-shop-grid .economy-core-card.economy-product-card-v2{
+  --product-accent:#53d8ff;
+  container-type:inline-size;
+  position:relative!important;
+  min-width:0!important;
+  min-height:350px!important;
+  display:grid!important;
+  grid-template-rows:auto minmax(155px,1fr) auto auto auto!important;
+  align-items:stretch!important;
+  margin:0!important;
+  box-sizing:border-box!important;
+  padding:0 7px 7px!important;
+  border:1px solid color-mix(in srgb,var(--product-accent) 76%,#fff 10%)!important;
+  border-radius:17px!important;
+  background:linear-gradient(158deg,color-mix(in srgb,var(--product-accent) 14%,rgba(7,9,32,.98)),rgba(4,7,24,.98) 52%,color-mix(in srgb,var(--product-accent) 9%,rgba(11,4,28,.98)))!important;
+  box-shadow:0 5px 12px rgba(0,0,0,.42),0 0 13px color-mix(in srgb,var(--product-accent) 25%,transparent),inset 0 0 0 1px color-mix(in srgb,var(--product-accent) 25%,transparent),inset 0 -18px 28px rgba(0,0,0,.22)!important;
+  color:#fff!important;
+  isolation:isolate!important;
+  overflow:visible!important;
+  transition:transform .18s ease,filter .18s ease,box-shadow .18s ease!important;
+}
+.ency-shop-grid .economy-product-card-v2::after{
+  content:"";position:absolute;z-index:-1;inset:4px;border-radius:inherit;pointer-events:none;
+  background:radial-gradient(circle at 50% 12%,color-mix(in srgb,var(--product-accent) 22%,transparent),transparent 46%),repeating-linear-gradient(135deg,rgba(255,255,255,.018) 0 1px,transparent 1px 10px);
+}
+.ency-shop-grid .economy-product-card-v2:hover{
+  z-index:6!important;transform:translateY(-4px) scale(1.018)!important;filter:brightness(1.09)!important;
+  box-shadow:0 10px 21px rgba(0,0,0,.48),0 0 24px color-mix(in srgb,var(--product-accent) 48%,transparent),inset 0 0 0 1px color-mix(in srgb,var(--product-accent) 45%,transparent)!important;
+}
+.ency-shop-grid .economy-product-v2-title{
+  position:relative!important;z-index:3!important;min-height:48px!important;margin:-1px -7px 4px!important;padding:7px 8px!important;display:grid!important;place-items:center!important;
+  border:1px solid color-mix(in srgb,var(--product-accent) 82%,#ffb8ef 18%)!important;border-radius:17px 17px 10px 10px!important;
+  background:linear-gradient(180deg,rgba(18,14,48,.98),rgba(5,7,23,.985) 58%,rgba(10,8,31,.99))!important;
+  box-shadow:0 4px 0 rgba(0,0,0,.60),0 0 13px color-mix(in srgb,var(--product-accent) 34%,transparent),inset 0 1px 0 rgba(255,255,255,.24),inset 0 -12px 18px rgba(0,0,0,.16)!important;
+}
+.ency-shop-grid .economy-product-v2-title strong{
+  width:100%!important;display:flex!important;align-items:center!important;justify-content:center!important;color:#fff2ff!important;
+  font-family:"Arial Black","Trebuchet MS","Segoe UI",Arial,sans-serif!important;font-weight:1000!important;font-size:clamp(12px,7cqw,19px)!important;line-height:.94!important;letter-spacing:-.02em!important;text-align:center!important;text-transform:uppercase!important;
+  -webkit-text-stroke:.55px color-mix(in srgb,var(--product-accent) 72%,#0b1235)!important;paint-order:stroke fill!important;
+  text-shadow:0 2px 0 rgba(7,14,38,.98),0 0 8px color-mix(in srgb,var(--product-accent) 56%,#65ecff 44%),0 0 15px rgba(255,103,224,.26)!important;
+}
+.ency-shop-grid .economy-product-v2-art-wrap{
+  position:relative!important;width:100%!important;min-height:155px!important;margin:0 0 5px!important;border-radius:11px!important;overflow:hidden!important;
+  background:radial-gradient(circle at 50% 45%,color-mix(in srgb,var(--product-accent) 24%,#101840),#030616 72%)!important;
+  box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--product-accent) 31%,transparent),inset 0 -12px 18px rgba(0,0,0,.22)!important;
+}
+.ency-shop-grid .economy-product-v2-art{position:absolute!important;inset:0!important;width:100%!important;height:100%!important;object-fit:cover!important;object-position:center!important;filter:saturate(1.06) brightness(1.06) contrast(1.02)!important;transform:scale(1.015)!important;transition:transform .22s ease,filter .22s ease!important;}
+.ency-shop-grid .economy-product-card-v2:hover .economy-product-v2-art{transform:scale(1.055)!important;filter:saturate(1.12) brightness(1.10)!important;}
+.ency-shop-grid .economy-product-v2-copy{
+  min-height:58px!important;padding:7px 6px 5px!important;display:-webkit-box!important;-webkit-box-orient:vertical!important;-webkit-line-clamp:3!important;overflow:hidden!important;
+  color:#f5f9ff!important;font-family:"Trebuchet MS","Segoe UI",Arial,sans-serif!important;font-size:clamp(11px,5.8cqw,14px)!important;font-weight:800!important;line-height:1.15!important;text-align:center!important;text-shadow:0 1px 3px rgba(0,0,0,.95)!important;
+}
+.ency-shop-grid .economy-product-v2-price-zone{
+  position:relative!important;min-height:48px!important;display:grid!important;grid-template-columns:minmax(0,1fr) auto!important;align-items:center!important;gap:7px!important;padding:6px 9px!important;
+  border:1px solid color-mix(in srgb,var(--product-accent) 65%,#ffd75b 20%)!important;border-radius:10px!important;overflow:hidden!important;
+  background:radial-gradient(circle at 18% 50%,color-mix(in srgb,var(--product-accent) 22%,transparent),transparent 30%),linear-gradient(90deg,rgba(3,9,27,.985),color-mix(in srgb,var(--product-accent) 18%,rgba(10,8,34,.98)),rgba(4,8,24,.99))!important;
+}
+.ency-shop-grid .economy-product-v2-price-zone::before{content:"";position:absolute;inset:-18% -2%;z-index:0;pointer-events:none;opacity:.18;background:url("PROGRAM-DRAFT/draft-assets/jeffcoin.png") 12% 52%/42px auto no-repeat,radial-gradient(circle at 68% 68%,rgba(255,255,255,.65) 0 1px,transparent 1.8px)!important;filter:blur(1.2px) saturate(.72);mix-blend-mode:screen;}
+.ency-shop-grid .economy-product-v2-price-zone>*{position:relative!important;z-index:2!important;}
+.ency-shop-grid .economy-product-v2-promo{color:#fff!important;font:1000 9px/1 "Arial Narrow","Segoe UI",sans-serif!important;letter-spacing:.05em!important;text-align:center!important;text-transform:uppercase!important;text-shadow:0 1px 2px #3b0019,0 0 8px #ff3a9d!important;}
+.ency-shop-grid .economy-product-v2-price{grid-column:2!important;display:flex!important;align-items:center!important;justify-content:flex-end!important;gap:4px!important;color:#ffd957!important;white-space:nowrap!important;}
+.ency-shop-grid .economy-product-v2-price .jeff-coin-icon{width:25px;height:25px;object-fit:contain;filter:drop-shadow(0 0 5px rgba(255,209,69,.45));}
+.ency-shop-grid .economy-product-v2-price strong{font:1000 22px/.9 Orbitron,"Segoe UI",sans-serif!important;text-shadow:0 2px 0 #6a3000,0 0 9px rgba(255,209,69,.55)!important;}
+.ency-shop-grid .economy-product-v2-price del{color:#e6e8f4!important;font:900 11px/1 Orbitron,"Segoe UI",sans-serif!important;opacity:.8!important;text-decoration-color:#ff3157!important;text-decoration-thickness:2px!important;}
+.ency-shop-grid .economy-product-v2-badge{justify-self:center!important;max-width:94%!important;margin-top:4px!important;padding:5px 10px!important;border:1px solid color-mix(in srgb,var(--product-accent) 72%,#fff 12%)!important;border-radius:999px!important;background:linear-gradient(180deg,color-mix(in srgb,var(--product-accent) 45%,#172252),rgba(5,7,25,.98))!important;box-shadow:0 2px 0 rgba(0,0,0,.55),0 0 8px color-mix(in srgb,var(--product-accent) 30%,transparent)!important;color:#f7fbff!important;font:900 9px/1 "Arial Narrow","Segoe UI",sans-serif!important;letter-spacing:.055em!important;text-align:center!important;text-transform:uppercase!important;white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important;}
+.ency-shop-grid .economy-extension-seal{position:absolute!important;z-index:4!important;top:4%!important;right:3%!important;width:54px!important;aspect-ratio:1!important;display:grid!important;place-items:center!important;padding:7%!important;border:2px solid var(--extension-glow)!important;border-radius:50%!important;background:radial-gradient(circle,rgba(9,19,45,.84),rgba(4,7,21,.97))!important;box-shadow:0 0 15px color-mix(in srgb,var(--extension-glow) 65%,transparent),inset 0 0 12px color-mix(in srgb,var(--extension-glow) 25%,transparent)!important;transform:rotate(5deg)!important;}
+.ency-shop-grid .economy-extension-seal img{width:64%!important;height:64%!important;object-fit:contain!important;filter:drop-shadow(0 0 5px var(--extension-glow))!important;}
+.ency-shop-grid .economy-extension-seal b{position:absolute!important;left:50%!important;top:82%!important;transform:translateX(-50%)!important;min-width:128%!important;padding:3px 7px!important;border:1px solid var(--extension-glow)!important;border-radius:999px!important;background:rgba(3,7,24,.95)!important;color:#fff!important;font:900 7px/1 "Arial Narrow","Segoe UI",sans-serif!important;text-align:center!important;text-transform:uppercase!important;white-space:nowrap!important;}
+.ency-shop-section-note{margin:0 0 14px;color:#cfeaff;}
+.ency-shop-data-note{display:flex;gap:8px;align-items:center;margin:12px 0 0;color:#9bdce9;font-size:13px;opacity:.85;}
+@media(max-width:1100px){.ency-shop-grid{grid-template-columns:repeat(3,minmax(0,1fr));}.ency-shop-grid.extensions{grid-template-columns:repeat(2,minmax(0,1fr));}}
+@media(max-width:720px){.ency-shop-showcase.economy-shop-panel.economy-shop-v2{padding:11px}.ency-shop-grid,.ency-shop-grid.extensions{grid-template-columns:1fr 1fr;gap:9px}.ency-shop-grid .economy-core-card.economy-product-card-v2{min-height:320px}}
+@media(max-width:480px){.ency-shop-grid,.ency-shop-grid.extensions{grid-template-columns:1fr}.ency-shop-grid .economy-core-card.economy-product-card-v2{min-height:340px}}
+
+/* ============================================================
+   ENCYCLOPEDIA ECONOMY — STANDARD PRICE + SALE GUIDE POLISH
+   ============================================================ */
+
+/* Encyclopedia product tiles show the neutral STANDARD state only.
+   Sales live in their own explanation panel instead of changing every card. */
+.ency-shop-grid .economy-product-v2-price-zone.is-standard-guide{
+  grid-template-columns:minmax(0,1fr) auto!important;
+  background:
+    linear-gradient(90deg,rgba(3,9,27,.985),color-mix(in srgb,var(--product-accent) 16%,rgba(10,8,34,.98)),rgba(4,8,24,.99))!important;
+}
+.ency-shop-grid .economy-product-v2-guide-label{
+  position:relative;z-index:2;
+  color:#b9d9e8;
+  font:900 8px/1 Orbitron,"Segoe UI",sans-serif;
+  letter-spacing:.09em;
+  text-transform:uppercase;
+  text-shadow:0 0 7px rgba(90,220,255,.28);
+}
+.ency-shop-grid .economy-product-v2-price-zone.is-standard-guide .economy-product-v2-price{
+  grid-column:2!important;
+}
+
+/* Use the same physical shelf language as the live shop. */
+.ency-shop-grid .economy-core-card.economy-product-card-v2{
+  background:
+    url("PROGRAM-DRAFT/draft-assets/shop_footer_shelf_center.png") center bottom/112% auto no-repeat,
+    linear-gradient(158deg,color-mix(in srgb,var(--product-accent) 14%,rgba(7,9,32,.97)),rgba(4,7,24,.96) 52%,color-mix(in srgb,var(--product-accent) 9%,rgba(11,4,28,.97)))!important;
+}
+.ency-shop-grid .economy-core-card.economy-product-card-v2:nth-child(5n+1){
+  background:
+    url("PROGRAM-DRAFT/draft-assets/shop_footer_shelf_left.png") left bottom/116% auto no-repeat,
+    linear-gradient(158deg,color-mix(in srgb,var(--product-accent) 14%,rgba(7,9,32,.97)),rgba(4,7,24,.96) 52%,color-mix(in srgb,var(--product-accent) 9%,rgba(11,4,28,.97)))!important;
+}
+.ency-shop-grid .economy-core-card.economy-product-card-v2:nth-child(5n){
+  background:
+    url("PROGRAM-DRAFT/draft-assets/shop_footer_shelf_right.png") right bottom/116% auto no-repeat,
+    linear-gradient(158deg,color-mix(in srgb,var(--product-accent) 14%,rgba(7,9,32,.97)),rgba(4,7,24,.96) 52%,color-mix(in srgb,var(--product-accent) 9%,rgba(11,4,28,.97)))!important;
+}
+
+.economy-access-grid{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:12px;
+  margin:18px 0 20px;
+}
+.economy-access-grid article{
+  min-height:112px;
+  padding:16px;
+  border:1px solid rgba(91,224,255,.22);
+  border-radius:17px;
+  background:
+    linear-gradient(155deg,rgba(7,24,54,.92),rgba(3,9,27,.96)),
+    url("PROGRAM-DRAFT/draft-assets/shop_footer_shelf_center.png") center bottom/118% auto no-repeat;
+  box-shadow:inset 0 0 22px rgba(70,213,255,.045),0 8px 20px rgba(0,0,0,.18);
+}
+.economy-access-grid b,.economy-access-grid span{display:block;}
+.economy-access-grid b{color:#9cecff;font:900 12px/1.15 Orbitron,sans-serif;letter-spacing:.055em;margin-bottom:9px;text-shadow:0 0 10px rgba(80,224,255,.35);}
+.economy-access-grid span{color:#e6f6ff;font-size:15px;line-height:1.32;}
+
+.economy-sale-guide{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:14px;
+  margin:20px 0 12px;
+}
+.economy-sale-guide-card{
+  position:relative;
+  min-height:170px;
+  display:grid;
+  grid-template-columns:minmax(145px,35%) 1fr;
+  gap:16px;
+  align-items:center;
+  padding:16px 18px;
+  overflow:hidden;
+  border-radius:20px;
+  border:1px solid rgba(255,219,104,.24);
+  background:
+    linear-gradient(145deg,rgba(16,11,44,.90),rgba(4,8,27,.97)),
+    url("PROGRAM-DRAFT/draft-assets/shop_footer_shelf_center.png") center bottom/108% auto no-repeat;
+  box-shadow:0 10px 25px rgba(0,0,0,.26),inset 0 0 34px rgba(255,190,67,.035);
+}
+.economy-sale-guide-card::before{
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(circle at 20% 18%,rgba(255,211,84,.13),transparent 30%),radial-gradient(circle at 88% 14%,rgba(255,79,183,.10),transparent 28%);
+}
+.economy-sale-guide-card.surprise{border-color:rgba(255,76,183,.38);box-shadow:0 10px 25px rgba(0,0,0,.26),0 0 22px rgba(255,76,183,.08),inset 0 0 34px rgba(255,79,183,.04);}
+.economy-sale-guide-art{position:relative;z-index:1;display:grid;place-items:center;min-height:110px;}
+.economy-sale-guide-art img{max-width:100%;max-height:120px;object-fit:contain;filter:drop-shadow(0 0 14px rgba(255,175,75,.22));}
+.economy-sale-guide-card.surprise .economy-sale-guide-art img{filter:drop-shadow(0 0 16px rgba(255,78,190,.32));transform:rotate(-3deg);}
+.economy-sale-guide-card>div:last-child{position:relative;z-index:1;}
+.economy-sale-guide-card b{display:block;margin-bottom:7px;color:#ffe98a;font:1000 15px/1.05 Orbitron,sans-serif;letter-spacing:.05em;text-shadow:0 0 12px rgba(255,194,59,.44);}
+.economy-sale-guide-card.surprise b{color:#ffb3eb;text-shadow:0 0 12px rgba(255,68,184,.50);}
+.economy-sale-guide-card p{margin:0!important;color:#f0f7ff!important;font-size:15px!important;line-height:1.35!important;}
+.economy-sale-note{
+  display:flex;align-items:center;gap:12px;
+  padding:12px 15px;
+  border:1px solid rgba(97,220,255,.18);
+  border-radius:14px;
+  background:rgba(5,16,38,.70);
+}
+.economy-sale-note b{color:#98ebff;white-space:nowrap;}
+.economy-sale-note span{color:#d8eaf4;}
+
+.eco-dependencies .eco-dependency-link{
+  position:relative;
+  display:flex;
+  flex-direction:column;
+  min-height:150px;
+  padding:18px;
+  border:1px solid rgba(91,222,255,.22);
+  border-radius:18px;
+  color:inherit;
+  text-decoration:none;
+  background:
+    linear-gradient(155deg,rgba(8,25,56,.89),rgba(4,9,28,.96)),
+    url("PROGRAM-DRAFT/draft-assets/shop_footer_shelf_center.png") center bottom/110% auto no-repeat;
+  transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease,filter .18s ease;
+}
+.eco-dependencies .eco-dependency-link:hover{
+  transform:translateY(-3px);
+  border-color:rgba(110,237,255,.52);
+  box-shadow:0 10px 24px rgba(0,0,0,.26),0 0 20px rgba(78,215,255,.13);
+  filter:brightness(1.07);
+}
+.eco-dependencies .eco-dependency-link b{margin-bottom:8px;}
+.eco-dependencies .eco-dependency-link span{flex:1;}
+.eco-dependencies .eco-dependency-link em{
+  margin-top:12px;
+  color:#96efff;
+  font:900 10px/1 Orbitron,sans-serif;
+  letter-spacing:.045em;
+  font-style:normal;
+  text-transform:uppercase;
+}
+@media(max-width:850px){
+  .economy-access-grid{grid-template-columns:1fr;}
+  .economy-sale-guide{grid-template-columns:1fr;}
+}
+@media(max-width:560px){
+  .economy-sale-guide-card{grid-template-columns:1fr;text-align:center;}
+  .economy-sale-note{display:block;}
+  .economy-sale-note b{display:block;margin-bottom:5px;white-space:normal;}
+}
+
+</style>
+
+
+<style id="economy-purchase-cart-ency-v3">
+.eco-purchase-layout{
+  display:grid;
+  grid-template-columns:minmax(0,1.5fr) minmax(230px,.55fr);
+  gap:20px;
+  align-items:center;
+}
+.eco-purchase-cart-showcase{
+  position:relative;
+  min-height:250px;
+  margin:0;
+  padding:16px 16px 14px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:flex-end;
+  overflow:hidden;
+  border:1px solid rgba(255,206,98,.24);
+  border-radius:22px;
+  background:
+    radial-gradient(circle at 50% 28%,rgba(255,205,77,.12),transparent 35%),
+    linear-gradient(160deg,rgba(42,25,9,.82),rgba(6,11,31,.96)),
+    url("PROGRAM-DRAFT/draft-assets/shop_footer_shelf_center.png") center bottom/112% auto no-repeat;
+  box-shadow:0 14px 30px rgba(0,0,0,.27),inset 0 0 30px rgba(255,212,94,.035);
+}
+.eco-purchase-cart-showcase::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  background:linear-gradient(120deg,transparent 0 42%,rgba(255,255,255,.06) 48%,transparent 54%);
+}
+.eco-purchase-cart-showcase img{
+  position:relative;
+  z-index:1;
+  width:min(100%,230px);
+  max-height:165px;
+  object-fit:contain;
+  filter:drop-shadow(0 10px 12px rgba(0,0,0,.55)) drop-shadow(0 0 14px rgba(255,203,77,.23));
+}
+.eco-purchase-cart-showcase figcaption{
+  position:relative;
+  z-index:1;
+  margin-top:8px;
+  text-align:center;
+}
+.eco-purchase-cart-showcase b{
+  display:block;
+  color:#ffe39a;
+  font:1000 11px/1 Orbitron,sans-serif;
+  letter-spacing:.08em;
+  text-shadow:0 0 10px rgba(255,201,76,.34);
+}
+.eco-purchase-cart-showcase span{
+  display:block;
+  margin-top:5px;
+  color:#e5f6ff;
+  font-size:13px;
+  line-height:1.25;
+}
+@media(max-width:820px){
+  .eco-purchase-layout{grid-template-columns:1fr;}
+  .eco-purchase-cart-showcase{min-height:210px;}
+}
+</style>
+
+
+<style id="economy-hero-top-shop-background-v4">
+/* The Encyclopedia hero now shows the UPPER part of the live shop scene:
+   planet / upper architecture instead of the lower counter area. */
+.economy-guide-page .economy-hero{
+  position:relative!important;
+  overflow:hidden!important;
+  background:
+    linear-gradient(90deg,rgba(7,17,39,.84) 0 44%,rgba(8,15,34,.56) 66%,rgba(8,12,27,.25)),
+    url("PROGRAM-DRAFT/draft-assets/shop_background.png") center top/cover no-repeat!important;
+  background-position:center,center top!important;
+  box-shadow:0 20px 44px rgba(0,0,0,.29),0 0 28px rgba(255,195,68,.09),inset 0 -28px 42px rgba(4,7,19,.28)!important;
+}
+.economy-guide-page .economy-hero::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  background:
+    radial-gradient(circle at 82% 18%,rgba(255,216,109,.12),transparent 27%),
+    linear-gradient(105deg,transparent 0 51%,rgba(255,255,255,.055) 57%,transparent 64%);
+}
+.economy-guide-page .economy-hero-copy,
+.economy-guide-page .economy-hero-visual,
+.economy-guide-page .catalog-back{
+  position:relative;
+  z-index:2;
+}
+</style>
+
+
+<style id="planetary-reserve-guide-v1">
+.reserve-guide-body{background:linear-gradient(rgba(2,8,22,.76),rgba(2,8,22,.94)),url("PROGRAM-DRAFT/draft-assets/planetary_reserve_modal_bg.png") center/cover fixed no-repeat,#020817!important}.reserve-guide-body::before{background:radial-gradient(circle at 18% 20%,rgba(82,220,255,.13),transparent 29%),radial-gradient(circle at 82% 15%,rgba(248,202,96,.10),transparent 26%),repeating-linear-gradient(0deg,rgba(112,232,255,.025) 0 1px,transparent 1px 38px),repeating-linear-gradient(90deg,rgba(112,232,255,.018) 0 1px,transparent 1px 38px)!important}.reserve-guide-page{max-width:1280px!important}
+.reserve-topline{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:17px}.reserve-chip{display:inline-flex;padding:10px 14px;border-radius:999px;border:1px solid rgba(105,224,255,.26);background:rgba(4,18,39,.82);color:#c9f8ff;text-decoration:none;font:900 9px Orbitron,sans-serif}.reserve-chip.gold{color:#ffe7a4;border-color:rgba(248,210,104,.27);background:rgba(52,39,10,.54)}
+.reserve-hero{position:relative;overflow:hidden;min-height:405px;padding:48px 440px 45px 40px;border:1px solid rgba(105,224,255,.52);border-radius:30px;background:linear-gradient(90deg,rgba(2,12,28,.94) 0 46%,rgba(5,25,52,.70) 66%,rgba(3,13,29,.37)),url("PROGRAM-DRAFT/draft-assets/planetary_reserve_modal_bg.png") center/cover no-repeat;box-shadow:0 0 0 4px rgba(5,20,42,.70),0 28px 64px #0007,0 0 45px rgba(29,180,255,.20),inset 0 0 76px rgba(3,10,26,.55)}.reserve-hero::after{content:"";position:absolute;left:0;right:0;bottom:0;height:4px;background:linear-gradient(90deg,transparent,#52dcff,#f8ca60,#52dcff,transparent);box-shadow:0 0 18px #45d8ff}.reserve-hero-logo{position:absolute;right:45px;top:34px;width:365px;max-width:34%;height:135px;object-fit:contain;filter:drop-shadow(0 0 18px rgba(66,213,255,.43))}.reserve-hero-badge{position:absolute;right:96px;bottom:30px;width:175px;height:175px;object-fit:contain;filter:drop-shadow(0 0 16px rgba(95,222,255,.44)) drop-shadow(0 0 9px rgba(255,216,108,.24))}.reserve-hero-copy{position:relative;z-index:2}.reserve-hero .chapter-eyebrow{color:#7be8ff!important}.reserve-hero h1{margin:10px 0 7px;font:900 clamp(38px,5vw,66px)/.95 Orbitron,sans-serif;color:#fff;text-shadow:0 0 15px rgba(113,226,255,.46)}.reserve-hero h2{margin:0;color:#ffe9a1;font:900 clamp(20px,2.3vw,32px) Rajdhani,sans-serif}.reserve-hero p{max-width:730px;color:#d4e7f5;font-size:19px;line-height:1.48}.reserve-pills{display:flex;flex-wrap:wrap;gap:8px;margin-top:17px}.reserve-pills span{padding:8px 10px;border-radius:999px;border:1px solid rgba(105,224,255,.24);background:rgba(8,33,58,.70);color:#9bf2ff;font:900 8px Orbitron,sans-serif}.reserve-pills .gold{color:#ffe697;border-color:rgba(248,211,103,.25);background:rgba(49,37,10,.49)}
+.reserve-section{margin-top:24px;padding:27px;border:1px solid rgba(87,198,236,.24);border-radius:24px;background:linear-gradient(155deg,rgba(4,18,39,.90),rgba(3,10,26,.96));box-shadow:0 17px 36px #0005,inset 0 0 36px rgba(15,82,128,.10)}.reserve-section .chapter-eyebrow{color:#7be8ff!important}.reserve-section h2{margin:8px 0 12px;color:#fff;font:900 clamp(27px,3.2vw,42px)/1 Orbitron,sans-serif;text-shadow:0 0 12px rgba(113,226,255,.28)}.reserve-section>p{color:#d8e9f5;font-size:18px;line-height:1.5}
+.reserve-flow{display:grid;grid-template-columns:repeat(4,1fr);gap:11px;margin-top:19px}.reserve-flow article{min-height:150px;padding:15px;border-radius:18px;border:1px solid rgba(94,214,252,.21);background:linear-gradient(180deg,rgba(13,49,76,.70),rgba(6,15,39,.88))}.reserve-flow b{display:grid;place-items:center;width:40px;height:40px;border-radius:12px;margin-bottom:10px;border:1px solid rgba(105,224,255,.35);color:#ffe99a;font:900 11px Orbitron,sans-serif}.reserve-flow strong{display:block;color:#fff;font-size:18px}.reserve-flow span{display:block;margin-top:5px;color:#bfd6e8;font-size:14px;line-height:1.32}
+.reserve-showcase{overflow:hidden;margin-top:18px;border-radius:25px;border:1px solid rgba(109,224,255,.55);background:linear-gradient(90deg,rgba(1,9,24,.82),rgba(4,18,38,.54),rgba(1,9,24,.86)),url("PROGRAM-DRAFT/draft-assets/planetary_reserve_modal_bg.png") center/cover no-repeat;box-shadow:0 0 0 4px rgba(5,20,42,.65),0 0 34px rgba(29,180,255,.16)}.reserve-showcase-head{display:grid;grid-template-columns:255px 1fr 110px;gap:15px;align-items:center;min-height:100px;padding:11px 20px;border-bottom:1px solid rgba(83,207,255,.45);background:linear-gradient(90deg,rgba(2,12,28,.96),rgba(5,26,54,.77),rgba(2,12,28,.91))}.reserve-showcase-head img{width:100%;max-height:80px;object-fit:contain}.reserve-showcase-head small{display:block;color:#7be8ff;font-weight:900;letter-spacing:.15em}.reserve-showcase-head strong{display:block;margin-top:4px;color:#fff;font:900 16px Orbitron,sans-serif}.reserve-showcase-step{padding:10px;border:1px solid rgba(105,224,255,.46);border-radius:15px;text-align:center}.reserve-showcase-step b{display:block;color:#ffe99a;font:900 19px Orbitron,sans-serif}.reserve-showcase-body{display:grid;grid-template-columns:1fr 315px;gap:16px;padding:16px}.reserve-candidate-panel,.reserve-bench-panel{border:1px solid rgba(87,198,236,.26);border-radius:19px;background:rgba(3,13,31,.74);padding:12px}.reserve-panel-title{display:flex;justify-content:space-between;gap:12px;padding-bottom:9px;margin-bottom:10px;border-bottom:1px solid rgba(89,212,255,.20);color:#7be8ff;font-weight:900;letter-spacing:.10em}.reserve-panel-title small{color:#f6d77d;letter-spacing:0}.reserve-candidates{display:grid;grid-template-columns:repeat(6,1fr);gap:8px}.reserve-candidate{position:relative;min-height:130px;border-radius:13px;border:1px solid rgba(94,213,250,.20);background:radial-gradient(circle at 50% 45%,rgba(85,216,255,.14),transparent 40%),linear-gradient(160deg,rgba(15,48,76,.75),rgba(5,14,33,.94));overflow:hidden}.reserve-candidate::before{content:"";position:absolute;inset:8px;background:url("PROGRAM-DRAFT/draft-assets/planetary_reserve_card_glow.png") center/contain no-repeat;opacity:.34}.reserve-candidate::after{content:attr(data-reason);position:absolute;left:5px;right:5px;bottom:5px;padding:4px;border-top:1px solid rgba(91,216,255,.25);color:#b9eefe;font-size:8px;font-weight:800;text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.reserve-candidate i{position:absolute;left:50%;top:44%;transform:translate(-50%,-50%);width:47px;height:66px;border-radius:8px;border:1px solid rgba(255,255,255,.12);background:linear-gradient(155deg,#173b61,#171437 63%,#090d1e);box-shadow:0 8px 14px #0005}.reserve-candidate i::before{content:"✦";position:absolute;inset:0;display:grid;place-items:center;color:#c9f8ff;font-style:normal;font-size:18px;text-shadow:0 0 8px #52dcff}
+.reserve-bench-head{display:grid;grid-template-columns:48px 1fr auto;gap:9px;align-items:center;padding-bottom:10px;border-bottom:1px solid rgba(90,209,252,.22)}.reserve-bench-head img{width:48px;height:48px;object-fit:contain}.reserve-bench-head small{display:block;color:#7be8ff;font-weight:900}.reserve-bench-head strong{display:block;color:#fff;font:900 12px Orbitron,sans-serif}.reserve-bench-head b{color:#ffe487;font:900 16px Orbitron,sans-serif}.reserve-bench{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;padding:13px 0}.reserve-slot{position:relative;height:170px;border-radius:15px;border:1px solid rgba(91,209,247,.25);display:grid;place-items:center;background:linear-gradient(180deg,rgba(13,39,65,.55),rgba(3,12,29,.72))}.reserve-slot::before{content:"";position:absolute;inset:9px;background:url("PROGRAM-DRAFT/draft-assets/planetary_reserve_card_glow.png") center/contain no-repeat;opacity:.33}.reserve-slot i{position:relative;width:62px;height:88px;border-radius:9px;border:1px solid rgba(248,212,108,.55);background:linear-gradient(155deg,rgba(14,57,88,.94),rgba(24,17,45,.95));box-shadow:0 0 12px rgba(255,210,90,.17)}.reserve-slot i::before{content:"✦";position:absolute;inset:0;display:grid;place-items:center;color:#ffe8a0;font-style:normal;font-size:20px}
+.reserve-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:11px;margin-top:18px}.reserve-grid article{padding:15px;border:1px solid rgba(93,212,250,.18);border-radius:17px;background:linear-gradient(155deg,rgba(10,39,63,.68),rgba(5,13,31,.88))}.reserve-grid b{display:block;color:#9cf2ff;font:900 10px Orbitron,sans-serif}.reserve-grid span{display:block;margin-top:6px;color:#ccdfed;font-size:14px;line-height:1.33}.reserve-grid .gold{border-color:rgba(248,211,103,.18)}.reserve-grid .gold b{color:#ffe59a}.reserve-note{display:grid;grid-template-columns:58px 1fr;gap:13px;align-items:center;margin-top:18px;padding:15px 17px;border:1px solid rgba(248,211,103,.24);border-radius:18px;background:linear-gradient(90deg,rgba(63,47,12,.37),rgba(6,18,37,.77))}.reserve-note img{width:54px;height:54px;object-fit:contain}.reserve-note b{display:block;color:#ffe69a;font:900 10px Orbitron,sans-serif}.reserve-note span{display:block;margin-top:5px;color:#d9e7f1;font-size:14px;line-height:1.35}.reserve-footer-links{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:24px}.reserve-footer-links a{padding:17px;border-radius:18px;text-decoration:none;border:1px solid rgba(105,224,255,.20);background:rgba(4,19,39,.73)}.reserve-footer-links b{display:block;color:#a7f3ff;font:900 11px Orbitron,sans-serif}.reserve-footer-links span{display:block;margin-top:5px;color:#c9dcea;font-size:14px}
+@media(max-width:980px){.reserve-hero{padding:240px 30px 34px}.reserve-hero-logo{left:30px;right:auto;top:45px;width:290px;max-width:55%}.reserve-hero-badge{right:35px;top:45px;bottom:auto;width:145px;height:145px}.reserve-flow,.reserve-grid{grid-template-columns:repeat(2,1fr)}.reserve-showcase-body{grid-template-columns:1fr}}@media(max-width:720px){.reserve-topline{flex-direction:column;align-items:flex-start}.reserve-candidates{grid-template-columns:repeat(3,1fr)}.reserve-footer-links{grid-template-columns:1fr}}@media(max-width:540px){.reserve-hero{padding:220px 20px 25px}.reserve-hero-logo{left:18px;top:44px;width:235px}.reserve-hero-badge{right:8px;top:70px;width:105px;height:105px}.reserve-flow,.reserve-grid{grid-template-columns:1fr}.reserve-showcase-head{grid-template-columns:1fr 74px}.reserve-showcase-head>img{grid-column:1/-1;max-width:230px}.reserve-candidates{grid-template-columns:repeat(2,1fr)}.reserve-bench{grid-template-columns:1fr}}
+</style>
+
+<style id="planetary-reserve-battle-layer-v2">
+.reserve-battle-section{border-color:rgba(248,211,103,.32)!important;background:radial-gradient(circle at 85% 10%,rgba(248,211,103,.10),transparent 28%),radial-gradient(circle at 10% 20%,rgba(76,219,255,.11),transparent 25%),linear-gradient(150deg,rgba(5,27,50,.95),rgba(3,10,26,.98))!important;box-shadow:0 20px 42px rgba(0,0,0,.32),0 0 28px rgba(72,213,255,.10),inset 0 0 34px rgba(248,211,103,.035)!important}
+.reserve-battle-section>h2{color:#fff5c5!important;text-shadow:0 0 15px rgba(248,211,103,.24),0 0 9px rgba(86,222,255,.20)!important}
+.reserve-battle-rule{display:grid;grid-template-columns:84px minmax(0,1fr);gap:16px;align-items:center;margin:20px 0;padding:17px 19px;border:1px solid rgba(248,211,103,.30);border-left:5px solid #f8d36b;border-radius:18px;background:linear-gradient(90deg,rgba(60,45,11,.42),rgba(6,30,51,.76))}
+.reserve-battle-rule img{width:78px;height:78px;object-fit:contain;filter:drop-shadow(0 0 13px rgba(88,222,255,.38)) drop-shadow(0 0 7px rgba(248,211,103,.20))}
+.reserve-battle-rule small{display:block;color:#75e9ff;font:900 8px Orbitron,sans-serif;letter-spacing:.13em}.reserve-battle-rule b{display:block;margin:5px 0;color:#ffe99a;font:1000 18px/1.1 Orbitron,sans-serif}.reserve-battle-rule span{display:block;color:#e1f1f8;font-size:15px;line-height:1.42}
+.reserve-match-example{margin-top:20px;padding:18px;border:1px solid rgba(91,216,255,.22);border-radius:20px;background:rgba(2,12,29,.65)}
+.reserve-match-example-head small{display:block;color:#78e8ff;font:900 8px Orbitron,sans-serif;letter-spacing:.13em}.reserve-match-example-head b{display:block;margin-top:5px;color:#fff;font:900 18px Orbitron,sans-serif}
+.reserve-match-track{display:grid;grid-template-columns:minmax(0,1fr) 105px minmax(0,1fr) 105px minmax(0,1fr);gap:10px;align-items:stretch;margin-top:15px}
+.reserve-match-card{padding:13px;border:1px solid rgba(91,215,255,.18);border-radius:16px;background:linear-gradient(160deg,rgba(10,42,68,.72),rgba(4,14,32,.90))}.reserve-match-card.changed{border-color:rgba(248,211,103,.25)}
+.match-no{display:inline-block;padding:5px 7px;border-radius:8px;background:rgba(83,217,255,.10);color:#8cecff;font:900 7px Orbitron,sans-serif;letter-spacing:.10em}.reserve-match-card>b{display:block;margin:8px 0;color:#fff;font-size:16px}
+.reserve-lineup{display:flex;flex-wrap:wrap;gap:4px;margin-top:7px}.reserve-lineup i,.reserve-side-mini i{display:grid;place-items:center;width:23px;height:29px;border-radius:5px;border:1px solid rgba(105,224,255,.22);background:rgba(7,31,54,.80);color:#dffaff;font:900 7px Orbitron,sans-serif;font-style:normal}
+.reserve-lineup i.out{opacity:.35;text-decoration:line-through;border-color:rgba(255,103,119,.32)}.reserve-lineup i.reserve-in{color:#ffe694;border-color:rgba(248,211,103,.42);box-shadow:0 0 8px rgba(248,211,103,.12)}
+.reserve-side-mini{display:flex;align-items:center;gap:4px;margin-top:9px}.reserve-side-mini em{margin-right:3px;color:#ffe18d;font:900 6px Orbitron,sans-serif;font-style:normal;letter-spacing:.08em}.reserve-match-card p{margin:7px 0 0!important;color:#cfe2ed!important;font-size:12px!important;line-height:1.32!important}
+.reserve-swap-arrow{align-self:center;text-align:center;padding:9px 3px}.reserve-swap-arrow strong{display:block;color:#ffe38f;font:900 7px Orbitron,sans-serif;letter-spacing:.07em}.reserve-swap-arrow span{display:block;margin:5px 0;color:#a7efff;font-size:12px;font-weight:800}.reserve-swap-arrow i{display:block;color:#6be4ff;font-style:normal;font-size:31px;line-height:1;text-shadow:0 0 10px rgba(75,217,255,.34)}
+.reserve-hidden-choice{display:grid;grid-template-columns:64px minmax(0,1fr);gap:14px;align-items:center;margin-top:18px;padding:16px;border:1px solid rgba(131,110,255,.25);border-radius:18px;background:linear-gradient(135deg,rgba(33,19,64,.50),rgba(5,19,38,.79))}
+.reserve-hidden-icon{width:58px;height:58px;display:grid;place-items:center;border-radius:50%;border:1px solid rgba(139,116,255,.35);background:radial-gradient(circle,#251f52,#0c1530 69%);color:#d7caff;font:1000 25px Orbitron,sans-serif;box-shadow:0 0 16px rgba(124,97,255,.14)}
+.reserve-hidden-choice b{display:block;color:#d9cfff;font:900 12px Orbitron,sans-serif}.reserve-hidden-choice p{margin:6px 0 0!important;color:#dbe8f2!important;font-size:14px!important;line-height:1.38!important}
+.reserve-battle-principles{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-top:18px}.reserve-battle-principles article{padding:13px;border:1px solid rgba(94,214,252,.16);border-radius:15px;background:rgba(5,18,37,.72)}.reserve-battle-principles b{display:block;color:#9bf1ff;font:900 8px Orbitron,sans-serif;letter-spacing:.05em}.reserve-battle-principles span{display:block;margin-top:5px;color:#cfe0eb;font-size:13px;line-height:1.30}
+@media(max-width:1050px){.reserve-match-track{grid-template-columns:1fr}.reserve-swap-arrow i{transform:rotate(90deg)}}@media(max-width:760px){.reserve-battle-principles{grid-template-columns:repeat(2,1fr)}}@media(max-width:540px){.reserve-battle-rule,.reserve-hidden-choice{grid-template-columns:1fr}.reserve-battle-principles{grid-template-columns:1fr}}
+</style>
+
+</head>
+<body class="economy-guide-body reserve-guide-body">
+<div class="ency-reading-progress" id="encyReadingProgress" aria-hidden="true"><span></span></div>
+<div class="ency-library-ambient" id="encyLibraryAmbient" aria-hidden="true"></div>
+<img class="msp-corner-logo" src="assets/msp-logo.png" alt="Marvel Snap Polska">
+
+
+<header class="msp-nav">
+    <div class="nav-shell">
+
+        <div class="nav-logos">
+            <img src="assets/draft-logo.png" alt="MSP Draft Event">
+        </div>
+
+        
+
+        
+        <div class="nav-current">
+            <i class="active-diamond ad1"></i>
+            <i class="active-diamond ad2"></i>
+            <i class="active-diamond ad3"></i>
+            <i class="active-diamond ad4"></i>
+            <i class="active-diamond ad5"></i>
+            <i class="active-diamond ad6"></i>
+            <i class="active-diamond ad7"></i>
+            <i class="active-diamond ad8"></i>
+            <i class="active-diamond ad9"></i>
+
+            <div class="current-text">
+                <h1 class="current-title">Encyklopedia SnapDraftu</h1>
+            </div>
+
+            <img class="current-jeff" src="assets/jeff_guide.png" alt="Jeff Encyklopedia SnapDraftu">
+        </div>
+
+        <nav class="nav-links" aria-label="Nawigacja MSP SnapDraft">
+            <a class="nav-link" href="index.html">
+                <span>Kosmiczne&nbsp;Centrum<br>Draftowe</span><i class="diamond d1"></i><i class="diamond d2"></i><i class="diamond d3"></i>
+            </a>
+            
+            <a class="nav-link" href="hallOfFame.html">
+                <span>Sala<br>Chwały</span><i class="diamond d1"></i><i class="diamond d2"></i><i class="diamond d3"></i>
+            </a>
+            <a class="nav-link" href="draft.html">
+                <span>Kroniki<br>Draftowe</span><i class="diamond d1"></i><i class="diamond d2"></i><i class="diamond d3"></i>
+            </a>
+            <a class="nav-link" href="player-lobby.html">
+                <span>Galaktyczna&nbsp;Baza<br>Wojowników</span><i class="diamond d1"></i><i class="diamond d2"></i><i class="diamond d3"></i>
+            </a>
+            <a class="nav-link" href="cards.html">
+                <span>Kolekcja&nbsp;Kart<br>Wszechświata</span><i class="diamond d1"></i><i class="diamond d2"></i><i class="diamond d3"></i>
+            </a>
+            <a class="nav-link" href="stats.html">
+                <span>Gwiezdne&nbsp;Archiwum<br>Danych</span><i class="diamond d1"></i><i class="diamond d2"></i><i class="diamond d3"></i>
+            </a>
+            <a class="nav-link arena" href="PROGRAM-DRAFT/snap-draft.html">
+                <span>Arena<br>Draftu</span><i class="diamond d1"></i><i class="diamond d2"></i><i class="diamond d3"></i>
+            </a>
+        </nav>
+
+    </div>
+</header>
+<main class="page reserve-guide-page">
+<div class="reserve-topline"><a class="reserve-chip" href="przewodnik.html#katalogi">← Podręczniki i katalogi</a><a class="reserve-chip gold" href="PROGRAM-DRAFT/snap-draft.html">🛰️ Otwórz Arenę Draftu</a></div>
+<section class="reserve-hero"><img class="reserve-hero-logo" src="PROGRAM-DRAFT/draft-assets/planetary_reserve_logo.png" alt="Planetarna Rezerwa"><img class="reserve-hero-badge" src="PROGRAM-DRAFT/draft-assets/planetary_reserve_badge.png" alt="Sideboard"><div class="reserve-hero-copy"><div class="chapter-eyebrow">ENCYKLOPEDIA SNAPDRAFTU · ROZSZERZENIE · SIDEBOARD</div><h1>Planetarna Rezerwa</h1><h2>12 kandydatów. 3 miejsca na Ławce Rezerwowych.</h2><p>Planetarna Rezerwa uruchamia się <strong>po wszystkich finałowych modyfikatorach decków</strong>. System przygotowuje dla Ciebie 12 legalnych kandydatów, z których wybierasz 3 Rezerwowych — ale jej najważniejszy efekt zaczyna się dopiero później: <strong>całkowicie zmienia fazę Rozgrywek SnapDraftu, dodając taktyczne zmiany składu między kolejnymi meczami.</strong></p><div class="reserve-pills"><span>12 LEGALNYCH KANDYDATÓW</span><span class="gold">WYBIERZ 3</span><span>1 ZMIANA MIĘDZY MECZAMI</span></div></div></section>
+<section class="reserve-section"><div class="chapter-eyebrow">Jak działa Rozszerzenie?</div><h2>🛰️ Osobna faza po finalizacji decków</h2><p>Rezerwa nie zabiera kart z Twojej głównej dwunastki i nie rozszerza Main Decku do 15. Tworzy osobną strefę <strong>SIDEBOARD</strong>, widoczną później pod głównym deckiem w panelach końcowych i Kronikach.</p><div class="reserve-flow"><article><b>01</b><strong>Finalny Main Deck</strong><span>Najpierw kończą się wszystkie końcowe modyfikatory decku. Główna talia ma dokładnie 12 kart.</span></article><article><b>02</b><strong>System wskazuje 12</strong><span>Generator buduje unikatową, legalną pulę kandydatów dopasowaną do gotowego decku.</span></article><article><b>03</b><strong>Wybierasz 3</strong><span>Przenosisz dokładnie trzy karty na Ławkę Rezerwowych. Możesz cofnąć wybór przed zatwierdzeniem.</span></article><article><b>04</b><strong>Osobny SIDEBOARD</strong><span>3 karty zapisują się poza Main Deckiem i są prezentowane jako Planetarna Rezerwa.</span></article></div></section>
+<section class="reserve-section"><div class="chapter-eyebrow">Wygląd w Arenie Draftu</div><h2>🌌 Kandydaci i Ławka Rezerwowych</h2><p>Interfejs korzysta z tego samego chłodnego cyjanowo-złotego języka wizualnego co właściwy modal Planetarnej Rezerwy. Każdy kandydat ma też krótki powód, dlaczego system uznał go za sensowną opcję.</p><div class="reserve-showcase"><div class="reserve-showcase-head"><img src="PROGRAM-DRAFT/draft-assets/planetary_reserve_logo.png" alt=""><div><small>KOŃCOWA FAZA DRAFTU</small><strong>WYBIERA: GRACZ</strong></div><div class="reserve-showcase-step"><small>GRACZ</small><b>1 / 8</b></div></div><div class="reserve-showcase-body"><div class="reserve-candidate-panel"><div class="reserve-panel-title"><span>KANDYDACI DO REZERWY</span><small>12 LEGALNYCH OPCJI</small></div><div class="reserve-candidates"><div class="reserve-candidate" data-reason="Archetyp"><i></i></div><div class="reserve-candidate" data-reason="Zdolność"><i></i></div><div class="reserve-candidate" data-reason="Motyw"><i></i></div><div class="reserve-candidate" data-reason="Krzywa"><i></i></div><div class="reserve-candidate" data-reason="Finisher"><i></i></div><div class="reserve-candidate" data-reason="Utility"><i></i></div><div class="reserve-candidate" data-reason="2. synergia"><i></i></div><div class="reserve-candidate" data-reason="TECH"><i></i></div><div class="reserve-candidate" data-reason="Synergia"><i></i></div><div class="reserve-candidate" data-reason="Krzywa"><i></i></div><div class="reserve-candidate" data-reason="Elastyczna"><i></i></div><div class="reserve-candidate" data-reason="System"><i></i></div></div></div><aside class="reserve-bench-panel"><div class="reserve-bench-head"><img src="PROGRAM-DRAFT/draft-assets/planetary_reserve_badge.png" alt=""><div><small>PLANETARNA REZERWA</small><strong>ŁAWKA REZERWOWYCH</strong></div><b>3 / 3</b></div><div class="reserve-bench"><div class="reserve-slot"><i></i></div><div class="reserve-slot"><i></i></div><div class="reserve-slot"><i></i></div></div></aside></div></div></section>
+<section class="reserve-section"><div class="chapter-eyebrow">Dlaczego właśnie te karty?</div><h2>🧠 System analizuje gotowy deck</h2><p>Pula 12 kandydatów nie jest przypadkowym zestawem z całej bazy. Generator bierze pod uwagę tożsamość Twojej talii i szuka legalnych kart, które mogą stanowić sensowną rezerwę.</p><div class="reserve-grid"><article><b>ARCHETYPY I SYNERGIE</b><span>Premiowany jest dominujący archetyp, druga linia synergii oraz karty pasujące do już zbudowanej talii.</span></article><article><b>ZDOLNOŚCI I TOŻSAMOŚĆ</b><span>Analizowane są typy zdolności, subtype’y, drużyny i motywy obecne w Main Decku.</span></article><article><b>KRZYWA I SIŁA</b><span>Generator potrafi wskazać brakujący koszt, tanią użyteczność albo mocne domknięcie o wyższym koszcie.</span></article><article class="gold"><b>REGUŁA TECH</b><span>Jeżeli Main Deck ma mniej niż 2 karty TECH, system rezerwuje miejsce na sensowną odpowiedź TECH, o ile legalna pula na to pozwala.</span></article></div></section>
+
+<section class="reserve-section reserve-battle-section" id="rozgrywki">
+  <div class="chapter-eyebrow">Najważniejszy efekt Planetarnej Rezerwy</div>
+  <h2>⚔️ Rezerwowi całkowicie zmieniają fazę Rozgrywek</h2>
+  <p>Od momentu włączenia Planetarnej Rezerwy nie grasz całego etapu Battle jedną niezmienną dwunastką. Twój <strong>Main Deck + 3 Rezerwowych tworzą jawną pulę 15 kart</strong>, a przed każdym kolejnym meczem możesz dostosować aktywny skład. Dzięki temu Rezerwa nie jest tylko dodatkiem do draftowania — to <strong>nowa warstwa taktyczna realnie wpływająca na rozgrywane mecze</strong>.</p>
+
+  <div class="reserve-battle-rule">
+    <img src="PROGRAM-DRAFT/draft-assets/planetary_reserve_badge.png" alt="">
+    <div>
+      <small>ZASADA GŁÓWNA</small>
+      <b>Jedna zmiana 1:1 między meczami</b>
+      <span>Po rozegraniu meczu, przed następnym spotkaniem, możesz wymienić dokładnie jedną kartę aktywnej dwunastki na jedną z pozostałych kart swojej 15-kartowej puli. Nie musisz wykonywać zmiany — ale jeśli ją robisz, jest to maksymalnie jedna wymiana względem składu z poprzedniego meczu.</span>
+    </div>
+  </div>
+
+  <div class="reserve-match-example">
+    <div class="reserve-match-example-head"><small>PRZYKŁAD TAKTYCZNY</small><b>Jak może zmieniać się skład w kolejnych meczach?</b></div>
+    <div class="reserve-match-track">
+      <article class="reserve-match-card">
+        <span class="match-no">MECZ 1</span><b>Wyjściowa dwunastka</b>
+        <div class="reserve-lineup"><i>A</i><i>B</i><i>C</i><i>D</i><i>E</i><i>F</i><i>G</i><i>H</i><i>I</i><i>J</i><i>K</i><i>L</i></div>
+        <div class="reserve-side-mini"><em>REZERWA</em><i>R1</i><i>R2</i><i>R3</i></div>
+      </article>
+      <div class="reserve-swap-arrow"><strong>1 ZMIANA</strong><span>− A &nbsp; + R1</span><i>→</i></div>
+      <article class="reserve-match-card changed">
+        <span class="match-no">MECZ 2</span><b>R1 wchodzi do składu</b>
+        <div class="reserve-lineup"><i class="out">A</i><i>B</i><i>C</i><i>D</i><i>E</i><i>F</i><i>G</i><i>H</i><i>I</i><i>J</i><i>K</i><i>L</i><i class="reserve-in">R1</i></div>
+        <p>Aktywna dwunastka nadal ma 12 kart — A czeka poza składem, R1 gra.</p>
+      </article>
+      <div class="reserve-swap-arrow"><strong>KOLEJNA 1 ZMIANA</strong><span>np. − B + R2</span><i>→</i></div>
+      <article class="reserve-match-card changed">
+        <span class="match-no">MECZ 3</span><b>Możesz rozwijać adaptację</b>
+        <p><strong>Opcja A:</strong> zostawiasz R1 i wpuszczasz R2 za B.</p>
+        <p><strong>Opcja B:</strong> cofasz poprzednią zmianę — R1 wraca do Rezerwy, A wraca do składu.</p>
+        <p><strong>Opcja C:</strong> wymieniasz aktywnego R1 bezpośrednio na R2.</p>
+      </article>
+    </div>
+  </div>
+
+  <div class="reserve-hidden-choice">
+    <div class="reserve-hidden-icon">?</div>
+    <div>
+      <b>Jawne 15 kart, niejawny skład na konkretny mecz</b>
+      <p>Przeciwnicy widzą Twój Main Deck oraz pełną Planetarną Rezerwę, więc znają wszystkie <strong>15 możliwych kart</strong>. Nie wiedzą jednak, jaką dokładnie jedną zmianę wykonasz przed danym spotkaniem. To tworzy warstwę przewidywania, blefu i przygotowania pod konkretnego rywala.</p>
+    </div>
+  </div>
+
+  <div class="reserve-battle-principles">
+    <article><b>12 KART W MECZU</b><span>Aktywny deck nigdy nie przekracza 12 kart.</span></article>
+    <article><b>15 KART DO DYSPOZYCJI</b><span>Po wyborze Rezerwy masz 12 Main + 3 Sideboard.</span></article>
+    <article><b>1 SWAP / OKNO</b><span>Między dwoma kolejnymi meczami możesz zrobić maksymalnie jedną wymianę 1:1.</span></article>
+    <article><b>MOŻESZ COFNĄĆ</b><span>Jedyną zmianą przed kolejnym meczem może być również dokładne odwrócenie poprzedniego swapu.</span></article>
+  </div>
+</section>
+
+<section class="reserve-section"><div class="chapter-eyebrow">Legalność i granice systemu</div><h2>🔒 Co może trafić do Rezerwy?</h2><div class="reserve-grid"><article><b>LEGALNA PULA</b><span>Kandydaci respektują Bany oraz aktywne filtry Series i Tagów. Karta musi być normalną, realną kartą Marvel Snap.</span></article><article><b>BEZ DUPLIKATÓW MAIN DECKU</b><span>Karty, które już znajdują się w Twojej głównej dwunastce, nie trafiają ponownie do puli kandydatów.</span></article><article class="gold"><b>DOKŁADNIE 3 Z 12</b><span>Planetarna Rezerwa wymaga pełnej puli 12 legalnych opcji i finalnie zapisuje dokładnie 3 Rezerwowych.</span></article><article><b>OSOBNA STREFA</b><span>Rezerwowi nie zasilają wyników meczowych, par kart ani składu głównej dwunastki.</span></article></div><div class="reserve-note"><img src="PROGRAM-DRAFT/draft-assets/planetary_reserve_badge.png" alt=""><div><b>ZASADA ROZGRYWEK</b><span>Rezerwa jest aktywną częścią fazy Battle. <strong>Między kolejnymi meczami każdy gracz może wykonać maksymalnie jedną wymianę 1:1 względem składu używanego w poprzednim spotkaniu.</strong> Poker Draft pozostaje osobnym przypadkiem i nie jest przez ten system zmieniany.</span></div></div></section>
+<section class="reserve-section"><div class="chapter-eyebrow">Kroniki i statystyki</div><h2>📚 Main Deck i Sideboard są rozdzielone</h2><p>W eksporcie każdy gracz zachowuje osobno swoją wyjściową główną dwunastkę oraz 3 Rezerwowych. Kroniki pokazują Planetarną Rezerwę pod deckiem, dzięki czemu widać pełną publiczną pulę 15 kart, z której gracz może taktycznie modyfikować skład między spotkaniami.</p><div class="reserve-grid"><article><b>MAIN_DECK</b><span>12 kart głównej talii. To one zasilają statystyki meczowe i zestawienia właściwego decku.</span></article><article><b>SIDEBOARD</b><span>3 Rezerwowych liczy się jako wybór karty w drafcie i część historii gracza, ale nie jako karta głównej dwunastki.</span></article><article class="gold"><b>JAWNA STREFA</b><span>Rezerwowi są prezentowani osobno w panelach końcowych i Kronikach, zawsze pod Main Deckiem.</span></article></div></section>
+<div class="reserve-footer-links"><a href="przewodnik.html#rozszerzenia"><b>← WRÓĆ DO ROZSZERZEŃ</b><span>Planetarna Rezerwa jest pełnoprawnym Rozszerzeniem SnapDraftu.</span></a><a href="PROGRAM-DRAFT/snap-draft.html"><b>OTWÓRZ ARENĘ DRAFTU →</b><span>Włącz Planetarną Rezerwę w konfiguracji draftu.</span></a></div><div class="footer-note">MSP SnapDraft Event • Encyklopedia • Planetarna Rezerwa / Sideboard</div>
+</main><script src="assets/encyclopedia03.js"></script></body></html>

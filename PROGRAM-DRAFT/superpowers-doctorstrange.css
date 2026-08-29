@@ -1,0 +1,595 @@
+/* MSP SnapDraft — Doctor Strange / Portal Agamotto — PATCH 39 PORTAL EXPERIENCE */
+:root{
+    --spx-strange-orange:#ff941f;
+    --spx-strange-gold:#ffd16b;
+    --spx-strange-violet:#7a47ff;
+    --spx-strange-blue:#4f8dff;
+    --spx-strange-ink:#080713;
+}
+
+.spx-strange-overlay{
+    position:fixed;
+    inset:0;
+    z-index:100090;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:22px;
+    background:radial-gradient(circle at 50% 42%,rgba(255,137,31,.17),rgba(7,7,22,.94) 53%,rgba(0,0,0,.985));
+    backdrop-filter:blur(10px);
+}
+.spx-strange-overlay[hidden],
+.spx-strange-preflight[hidden],
+.spx-strange-future[hidden],
+.spx-strange-final-summary[hidden],
+.spx-strange-resolution[hidden],
+.spx-strange-dock[hidden],
+.spx-strange-hud[hidden]{display:none!important}
+
+.spx-strange-panel{
+    width:min(760px,94vw);
+    max-height:92vh;
+    overflow:hidden;
+    border:1px solid rgba(255,182,83,.72);
+    border-radius:25px;
+    background:linear-gradient(155deg,rgba(30,12,43,.985),rgba(7,9,24,.99) 56%,rgba(18,7,28,.99));
+    box-shadow:0 0 0 2px rgba(255,119,19,.13),0 0 58px rgba(255,126,22,.27),inset 0 0 72px rgba(102,44,190,.17);
+    color:#fff;
+    padding:21px;
+    position:relative;
+    isolation:isolate;
+}
+.spx-strange-overlay.is-future .spx-strange-panel{width:min(1080px,95vw)}
+.spx-strange-overlay.is-summary .spx-strange-panel{width:min(830px,94vw)}
+.spx-strange-panel:before{
+    content:"";
+    position:absolute;
+    inset:9px;
+    border-radius:18px;
+    pointer-events:none;
+    border:1px solid rgba(255,215,142,.16);
+    z-index:-1;
+}
+
+.spx-strange-portal-stage{
+    position:absolute;
+    right:-74px;
+    top:-108px;
+    width:310px;
+    aspect-ratio:1;
+    opacity:.22;
+    pointer-events:none;
+    filter:drop-shadow(0 0 24px rgba(255,130,22,.46));
+    z-index:-1;
+}
+.spx-strange-overlay.is-future .spx-strange-portal-stage{opacity:.39;animation:spxStrangeStageAwaken .55s ease-out both}
+.spx-strange-portal-layer{position:absolute;inset:0;width:100%;height:100%;object-fit:contain}
+.spx-strange-portal-core{animation:spxStrangeSpinReverse 16s linear infinite}
+.spx-strange-portal-ring{animation:spxStrangeSpin 10s linear infinite}
+.spx-strange-portal-sparks{animation:spxStrangeSparkPulse 2.4s ease-in-out infinite}
+
+.spx-strange-head{
+    display:grid;
+    grid-template-columns:86px minmax(0,1fr) 175px;
+    gap:15px;
+    align-items:center;
+    min-height:112px;
+    margin-bottom:11px;
+    position:relative;
+}
+.spx-strange-logo{
+    width:84px;
+    height:84px;
+    object-fit:contain;
+    filter:drop-shadow(0 0 16px rgba(255,138,32,.58));
+}
+.spx-strange-title-copy>span{
+    display:block;
+    margin-bottom:5px;
+    color:#c5aeff;
+    font-size:10px;
+    font-weight:900;
+    letter-spacing:.18em;
+}
+.spx-strange-title-copy h2{
+    margin:0;
+    font-size:clamp(25px,3.7vw,43px);
+    letter-spacing:.065em;
+    line-height:1;
+    text-shadow:0 0 18px rgba(255,145,41,.34);
+}
+.spx-strange-title-copy p{margin:8px 0 0;color:#ffd8a2;font-size:14px}
+.spx-strange-hero{
+    position:absolute;
+    right:-2px;
+    bottom:-23px;
+    width:188px;
+    height:188px;
+    object-fit:contain;
+    object-position:center bottom;
+    filter:drop-shadow(0 0 13px rgba(101,66,255,.48));
+    pointer-events:none;
+    opacity:.82;
+}
+
+/* Compact, one-screen warning */
+.spx-strange-preflight{
+    position:relative;
+    margin:5px auto 1px;
+    max-width:650px;
+    padding:24px 25px 22px;
+    text-align:center;
+    border-radius:19px;
+    border:1px solid rgba(255,173,66,.42);
+    background:radial-gradient(circle at 50% 10%,rgba(255,136,25,.16),rgba(10,8,25,.88) 64%);
+    box-shadow:inset 0 0 38px rgba(103,56,210,.13);
+}
+.spx-strange-preflight strong{display:block;color:#ffd082;letter-spacing:.06em;font-size:17px}
+.spx-strange-preflight p{color:#ded5eb;line-height:1.56;margin:11px auto 19px;max-width:600px}
+.spx-strange-preflight-actions{display:flex;justify-content:center;gap:10px;flex-wrap:wrap}
+.spx-strange-preflight-actions button,
+.spx-strange-future-actions button,
+.spx-strange-summary-actions button{
+    border:0;
+    border-radius:12px;
+    padding:11px 18px;
+    font-weight:900;
+    letter-spacing:.025em;
+    cursor:pointer;
+}
+.spx-strange-cancel,.spx-strange-secondary{background:#2b2940;color:#fff;border:1px solid rgba(199,181,232,.2)!important}
+.spx-strange-open,.spx-strange-confirm{
+    color:#251006;
+    background:linear-gradient(135deg,#ffe18c,#ff9f2e 48%,#f06116);
+    box-shadow:0 0 24px rgba(255,125,24,.4);
+}
+.spx-strange-open:hover,.spx-strange-confirm:hover:not(:disabled){transform:translateY(-1px);filter:brightness(1.08)}
+.spx-strange-confirm:disabled{opacity:.38;cursor:not-allowed;box-shadow:none}
+
+/* Future-only modal */
+.spx-strange-future{display:flex;flex-direction:column;min-height:0}
+.spx-strange-future-copy{text-align:center;padding:4px 12px 8px}
+.spx-strange-future-copy>span{color:#bba4ff;font-size:10px;font-weight:900;letter-spacing:.17em}
+.spx-strange-future-copy h3{margin:6px 0 7px;color:#ffd07d;font-size:clamp(19px,2.6vw,30px);letter-spacing:.04em}
+.spx-strange-future-copy p{margin:0 auto;color:#e8deef;line-height:1.5;max-width:760px}
+.spx-strange-role-legend{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:8px 0 10px}
+.spx-strange-role-legend span{
+    padding:9px 12px;
+    border-radius:12px;
+    border:1px solid rgba(166,122,255,.25);
+    background:rgba(49,23,74,.52);
+    color:#cbbce0;
+    font-size:11px;
+    font-weight:900;
+    letter-spacing:.04em;
+}
+.spx-strange-role-legend span b{display:inline-grid;place-items:center;width:22px;height:22px;margin-right:7px;border-radius:50%;background:rgba(255,148,31,.16);color:#ffc266}
+.spx-strange-role-legend span.is-filled{border-color:rgba(255,173,62,.64);color:#ffe0a7;box-shadow:0 0 15px rgba(255,126,24,.18)}
+.spx-strange-future-cards{
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(138px,1fr));
+    gap:9px;
+    max-height:49vh;
+    overflow:auto;
+    padding:6px;
+    border:1px solid rgba(255,167,66,.2);
+    border-radius:16px;
+    background:radial-gradient(circle at 50% 35%,rgba(255,126,24,.08),rgba(5,4,16,.42));
+    scrollbar-color:#a05aff #171020;
+}
+.spx-strange-card{
+    appearance:none;
+    border:1px solid rgba(255,255,255,.16);
+    border-radius:13px;
+    background:linear-gradient(145deg,rgba(76,30,108,.71),rgba(18,18,36,.96));
+    color:#fff;
+    padding:10px;
+    text-align:left;
+    cursor:pointer;
+    min-height:88px;
+    transition:.16s transform,.16s border-color,.16s box-shadow,.16s filter;
+    position:relative;
+}
+.spx-strange-card:hover{transform:translateY(-2px);border-color:#ffad42;filter:brightness(1.08)}
+.spx-strange-card-role{display:block!important;margin:0 0 7px!important;color:#a995c1!important;font-size:8px!important;font-weight:900;letter-spacing:.08em}
+.spx-strange-card strong{display:block;font-size:13px;line-height:1.24}
+.spx-strange-card>span:last-child{display:block;margin-top:8px;color:#ffd69b;font-size:10px}
+.spx-strange-card.is-selected-a{border-color:#ffb23e;box-shadow:0 0 0 2px rgba(255,174,55,.25),0 0 20px rgba(255,118,22,.42);background:linear-gradient(145deg,rgba(144,58,105,.83),rgba(52,22,78,.97))}
+.spx-strange-card.is-selected-b{border-color:#8b75ff;box-shadow:0 0 0 2px rgba(117,91,255,.26),0 0 20px rgba(105,77,255,.48);background:linear-gradient(145deg,rgba(83,47,151,.88),rgba(34,21,74,.97))}
+.spx-strange-card:disabled{opacity:.3;cursor:not-allowed;transform:none;filter:saturate(.45)}
+.spx-strange-future-summary{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:10px}
+.spx-strange-future-summary span{display:flex;align-items:center;gap:8px;padding:9px 11px;border-radius:12px;background:rgba(0,0,0,.26);border:1px solid rgba(255,184,86,.2);color:#e9dfef;font-size:12px}
+.spx-strange-future-summary b{display:grid;place-items:center;min-width:22px;height:22px;border-radius:50%;background:rgba(255,147,36,.17);color:#ffc26b}
+.spx-strange-future-actions,.spx-strange-summary-actions{display:flex;justify-content:flex-end;gap:10px;margin-top:12px;flex-wrap:wrap}
+
+/* Final compact summary */
+.spx-strange-final-summary{text-align:center;padding:5px 8px 2px}
+.spx-strange-summary-kicker{color:#bca8ff;font-size:10px;font-weight:900;letter-spacing:.17em}
+.spx-strange-final-summary h3{margin:5px 0;color:#ffd17e;font-size:clamp(24px,3.4vw,38px);letter-spacing:.06em}
+.spx-strange-final-summary>p{margin:0 0 14px;color:#e4d9eb}
+.spx-strange-summary-rows{display:grid;grid-template-columns:1fr 1fr;gap:10px;text-align:left}
+.spx-strange-summary-rows span{padding:11px 13px;border-radius:13px;border:1px solid rgba(255,178,76,.23);background:linear-gradient(145deg,rgba(67,28,95,.54),rgba(10,10,26,.76))}
+.spx-strange-summary-rows i{display:block;color:#bdabcf;font-size:9px;font-style:normal;font-weight:900;letter-spacing:.07em}
+.spx-strange-summary-rows strong{display:block;margin-top:5px;color:#ffe1a9;font-size:14px}
+.spx-strange-cost{display:grid;gap:5px;margin-top:12px;padding:12px 14px;text-align:left;border-radius:13px;background:rgba(255,130,24,.09);border:1px solid rgba(255,164,55,.34)}
+.spx-strange-cost strong{color:#ffc46b;font-size:11px;letter-spacing:.09em}
+.spx-strange-cost span{color:#e9dfee;line-height:1.45;font-size:13px}
+
+/* Portal is part of the pack stage, never a card-covering fixed layer */
+.spx-strange-dock{
+    position:relative;
+    z-index:18;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:11px;
+    width:max-content;
+    max-width:min(680px,92vw);
+    margin:4px auto 11px;
+    border:1px solid rgba(255,190,91,.62);
+    border-radius:19px;
+    padding:7px 14px 7px 8px;
+    color:#fff;
+    background:linear-gradient(135deg,rgba(24,10,38,.96),rgba(7,8,21,.97));
+    box-shadow:0 0 28px rgba(255,126,24,.32),inset 0 0 20px rgba(118,66,255,.13);
+    cursor:pointer;
+    transition:transform .2s,filter .2s,padding .25s;
+}
+.spx-strange-dock:hover{filter:brightness(1.1);transform:translateY(-2px)}
+.spx-strange-dock.is-open{padding:10px 18px 10px 10px;animation:spxStrangeDockAwaken .65s ease-out both,spxStrangeDockFloat 3.2s ease-in-out .65s infinite}
+.spx-strange-dock.is-bound{cursor:default;animation:none}
+.spx-strange-dock-portal{width:66px;height:66px;position:relative;display:block;flex:0 0 auto}
+.spx-strange-dock.is-open .spx-strange-dock-portal{width:128px;height:128px}
+.spx-strange-dock.is-bound .spx-strange-dock-portal{width:82px;height:82px}
+.spx-strange-dock-portal>img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;pointer-events:none}
+.spx-strange-dock-portal>img:nth-child(1){animation:spxStrangeSpinReverse 13s linear infinite}
+.spx-strange-dock-portal>img:nth-child(2){animation:spxStrangeSpin 8s linear infinite}
+.spx-strange-dock-portal>img:nth-child(3){animation:spxStrangeSparkPulse 1.8s ease-in-out infinite}
+.spx-strange-glimpses{
+    position:absolute;
+    inset:18%;
+    border-radius:50%;
+    overflow:hidden;
+    display:block;
+    mask-image:radial-gradient(circle,#000 46%,transparent 73%);
+    pointer-events:none;
+}
+.spx-strange-glimpses span{
+    position:absolute;
+    max-width:82px;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:clip;
+    color:rgba(255,236,204,.78);
+    font-size:8px;
+    font-weight:900;
+    text-shadow:0 0 6px #ff7e19,0 0 11px rgba(255,126,25,.85);
+    opacity:.68;
+    filter:blur(.25px);
+    animation:spxStrangeGlimpseDrift 4.2s ease-in-out infinite alternate;
+}
+.spx-strange-dock:not(.is-open):not(.is-bound) .spx-strange-glimpses{display:none}
+.spx-strange-glimpses .slot-1{left:-7%;top:12%;transform:rotate(-12deg)}
+.spx-strange-glimpses .slot-2{right:-12%;top:26%;transform:rotate(9deg);animation-delay:-.8s}
+.spx-strange-glimpses .slot-3{left:10%;top:48%;transform:rotate(4deg);animation-delay:-1.5s}
+.spx-strange-glimpses .slot-4{right:-6%;top:66%;transform:rotate(-8deg);animation-delay:-2.1s}
+.spx-strange-glimpses .slot-5{left:-4%;top:78%;transform:rotate(11deg);animation-delay:-2.7s}
+.spx-strange-glimpses .slot-6{left:27%;top:3%;transform:rotate(-4deg);animation-delay:-3.2s}
+.spx-strange-dock-copy{display:grid;text-align:left;max-width:430px}
+.spx-strange-dock-copy strong{font-size:12px;letter-spacing:.06em;color:#ffd07c}
+.spx-strange-dock-copy small{font-size:10px;color:#d7c9e3;margin-top:3px;line-height:1.3}
+.spx-strange-dock-copy em{margin-top:5px;color:#bba6ff;font-size:9px;font-style:normal;font-weight:900;letter-spacing:.09em}
+.spx-strange-dock.is-open .spx-strange-dock-copy strong{font-size:15px}
+.spx-strange-dock.is-open .spx-strange-dock-copy small{font-size:12px}
+
+/* In-flow instructions between portal and cards */
+.spx-strange-hud{
+    position:relative;
+    z-index:17;
+    display:grid;
+    grid-template-columns:48px minmax(0,1fr) auto;
+    gap:12px;
+    align-items:center;
+    width:min(920px,94%);
+    margin:0 auto 14px;
+    padding:12px 14px;
+    border-radius:16px;
+    border:1px solid rgba(160,116,255,.4);
+    background:linear-gradient(135deg,rgba(34,15,55,.96),rgba(8,9,24,.97));
+    box-shadow:0 0 24px rgba(112,69,255,.2),inset 0 0 24px rgba(255,130,23,.06);
+    text-align:left;
+}
+.spx-strange-hud-eye{position:relative;width:46px;height:46px}
+.spx-strange-hud-eye img{width:100%;height:100%;object-fit:contain;animation:spxStrangeSpin 9s linear infinite;filter:drop-shadow(0 0 11px rgba(255,131,24,.58))}
+.spx-strange-hud-copy{display:grid;gap:3px}
+.spx-strange-hud-copy strong{color:#ffd07c;font-size:12px;letter-spacing:.075em}
+.spx-strange-hud-copy span{color:#e4d9ec;font-size:11px;line-height:1.4}
+.spx-strange-hud-copy em{color:#bea9dc;font-size:10px;font-style:normal;font-weight:800}
+.spx-strange-hud button{border:0;border-radius:11px;padding:10px 13px;background:linear-gradient(135deg,#ffe18c,#ff9f2e 48%,#f06116);color:#251006;font-weight:900;cursor:pointer}
+.spx-strange-hud button:disabled{opacity:.34;cursor:not-allowed}
+
+/* Live draft selections */
+.card.spx-strange-deck-candidate{cursor:pointer!important;outline:2px solid rgba(124,94,255,.62);box-shadow:0 0 18px rgba(105,75,255,.35)!important;transition:transform .16s,box-shadow .16s,outline-color .16s}
+.card.spx-strange-deck-candidate:hover{transform:translateY(-2px);outline-color:#ffad42;box-shadow:0 0 23px rgba(255,126,24,.42)!important}
+.card.spx-strange-deck-selected{outline:3px solid #ffad42!important;box-shadow:0 0 0 2px rgba(255,215,140,.2),0 0 26px rgba(255,126,24,.68)!important}
+.card.spx-strange-deck-locked{opacity:.48}
+.pack-card-btn.spx-strange-current-candidate,.joker-card-btn.spx-strange-current-candidate{cursor:pointer;outline:2px solid rgba(255,157,48,.7)!important;box-shadow:0 0 23px rgba(255,126,24,.43)!important;filter:none!important;opacity:1!important}
+.pack-card-btn.spx-strange-current-candidate:hover,.joker-card-btn.spx-strange-current-candidate:hover{transform:translateY(-4px) scale(1.025)!important}
+.pack-card-btn.spx-strange-current-selected,.joker-card-btn.spx-strange-current-selected{outline:4px solid #ffd077!important;box-shadow:0 0 0 2px rgba(125,87,255,.38),0 0 32px rgba(255,126,24,.84)!important}
+.pack-card-btn.spx-strange-pack-paused,.joker-card-btn.spx-strange-pack-paused{opacity:.46!important;filter:saturate(.58) brightness(.72)!important}
+
+/* Card B remains forbidden only for Strange after resolution */
+.pack-card-btn.spx-strange-forbidden,.joker-card-btn.spx-strange-forbidden{outline:3px solid #ff922e!important;box-shadow:0 0 0 1px rgba(255,218,143,.65),0 0 25px rgba(255,121,24,.76)!important;position:relative}
+.pack-card-btn.spx-strange-forbidden:before,.joker-card-btn.spx-strange-forbidden:before{content:"";position:absolute;inset:-8px;z-index:3;pointer-events:none;background:url("draft-assets/doctorstrangeportalring.png") center/100% 100% no-repeat;opacity:.42;animation:spxStrangeSpin 11s linear infinite}
+.pack-card-btn.spx-strange-forbidden:after,.joker-card-btn.spx-strange-forbidden:after{content:"STRANGE NIE MOŻE WYBRAĆ";position:absolute;left:6px;right:6px;bottom:6px;padding:4px;border-radius:7px;background:rgba(30,7,45,.93);color:#ffd59a;font-size:9px;font-weight:900;z-index:4}
+
+/* Existing finale retained and text upgraded */
+.spx-strange-resolution{position:fixed;inset:0;z-index:100120;background:radial-gradient(circle,rgba(255,130,23,.16),rgba(3,3,12,.98) 58%);overflow:hidden;display:grid;place-items:center}
+.spx-strange-resolution-portals{position:absolute;inset:0}
+.spx-strange-resolution-portal{position:absolute;width:min(52vw,660px);aspect-ratio:1;top:50%;transform:translateY(-50%) scale(.15);opacity:0}
+.spx-strange-resolution-portal.is-left{left:-9%}.spx-strange-resolution-portal.is-right{right:-9%}
+.spx-strange-resolution-portal img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain}
+.spx-strange-resolution-portal img:nth-child(1){animation:spxStrangeSpinReverse 10s linear infinite}
+.spx-strange-resolution-portal img:nth-child(2){animation:spxStrangeSpin 7s linear infinite}
+.spx-strange-resolution-portal img:nth-child(3){animation:spxStrangeSparkPulse 1.5s ease-in-out infinite}
+.spx-strange-resolution-hero{position:absolute;left:50%;bottom:3%;width:min(42vw,520px);transform:translateX(-50%) translateY(50px);opacity:0;filter:drop-shadow(0 0 22px rgba(104,73,255,.55))}
+.spx-strange-resolution-copy{position:relative;z-index:4;display:grid;justify-items:center;text-align:center;max-width:760px;padding:20px;opacity:0;transform:scale(.86)}
+.spx-strange-resolution-copy img{width:130px;filter:drop-shadow(0 0 18px rgba(255,132,24,.58))}
+.spx-strange-resolution-copy strong{font-size:clamp(27px,4.4vw,58px);letter-spacing:.07em;color:#ffd47f;text-shadow:0 0 22px rgba(255,118,19,.63)}
+.spx-strange-resolution-copy span{margin-top:9px;color:#efe6f5;font-size:clamp(13px,1.7vw,19px);max-width:720px;line-height:1.45}
+.spx-strange-resolution.is-playing .spx-strange-resolution-portal{animation:spxStrangePortalBurst 2.3s cubic-bezier(.18,.75,.22,1) both}
+.spx-strange-resolution.is-playing .spx-strange-resolution-portal.is-right{animation-delay:.08s}
+.spx-strange-resolution.is-playing .spx-strange-resolution-hero{animation:spxStrangeHeroRise 2.3s ease both}
+.spx-strange-resolution.is-playing .spx-strange-resolution-copy{animation:spxStrangeCopyReveal 2.3s ease both}
+
+@keyframes spxStrangeSpin{to{transform:rotate(360deg)}}
+@keyframes spxStrangeSpinReverse{to{transform:rotate(-360deg)}}
+@keyframes spxStrangeSparkPulse{0%,100%{opacity:.45;transform:scale(.97)}50%{opacity:1;transform:scale(1.04)}}
+@keyframes spxStrangeStageAwaken{from{transform:scale(.76);filter:blur(4px) drop-shadow(0 0 10px rgba(255,130,22,.2))}to{transform:scale(1);filter:blur(0) drop-shadow(0 0 24px rgba(255,130,22,.46))}}
+@keyframes spxStrangeDockFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+@keyframes spxStrangeDockAwaken{from{opacity:0;transform:scale(.55);filter:blur(8px)}to{opacity:1;transform:scale(1);filter:blur(0)}}
+@keyframes spxStrangeGlimpseDrift{from{margin-left:-3px;opacity:.42}to{margin-left:4px;opacity:.88}}
+@keyframes spxStrangePortalBurst{0%{opacity:0;transform:translateY(-50%) scale(.12) rotate(-35deg)}22%{opacity:1}58%{opacity:1;transform:translateY(-50%) scale(1) rotate(0)}100%{opacity:0;transform:translateY(-50%) scale(1.36) rotate(22deg)}}
+@keyframes spxStrangeHeroRise{0%,16%{opacity:0;transform:translateX(-50%) translateY(70px) scale(.88)}45%,76%{opacity:.78;transform:translateX(-50%) translateY(0) scale(1)}100%{opacity:0;transform:translateX(-50%) translateY(-12px) scale(1.03)}}
+@keyframes spxStrangeCopyReveal{0%,23%{opacity:0;transform:scale(.82)}44%,78%{opacity:1;transform:scale(1)}100%{opacity:0;transform:scale(1.04)}}
+
+@media(max-width:850px){
+    .spx-strange-overlay{padding:10px}
+    .spx-strange-panel{padding:14px;max-height:95vh}
+    .spx-strange-head{grid-template-columns:64px 1fr;min-height:84px}
+    .spx-strange-logo{width:62px;height:62px}
+    .spx-strange-hero{width:128px;height:128px;opacity:.3}
+    .spx-strange-role-legend,.spx-strange-future-summary,.spx-strange-summary-rows{grid-template-columns:1fr}
+    .spx-strange-future-cards{grid-template-columns:repeat(auto-fill,minmax(118px,1fr));max-height:48vh}
+    .spx-strange-dock{max-width:96%;padding-right:10px}
+    .spx-strange-dock.is-open .spx-strange-dock-portal{width:100px;height:100px}
+    .spx-strange-dock-copy{max-width:230px}
+    .spx-strange-hud{grid-template-columns:38px 1fr;padding:10px}
+    .spx-strange-hud-eye{width:36px;height:36px}
+    .spx-strange-hud button{grid-column:1/-1;width:100%}
+}
+@media(max-width:560px){
+    .spx-strange-head{grid-template-columns:56px 1fr}
+    .spx-strange-logo{width:54px;height:54px}
+    .spx-strange-title-copy h2{font-size:23px}
+    .spx-strange-hero{display:none}
+    .spx-strange-dock-copy small{display:none}
+    .spx-strange-dock.is-open{width:94%;justify-content:flex-start}
+    .spx-strange-dock.is-open .spx-strange-dock-copy small{display:block}
+    .spx-strange-future-actions,.spx-strange-summary-actions,.spx-strange-preflight-actions{display:grid;grid-template-columns:1fr}
+}
+@media(prefers-reduced-motion:reduce){
+    .spx-strange-portal-layer,.spx-strange-dock,.spx-strange-dock img,.spx-strange-glimpses span,.spx-strange-hud-eye img,.spx-strange-resolution *,.pack-card-btn.spx-strange-forbidden:before,.joker-card-btn.spx-strange-forbidden:before{animation:none!important}
+}
+
+/* PATCH 40 — real future-card names clearly orbit the live Agamotto portal. */
+.spx-strange-dock.is-open .spx-strange-glimpses,
+.spx-strange-dock.is-bound .spx-strange-glimpses{
+    inset:-34%;
+    z-index:6;
+    overflow:visible;
+    mask-image:none;
+}
+.spx-strange-dock.is-open .spx-strange-glimpses span,
+.spx-strange-dock.is-bound .spx-strange-glimpses span{
+    max-width:150px;
+    overflow:visible;
+    color:#fff2d5;
+    font-size:11px;
+    letter-spacing:.025em;
+    opacity:.96;
+    filter:none;
+    text-shadow:0 1px 3px #09000d,0 0 8px #ff7e19,0 0 15px rgba(111,73,255,.95);
+    animation:spxStrangeFutureNameFly 3.8s ease-in-out infinite alternate;
+}
+.spx-strange-dock.is-open .spx-strange-glimpses .slot-1,.spx-strange-dock.is-bound .spx-strange-glimpses .slot-1{left:-8%;top:4%;transform:rotate(-9deg)}
+.spx-strange-dock.is-open .spx-strange-glimpses .slot-2,.spx-strange-dock.is-bound .spx-strange-glimpses .slot-2{right:-20%;top:17%;transform:rotate(8deg);animation-delay:-.65s}
+.spx-strange-dock.is-open .spx-strange-glimpses .slot-3,.spx-strange-dock.is-bound .spx-strange-glimpses .slot-3{left:-27%;top:44%;transform:rotate(4deg);animation-delay:-1.2s}
+.spx-strange-dock.is-open .spx-strange-glimpses .slot-4,.spx-strange-dock.is-bound .spx-strange-glimpses .slot-4{right:-28%;top:55%;transform:rotate(-7deg);animation-delay:-1.8s}
+.spx-strange-dock.is-open .spx-strange-glimpses .slot-5,.spx-strange-dock.is-bound .spx-strange-glimpses .slot-5{left:-5%;top:84%;transform:rotate(9deg);animation-delay:-2.4s}
+.spx-strange-dock.is-open .spx-strange-glimpses .slot-6,.spx-strange-dock.is-bound .spx-strange-glimpses .slot-6{right:2%;top:91%;transform:rotate(-4deg);animation-delay:-3s}
+@keyframes spxStrangeFutureNameFly{
+    from{margin-top:-4px;margin-left:-5px;opacity:.56;filter:blur(.25px)}
+    to{margin-top:5px;margin-left:6px;opacity:1;filter:blur(0)}
+}
+
+/* PATCH 39.4.1 — czytelna przyszłość bez dodatkowego dysku pod portalem */
+.spx-strange-glimpses{
+    inset:5%;
+    z-index:4;
+    overflow:visible;
+    mask-image:radial-gradient(circle,transparent 0 25%,#000 35% 72%,transparent 88%);
+}
+.spx-strange-glimpses span{max-width:110px;color:rgba(255,244,220,.95);font-size:9px;opacity:.9;filter:none;text-shadow:0 0 3px #120307,0 0 7px #ff7e19,0 0 13px rgba(126,74,255,.92)}
+.spx-strange-glimpses .slot-1{left:-12%;top:8%}.spx-strange-glimpses .slot-2{right:-18%;top:23%}.spx-strange-glimpses .slot-3{left:-9%;top:48%}.spx-strange-glimpses .slot-4{right:-13%;top:67%}.spx-strange-glimpses .slot-5{left:3%;top:83%}.spx-strange-glimpses .slot-6{left:31%;top:-3%}
+.spx-strange-overlay.is-future .spx-strange-panel{
+    width:min(960px,90vw);
+    max-height:86vh;
+    overflow-y:auto;
+    overflow-x:hidden;
+    padding:15px 18px 14px;
+    scrollbar-width:thin;
+    scrollbar-color:#ca7431 #171020;
+}
+.spx-strange-overlay.is-future .spx-strange-head{min-height:86px;margin-bottom:5px;grid-template-columns:68px minmax(0,1fr) 130px}
+.spx-strange-overlay.is-future .spx-strange-logo{width:64px;height:64px}
+.spx-strange-overlay.is-future .spx-strange-hero{width:132px;height:132px;bottom:-16px}
+.spx-strange-overlay.is-future .spx-strange-title-copy h2{font-size:clamp(23px,3vw,34px)}
+.spx-strange-overlay.is-future .spx-strange-future-copy p{line-height:1.34}
+.spx-strange-overlay.is-future .spx-strange-future-cards{max-height:min(31vh,250px);grid-template-columns:repeat(auto-fill,minmax(126px,1fr))}
+.spx-strange-overlay.is-future::-webkit-scrollbar,.spx-strange-overlay.is-future .spx-strange-panel::-webkit-scrollbar,.spx-strange-future-cards::-webkit-scrollbar{width:8px;height:8px}
+.spx-strange-overlay.is-future .spx-strange-panel::-webkit-scrollbar-track,.spx-strange-future-cards::-webkit-scrollbar-track{background:#171020}
+.spx-strange-overlay.is-future .spx-strange-panel::-webkit-scrollbar-thumb,.spx-strange-future-cards::-webkit-scrollbar-thumb{border-radius:10px;background:linear-gradient(#ffad42,#7041a6);border:2px solid #171020}
+
+/* PATCH 39.4 FULL VISUAL — portal swobodny, miniportale i czytelny Joker */
+.spx-strange-panel::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    z-index:-1;
+    border-radius:inherit;
+    pointer-events:none;
+    background:url("draft-assets/strange_magic_pattern.png") center/cover no-repeat;
+    opacity:.12;
+    mix-blend-mode:screen;
+}
+
+.spx-strange-dock{
+    min-height:172px;
+    gap:18px;
+    margin:-6px auto 7px;
+    padding:0 12px;
+    border:0;
+    border-radius:0;
+    background:transparent;
+    box-shadow:none;
+    overflow:visible;
+}
+
+.spx-strange-dock:hover{filter:brightness(1.08);transform:none}
+.spx-strange-dock.is-open{padding:0 12px;animation:spxStrangeDockAwaken .65s ease-out both,spxStrangeDockFloat 3.2s ease-in-out .65s infinite}
+.spx-strange-dock-portal,
+.spx-strange-dock.is-open .spx-strange-dock-portal,
+.spx-strange-dock.is-bound .spx-strange-dock-portal{width:170px;height:170px}
+
+.spx-strange-dock-portal>img{z-index:2}
+.spx-strange-dock-portal>img.spx-strange-dock-glow{
+    inset:-28%;
+    z-index:0;
+    width:156%;
+    height:156%;
+    opacity:.78;
+    animation:spxStrangeGlowBreathe 2.5s ease-in-out infinite;
+}
+.spx-strange-dock-portal>img.spx-strange-dock-core{animation:spxStrangeSpinReverse 13s linear infinite}
+.spx-strange-dock-portal>img.spx-strange-dock-ring{animation:spxStrangeSpin 8s linear infinite}
+.spx-strange-dock-portal>img.spx-strange-dock-sparks{animation:spxStrangeSparkPulse 1.8s ease-in-out infinite}
+
+.spx-strange-dock-copy{
+    position:relative;
+    z-index:3;
+    max-width:380px;
+    padding:14px 18px;
+    border:1px solid rgba(255,187,83,.66);
+    border-radius:16px;
+    background:rgba(7,8,21,.93);
+    box-shadow:0 0 20px rgba(255,128,24,.24),inset 0 0 24px rgba(113,68,255,.1);
+}
+
+.spx-strange-card{overflow:hidden;padding:13px 10px 11px;isolation:isolate}
+.spx-strange-card>*:not(.spx-strange-mini-portal){position:relative;z-index:3}
+.spx-strange-card-stats{display:block!important;margin-top:8px;color:#ffd69b;font-size:10px}
+.spx-strange-mini-portal{
+    position:absolute;
+    z-index:2;
+    right:-7px;
+    top:-7px;
+    width:62px;
+    height:62px;
+    pointer-events:none;
+    opacity:.72;
+    filter:drop-shadow(0 0 8px rgba(255,132,26,.68));
+    transition:filter .16s,opacity .16s,transform .16s;
+}
+.spx-strange-mini-portal img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain}
+.spx-strange-mini-portal img:nth-child(1){animation:spxStrangeSpinReverse 12s linear infinite}
+.spx-strange-mini-portal img:nth-child(2){animation:spxStrangeSpin 7s linear infinite}
+.spx-strange-mini-portal img:nth-child(3){animation:spxStrangeSparkPulse 1.7s ease-in-out infinite}
+
+.card.spx-strange-deck-candidate,
+.pack-card-btn.spx-strange-current-candidate,
+.joker-card-btn.spx-strange-current-candidate{position:relative!important}
+
+.card.spx-strange-deck-candidate .spx-strange-mini-portal,
+.pack-card-btn.spx-strange-current-candidate .spx-strange-mini-portal,
+.joker-card-btn.spx-strange-current-candidate .spx-strange-mini-portal{width:74px;height:74px;right:-10px;top:-12px;opacity:.85}
+
+.spx-strange-card:hover .spx-strange-mini-portal,
+.card.spx-strange-deck-candidate:hover .spx-strange-mini-portal,
+.pack-card-btn.spx-strange-current-candidate:hover .spx-strange-mini-portal,
+.joker-card-btn.spx-strange-current-candidate:hover .spx-strange-mini-portal{opacity:1;filter:drop-shadow(0 0 5px #fff) drop-shadow(0 0 12px #ff8a20);transform:scale(1.08)}
+
+.spx-strange-card:is(.is-selected-a,.is-selected-b) .spx-strange-mini-portal img:nth-child(1),
+.spx-strange-deck-selected .spx-strange-mini-portal img:nth-child(1),
+.spx-strange-current-selected .spx-strange-mini-portal img:nth-child(1){animation-duration:3.8s}
+.spx-strange-card:is(.is-selected-a,.is-selected-b) .spx-strange-mini-portal img:nth-child(2),
+.spx-strange-deck-selected .spx-strange-mini-portal img:nth-child(2),
+.spx-strange-current-selected .spx-strange-mini-portal img:nth-child(2){animation-duration:2.4s}
+
+.spx-strange-card:is(.is-selected-a,.is-selected-b),
+.card.spx-strange-deck-selected,
+.pack-card-btn.spx-strange-current-selected,
+.joker-card-btn.spx-strange-current-selected{border-color:#ffad42!important;outline-color:#ffad42!important;box-shadow:0 0 0 2px rgba(255,224,157,.4),0 0 28px rgba(255,118,21,.82)!important}
+
+.spx-strange-card.is-joker{
+    min-height:148px;
+    border-color:rgba(255,63,219,.74);
+    background:linear-gradient(145deg,rgba(36,14,76,.96),rgba(9,7,24,.98));
+    box-shadow:-3px 0 0 rgba(31,224,255,.22),3px 0 0 rgba(255,41,208,.22),0 0 18px rgba(129,73,255,.28);
+}
+.spx-strange-card.is-joker::after{
+    content:"JOKER";
+    position:absolute;
+    left:-4px;
+    bottom:24px;
+    z-index:1;
+    color:rgba(44,225,255,.16);
+    font:900 34px/1 "Orbitron",sans-serif;
+    letter-spacing:.08em;
+    transform:rotate(-8deg);
+    text-shadow:5px 0 rgba(255,40,204,.14);
+}
+.spx-strange-joker-badge{display:inline-flex!important;margin:6px 0 0;padding:4px 7px;border:1px solid rgba(255,68,217,.72);border-radius:999px;color:#fff;font:900 9px/1 "Orbitron",sans-serif;font-style:normal;letter-spacing:.1em;background:rgba(114,27,150,.62);box-shadow:-2px 0 #24e7ff,2px 0 #ff35cb}
+.spx-strange-joker-effect{display:block;margin-top:7px;color:#e8dff4;font-size:9px;line-height:1.32;font-weight:700}
+
+@keyframes spxStrangeGlowBreathe{from{opacity:.42;transform:scale(.92)}to{opacity:.92;transform:scale(1.08)}}
+
+@media(max-width:560px){
+    .spx-strange-dock{min-height:134px;gap:4px;padding:0}
+    .spx-strange-dock-portal,.spx-strange-dock.is-open .spx-strange-dock-portal,.spx-strange-dock.is-bound .spx-strange-dock-portal{width:126px;height:126px}
+    .spx-strange-dock-copy{max-width:210px;padding:10px 11px}
+}
+
+@media(prefers-reduced-motion:reduce){
+    .spx-strange-mini-portal img,.spx-strange-dock-glow{animation:none!important}
+}
+
+/* Final cascade lock for PATCH 40 names (must stay after the PATCH 39.4 portal overrides). */
+.spx-strange-dock:is(.is-open,.is-bound) .spx-strange-glimpses{inset:-34%;z-index:6;overflow:visible;mask-image:none}
+.spx-strange-dock:is(.is-open,.is-bound) .spx-strange-glimpses span{max-width:150px;overflow:visible;color:#fff2d5;font-size:11px;letter-spacing:.025em;opacity:.96;filter:none;text-shadow:0 1px 3px #09000d,0 0 8px #ff7e19,0 0 15px rgba(111,73,255,.95);animation:spxStrangeFutureNameFly 3.8s ease-in-out infinite alternate}
+
+/* FINAL POLISH — nazwy przyszłych kart wyłaniają się z samego portalu,
+   zamiast krążyć daleko nad paczką. */
+.spx-strange-dock:is(.is-open,.is-bound) .spx-strange-glimpses{
+    inset:5%!important;
+    overflow:visible!important;
+    mask-image:radial-gradient(circle,transparent 0 16%,#000 25% 70%,transparent 84%)!important;
+}
+.spx-strange-dock:is(.is-open,.is-bound) .spx-strange-glimpses span{max-width:105px!important;font-size:9px!important;}
+.spx-strange-dock:is(.is-open,.is-bound) .spx-strange-glimpses .slot-1{left:5%!important;top:16%!important}.spx-strange-dock:is(.is-open,.is-bound) .spx-strange-glimpses .slot-2{right:0!important;top:28%!important}.spx-strange-dock:is(.is-open,.is-bound) .spx-strange-glimpses .slot-3{left:8%!important;top:49%!important}.spx-strange-dock:is(.is-open,.is-bound) .spx-strange-glimpses .slot-4{right:2%!important;top:62%!important}.spx-strange-dock:is(.is-open,.is-bound) .spx-strange-glimpses .slot-5{left:20%!important;top:76%!important}.spx-strange-dock:is(.is-open,.is-bound) .spx-strange-glimpses .slot-6{right:18%!important;top:8%!important}
+.spx-strange-dock:is(.is-open,.is-bound) .spx-strange-glimpses .slot-1{left:-8%;top:4%;transform:rotate(-9deg)}
+.spx-strange-dock:is(.is-open,.is-bound) .spx-strange-glimpses .slot-2{right:-20%;top:17%;transform:rotate(8deg);animation-delay:-.65s}
+.spx-strange-dock:is(.is-open,.is-bound) .spx-strange-glimpses .slot-3{left:-27%;top:44%;transform:rotate(4deg);animation-delay:-1.2s}
+.spx-strange-dock:is(.is-open,.is-bound) .spx-strange-glimpses .slot-4{right:-28%;top:55%;transform:rotate(-7deg);animation-delay:-1.8s}
+.spx-strange-dock:is(.is-open,.is-bound) .spx-strange-glimpses .slot-5{left:-5%;top:84%;transform:rotate(9deg);animation-delay:-2.4s}
+.spx-strange-dock:is(.is-open,.is-bound) .spx-strange-glimpses .slot-6{right:2%;top:91%;transform:rotate(-4deg);animation-delay:-3s}

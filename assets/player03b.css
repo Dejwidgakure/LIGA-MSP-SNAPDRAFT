@@ -1,0 +1,558 @@
+
+/* =========================================================
+   PLAYER 03B — PROFILE SECTIONS POLISH
+   Navbar intentionally untouched.
+========================================================= */
+
+/* =========================================================
+   1) PLAYER NAME — ONE LINE, DYNAMIC SIZE
+========================================================= */
+
+@media(min-width:1021px){
+  .profile-identity{
+    width:min(820px,calc(100% - 380px))!important;
+  }
+}
+
+.profile-identity h1#playerName{
+  display:block!important;
+  width:100%!important;
+  max-width:none!important;
+  white-space:nowrap!important;
+  overflow:visible!important;
+  overflow-wrap:normal!important;
+  word-break:normal!important;
+  hyphens:none!important;
+  text-overflow:clip!important;
+  line-height:.90!important;
+  transform-origin:center center;
+}
+
+.profile-identity h1#playerName.player-name-long{
+  text-align:left!important;
+  transform-origin:left center!important;
+}
+
+.profile-identity h1#playerName.player-name-extra-long{
+  letter-spacing:-.035em!important;
+}
+
+@media(max-width:760px){
+  .profile-identity h1#playerName.player-name-long{
+    text-align:left!important;
+  }
+}
+
+/* =========================================================
+   2) GALAKTYCZNE RYWALIZACJE — DUEL / SWORDS ATMOSPHERE
+========================================================= */
+
+.section-rivalries{
+  position:relative!important;
+  overflow:hidden!important;
+}
+
+.section-rivalries > *{
+  position:relative;
+  z-index:2;
+}
+
+.section-rivalries::before{
+  background:
+    radial-gradient(circle at 8% 28%,rgba(255,70,112,.15),transparent 27%),
+    radial-gradient(circle at 90% 32%,rgba(0,240,255,.15),transparent 27%),
+    linear-gradient(115deg,rgba(255,68,112,.035),transparent 27%,transparent 72%,rgba(0,240,255,.035))!important;
+}
+
+.section-rivalries::after{
+  content:"⚔︎";
+  position:absolute;
+  z-index:1;
+  right:3.5%;
+  top:17%;
+  font-family:Georgia,"Times New Roman",serif;
+  font-size:clamp(145px,17vw,250px);
+  line-height:1;
+  color:rgba(174,198,255,.075);
+  text-shadow:
+    0 0 28px rgba(255,73,116,.12),
+    0 0 52px rgba(0,240,255,.08);
+  transform:rotate(-10deg);
+  pointer-events:none;
+}
+
+/* =========================================================
+   3) MAPA WSZYSTKICH RYWALI — 4 PER PAGE
+========================================================= */
+
+.rival-map{
+  min-height:208px;
+}
+
+.rival-map-row{
+  transition:
+    opacity .18s ease,
+    transform .18s ease,
+    border-color .18s ease;
+}
+
+.rival-map-row.is-rival-hidden{
+  display:none!important;
+}
+
+.rival-map-pagination{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:11px;
+  margin:15px auto 0;
+  min-height:36px;
+}
+
+.rival-map-pagination[hidden]{
+  display:none!important;
+}
+
+.rival-map-pagination button,
+.draft-history-controls button{
+  width:35px;
+  height:35px;
+  display:grid;
+  place-items:center;
+  padding:0;
+  border:1px solid rgba(116,241,255,.18);
+  border-radius:50%;
+  color:#dffcff;
+  background:
+    radial-gradient(circle at 35% 28%,rgba(255,255,255,.08),transparent 30%),
+    rgba(3,11,31,.74);
+  box-shadow:
+    0 0 14px rgba(0,240,255,.055),
+    inset 0 1px rgba(255,255,255,.055);
+  font:900 21px/1 Orbitron,sans-serif;
+  cursor:pointer;
+  transition:.18s ease;
+}
+
+.rival-map-pagination button:hover:not(:disabled),
+.draft-history-controls button:hover:not(:disabled){
+  transform:translateY(-2px);
+  border-color:rgba(151,248,255,.42);
+  background:rgba(5,28,47,.84);
+  box-shadow:0 0 20px rgba(0,240,255,.10);
+}
+
+.rival-map-pagination button:disabled,
+.draft-history-controls button:disabled{
+  opacity:.27;
+  cursor:default;
+}
+
+#rivalPageLabel{
+  min-width:64px;
+  color:#819da8;
+  font:900 9px Orbitron,sans-serif;
+  letter-spacing:.08em;
+  text-align:center;
+}
+
+/* =========================================================
+   4) KARTY SYGNATUROWE — DRAFT CARD DNA IN HORIZONTAL CARDS
+========================================================= */
+
+.arsenal-grid{
+  grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  gap:15px!important;
+}
+
+.arsenal-card{
+  min-height:178px!important;
+  display:grid!important;
+  grid-template-columns:138px minmax(0,1fr)!important;
+  align-items:center!important;
+  overflow:visible!important;
+  padding:0!important;
+  background:
+    linear-gradient(145deg,rgba(4,22,36,.69),rgba(13,8,34,.73))!important;
+}
+
+.arsenal-card-top{
+  position:relative!important;
+  width:112px!important;
+  height:148px!important;
+  margin:14px!important;
+  padding:0!important;
+  overflow:visible!important;
+  border:2px solid #00f0ff!important;
+  border-radius:16px!important;
+  background:
+    linear-gradient(rgba(18,8,28,.80),rgba(18,8,28,.80)),
+    url("galaxytool.png") center/cover no-repeat!important;
+  box-shadow:
+    0 15px 28px rgba(0,0,0,.58),
+    0 0 15px rgba(0,240,255,.55),
+    0 0 34px rgba(0,240,255,.20),
+    inset 0 0 11px rgba(255,255,255,.04)!important;
+  animation:
+    player03bCardFloat 3.8s ease-in-out infinite,
+    player03bBorderShift 4.8s linear infinite!important;
+  transform:none!important;
+}
+
+.arsenal-card:nth-child(2n) .arsenal-card-top{
+  animation-delay:-1.1s,-1.7s!important;
+}
+
+.arsenal-card:nth-child(3n) .arsenal-card-top{
+  animation-delay:-2.2s,-3.0s!important;
+}
+
+/* Draft-style micro star field */
+.arsenal-card-top::before{
+  content:""!important;
+  position:absolute!important;
+  inset:0!important;
+  z-index:1!important;
+  border:0!important;
+  border-radius:14px!important;
+  opacity:.58!important;
+  pointer-events:none!important;
+  background:
+    radial-gradient(circle at 8% 13%,rgba(255,255,255,.96) 0 .45px,transparent 1.1px),
+    radial-gradient(circle at 18% 67%,rgba(0,240,255,.90) 0 .55px,transparent 1.15px),
+    radial-gradient(circle at 35% 28%,rgba(255,0,255,.80) 0 .48px,transparent 1.05px),
+    radial-gradient(circle at 49% 82%,rgba(255,255,255,.90) 0 .45px,transparent 1.05px),
+    radial-gradient(circle at 61% 18%,rgba(0,240,255,.86) 0 .55px,transparent 1.15px),
+    radial-gradient(circle at 75% 50%,rgba(255,255,255,.90) 0 .45px,transparent 1.05px),
+    radial-gradient(circle at 87% 76%,rgba(255,0,255,.78) 0 .52px,transparent 1.1px),
+    radial-gradient(circle at 93% 23%,rgba(255,255,255,.94) 0 .45px,transparent 1.05px)!important;
+  filter:blur(.5px)!important;
+  animation:player03bStarFlicker 6.2s linear infinite!important;
+}
+
+/* Cost planet */
+.arsenal-cost{
+  z-index:6!important;
+  left:-14px!important;
+  top:-17px!important;
+  width:47px!important;
+  height:47px!important;
+  border-radius:50%!important;
+  color:#fff!important;
+  font:1000 18px Orbitron,sans-serif!important;
+  text-shadow:
+    0 2px 0 rgba(0,0,0,.95),
+    0 4px 7px rgba(0,0,0,.75),
+    0 0 8px rgba(255,255,255,.35)!important;
+  background:
+    radial-gradient(circle at 35% 30%,
+      rgba(255,255,255,.94) 0%,
+      rgba(190,250,255,.86) 10%,
+      rgba(90,190,255,.96) 27%,
+      rgba(95,120,255,.93) 47%,
+      rgba(70,40,255,.89) 63%,
+      rgba(15,0,45,.98) 100%)!important;
+  box-shadow:
+    0 0 15px rgba(120,170,255,.88),
+    0 0 31px rgba(0,240,255,.28),
+    inset 0 0 10px rgba(255,255,255,.16)!important;
+}
+
+/* Planet ring */
+.arsenal-cost::after{
+  content:"";
+  position:absolute;
+  width:58px;
+  height:8px;
+  left:-8px;
+  top:23px;
+  border-radius:999px;
+  transform:rotate(-18deg);
+  background:
+    linear-gradient(90deg,
+      transparent,
+      rgba(190,250,255,.18),
+      rgba(255,255,255,.30),
+      rgba(160,210,255,.25),
+      rgba(200,162,255,.21),
+      transparent);
+  box-shadow:0 0 8px rgba(0,240,255,.22);
+  z-index:-1;
+}
+
+/* Power star */
+.arsenal-power{
+  z-index:6!important;
+  right:-17px!important;
+  top:-17px!important;
+  width:48px!important;
+  height:48px!important;
+  border-radius:0!important;
+  color:#fff!important;
+  font:1000 18px Orbitron,sans-serif!important;
+  text-shadow:
+    0 2px 0 rgba(0,0,0,.95),
+    0 4px 7px rgba(0,0,0,.75),
+    0 0 8px rgba(255,255,255,.35)!important;
+  background:
+    radial-gradient(circle at 30% 30%,
+      #fff 0%,
+      #fff6d0 16%,
+      #ffe07e 34%,
+      #ffc14a 55%,
+      #c77a00 78%,
+      #2a0d00 100%)!important;
+  box-shadow:
+    0 0 30px rgba(255,240,170,.78),
+    0 0 72px rgba(255,190,0,.34)!important;
+  clip-path:polygon(50% 0%,62% 28%,92% 32%,70% 52%,78% 84%,50% 68%,22% 84%,30% 52%,8% 32%,38% 28%)!important;
+}
+
+.arsenal-name{
+  position:absolute!important;
+  z-index:5!important;
+  left:9px!important;
+  right:9px!important;
+  bottom:17px!important;
+  width:auto!important;
+  color:#fff!important;
+  font:900 14px/1.04 Rajdhani,sans-serif!important;
+  letter-spacing:.25px!important;
+  text-align:center!important;
+  text-shadow:
+    0 2px 5px rgba(0,0,0,.90),
+    0 0 8px rgba(0,240,255,.38)!important;
+}
+
+.arsenal-body{
+  min-width:0!important;
+  padding:18px 17px 18px 5px!important;
+}
+
+.arsenal-kind{
+  color:#75a7b2!important;
+}
+
+.arsenal-metric{
+  color:#ccfff0!important;
+  font-size:20px!important;
+}
+
+@keyframes player03bCardFloat{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-5px)}
+}
+
+@keyframes player03bBorderShift{
+  0%,100%{
+    border-color:#00f0ff;
+    box-shadow:0 15px 28px rgba(0,0,0,.58),0 0 15px rgba(0,240,255,.55),0 0 34px rgba(0,240,255,.20);
+  }
+  33%{
+    border-color:#8a2be2;
+    box-shadow:0 15px 28px rgba(0,0,0,.58),0 0 15px rgba(138,43,226,.47),0 0 34px rgba(138,43,226,.18);
+  }
+  66%{
+    border-color:#ff00ff;
+    box-shadow:0 15px 28px rgba(0,0,0,.58),0 0 15px rgba(255,0,255,.42),0 0 34px rgba(255,0,255,.16);
+  }
+}
+
+@keyframes player03bStarFlicker{
+  0%,100%{opacity:.42}
+  32%{opacity:.70}
+  57%{opacity:.46}
+  76%{opacity:.76}
+}
+
+/* =========================================================
+   5) HISTORIA DRAFTÓW — HORIZONTAL CHRONICLE
+========================================================= */
+
+.section-history{
+  overflow:hidden!important;
+}
+
+.draft-history-controls{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:14px;
+  margin:-4px 0 13px;
+}
+
+.draft-history-controls>span{
+  color:#6e8d99;
+  font-size:10px;
+  font-weight:900;
+  letter-spacing:.04em;
+  text-transform:uppercase;
+}
+
+.draft-history-controls>div{
+  display:flex;
+  gap:7px;
+}
+
+.draft-history-grid{
+  display:grid!important;
+  grid-template-columns:none!important;
+  grid-auto-flow:column!important;
+  grid-auto-columns:minmax(305px,345px)!important;
+  gap:15px!important;
+  overflow-x:auto!important;
+  overflow-y:hidden!important;
+  scroll-snap-type:x mandatory!important;
+  scroll-behavior:smooth!important;
+  scrollbar-width:thin;
+  scrollbar-color:rgba(103,221,255,.28) rgba(2,7,24,.20);
+  padding:4px 4px 17px!important;
+  overscroll-behavior-inline:contain;
+}
+
+.draft-history-grid::-webkit-scrollbar{
+  height:7px;
+}
+.draft-history-grid::-webkit-scrollbar-track{
+  border-radius:999px;
+  background:rgba(2,7,24,.26);
+}
+.draft-history-grid::-webkit-scrollbar-thumb{
+  border-radius:999px;
+  background:linear-gradient(90deg,rgba(86,211,255,.38),rgba(141,91,255,.34));
+}
+
+.draft-history-card{
+  width:auto!important;
+  min-width:0!important;
+  scroll-snap-align:start!important;
+  scroll-snap-stop:always;
+}
+
+/* =========================================================
+   6) HISTORYCZNE OSIĄGNIĘCIA — DIAMOND STARFIELD
+========================================================= */
+
+.section-achievements{
+  position:relative!important;
+  overflow:hidden!important;
+  isolation:isolate;
+}
+
+.section-achievements > *{
+  position:relative;
+  z-index:2;
+}
+
+.section-achievements::before{
+  background:
+    radial-gradient(circle at 50% 0%,rgba(255,216,110,.15),transparent 31%),
+    radial-gradient(circle at 15% 92%,rgba(123,74,255,.12),transparent 29%),
+    radial-gradient(circle at 88% 75%,rgba(0,240,255,.065),transparent 25%)!important;
+}
+
+.section-achievements::after{
+  content:"";
+  position:absolute;
+  z-index:1;
+  inset:0;
+  pointer-events:none;
+  opacity:.28;
+  background:
+    linear-gradient(45deg,transparent 49%,rgba(255,230,142,.24) 49.4% 50.6%,transparent 51%) 13% 17%/18px 18px no-repeat,
+    linear-gradient(-45deg,transparent 49%,rgba(255,230,142,.24) 49.4% 50.6%,transparent 51%) 13% 17%/18px 18px no-repeat,
+    linear-gradient(45deg,transparent 49%,rgba(155,123,255,.23) 49.4% 50.6%,transparent 51%) 79% 22%/13px 13px no-repeat,
+    linear-gradient(-45deg,transparent 49%,rgba(155,123,255,.23) 49.4% 50.6%,transparent 51%) 79% 22%/13px 13px no-repeat,
+    linear-gradient(45deg,transparent 49%,rgba(122,240,255,.21) 49.4% 50.6%,transparent 51%) 62% 83%/15px 15px no-repeat,
+    linear-gradient(-45deg,transparent 49%,rgba(122,240,255,.21) 49.4% 50.6%,transparent 51%) 62% 83%/15px 15px no-repeat;
+}
+
+.achievement{
+  overflow:hidden;
+  background:
+    linear-gradient(145deg,rgba(49,33,10,.20),rgba(18,10,36,.46))!important;
+  box-shadow:
+    inset 0 1px rgba(255,255,255,.035),
+    0 0 18px rgba(255,216,110,.035);
+}
+
+.achievement::after{
+  content:"";
+  position:absolute;
+  right:14px;
+  top:15px;
+  width:5px;
+  height:5px;
+  background:rgba(255,226,126,.62);
+  transform:rotate(45deg);
+  box-shadow:
+    -24px 26px 0 rgba(146,111,255,.25),
+    -51px -6px 0 rgba(113,235,255,.20),
+    12px 37px 0 rgba(255,218,110,.20);
+  opacity:.55;
+  pointer-events:none;
+}
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media(max-width:1050px){
+  .arsenal-grid{
+    grid-template-columns:1fr!important;
+  }
+}
+
+@media(max-width:760px){
+  .arsenal-card{
+    grid-template-columns:126px minmax(0,1fr)!important;
+  }
+
+  .arsenal-card-top{
+    width:100px!important;
+    height:136px!important;
+    margin:13px!important;
+  }
+
+  .draft-history-grid{
+    grid-auto-columns:minmax(270px,84vw)!important;
+  }
+
+  .draft-history-controls>span{
+    display:none;
+  }
+
+  .section-rivalries::after{
+    right:-7%;
+    top:25%;
+    opacity:.65;
+  }
+}
+
+@media(max-width:500px){
+  .arsenal-card{
+    grid-template-columns:1fr!important;
+    justify-items:center;
+  }
+
+  .arsenal-card-top{
+    margin-bottom:0!important;
+  }
+
+  .arsenal-body{
+    width:100%;
+    padding:10px 16px 16px!important;
+    text-align:center;
+  }
+}
+
+@media(prefers-reduced-motion:reduce){
+  .arsenal-card-top,
+  .arsenal-card-top::before{
+    animation:none!important;
+  }
+
+  .draft-history-grid{
+    scroll-behavior:auto!important;
+  }
+}

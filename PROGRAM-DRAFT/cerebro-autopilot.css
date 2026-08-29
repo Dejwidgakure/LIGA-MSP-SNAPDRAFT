@@ -1,0 +1,248 @@
+/* MSP SNAP DRAFT — CEREBRO AUTOPILOT PATCH 60 / UI 1.2 */
+
+.cerebroModeOption label{
+    gap:9px;
+}
+.cerebroModeIcon{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    width:30px;
+    height:30px;
+    margin-left:auto;
+    border:1px solid rgba(105,239,255,.45);
+    border-radius:50%;
+    background:
+        linear-gradient(rgba(21,80,112,.22) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(21,80,112,.22) 1px,transparent 1px),
+        radial-gradient(circle at 38% 30%,rgba(107,245,255,.28),rgba(31,7,70,.88) 68%);
+    background-size:6px 6px,6px 6px,auto;
+    box-shadow:0 0 12px rgba(67,229,255,.3),inset 0 0 10px rgba(139,78,255,.18);
+    font-size:17px;
+}
+.cerebroModeOption:has(input:checked) .cerebroModeIcon{
+    border-color:#ffe978;
+    box-shadow:0 0 14px rgba(255,232,104,.48),0 0 22px rgba(120,71,255,.34),inset 0 0 12px rgba(77,235,255,.16);
+}
+
+.cerebro-lobby-controls{
+    display:inline-flex;
+    align-items:center;
+    margin-left:auto;
+    flex:0 0 auto;
+}
+.cerebro-lobby-toggle{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:5px;
+    min-width:90px;
+    padding:4px 8px;
+    border:1px solid rgba(123,246,255,.62);
+    border-radius:999px;
+    color:#b9fbff;
+    background:
+        linear-gradient(rgba(54,197,231,.10) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(54,197,231,.10) 1px,transparent 1px),
+        linear-gradient(180deg,rgba(6,25,53,.94),rgba(3,8,30,.96));
+    background-size:7px 7px,7px 7px,auto;
+    box-shadow:0 0 8px rgba(0,238,255,.32),inset 0 0 8px rgba(96,224,255,.08);
+    font:900 10px/1.1 Orbitron,Arial,sans-serif;
+    letter-spacing:.4px;
+    cursor:pointer;
+    transition:transform .16s ease,box-shadow .16s ease,border-color .16s ease;
+}
+.cerebro-lobby-toggle:hover{
+    transform:translateY(-1px);
+    border-color:#d9feff;
+    box-shadow:0 0 13px rgba(0,238,255,.62),inset 0 0 10px rgba(96,224,255,.15);
+}
+.cerebro-lobby-toggle[data-active="true"]{
+    color:#fff6a8;
+    border-color:#ffe66d;
+    background:
+        linear-gradient(rgba(54,197,231,.11) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(54,197,231,.11) 1px,transparent 1px),
+        linear-gradient(135deg,rgba(52,16,100,.97),rgba(4,43,80,.97));
+    background-size:7px 7px,7px 7px,auto;
+    box-shadow:0 0 12px rgba(178,80,255,.8),0 0 20px rgba(0,238,255,.38),inset 0 0 12px rgba(255,234,111,.12);
+}
+.playerChip.cerebro-lobby-active{
+    background:linear-gradient(120deg,rgba(29,7,67,.72),rgba(0,34,64,.66));
+}
+#playersList.compact .cerebro-lobby-toggle{
+    min-width:75px;
+    padding:3px 6px;
+    font-size:8.5px;
+}
+
+/* Mały przełącznik na decku — nie zwiększa wysokości panelu. */
+.cerebro-deck-toggle{
+    position:absolute;
+    left:50%;
+    right:auto;
+    bottom:10px;
+    transform:translateX(-50%);
+    z-index:34;
+    width:34px;
+    height:34px;
+    margin:0;
+    padding:0;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border:1px solid rgba(102,235,255,.55);
+    border-radius:50%;
+    color:#c9fbff;
+    background:
+        linear-gradient(rgba(57,205,235,.12) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(57,205,235,.12) 1px,transparent 1px),
+        radial-gradient(circle at 35% 30%,rgba(68,198,224,.30),rgba(9,16,50,.96) 68%);
+    background-size:6px 6px,6px 6px,auto;
+    box-shadow:0 0 10px rgba(0,225,255,.28),inset 0 0 10px rgba(126,89,255,.10);
+    cursor:pointer;
+    transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease,filter .18s ease;
+}
+.cerebro-deck-toggle > span{
+    display:block;
+    font-size:18px;
+    line-height:1;
+    filter:drop-shadow(0 0 5px rgba(105,240,255,.75));
+}
+.cerebro-deck-toggle:hover{
+    transform:translateX(-50%) translateY(-1px) scale(1.06);
+    border-color:#fff;
+    box-shadow:0 0 15px rgba(0,235,255,.54),0 0 21px rgba(159,76,255,.3);
+}
+.cerebro-deck-toggle[data-active="true"]{
+    color:#fff4a5;
+    border-color:#ffe76b;
+    background:
+        linear-gradient(rgba(84,219,241,.13) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(84,219,241,.13) 1px,transparent 1px),
+        radial-gradient(circle at 35% 30%,rgba(121,76,211,.52),rgba(0,44,76,.96) 72%);
+    background-size:6px 6px,6px 6px,auto;
+    box-shadow:0 0 14px rgba(180,76,255,.7),0 0 22px rgba(0,235,255,.34),inset 0 0 13px rgba(255,234,111,.12);
+    animation:cerebroCompactPulse 1.35s ease-in-out infinite alternate;
+    transform:translateX(-50%);
+}
+@keyframes cerebroCompactPulse{
+    from{filter:brightness(.95);transform:translateX(-50%) scale(.98)}
+    to{filter:brightness(1.18);transform:translateX(-50%) scale(1.04)}
+}
+.deck-section.cerebro-controlled-deck{
+    outline:1px solid rgba(255,231,107,.34);
+    outline-offset:-6px;
+}
+.deck-section.cerebro-controlled-deck::after{
+    filter:drop-shadow(0 0 8px rgba(255,231,107,.70)) drop-shadow(0 0 13px rgba(137,65,255,.55)) !important;
+}
+
+.cerebro-queue-player{
+    position:relative;
+    box-shadow:inset 0 -2px 0 rgba(255,231,107,.75);
+}
+.cerebro-queue-badge{
+    margin-left:5px;
+    font-size:11px;
+    filter:drop-shadow(0 0 5px #66f2ff);
+}
+.cerebro-current-banner{gap:10px;}
+.cerebro-current-badge{
+    display:inline-flex;
+    align-items:center;
+    margin-left:10px;
+    padding:4px 9px;
+    border:1px solid #ffe76b;
+    border-radius:999px;
+    color:#fff3a2;
+    background:
+        linear-gradient(rgba(95,229,255,.12) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(95,229,255,.12) 1px,transparent 1px),
+        rgba(42,8,73,.88);
+    background-size:6px 6px,6px 6px,auto;
+    box-shadow:0 0 10px rgba(175,68,255,.75),0 0 16px rgba(0,235,255,.35);
+    font:900 9px/1 Orbitron,Arial,sans-serif;
+    letter-spacing:.7px;
+    animation:cerebroBadgePulse 1.15s ease-in-out infinite alternate;
+}
+@keyframes cerebroBadgePulse{
+    from{transform:scale(.98);filter:brightness(.95)}
+    to{transform:scale(1.03);filter:brightness(1.2)}
+}
+
+#pack .cerebro-choice-preview{
+    z-index:12;
+    animation:cerebroChoicePulse .72s ease-in-out 2 alternate !important;
+    filter:drop-shadow(0 0 13px #fff16c) drop-shadow(0 0 24px #7c4dff) !important;
+}
+@keyframes cerebroChoicePulse{
+    from{transform:translateY(0) scale(1)}
+    to{transform:translateY(-7px) scale(1.055)}
+}
+
+.cerebro-status-toast{
+    position:fixed;
+    left:50%;
+    top:18px;
+    z-index:250000;
+    max-width:min(760px,calc(100vw - 36px));
+    padding:13px 22px;
+    overflow:hidden;
+    border:1px solid #74efff;
+    border-radius:14px;
+    color:#d9fdff;
+    background:
+        linear-gradient(rgba(71,215,246,.105) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(71,215,246,.105) 1px,transparent 1px),
+        linear-gradient(110deg,rgba(3,15,39,.98),rgba(34,7,68,.98));
+    background-size:8px 8px,8px 8px,auto;
+    box-shadow:0 0 18px rgba(0,235,255,.55),0 0 35px rgba(149,64,255,.35),inset 0 0 18px rgba(78,228,255,.08);
+    font:900 12px/1.35 Orbitron,Arial,sans-serif;
+    letter-spacing:.45px;
+    text-align:center;
+    opacity:0;
+    pointer-events:none;
+    transform:translate(-50%,-22px) scale(.96);
+    transition:opacity .24s ease,transform .24s ease;
+}
+.cerebro-status-toast::after{
+    content:"";
+    position:absolute;
+    left:-35%;right:-35%;top:-2px;
+    height:2px;
+    background:linear-gradient(90deg,transparent,#8ff8ff,transparent);
+    opacity:.75;
+    animation:cerebroScanLine 1.45s linear infinite;
+}
+@keyframes cerebroScanLine{
+    from{transform:translateX(-45%)}
+    to{transform:translateX(45%)}
+}
+.cerebro-status-toast.is-visible{
+    opacity:1;
+    transform:translate(-50%,0) scale(1);
+}
+.cerebro-status-toast[data-type="joker"]{
+    color:#fff4a0;
+    border-color:#ffe76b;
+    box-shadow:0 0 20px rgba(255,226,73,.52),0 0 38px rgba(255,54,205,.4);
+}
+.cerebro-status-toast[data-type="warning"]{
+    color:#ffd5d5;
+    border-color:#ff647c;
+    box-shadow:0 0 20px rgba(255,55,87,.55);
+}
+.cerebro-status-toast[data-type="human"]{
+    color:#bfffc8;
+    border-color:#68f58a;
+    box-shadow:0 0 20px rgba(68,235,110,.45);
+}
+
+@media (max-width:900px){
+    .cerebro-lobby-toggle b{display:none}
+    .cerebro-lobby-toggle{min-width:34px}
+    .cerebro-status-toast{font-size:10px}
+    .cerebro-deck-toggle{left:50%;right:auto;bottom:8px;width:31px;height:31px;transform:translateX(-50%)}
+    .cerebro-deck-toggle > span{font-size:16px}
+}

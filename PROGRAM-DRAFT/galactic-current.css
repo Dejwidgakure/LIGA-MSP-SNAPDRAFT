@@ -1,0 +1,2194 @@
+/* ============================================================
+   PATCH67–68 — GALAKTYCZNY PRĄD / CORE + WARIANTY
+   Logika i czytelny prototyp planszy. Docelowe animowane tło
+   zostanie podpięte w osobnym patchu wizualnym.
+   ============================================================ */
+
+.galacticCurrentModeOption label{
+    position:relative;
+    gap:9px!important;
+}
+.galacticCurrentModeIcon{
+    font-size:21px;
+    filter:drop-shadow(0 0 8px rgba(90,206,255,.82));
+}
+.galacticCurrentBetaBadge{
+    margin-left:auto;
+    padding:4px 7px;
+    border:1px solid rgba(116,224,255,.46);
+    border-radius:999px;
+    color:#c8f8ff;
+    background:rgba(7,38,73,.78);
+    font:900 8px/1 Orbitron,system-ui,sans-serif;
+    letter-spacing:1px;
+}
+.galacticCurrentModeOption.is-active{
+    border-color:rgba(96,226,255,.72)!important;
+    box-shadow:0 0 22px rgba(52,171,255,.22),inset 0 0 22px rgba(102,69,255,.13)!important;
+}
+.galacticCurrentModeOption.is-locked-note::after{
+    content:"CORE • 2 WARIANTY";
+    position:absolute;
+    right:10px;
+    bottom:-10px;
+    padding:3px 7px;
+    border-radius:999px;
+    background:#071a35;
+    color:#9defff;
+    font:800 7px/1 Orbitron,system-ui,sans-serif;
+    letter-spacing:.7px;
+}
+
+body.galactic-current-mode .pack-stage{
+    min-height:340px;
+    padding-top:38px;
+}
+body.galactic-current-mode .pack-stage-cloud,
+body.galactic-current-mode .pack-stage-lightning,
+body.galactic-current-mode #packIntro,
+body.galactic-current-mode #packChestOpen,
+body.galactic-current-mode #packEndPanel,
+body.galactic-current-mode #packHeroReveal,
+body.galactic-current-mode #customPackRevealInfo{
+    display:none!important;
+}
+body.galactic-current-mode #packName{
+    display:block!important;
+    position:relative;
+    z-index:4;
+    margin:0 auto 18px;
+    color:#d7f8ff;
+    text-shadow:0 0 9px rgba(83,215,255,.82),0 0 22px rgba(139,74,255,.52);
+}
+body.galactic-current-mode #packName::after{
+    content:"STAŁY NURT • 6 KART • NAJSTARSZA UCIEKA";
+    display:block;
+    margin-top:7px;
+    color:#9cdfff;
+    font:800 9px/1.2 Orbitron,system-ui,sans-serif;
+    letter-spacing:1.5px;
+}
+body.galactic-current-mode #currentPickerBanner{
+    display:block!important;
+}
+body.galactic-current-mode #pack{
+    position:relative;
+    z-index:3;
+    flex-wrap:nowrap;
+    gap:20px;
+    padding:18px 14px 26px;
+    overflow:visible;
+}
+body.galactic-current-mode #pack::before{
+    content:"";
+    position:absolute;
+    left:1%;right:1%;top:49%;height:124px;
+    transform:translateY(-50%);
+    border-radius:52% 48% 50% 46% / 45% 54% 46% 55%;
+    background:
+        radial-gradient(ellipse at 50% 50%,rgba(117,225,255,.26),transparent 62%),
+        linear-gradient(90deg,rgba(56,49,185,.14),rgba(61,207,255,.20),rgba(176,70,255,.18),rgba(56,49,185,.14));
+    box-shadow:0 0 42px rgba(70,187,255,.20),inset 0 0 30px rgba(195,108,255,.14);
+    pointer-events:none;
+}
+body.galactic-current-mode #pack::after{
+    content:"PRĄD PŁYNIE W LEWO  ←";
+    position:absolute;
+    left:18px;
+    bottom:-5px;
+    color:rgba(165,237,255,.84);
+    font:900 8px/1 Orbitron,system-ui,sans-serif;
+    letter-spacing:1.4px;
+    text-shadow:0 0 8px rgba(59,197,255,.72);
+    pointer-events:none;
+}
+body.galactic-current-mode #pack .pack-card-btn{
+    flex:0 0 112px;
+    z-index:2;
+}
+body.galactic-current-mode #pack .river-card{
+    transition:transform .22s ease,filter .22s ease,box-shadow .22s ease;
+}
+body.galactic-current-mode #pack .river-card:hover{
+    transform:translateY(-10px) scale(1.035);
+}
+body.galactic-current-mode #pack .river-age-badge{
+    position:absolute;
+    left:50%;
+    top:-26px;
+    transform:translateX(-50%);
+    min-width:64px;
+    padding:6px 8px;
+    border:1px solid rgba(116,218,255,.48);
+    border-radius:999px;
+    background:linear-gradient(180deg,rgba(11,42,80,.96),rgba(27,13,55,.96));
+    color:#d7f7ff;
+    box-shadow:0 0 12px rgba(75,188,255,.25);
+    font:900 8px/1 Orbitron,system-ui,sans-serif;
+    letter-spacing:.8px;
+    white-space:nowrap;
+    pointer-events:none;
+    z-index:30;
+}
+body.galactic-current-mode #pack .river-escaping{
+    outline:3px solid rgba(255,145,82,.82);
+    outline-offset:5px;
+    box-shadow:0 0 28px rgba(255,103,62,.58),0 0 22px rgba(255,214,96,.32)!important;
+    animation:riverEscapingPulse 1.25s ease-in-out infinite;
+}
+body.galactic-current-mode #pack .river-escaping .river-age-badge{
+    border-color:rgba(255,180,91,.86);
+    color:#fff0b7;
+    background:linear-gradient(180deg,rgba(92,30,13,.98),rgba(50,13,35,.98));
+    box-shadow:0 0 16px rgba(255,105,65,.44);
+}
+body.galactic-current-mode #pack .river-fresh .river-age-badge{
+    color:#bff7ff;
+}
+@keyframes riverEscapingPulse{
+    0%,100%{filter:brightness(1)}
+    50%{filter:brightness(1.16)}
+}
+
+.galactic-current-toast{
+    position:fixed;
+    left:50%;
+    top:19%;
+    transform:translate(-50%,-10px);
+    z-index:65000;
+    opacity:0;
+    pointer-events:none;
+    overflow:hidden;
+    isolation:isolate;
+    padding:12px 18px;
+    border:1px solid rgba(126,229,255,.58);
+    border-radius:15px;
+    color:#effcff;
+    background:
+        linear-gradient(145deg,rgba(5,27,60,.90),rgba(35,12,65,.91)),
+        url("draft-assets/cosmictool.webp") center / 185% auto;
+    background-blend-mode:multiply,screen;
+    box-shadow:0 0 25px rgba(67,194,255,.30),0 16px 48px rgba(0,0,0,.45);
+    text-shadow:0 1px 2px rgba(0,0,0,.82),0 0 9px rgba(129,231,255,.48);
+    font:800 12px/1.3 Orbitron,system-ui,sans-serif;
+    text-align:center;
+    transition:opacity .18s ease,transform .18s ease;
+    animation:gcToastCosmicDrift 13s linear infinite;
+}
+.galactic-current-toast::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    z-index:1;
+    pointer-events:none;
+    background:linear-gradient(110deg,transparent 0 22%,rgba(178,242,255,.12) 38%,transparent 54% 72%,rgba(188,116,255,.10) 86%,transparent 100%);
+    background-size:240% 100%;
+    animation:gcToastSheen 4.8s linear infinite;
+}
+.galactic-current-toast.is-visible{
+    opacity:1;
+    transform:translate(-50%,0);
+}
+.galactic-current-toast.is-escape{
+    border-color:rgba(255,172,84,.70);
+    box-shadow:0 0 25px rgba(255,104,62,.30),0 16px 48px rgba(0,0,0,.45);
+}
+
+@media (max-width:1100px){
+    body.galactic-current-mode #pack{gap:12px;transform:scale(.92);transform-origin:top center;margin-bottom:-16px;}
+}
+@keyframes gcSolarFlaresSlow{
+    from{transform:rotate(0deg) scale(.98)}
+    to{transform:rotate(360deg) scale(1.02)}
+}
+@keyframes gcSolarFlaresFast{
+    from{transform:rotate(0deg) scale(.97)}
+    to{transform:rotate(360deg) scale(1.04)}
+}
+@keyframes gcProminencePulseSoft{
+    0%,100%{opacity:.20;transform:scale(.99)}
+    50%{opacity:.42;transform:scale(1.03)}
+}
+@keyframes gcProminencePulse{
+    0%,100%{opacity:.30;transform:scale(.98)}
+    50%{opacity:.56;transform:scale(1.04)}
+}
+@keyframes gcProminencePulseStrong{
+    0%,100%{opacity:.42;transform:scale(.98)}
+    50%{opacity:.82;transform:scale(1.06)}
+}
+
+@media (max-width:820px){
+    body.galactic-current-mode #pack{flex-wrap:wrap;transform:none;}
+    body.galactic-current-mode #pack::after{display:none;}
+}
+
+
+/* ============================================================
+   PATCH68 — GALAKTYCZNY PRĄD / DWA RÓWNORZĘDNE WARIANTY
+   - Rwący Prąd zachowuje logikę PATCH67,
+   - Wygasające Gwiazdy płyną po picku, a naturalne wygaśnięcie odradza kartę lokalnie.
+   ============================================================ */
+
+.galacticCurrentVariantPanel[hidden]{display:none!important;}
+.galacticCurrentVariantPanel{
+    grid-column:1/-1;
+    display:grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:9px;
+    padding:10px;
+    border:1px solid rgba(104,221,255,.34);
+    border-radius:13px;
+    background:
+        radial-gradient(circle at 50% 0%,rgba(89,202,255,.13),transparent 46%),
+        linear-gradient(145deg,rgba(5,29,61,.88),rgba(27,10,58,.90));
+    box-shadow:inset 0 0 20px rgba(78,190,255,.08),0 0 18px rgba(64,161,255,.10);
+}
+.galacticCurrentVariantHeading{
+    grid-column:1/-1;
+    color:#baf4ff;
+    font:900 9px/1 "Exo 2",system-ui,sans-serif;
+    letter-spacing:1.6px;
+    text-align:center;
+}
+.galacticCurrentVariantChoice{
+    display:grid!important;
+    grid-template-columns:auto auto 1fr;
+    align-items:center;
+    gap:8px!important;
+    min-width:0;
+    padding:9px 10px;
+    border:1px solid rgba(104,214,255,.22);
+    border-radius:11px;
+    background:linear-gradient(145deg,rgba(9,43,78,.62),rgba(35,14,71,.62));
+    cursor:pointer;
+    transition:border-color .18s ease,box-shadow .18s ease,transform .18s ease;
+}
+.galacticCurrentVariantChoice:hover{
+    transform:translateY(-1px);
+    border-color:rgba(133,233,255,.52);
+}
+.galacticCurrentVariantChoice:has(input:checked){
+    border-color:rgba(129,235,255,.82);
+    box-shadow:0 0 17px rgba(74,191,255,.20),inset 0 0 18px rgba(142,87,255,.11);
+}
+.galacticCurrentVariantChoice input{
+    margin:0;
+    accent-color:#78eaff;
+}
+.galacticCurrentVariantChoice > span:last-child{min-width:0;}
+.galacticCurrentVariantChoice strong{
+    display:block;
+    color:#e5fbff;
+    font:900 10px/1.15 "Exo 2",system-ui,sans-serif;
+    letter-spacing:.7px;
+}
+.galacticCurrentVariantChoice small{
+    display:block;
+    margin-top:4px;
+    color:#b6dce9;
+    font:700 9px/1.32 system-ui,sans-serif;
+}
+.galacticCurrentVariantIcon{
+    font-size:19px;
+    filter:drop-shadow(0 0 8px rgba(93,205,255,.70));
+}
+
+body.galactic-current-rushing #packName::after{
+    content:"RWĄCY PRĄD • 6 KART • NAJSTARSZA UCIEKA";
+}
+body.galactic-current-rushing #pack::after{
+    content:"PRĄD PŁYNIE W LEWO  ←";
+}
+body.galactic-current-fading #packName::after{
+    content:"WYGASAJĄCE GWIAZDY • CZAS ZABIJA • LOKALNE ODRODZENIE";
+}
+body.galactic-current-fading #pack::after{
+    content:"NORMALNY PICK PŁYNIE W LEWO • SUPERNOWA ODRADZA LOKALNIE  ✦";
+}
+body.galactic-current-fading #pack .river-card{
+    transform-origin:center;
+}
+body.galactic-current-fading #pack .river-aging{
+    outline:2px solid rgba(213,132,255,.48);
+    outline-offset:4px;
+    box-shadow:0 0 20px rgba(151,84,255,.26),0 0 16px rgba(96,204,255,.18)!important;
+}
+body.galactic-current-fading #pack .river-aging .river-age-badge{
+    border-color:rgba(219,150,255,.68);
+    color:#fae5ff;
+    background:linear-gradient(180deg,rgba(57,22,91,.98),rgba(15,38,73,.98));
+}
+body.galactic-current-fading #pack .river-fading-soon{
+    outline:3px solid rgba(255,172,103,.80);
+    outline-offset:5px;
+    box-shadow:0 0 27px rgba(255,117,76,.42),0 0 24px rgba(174,85,255,.30)!important;
+    animation:riverFadingPulse 1.25s ease-in-out infinite;
+}
+body.galactic-current-fading #pack .river-fading-soon .river-age-badge{
+    border-color:rgba(255,180,106,.88);
+    color:#fff0c6;
+    background:linear-gradient(180deg,rgba(100,35,20,.98),rgba(59,18,72,.98));
+    box-shadow:0 0 16px rgba(255,115,73,.38);
+}
+.galactic-current-toast.is-fade{
+    border-color:rgba(218,143,255,.72);
+    box-shadow:0 0 25px rgba(176,73,255,.30),0 16px 48px rgba(0,0,0,.45);
+}
+.galactic-current-toast.is-pick{
+    border-color:rgba(150,226,255,.76);
+    box-shadow:0 0 19px rgba(83,210,255,.32),0 0 25px rgba(146,80,255,.20),0 16px 48px rgba(0,0,0,.45);
+}
+@keyframes gcToastCosmicDrift{
+    from{background-position:center,0% 42%}
+    to{background-position:center,100% 58%}
+}
+@keyframes gcToastSheen{
+    from{background-position:220% 0}
+    to{background-position:-120% 0}
+}
+@keyframes riverFadingPulse{
+    0%,100%{filter:brightness(1)}
+    50%{filter:brightness(1.18) saturate(1.12)}
+}
+
+@media (max-width:640px){
+    .galacticCurrentVariantPanel{grid-template-columns:1fr;}
+    .galacticCurrentVariantHeading{grid-column:1;}
+}
+
+/* ============================================================
+   PATCH69 — GALACTIC CURRENT VISUAL FOUNDATION
+   Warstwowy, animowany placeholder nurtu pod kartami.
+   Docelowe tile PNG/WebP będzie można podmienić wyłącznie w
+   --gc-tile-image-a / b / c bez przebudowy DOM ani animacji.
+   Logika obu wariantów pozostaje bez zmian.
+   ============================================================ */
+
+body.galactic-current-mode .pack-stage{
+    --gc-tile-image-a:none;
+    --gc-tile-image-b:none;
+    --gc-tile-image-c:none;
+    min-height:390px;
+}
+
+/* Stary prototyp wstęgi na pseudoelemencie packa zastępuje osobna plansza. */
+body.galactic-current-mode #pack::before{display:none!important;}
+body.galactic-current-mode #pack{
+    z-index:4;
+    padding-top:42px;
+    padding-bottom:44px;
+}
+
+.gc-board{
+    position:absolute;
+    left:50%;
+    top:57%;
+    width:min(1180px,98vw);
+    height:250px;
+    transform:translate(-50%,-50%);
+    z-index:1;
+    pointer-events:none;
+    overflow:visible;
+    isolation:isolate;
+}
+.gc-board[hidden]{display:none!important;}
+
+.gc-current-viewport{
+    position:absolute;
+    inset:12px -3% 10px;
+    overflow:hidden;
+    border-radius:50% 46% 48% 52% / 44% 55% 45% 56%;
+    -webkit-mask-image:linear-gradient(90deg,transparent 0%,#000 5%,#000 95%,transparent 100%);
+    mask-image:linear-gradient(90deg,transparent 0%,#000 5%,#000 95%,transparent 100%);
+    filter:drop-shadow(0 0 20px rgba(66,206,255,.24)) drop-shadow(0 0 34px rgba(166,85,255,.17));
+}
+
+/* Stały rdzeń pod tile'ami scala kolory między segmentami. */
+.gc-current-base{
+    position:absolute;
+    left:-2%;right:-2%;
+    top:50%;
+    height:126px;
+    transform:translateY(-50%);
+    border-radius:48% 52% 50% 46% / 54% 44% 56% 46%;
+    background:
+        radial-gradient(ellipse at 50% 50%,rgba(220,252,255,.30) 0%,rgba(77,217,255,.24) 20%,transparent 63%),
+        linear-gradient(90deg,rgba(78,74,218,.22),rgba(82,222,255,.30) 28%,rgba(194,91,255,.28) 62%,rgba(70,105,231,.22));
+    box-shadow:
+        inset 0 0 34px rgba(229,247,255,.13),
+        0 0 42px rgba(65,198,255,.22),
+        0 0 58px rgba(171,73,255,.12);
+    animation:gcBaseBreathe 5.8s ease-in-out infinite alternate;
+}
+
+/* Dwa identyczne zestawy A-B-C zapewniają bezszwową pętlę ruchu tracka. */
+.gc-current-track{
+    position:absolute;
+    left:0;
+    top:0;
+    width:200%;
+    height:100%;
+    display:grid;
+    grid-template-columns:repeat(6,minmax(0,1fr));
+    will-change:transform;
+    animation:gcCurrentScroll 30s linear infinite;
+}
+
+.gc-flow-tile{
+    position:relative;
+    min-width:0;
+    margin-inline:-5px;
+    opacity:.92;
+    background-image:var(--gc-tile-image,none);
+    background-repeat:no-repeat;
+    background-position:center;
+    background-size:100% 100%;
+}
+.gc-flow-tile::before,
+.gc-flow-tile::after{
+    content:"";
+    position:absolute;
+    pointer-events:none;
+}
+.gc-flow-tile::before{
+    left:-6%;right:-6%;
+    top:50%;
+    height:150px;
+    transform:translateY(-50%);
+    border-radius:48% 52% 47% 53% / 55% 43% 57% 45%;
+    -webkit-mask-image:radial-gradient(ellipse at center,#000 22%,rgba(0,0,0,.92) 56%,transparent 88%);
+    mask-image:radial-gradient(ellipse at center,#000 22%,rgba(0,0,0,.92) 56%,transparent 88%);
+    mix-blend-mode:screen;
+}
+.gc-flow-tile::after{
+    inset:20% -5%;
+    background:
+        radial-gradient(circle at 18% 48%,rgba(255,255,255,.72) 0 1px,transparent 2px),
+        radial-gradient(circle at 37% 61%,rgba(255,220,117,.70) 0 1.2px,transparent 2.2px),
+        radial-gradient(circle at 61% 34%,rgba(163,239,255,.82) 0 1px,transparent 2px),
+        radial-gradient(circle at 82% 57%,rgba(239,196,255,.66) 0 1.2px,transparent 2.3px);
+    background-size:88px 68px,124px 84px,106px 76px,142px 90px;
+    opacity:.78;
+    animation:gcStarsTwinkle 3.7s ease-in-out infinite alternate;
+}
+.gc-flow-tile-a{--gc-tile-image:var(--gc-tile-image-a);}
+.gc-flow-tile-b{--gc-tile-image:var(--gc-tile-image-b);}
+.gc-flow-tile-c{--gc-tile-image:var(--gc-tile-image-c);}
+.gc-flow-tile-a::before{
+    background:
+        radial-gradient(ellipse at 33% 47%,rgba(84,230,255,.54),transparent 42%),
+        radial-gradient(ellipse at 70% 58%,rgba(143,86,255,.45),transparent 48%),
+        linear-gradient(90deg,rgba(84,113,238,.34),rgba(63,224,255,.40),rgba(133,79,245,.34));
+}
+.gc-flow-tile-b::before{
+    height:174px;
+    background:
+        radial-gradient(ellipse at 50% 42%,rgba(211,247,255,.31),transparent 28%),
+        radial-gradient(ellipse at 26% 58%,rgba(119,75,255,.48),transparent 44%),
+        radial-gradient(ellipse at 76% 43%,rgba(213,82,255,.42),transparent 44%),
+        linear-gradient(90deg,rgba(81,111,239,.34),rgba(94,222,255,.42),rgba(134,77,243,.34));
+}
+.gc-flow-tile-c::before{
+    height:158px;
+    background:
+        radial-gradient(ellipse at 26% 40%,rgba(99,218,255,.46),transparent 42%),
+        radial-gradient(ellipse at 67% 58%,rgba(226,98,255,.43),transparent 47%),
+        radial-gradient(ellipse at 82% 37%,rgba(255,206,101,.13),transparent 28%),
+        linear-gradient(90deg,rgba(84,111,237,.34),rgba(81,218,255,.38),rgba(137,78,244,.34));
+}
+
+.gc-current-sheen{
+    position:absolute;
+    left:-20%;
+    top:50%;
+    width:36%;
+    height:118px;
+    transform:translateY(-50%) skewX(-18deg);
+    border-radius:50%;
+    background:linear-gradient(90deg,transparent,rgba(231,253,255,.22),rgba(116,226,255,.30),transparent);
+    filter:blur(11px);
+    opacity:.72;
+    animation:gcSheenTravel 8.5s ease-in-out infinite;
+}
+
+/* Obiekty są placeholderami: później pseudo-elementy zastąpią assety PNG/WebP. */
+.gc-drift-layer{
+    position:absolute;
+    inset:0;
+    z-index:2;
+    overflow:hidden;
+    border-radius:44%;
+    -webkit-mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent);
+    mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent);
+}
+.gc-drift-object{
+    position:absolute;
+    left:106%;
+    top:var(--gc-y,50%);
+    display:block;
+    width:var(--gc-w,22px);
+    height:var(--gc-h,22px);
+    opacity:0;
+    will-change:transform,opacity;
+    animation:gcObjectDrift var(--gc-dur,20s) linear infinite;
+    animation-delay:var(--gc-delay,0s);
+}
+.gc-rock::before{
+    content:"";
+    position:absolute;
+    inset:2px;
+    border-radius:47% 53% 38% 62% / 57% 39% 61% 43%;
+    clip-path:polygon(16% 18%,62% 3%,94% 36%,78% 86%,35% 100%,3% 61%);
+    background:
+        radial-gradient(circle at 35% 26%,rgba(222,225,255,.48),transparent 22%),
+        linear-gradient(145deg,#7780ae 0%,#403d69 45%,#211d3e 100%);
+    box-shadow:0 0 9px rgba(116,211,255,.30),inset -4px -5px 7px rgba(10,7,28,.55);
+}
+.gc-cardback{
+    width:26px;
+    height:36px;
+    border:1px solid rgba(161,233,255,.72);
+    border-radius:5px;
+    background:
+        radial-gradient(circle at 50% 45%,rgba(255,255,255,.18),transparent 28%),
+        linear-gradient(145deg,#185d92,#342064 58%,#7b2b91);
+    box-shadow:0 0 10px rgba(73,196,255,.42),inset 0 0 0 2px rgba(239,213,255,.12);
+}
+.gc-cardback::before{
+    content:"";
+    position:absolute;
+    inset:4px;
+    border:1px solid rgba(238,213,255,.38);
+    border-radius:3px;
+}
+.gc-cardback i{
+    position:absolute;
+    inset:0;
+    display:grid;
+    place-items:center;
+    color:#e7fbff;
+    font:900 12px/1 serif;
+    text-shadow:0 0 7px rgba(103,220,255,.85);
+}
+.gc-spark{
+    width:8px;
+    height:8px;
+    border-radius:50%;
+    background:radial-gradient(circle,#fff 0 14%,#ffd56b 24%,rgba(100,221,255,.72) 48%,transparent 72%);
+    box-shadow:0 0 10px rgba(255,220,107,.74),0 0 16px rgba(101,211,255,.42);
+}
+
+.gc-rock-one{--gc-y:39%;--gc-w:20px;--gc-h:17px;--gc-dur:18s;--gc-dur-fast:15s;--gc-delay:-5s;}
+.gc-rock-two{--gc-y:62%;--gc-w:29px;--gc-h:24px;--gc-dur:25s;--gc-dur-fast:20s;--gc-delay:-16s;}
+.gc-rock-three{--gc-y:47%;--gc-w:15px;--gc-h:14px;--gc-dur:15s;--gc-dur-fast:12s;--gc-delay:-9s;}
+.gc-rock-four{--gc-y:70%;--gc-w:18px;--gc-h:16px;--gc-dur:29s;--gc-dur-fast:23s;--gc-delay:-22s;}
+.gc-cardback-one{--gc-y:33%;--gc-dur:23s;--gc-dur-fast:18s;--gc-delay:-12s;}
+.gc-cardback-two{--gc-y:58%;--gc-dur:31s;--gc-dur-fast:25s;--gc-delay:-3s;}
+.gc-spark-one{--gc-y:44%;--gc-dur:13s;--gc-dur-fast:10s;--gc-delay:-8s;}
+.gc-spark-two{--gc-y:67%;--gc-dur:17s;--gc-dur-fast:13s;--gc-delay:-14s;}
+
+@keyframes gcCurrentScroll{
+    from{transform:translate3d(0,0,0);}
+    to{transform:translate3d(-50%,0,0);}
+}
+@keyframes gcBaseBreathe{
+    from{transform:translateY(-50%) scaleY(.88);filter:saturate(1) brightness(.94);}
+    to{transform:translateY(-50%) scaleY(1.08);filter:saturate(1.14) brightness(1.07);}
+}
+@keyframes gcStarsTwinkle{
+    from{opacity:.46;filter:brightness(.90);}
+    to{opacity:.90;filter:brightness(1.28);}
+}
+@keyframes gcSheenTravel{
+    0%,12%{transform:translate(-12%, -50%) skewX(-18deg);opacity:0;}
+    28%{opacity:.68;}
+    72%{opacity:.48;}
+    88%,100%{transform:translate(370%, -50%) skewX(-18deg);opacity:0;}
+}
+@keyframes gcObjectDrift{
+    0%{transform:translate3d(0,-50%,0) rotate(0deg) scale(.72);opacity:0;}
+    7%{opacity:.82;}
+    42%{transform:translate3d(-56vw,calc(-50% - 10px),0) rotate(-165deg) scale(1);opacity:.92;}
+    82%{opacity:.72;}
+    100%{transform:translate3d(-122vw,calc(-50% + 8px),0) rotate(-390deg) scale(.76);opacity:0;}
+}
+
+body.galactic-current-fading .gc-current-base{
+    filter:hue-rotate(15deg) saturate(.94);
+}
+body.galactic-current-fading .gc-current-track{
+    animation-duration:39s;
+}
+body.galactic-current-rushing .gc-current-track{
+    animation-duration:25s;
+}
+body.galactic-current-rushing .gc-drift-object{
+    animation-duration:var(--gc-dur-fast,var(--gc-dur,20s));
+}
+
+@media (max-width:1100px){
+    .gc-board{width:min(1050px,110vw);height:230px;top:55%;}
+}
+@keyframes gcSolarFlaresSlow{
+    from{transform:rotate(0deg) scale(.98)}
+    to{transform:rotate(360deg) scale(1.02)}
+}
+@keyframes gcSolarFlaresFast{
+    from{transform:rotate(0deg) scale(.97)}
+    to{transform:rotate(360deg) scale(1.04)}
+}
+@keyframes gcProminencePulseSoft{
+    0%,100%{opacity:.20;transform:scale(.99)}
+    50%{opacity:.42;transform:scale(1.03)}
+}
+@keyframes gcProminencePulse{
+    0%,100%{opacity:.30;transform:scale(.98)}
+    50%{opacity:.56;transform:scale(1.04)}
+}
+@keyframes gcProminencePulseStrong{
+    0%,100%{opacity:.42;transform:scale(.98)}
+    50%{opacity:.82;transform:scale(1.06)}
+}
+
+@media (max-width:820px){
+    body.galactic-current-mode .pack-stage{min-height:520px;}
+    .gc-board{top:54%;width:118vw;height:390px;}
+    .gc-current-viewport{inset:30px -4%;}
+    .gc-current-base{height:210px;}
+    .gc-flow-tile::before{height:220px;}
+    .gc-flow-tile-b::before{height:250px;}
+    .gc-flow-tile-c::before{height:232px;}
+}
+
+@media (prefers-reduced-motion:reduce){
+    .gc-current-track,
+    .gc-current-base,
+    .gc-current-sheen,
+    .gc-drift-object,
+    .gc-flow-tile::after{animation:none!important;}
+    .gc-drift-object{display:none!important;}
+}
+
+/* ============================================================
+   PATCH72 — STAGED CARD FLOW
+   Czytelna, sekwencyjna animacja picku, odpłynięcia, przesunięcia,
+   dopływu, supernowy i lokalnego odrodzenia. Mechanika bez zmian.
+   ============================================================ */
+
+body.galactic-current-resolving #pack{
+    pointer-events:none;
+}
+body.galactic-current-resolving #pack .river-card:not(.gc-is-picked):not(.gc-is-escaping-left):not(.gc-is-fading){
+    cursor:wait;
+}
+#pack.gc-is-resolving .river-card{
+    pointer-events:none!important;
+}
+
+/* Wybrana karta zostaje wyciągnięta z nurtu, a nie znika w jednej klatce. */
+#pack .river-card.gc-is-picked{
+    position:relative;
+    z-index:40!important;
+    pointer-events:none!important;
+    animation:gcPickedFromCurrent 430ms cubic-bezier(.18,.76,.20,1) forwards!important;
+    filter:brightness(1.22) saturate(1.18)
+        drop-shadow(0 0 15px rgba(126,234,255,.78))
+        drop-shadow(0 0 22px rgba(198,107,255,.45));
+}
+#pack .river-card.gc-is-picked::after{
+    content:"";
+    position:absolute;
+    inset:-18px;
+    border-radius:26px;
+    pointer-events:none;
+    background:
+        radial-gradient(circle at 50% 58%,rgba(235,255,255,.72),transparent 22%),
+        radial-gradient(circle at 50% 52%,rgba(78,218,255,.38),transparent 55%),
+        conic-gradient(from 15deg,transparent,rgba(187,103,255,.32),transparent 35%,rgba(80,221,255,.36),transparent 70%);
+    mix-blend-mode:screen;
+    animation:gcPickedAura 430ms ease-out forwards;
+}
+
+/* Karta porwana przez lewą krawędź prądu. */
+#pack .river-card.gc-is-escaping-left{
+    position:relative;
+    z-index:35!important;
+    pointer-events:none!important;
+    animation:gcEscapeLeft 500ms cubic-bezier(.42,.02,.75,.24) forwards!important;
+    filter:brightness(1.10) saturate(1.20)
+        drop-shadow(-16px 0 18px rgba(72,214,255,.65));
+}
+#pack .river-card.gc-is-escaping-left::after{
+    content:"";
+    position:absolute;
+    left:65%;
+    top:16%;
+    width:135%;
+    height:72%;
+    pointer-events:none;
+    background:linear-gradient(90deg,rgba(184,250,255,.44),rgba(95,208,255,.22),transparent);
+    filter:blur(8px);
+    transform-origin:left center;
+    animation:gcEscapeTrail 500ms ease-out forwards;
+}
+
+/* FLIP: ocalałe karty płynnie przechodzą ze starego slotu do nowego. */
+#pack .river-card.gc-flow-from-old{
+    transform:translate(var(--gc-flip-x,0),var(--gc-flip-y,0));
+    transition:none!important;
+    z-index:12;
+}
+#pack .river-card.gc-flow-from-old.gc-flow-to-new{
+    transform:translate(0,0);
+    transition:transform 390ms cubic-bezier(.20,.72,.18,1),
+        filter 390ms ease,box-shadow 390ms ease!important;
+}
+
+/* Nowe karty zawsze realnie wpływają z prawej. */
+#pack .river-card.gc-is-entering-right{
+    position:relative;
+    z-index:18;
+    opacity:0;
+    animation:gcEnterFromRight 420ms cubic-bezier(.16,.76,.20,1) var(--gc-enter-delay,0ms) both!important;
+}
+#pack .river-card.gc-is-entering-right::after{
+    content:"";
+    position:absolute;
+    right:44%;
+    top:12%;
+    width:120%;
+    height:78%;
+    pointer-events:none;
+    background:linear-gradient(90deg,transparent,rgba(82,210,255,.22),rgba(218,247,255,.50));
+    filter:blur(9px);
+    transform-origin:right center;
+    animation:gcEntryTrail 420ms ease-out var(--gc-enter-delay,0ms) both;
+}
+
+/* Wygasająca gwiazda: prześwietlenie, pęknięcie i pył. */
+#pack .river-card.gc-is-fading{
+    position:relative;
+    z-index:38!important;
+    pointer-events:none!important;
+    animation:gcStarFade 620ms cubic-bezier(.25,.04,.58,1) forwards!important;
+}
+#pack .river-card.gc-is-fading::before{
+    content:"";
+    position:absolute;
+    inset:-26px;
+    z-index:45;
+    border-radius:50%;
+    pointer-events:none;
+    background:
+        radial-gradient(circle,rgba(255,255,255,.96) 0 5%,rgba(159,231,255,.72) 15%,rgba(197,92,255,.42) 38%,transparent 70%),
+        conic-gradient(from 0deg,transparent 0 8%,rgba(255,255,255,.78) 10%,transparent 13% 24%,rgba(114,225,255,.72) 27%,transparent 30% 47%,rgba(236,126,255,.70) 50%,transparent 54% 73%,rgba(255,231,140,.60) 76%,transparent 80%);
+    mix-blend-mode:screen;
+    animation:gcSupernovaBurst 620ms ease-out forwards;
+}
+#pack .river-card.gc-is-fading .pack-card-inner{
+    animation:gcCardOverburn 620ms ease-out forwards;
+}
+
+/* Nowa karta narodzona lokalnie po supernowej. */
+#pack .river-card.gc-is-reborn{
+    position:relative;
+    z-index:24;
+    animation:gcLocalRebirth 440ms cubic-bezier(.16,.78,.24,1) both!important;
+}
+#pack .river-card.gc-is-reborn::before{
+    content:"";
+    position:absolute;
+    inset:-20px;
+    border-radius:50%;
+    pointer-events:none;
+    background:radial-gradient(circle,rgba(255,255,255,.78),rgba(117,220,255,.35) 25%,rgba(192,93,255,.24) 48%,transparent 72%);
+    mix-blend-mode:screen;
+    animation:gcRebirthHalo 440ms ease-out both;
+}
+
+@keyframes gcPickedFromCurrent{
+    0%{transform:translate3d(0,0,0) rotate(0) scale(1);opacity:1}
+    30%{transform:translate3d(0,-14px,0) rotate(-1.5deg) scale(1.08);opacity:1}
+    100%{transform:translate3d(0,-105px,0) rotate(7deg) scale(.76);opacity:0}
+}
+@keyframes gcPickedAura{
+    0%{opacity:0;transform:scale(.62) rotate(0deg)}
+    35%{opacity:1;transform:scale(1.02) rotate(70deg)}
+    100%{opacity:0;transform:scale(1.42) rotate(180deg)}
+}
+@keyframes gcEscapeLeft{
+    0%{transform:translate3d(0,0,0) rotate(0) scale(1);opacity:1}
+    24%{transform:translate3d(-16px,4px,0) rotate(-4deg) scale(.98);opacity:1}
+    100%{transform:translate3d(-210px,22px,0) rotate(-17deg) scale(.62);opacity:0}
+}
+@keyframes gcEscapeTrail{
+    0%{opacity:0;transform:scaleX(.2)}
+    30%{opacity:.85;transform:scaleX(1)}
+    100%{opacity:0;transform:scaleX(1.45)}
+}
+@keyframes gcEnterFromRight{
+    0%{opacity:0;transform:translate3d(150px,20px,0) rotate(7deg) scale(.72);filter:brightness(1.45) blur(2px)}
+    70%{opacity:1;transform:translate3d(-5px,-3px,0) rotate(-1deg) scale(1.035);filter:brightness(1.13) blur(0)}
+    100%{opacity:1;transform:translate3d(0,0,0) rotate(0) scale(1);filter:none}
+}
+@keyframes gcEntryTrail{
+    0%{opacity:0;transform:scaleX(1.35)}
+    35%{opacity:.78}
+    100%{opacity:0;transform:scaleX(.25)}
+}
+@keyframes gcStarFade{
+    0%{opacity:1;transform:scale(1);filter:brightness(1)}
+    24%{opacity:1;transform:scale(1.055);filter:brightness(1.75) saturate(.7)}
+    48%{opacity:1;transform:scale(.98);filter:brightness(2.35) saturate(.2)}
+    100%{opacity:0;transform:scale(.28) rotate(-5deg);filter:brightness(3) blur(4px)}
+}
+@keyframes gcSupernovaBurst{
+    0%{opacity:0;transform:scale(.18) rotate(0)}
+    20%{opacity:1;transform:scale(.72) rotate(38deg)}
+    48%{opacity:1;transform:scale(1.22) rotate(95deg)}
+    100%{opacity:0;transform:scale(1.90) rotate(180deg)}
+}
+@keyframes gcCardOverburn{
+    0%,24%{filter:none;opacity:1;transform:scale(1)}
+    48%{filter:brightness(1.95) saturate(.55);opacity:1;transform:scale(1.02)}
+    100%{filter:brightness(2.55) blur(2px);opacity:0;transform:scale(.80)}
+}
+    52%{clip-path:inset(0 round 18px);filter:brightness(1.9) saturate(.55);opacity:1;transform:scale(1.025)}
+    100%{clip-path:inset(0 round 18px);filter:brightness(2.5) blur(2px);opacity:0;transform:scale(.78)}
+}
+@keyframes gcLocalRebirth{
+    0%{opacity:0;transform:scale(.18) rotate(-7deg);filter:brightness(2.5) blur(4px)}
+    42%{opacity:1;transform:scale(1.10) rotate(2deg);filter:brightness(1.45) blur(0)}
+    76%{transform:scale(.97) rotate(-.5deg);filter:brightness(1.08)}
+    100%{opacity:1;transform:scale(1) rotate(0);filter:none}
+}
+@keyframes gcRebirthHalo{
+    0%{opacity:0;transform:scale(.18)}
+    35%{opacity:1;transform:scale(.84)}
+    100%{opacity:0;transform:scale(1.48)}
+}
+
+@media (prefers-reduced-motion:reduce){
+    #pack .river-card.gc-is-picked,
+    #pack .river-card.gc-is-escaping-left,
+    #pack .river-card.gc-is-entering-right,
+    #pack .river-card.gc-is-fading,
+    #pack .river-card.gc-is-reborn,
+    #pack .river-card.gc-is-fading .pack-card-inner{
+        animation-duration:80ms!important;
+        animation-delay:0ms!important;
+    }
+    #pack .river-card.gc-flow-from-old.gc-flow-to-new{
+        transition-duration:80ms!important;
+    }
+}
+
+/* ============================================================
+   PATCH73 — JOKERS IN GALACTIC CURRENT
+   Ustawienia używają istniejącego modala Jokerów. Same karty
+   i modale rozstrzygnięcia Choice / Surprise pozostają kanoniczne.
+   ============================================================ */
+
+#jokerModal.gc-joker-settings .jokerClassicSettingsOnly{
+    display:none!important;
+}
+
+#jokerModal.gc-joker-settings .gcJokerControlPanel{
+    display:block;
+}
+
+#jokerModal.gc-joker-settings .jokerSettingsColumns{
+    grid-template-columns:minmax(0,1.08fr) minmax(300px,.92fr);
+}
+
+#jokerModal .gcJokerControlPanel{
+    position:relative;
+    overflow:hidden;
+}
+
+#jokerModal .gcJokerControlPanel::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    pointer-events:none;
+    background:
+        radial-gradient(circle at 12% 20%,rgba(121,245,255,.15),transparent 30%),
+        radial-gradient(circle at 88% 82%,rgba(177,92,255,.15),transparent 34%),
+        linear-gradient(115deg,transparent 20%,rgba(92,230,255,.07) 50%,transparent 78%);
+    opacity:.9;
+}
+
+#jokerModal .gcJokerControlPanel > *{
+    position:relative;
+    z-index:1;
+}
+
+#jokerModal .gcJokerModeGrid{
+    margin-top:10px;
+}
+
+#jokerModal .gcJokerSelectRow{
+    align-items:center;
+}
+
+#jokerModal .gcJokerSelectRow select{
+    width:100%;
+    min-height:44px;
+    border:1px solid rgba(131,244,255,.58);
+    border-radius:12px;
+    padding:8px 38px 8px 13px;
+    color:#efffff;
+    font:900 13px/1 Orbitron,system-ui,sans-serif;
+    letter-spacing:.6px;
+    background:
+        linear-gradient(180deg,rgba(17,61,101,.96),rgba(22,18,73,.96));
+    box-shadow:
+        inset 0 0 13px rgba(103,238,255,.10),
+        0 0 15px rgba(0,220,255,.13);
+    cursor:pointer;
+}
+
+#jokerModal .gcJokerSelectRow select:focus{
+    outline:2px solid rgba(255,216,105,.70);
+    outline-offset:2px;
+}
+
+#jokerModal .gcJokerRules{
+    margin-top:14px!important;
+    line-height:1.5;
+}
+
+#pack.galactic-current-cards .joker-card-btn.river-card{
+    z-index:4;
+}
+
+#pack.galactic-current-cards .joker-card-btn.river-card .river-age-badge{
+    z-index:30;
+}
+
+@media (max-width:860px){
+    #jokerModal.gc-joker-settings .jokerSettingsColumns{
+        grid-template-columns:1fr;
+    }
+}
+
+/* ============================================================
+   PATCH74 — CURRENT HUD & STELLAR STATUS POLISH
+   - uproszczony nagłówek bez technicznych opisów zasad,
+   - statusy przeniesione na dół kart,
+   - kosmiczne porywanie w Rwącym Prądzie,
+   - cztery wizualne fazy wypalania w Wygasających Gwiazdach.
+   Mechanika, Jokery i animacje PATCH72 pozostają bez zmian.
+   ============================================================ */
+
+/* Główny napis jest identyfikacją trybu, nie instrukcją obsługi. */
+body.galactic-current-mode #packName.gc-current-title{
+    position:relative;
+    display:block!important;
+    width:max-content;
+    max-width:min(94vw,920px);
+    margin:0 auto 13px!important;
+    padding:0 20px 8px;
+    color:transparent!important;
+    background:
+        linear-gradient(90deg,rgba(127,238,255,.36) 0%,rgba(236,251,255,.46) 20%,rgba(114,202,255,.34) 38%,rgba(200,148,255,.38) 58%,rgba(244,251,255,.46) 76%,rgba(120,233,255,.36) 100%);
+    background-size:240% 100%;
+    -webkit-background-clip:text;
+    background-clip:text;
+    -webkit-text-fill-color:transparent;
+    font:1000 clamp(24px,3.6vw,44px)/1 Orbitron,system-ui,sans-serif!important;
+    letter-spacing:clamp(1.5px,.35vw,5px)!important;
+    text-align:center;
+    filter:
+        drop-shadow(0 0 7px rgba(115,231,255,.76))
+        drop-shadow(0 0 19px rgba(95,157,255,.46))
+        drop-shadow(0 0 28px rgba(180,91,255,.28));
+    animation:gcCurrentTitleFlow 6.8s linear infinite;
+    isolation:isolate;
+}
+body.galactic-current-mode #packName.gc-current-title::before{
+    content:attr(data-gc-text);
+    position:absolute;
+    inset:0;
+    z-index:-1;
+    pointer-events:none;
+    color:transparent;
+    background:
+        url("draft-assets/gc_title_current_texture.png") repeat-x center center / auto 100%,
+        linear-gradient(90deg,rgba(255,255,255,.20),rgba(255,255,255,.56) 20%,rgba(255,255,255,.26) 50%,rgba(255,255,255,.52) 78%,rgba(255,255,255,.22));
+    background-size:auto 100%, 220% 100%;
+    background-position:0 50%, 0 50%;
+    -webkit-background-clip:text;
+    background-clip:text;
+    -webkit-text-fill-color:transparent;
+    opacity:.58;
+    mix-blend-mode:screen;
+    filter:saturate(1.14) brightness(1.04);
+    animation:gcCurrentTitleTexture 12s linear infinite;
+}
+body.galactic-current-mode #packName.gc-current-title::after{
+    content:"";
+    position:absolute;
+    left:7%;right:7%;bottom:0;
+    height:8px;
+    border-radius:50%;
+    background:
+        radial-gradient(ellipse at 50% 50%,rgba(190,248,255,.78) 0 8%,rgba(79,210,255,.42) 28%,rgba(170,84,255,.24) 55%,transparent 76%);
+    filter:blur(2px);
+    opacity:.78;
+    transform-origin:center;
+    animation:gcCurrentTitleWave 3.8s ease-in-out infinite;
+    pointer-events:none;
+    z-index:-2;
+}
+body.galactic-current-mode #pack::after,
+body.galactic-current-rushing #pack::after,
+body.galactic-current-fading #pack::after{
+    content:none!important;
+    display:none!important;
+}
+@keyframes gcCurrentTitleFlow{
+    from{background-position:0% 50%}
+    to{background-position:240% 50%}
+}
+@keyframes gcCurrentTitleTexture{
+    from{background-position:0 50%,0% 50%}
+    to{background-position:-512px 50%,220% 50%}
+}
+@keyframes gcCurrentTitleWave{
+    0%,100%{transform:scaleX(.92) translateY(0);opacity:.58}
+    50%{transform:scaleX(1.06) translateY(-1px);opacity:.92}
+}
+
+/* Po usunięciu statusów z góry odzyskujemy miejsce nad kartami. */
+body.galactic-current-mode #pack{
+    padding-top:20px!important;
+    padding-bottom:58px!important;
+}
+body.galactic-current-mode #pack .river-card{
+    isolation:isolate;
+    overflow:visible!important;
+}
+body.galactic-current-mode #pack .river-card .pack-card-inner,
+body.galactic-current-mode #pack .river-card .pack-card-frame{
+    overflow:visible!important;
+}
+
+/* Uniwersalna, nienachalna warstwa FX statusu. */
+body.galactic-current-mode #pack .gc-card-status-fx{
+    position:absolute;
+    inset:-8px;
+    z-index:14;
+    border-radius:22px;
+    pointer-events:none;
+    opacity:0;
+    mix-blend-mode:screen;
+}
+body.galactic-current-mode #pack .gc-card-status-fx::before,
+body.galactic-current-mode #pack .gc-card-status-fx::after{
+    content:"";
+    position:absolute;
+    pointer-events:none;
+    opacity:0;
+}
+body.galactic-current-mode #packStage{
+    position:relative;
+    overflow:visible!important;
+}
+body.galactic-current-mode .gc-detached-ghost-stage{
+    position:absolute;
+    inset:0;
+    pointer-events:none;
+    overflow:visible;
+}
+body.galactic-current-mode .gc-detached-ghost-stage.is-under{ z-index:3; }
+body.galactic-current-mode .gc-detached-ghost-stage.is-over{ z-index:5; }
+body.galactic-current-mode .gc-detached-ghost-layer{
+    position:absolute;
+    pointer-events:none;
+    overflow:visible!important;
+    transform-origin:center center;
+}
+body.galactic-current-mode .gc-detached-ghost-card{
+    width:100%!important;
+    height:100%!important;
+    pointer-events:none!important;
+    overflow:visible!important;
+    background:none!important;
+    box-shadow:none!important;
+}
+body.galactic-current-mode .gc-detached-ghost-card,
+body.galactic-current-mode .gc-detached-ghost-card .pack-card-inner,
+body.galactic-current-mode .gc-detached-ghost-card .pack-card-frame{
+    overflow:visible!important;
+}
+body.galactic-current-mode .gc-detached-ghost-card *{
+    pointer-events:none!important;
+}
+body.galactic-current-mode .gc-detached-ghost-layer.is-under{
+    mix-blend-mode:screen;
+    filter:blur(3px) saturate(1.04) brightness(.96);
+    opacity:.28;
+    animation:gcDetachedGhostUnderPrimary 1.45s ease-in-out infinite;
+}
+body.galactic-current-mode .gc-detached-ghost-layer.is-over{
+    mix-blend-mode:screen;
+    filter:blur(1.6px) saturate(1.10) brightness(1.08);
+    opacity:.46;
+    animation:gcDetachedGhostOverPrimary 1.22s ease-in-out infinite;
+}
+body.galactic-current-mode .gc-detached-ghost-layer.is-under::after,
+body.galactic-current-mode .gc-detached-ghost-layer.is-over::after{
+    content:"";
+    position:absolute;
+    pointer-events:none;
+    border-radius:28px;
+}
+body.galactic-current-mode .gc-detached-ghost-layer.is-under::after{
+    inset:10px 36px 10px -44px;
+    background:linear-gradient(90deg,rgba(164,239,255,.20),rgba(103,210,255,.10) 38%,rgba(116,102,255,.06) 62%,transparent 88%);
+    filter:blur(16px);
+    opacity:.58;
+    animation:gcDetachedSmearUnder 1.5s ease-in-out infinite;
+}
+body.galactic-current-mode .gc-detached-ghost-layer.is-over::after{
+    inset:7px 28px 7px -56px;
+    background:linear-gradient(90deg,rgba(225,250,255,.42),rgba(119,225,255,.18) 34%,rgba(116,146,255,.10) 58%,transparent 84%);
+    filter:blur(10px);
+    opacity:.84;
+    animation:gcDetachedSmearPrimary 1.2s ease-in-out infinite;
+}
+
+/* Kompaktowe statusy są częścią karty, a nie osobnym kafelkiem nad nią. */
+body.galactic-current-mode #pack .river-age-badge{
+    top:auto!important;
+    left:50%!important;
+    bottom:-25px!important;
+    transform:translateX(-50%)!important;
+    min-width:0!important;
+    height:22px;
+    padding:0 9px!important;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:4px;
+    border-radius:999px!important;
+    border:1px solid rgba(134,230,255,.48)!important;
+    background:
+        linear-gradient(180deg,rgba(10,39,78,.94),rgba(30,13,64,.96))!important;
+    color:#dffaff!important;
+    box-shadow:
+        inset 0 0 0 1px rgba(255,255,255,.06),
+        0 0 12px rgba(69,199,255,.24)!important;
+    font:1000 8px/1 Orbitron,system-ui,sans-serif!important;
+    letter-spacing:.8px!important;
+    white-space:nowrap;
+    z-index:31!important;
+}
+body.galactic-current-mode #pack .river-age-badge.gc-status-fresh{
+    width:24px;
+    height:24px;
+    padding:0!important;
+    border-radius:50%!important;
+    color:#f1feff!important;
+    border-color:rgba(151,240,255,.70)!important;
+    background:
+        radial-gradient(circle at 38% 30%,#faffff 0 6%,#72e5ff 20%,#6966e8 52%,#241050 100%)!important;
+    box-shadow:
+        0 0 10px rgba(104,230,255,.72),
+        0 0 18px rgba(139,87,255,.38)!important;
+    text-shadow:0 0 7px #fff;
+    animation:gcFreshStarTwinkle 2.2s ease-in-out infinite;
+}
+body.galactic-current-mode #pack .river-age-badge.gc-status-age{
+    border-color:rgba(174,149,255,.58)!important;
+    background:linear-gradient(180deg,rgba(41,25,91,.95),rgba(10,38,72,.97))!important;
+    color:#ebddff!important;
+}
+body.galactic-current-mode #pack .river-age-badge.gc-status-hot{
+    border-color:rgba(255,184,105,.70)!important;
+    background:linear-gradient(180deg,rgba(91,35,73,.96),rgba(31,25,78,.97))!important;
+    color:#fff1cf!important;
+    box-shadow:0 0 13px rgba(255,144,94,.30),0 0 17px rgba(162,82,255,.25)!important;
+}
+body.galactic-current-mode #pack .river-age-badge.gc-status-critical{
+    height:23px;
+    padding:0 11px!important;
+    border-color:rgba(255,229,167,.88)!important;
+    color:#fff9db!important;
+    background:
+        linear-gradient(180deg,rgba(128,55,26,.98),rgba(87,22,74,.98))!important;
+    box-shadow:
+        0 0 10px rgba(255,223,142,.56),
+        0 0 19px rgba(255,105,88,.38),
+        0 0 24px rgba(174,86,255,.30)!important;
+    animation:gcCriticalChipPulse 1.12s ease-in-out infinite;
+}
+
+/* Meteoryczny znacznik ucieczki z ogonem skierowanym w lewo. */
+body.galactic-current-mode #pack .river-age-badge.gc-status-escape{
+    width:26px;
+    height:26px;
+    padding:0!important;
+    border-radius:50%!important;
+    border-color:rgba(164,241,255,.86)!important;
+    color:transparent!important;
+    background:
+        radial-gradient(circle at 32% 26%,rgba(255,255,255,.95) 0 8%,rgba(169,245,255,.94) 16%,rgba(106,183,255,.88) 40%,rgba(109,92,245,.82) 68%,rgba(28,14,73,.96) 100%),
+        linear-gradient(120deg,rgba(255,255,255,.22) 0 20%,transparent 34% 54%,rgba(255,255,255,.14) 68% 78%,transparent 86% 100%)!important;
+    background-size:100% 100%,210% 100%!important;
+    box-shadow:
+        0 0 12px rgba(105,232,255,.78),
+        0 0 22px rgba(120,98,255,.36)!important;
+    text-shadow:none!important;
+    animation:gcEscapeArrowTexture 1.45s linear infinite, gcEscapeArrowPulse 1.3s ease-in-out infinite;
+}
+body.galactic-current-mode #pack .river-age-badge.gc-status-escape::before{
+    content:"←";
+    position:absolute;
+    left:50%;
+    top:50%;
+    transform:translate(-50%,-55%);
+    color:#f6ffff;
+    font-size:15px;
+    font-weight:900;
+    text-shadow:0 0 9px rgba(255,255,255,.96),0 0 15px rgba(126,239,255,.88);
+}
+body.galactic-current-mode #pack .river-age-badge.gc-status-escape::after{
+    content:"";
+    position:absolute;
+    left:calc(100% - 2px);
+    top:50%;
+    width:22px;
+    height:8px;
+    transform:translateY(-50%);
+    background:linear-gradient(90deg,rgba(182,245,255,.76),rgba(104,203,255,.24),transparent 100%);
+    filter:blur(2px);
+    clip-path:polygon(0 50%,76% 0,100% 50%,76% 100%);
+    opacity:.92;
+    animation:gcEscapeChipTail 1.0s ease-in-out infinite;
+}
+
+/* Rwący Prąd: najstarsza karta ma zewnętrzny nurt i meteoryczną strzałkę,
+   bez wewnętrznej kopii/echo, aby nie przycinać bryły karty ani wystających ikon. */
+body.galactic-current-rushing #pack .river-escaping:not(.gc-is-picked):not(.gc-is-escaping-left){
+    z-index:30!important;
+    outline:1px solid rgba(135,237,255,.42)!important;
+    outline-offset:5px!important;
+    box-shadow:
+        0 0 14px rgba(64,210,255,.22),
+        0 0 18px rgba(96,160,255,.18),
+        0 0 16px rgba(170,85,255,.10)!important;
+    transform-origin:center center;
+    animation:gcEscapeLean 1.3s ease-in-out infinite;
+}
+body.galactic-current-rushing #pack .river-escaping .gc-card-status-fx{
+    opacity:0;
+    inset:-8px;
+    background:none;
+    filter:none;
+    animation:none;
+}
+body.galactic-current-rushing #pack .river-escaping .gc-card-status-fx::before,
+body.galactic-current-rushing #pack .river-escaping .gc-card-status-fx::after{
+    display:none;
+}
+body.galactic-current-rushing #pack .river-next-warning{
+    box-shadow:0 0 12px rgba(89,197,255,.14)!important;
+}
+body.galactic-current-rushing #pack .river-next-warning .gc-card-status-fx{
+    inset:-4px -6px -4px -14px;
+    opacity:1;
+    background:none;
+    filter:none;
+    animation:none;
+}
+body.galactic-current-rushing #pack .river-next-warning .gc-card-status-fx::before{
+    content:"";
+    position:absolute;
+    left:-10px;
+    top:14px;
+    width:38px;
+    height:calc(100% - 28px);
+    border-radius:22px 0 0 22px;
+    background:linear-gradient(90deg,rgba(170,242,255,.14),rgba(90,180,255,.08),transparent 72%);
+    filter:blur(8px);
+    opacity:.72;
+    animation:gcNextCurrentPulse 2.2s ease-in-out infinite;
+}
+body.galactic-current-rushing #pack .river-next-warning .gc-card-status-fx::after{
+    display:none;
+}
+
+/* Wygasające Gwiazdy: chłodny początek przechodzi w przepalenie i koronę. */
+body.galactic-current-fading #pack .river-aging,
+body.galactic-current-fading #pack .river-fading-soon{
+    outline:none!important;
+    animation:none!important;
+}
+body.galactic-current-fading #pack .gc-burn-stage-1{
+    box-shadow:
+        0 0 11px rgba(91,211,255,.18),
+        0 0 17px rgba(135,100,255,.12)!important;
+}
+body.galactic-current-fading #pack .gc-burn-stage-1 .gc-card-status-fx{
+    opacity:.28;
+    border:1px solid rgba(120,223,255,.36);
+    box-shadow:inset 0 0 12px rgba(96,192,255,.10);
+}
+body.galactic-current-fading #pack .gc-burn-stage-2{
+    box-shadow:
+        0 0 15px rgba(119,96,255,.25),
+        0 0 19px rgba(80,210,255,.16)!important;
+}
+body.galactic-current-fading #pack .gc-burn-stage-2 .gc-card-status-fx{
+    opacity:.54;
+    border:1px solid rgba(187,125,255,.54);
+    background:
+        radial-gradient(circle at 14% 18%,rgba(124,224,255,.24),transparent 16%),
+        radial-gradient(circle at 88% 78%,rgba(206,111,255,.22),transparent 20%);
+    animation:gcStellarWarmth 2.3s ease-in-out infinite;
+}
+body.galactic-current-fading #pack .gc-burn-stage-2 .gc-card-status-fx::before{
+    opacity:.34;
+    inset:-10px;
+    border-radius:22px;
+    background:
+        conic-gradient(from 0deg,transparent 0 14%,rgba(255,214,132,.32) 16%,transparent 20% 46%,rgba(122,223,255,.24) 48%,transparent 52% 78%,rgba(238,121,255,.22) 80%,transparent 84%);
+    filter:blur(4px);
+    animation:gcSolarFlaresSlow 5.6s linear infinite;
+}
+body.galactic-current-fading #pack .gc-burn-stage-2 .gc-card-status-fx::after{
+    opacity:.22;
+    inset:-13px -9px;
+    border-radius:24px;
+    background:
+        radial-gradient(15px 24px at 10% 50%,rgba(255,219,146,.32),transparent 72%),
+        radial-gradient(14px 22px at 88% 24%,rgba(255,171,112,.26),transparent 72%),
+        radial-gradient(14px 22px at 82% 84%,rgba(243,118,255,.22),transparent 72%);
+    filter:blur(3px);
+    animation:gcProminencePulseSoft 2.2s ease-in-out infinite;
+}
+body.galactic-current-fading #pack .gc-burn-stage-3{
+    box-shadow:
+        0 0 18px rgba(210,101,255,.34),
+        0 0 22px rgba(255,163,88,.20),
+        inset 0 0 13px rgba(255,201,115,.06)!important;
+}
+body.galactic-current-fading #pack .gc-burn-stage-3 .gc-card-status-fx{
+    opacity:.76;
+    border:1px solid rgba(255,181,108,.65);
+    background:
+        radial-gradient(circle at 8% 22%,rgba(255,226,146,.36),transparent 14%),
+        radial-gradient(circle at 92% 18%,rgba(238,119,255,.34),transparent 18%),
+        radial-gradient(circle at 78% 91%,rgba(111,218,255,.28),transparent 18%);
+    animation:gcStellarBurn 1.62s ease-in-out infinite;
+}
+body.galactic-current-fading #pack .gc-burn-stage-3 .gc-card-status-fx::before{
+    opacity:.58;
+    inset:-13px;
+    border-radius:24px;
+    background:
+        conic-gradient(from 0deg,transparent 0 10%,rgba(255,227,150,.42) 13%,transparent 17% 35%,rgba(120,225,255,.30) 38%,transparent 42% 60%,rgba(234,120,255,.30) 63%,transparent 67% 84%,rgba(255,188,102,.36) 87%,transparent 91%);
+    filter:blur(4px);
+    animation:gcSolarFlaresFast 4.2s linear infinite;
+}
+body.galactic-current-fading #pack .gc-burn-stage-3 .gc-card-status-fx::after{
+    opacity:.42;
+    inset:-16px -11px;
+    border-radius:26px;
+    background:
+        radial-gradient(22px 34px at 10% 50%,rgba(255,220,150,.46),transparent 70%),
+        radial-gradient(22px 38px at 88% 22%,rgba(255,171,112,.38),transparent 72%),
+        radial-gradient(20px 32px at 82% 82%,rgba(243,118,255,.30),transparent 70%),
+        radial-gradient(16px 26px at 20% 12%,rgba(255,244,190,.28),transparent 72%);
+    filter:blur(4px);
+    animation:gcProminencePulse 1.8s ease-in-out infinite;
+}
+body.galactic-current-fading #pack .gc-burn-stage-4:not(.gc-is-picked):not(.gc-is-fading){
+    filter:brightness(1.06) saturate(1.10);
+    box-shadow:
+        0 0 14px rgba(255,252,218,.56),
+        0 0 28px rgba(255,156,87,.42),
+        0 0 34px rgba(193,85,255,.38),
+        inset 0 0 17px rgba(255,240,183,.10)!important;
+    animation:gcStellarCritical 1.05s ease-in-out infinite;
+}
+body.galactic-current-fading #pack .gc-burn-stage-4 .gc-card-status-fx{
+    opacity:1;
+    border:2px solid rgba(255,242,191,.86);
+    background:
+        radial-gradient(circle at 10% 16%,rgba(255,255,230,.64),transparent 15%),
+        radial-gradient(circle at 92% 20%,rgba(255,183,117,.48),transparent 18%),
+        radial-gradient(circle at 75% 92%,rgba(225,111,255,.42),transparent 20%),
+        radial-gradient(circle at 22% 88%,rgba(99,224,255,.40),transparent 18%);
+    box-shadow:
+        inset 0 0 16px rgba(255,228,151,.16),
+        0 0 13px rgba(255,244,199,.55);
+    animation:gcStellarCorona 1.05s ease-in-out infinite;
+}
+body.galactic-current-fading #pack .gc-burn-stage-4 .gc-card-status-fx::before{
+    opacity:.85;
+    inset:-10px;
+    border-radius:24px;
+    background:
+        conic-gradient(from 0deg,transparent 0 7%,rgba(255,243,190,.58) 9%,transparent 12% 29%,rgba(120,225,255,.42) 32%,transparent 35% 53%,rgba(238,116,255,.46) 56%,transparent 60% 78%,rgba(255,190,112,.52) 81%,transparent 85%);
+    filter:blur(3px);
+    animation:gcCoronaRotate 4.2s linear infinite;
+}
+
+
+/* Status znika na czas właściwej sekwencji PATCH72 i nie konkuruje z animacją zdarzenia. */
+body.galactic-current-mode #pack .river-card.gc-is-picked > .river-age-badge,
+body.galactic-current-mode #pack .river-card.gc-is-escaping-left > .river-age-badge,
+body.galactic-current-mode #pack .river-card.gc-is-fading > .river-age-badge,
+body.galactic-current-mode #pack .river-card.gc-is-picked > .gc-card-status-fx,
+body.galactic-current-mode #pack .river-card.gc-is-escaping-left > .gc-card-status-fx,
+body.galactic-current-mode #pack .river-card.gc-is-fading > .gc-card-status-fx{
+    opacity:0!important;
+    animation:none!important;
+    transition:opacity 100ms ease;
+}
+
+@keyframes gcFreshStarTwinkle{
+    0%,100%{transform:translateX(-50%) scale(.92);filter:brightness(.95)}
+    50%{transform:translateX(-50%) scale(1.08);filter:brightness(1.25)}
+}
+@keyframes gcCriticalChipPulse{
+    0%,100%{filter:brightness(1);transform:translateX(-50%) scale(1)}
+    50%{filter:brightness(1.23);transform:translateX(-50%) scale(1.04)}
+}
+@keyframes gcEscapeChipTail{
+    0%,100%{opacity:.45;transform:translateY(-50%) scaleX(.72)}
+    50%{opacity:1;transform:translateY(-50%) scaleX(1.12)}
+}
+@keyframes gcEscapePressure{
+    0%,100%{filter:brightness(1) saturate(1);clip-path:inset(0)}
+    46%{filter:brightness(1.12) saturate(1.16);clip-path:inset(0 0 0 1px)}
+    50%{filter:brightness(1.20) saturate(1.24);clip-path:inset(2px 0 1px 0)}
+    54%{filter:brightness(1.08) saturate(1.12);clip-path:inset(0)}
+}
+@keyframes gcEscapeScan{
+    from{background-position:0 0,0 0}
+    to{background-position:-22px 0,-18px 0}
+}
+@keyframes gcEscapeCurrentTrail{
+    0%,100%{opacity:.32;transform:scaleX(.66)}
+    50%{opacity:.94;transform:scaleX(1.12)}
+}
+@keyframes gcEscapeFieldPulse{
+    0%,100%{opacity:.18;transform:translateX(0) scaleX(1)}
+    50%{opacity:.32;transform:translateX(-1px) scaleX(1.02)}
+}
+@keyframes gcDetachedGhostUnderPrimary{
+    0%,100%{opacity:.26;transform:translate3d(-10px,2px,0) scale(.985)}
+    50%{opacity:.42;transform:translate3d(-28px,6px,0) scale(.965)}
+}
+@keyframes gcDetachedGhostOverPrimary{
+    0%,100%{opacity:.46;transform:translate3d(-14px,0,0) scale(.992)}
+    50%{opacity:.68;transform:translate3d(-34px,2px,0) scale(.976)}
+}
+@keyframes gcDetachedGhostUnderWarning{
+    0%,100%{opacity:.11;transform:translate3d(-6px,1px,0) scale(.992)}
+    50%{opacity:.20;transform:translate3d(-14px,3px,0) scale(.982)}
+}
+@keyframes gcDetachedGhostOverWarning{
+    0%,100%{opacity:.18;transform:translate3d(-8px,0,0) scale(.996)}
+    50%{opacity:.30;transform:translate3d(-18px,1px,0) scale(.986)}
+}
+@keyframes gcDetachedSmearPrimary{
+    0%,100%{opacity:.42;transform:translateX(-8px) scaleX(.98)}
+    50%{opacity:.82;transform:translateX(-28px) scaleX(1.16)}
+}
+@keyframes gcDetachedSmearUnder{
+    0%,100%{opacity:.24;transform:translateX(-10px) scaleX(1.02)}
+    50%{opacity:.46;transform:translateX(-26px) scaleX(1.20)}
+}
+@keyframes gcDetachedSmearWarning{
+    0%,100%{opacity:.20;transform:translateX(-5px) scaleX(.98)}
+    50%{opacity:.38;transform:translateX(-14px) scaleX(1.08)}
+}
+@keyframes gcNextCurrentPulse{
+    0%,100%{opacity:.10;transform:translateX(0)}
+    50%{opacity:.22;transform:translateX(-1px)}
+}
+@keyframes gcStellarWarmth{
+    0%,100%{filter:brightness(.92);box-shadow:inset 0 0 8px rgba(142,95,255,.10)}
+    50%{filter:brightness(1.08);box-shadow:inset 0 0 15px rgba(98,213,255,.13)}
+}
+@keyframes gcStellarBurn{
+    0%,100%{filter:brightness(.95);transform:scale(1)}
+    50%{filter:brightness(1.20);transform:scale(1.015)}
+}
+@keyframes gcStellarCritical{
+    0%,100%{filter:brightness(1.02) saturate(1.08)}
+    50%{filter:brightness(1.28) saturate(1.18)}
+}
+@keyframes gcStellarCorona{
+    0%,100%{filter:brightness(.94);transform:scale(.99)}
+    50%{filter:brightness(1.34);transform:scale(1.035)}
+}
+@keyframes gcCoronaRotate{
+    from{transform:rotate(0deg) scale(.97)}
+    to{transform:rotate(360deg) scale(1.03)}
+}
+
+@keyframes gcSolarFlaresSlow{
+    from{transform:rotate(0deg) scale(.98)}
+    to{transform:rotate(360deg) scale(1.02)}
+}
+@keyframes gcSolarFlaresFast{
+    from{transform:rotate(0deg) scale(.97)}
+    to{transform:rotate(360deg) scale(1.04)}
+}
+@keyframes gcProminencePulseSoft{
+    0%,100%{opacity:.20;transform:scale(.99)}
+    50%{opacity:.42;transform:scale(1.03)}
+}
+@keyframes gcProminencePulse{
+    0%,100%{opacity:.30;transform:scale(.98)}
+    50%{opacity:.56;transform:scale(1.04)}
+}
+@keyframes gcProminencePulseStrong{
+    0%,100%{opacity:.42;transform:scale(.98)}
+    50%{opacity:.82;transform:scale(1.06)}
+}
+
+@media (max-width:820px){
+    body.galactic-current-mode #packName.gc-current-title{
+        font-size:clamp(20px,6vw,31px)!important;
+        letter-spacing:1.5px!important;
+        padding-inline:8px;
+    }
+    body.galactic-current-mode #pack{
+        padding-bottom:48px!important;
+    }
+    body.galactic-current-mode #pack .river-age-badge{
+        bottom:-22px!important;
+    }
+}
+
+@media (prefers-reduced-motion:reduce){
+    body.galactic-current-mode #packName.gc-current-title,
+    body.galactic-current-mode #packName.gc-current-title::before,
+    body.galactic-current-mode #pack .river-age-badge,
+    body.galactic-current-mode #pack .river-card,
+    body.galactic-current-mode #pack .gc-card-status-fx,
+    body.galactic-current-mode #pack .gc-card-status-fx::before,
+    body.galactic-current-mode #pack .gc-card-status-fx::after{
+        animation:none!important;
+    }
+}
+
+@keyframes gcEscapeLean{
+    0%,100%{transform:translate3d(0,0,0) rotate(-1.2deg) scale(1);filter:brightness(1) saturate(1)}
+    50%{transform:translate3d(-2px,0,0) rotate(-4deg) scale(.992);filter:brightness(1.09) saturate(1.10)}
+}
+
+/* PATCH83 — GWIEZDNY PRĄD: animowana tekstura nurtu w mini-statusach. */
+body.galactic-current-mode #pack .river-age-badge:not(.gc-status-fresh):not(.gc-status-escape){
+    --gc-chip-tint-a:rgba(9,39,78,.91);
+    --gc-chip-tint-b:rgba(38,13,73,.93);
+    background-image:
+        linear-gradient(180deg,var(--gc-chip-tint-a),var(--gc-chip-tint-b)),
+        url("draft-assets/gc_title_current_texture.png")!important;
+    background-repeat:no-repeat,repeat-x!important;
+    background-size:100% 100%,auto 165%!important;
+    background-position:center,0% 50%!important;
+    background-blend-mode:normal,screen!important;
+    animation:gcStatusCurrentDrift 10s linear infinite!important;
+}
+body.galactic-current-mode #pack .river-age-badge.gc-status-hot{
+    --gc-chip-tint-a:rgba(91,35,73,.90);
+    --gc-chip-tint-b:rgba(31,25,78,.93);
+}
+body.galactic-current-mode #pack .river-age-badge.gc-status-critical{
+    --gc-chip-tint-a:rgba(128,55,26,.91);
+    --gc-chip-tint-b:rgba(87,22,74,.94);
+    animation:gcStatusCurrentDrift 8s linear infinite,gcCriticalChipPulse 1.12s ease-in-out infinite!important;
+}
+@keyframes gcStatusCurrentDrift{
+    from{background-position:center,0 50%}
+    to{background-position:center,-520px 50%}
+}
+
+
+/* ============================================================
+   PATCH84 — FINALNE DOPRACOWANIE GWIEZDNEGO PRĄDU
+   ============================================================ */
+
+/* 1) Mini-statusy wieku: asset prądu płynie jako realna warstwa,
+      zamiast stać w miejscu przez konflikt !important z keyframes. */
+body.galactic-current-mode #pack .river-age-badge:not(.gc-status-fresh):not(.gc-status-escape){
+    position:absolute;
+    overflow:hidden!important;
+    isolation:isolate;
+    background-image:linear-gradient(180deg,var(--gc-chip-tint-a,rgba(9,39,78,.91)),var(--gc-chip-tint-b,rgba(38,13,73,.93)))!important;
+    background-size:100% 100%!important;
+    background-position:center!important;
+    animation:none!important;
+}
+body.galactic-current-mode #pack .river-age-badge:not(.gc-status-fresh):not(.gc-status-escape)::before{
+    content:"";
+    position:absolute;
+    inset:-36% -55%;
+    z-index:-1;
+    pointer-events:none;
+    border-radius:999px;
+    background:url("draft-assets/gc_title_current_texture.png") repeat-x center / auto 145%;
+    opacity:.28;
+    mix-blend-mode:screen;
+    filter:saturate(1.08) brightness(1.08);
+    animation:gcStatusTextureGlide 8.5s linear infinite;
+}
+body.galactic-current-mode #pack .river-age-badge.gc-status-critical:not(.gc-status-fresh):not(.gc-status-escape){
+    animation:gcCriticalChipPulse 1.12s ease-in-out infinite!important;
+}
+body.galactic-current-mode #pack .river-age-badge.gc-status-critical:not(.gc-status-fresh):not(.gc-status-escape)::before{
+    opacity:.34;
+    animation-duration:6.8s;
+}
+@keyframes gcStatusTextureGlide{
+    from{transform:translate3d(0,0,0)}
+    to{transform:translate3d(-42%,0,0)}
+}
+
+/* 2) Tytuł zachowuje wszystkie dotychczasowe efekty, ale dostaje czytelny,
+      pulsujący kontur przechodzący między błękitem i jasnym różem. */
+body.galactic-current-mode #packName.gc-current-title{
+    -webkit-text-stroke-width:1.75px;
+    -webkit-text-stroke-color:rgba(149,242,255,.90);
+    paint-order:stroke fill;
+    text-shadow:
+        0 0 5px rgba(176,250,255,.48),
+        0 0 14px rgba(70,218,255,.30),
+        0 0 24px rgba(183,94,255,.16);
+    animation:
+        gcCurrentTitleFlow 6.8s linear infinite,
+        gcCurrentTitleContour 2.35s ease-in-out infinite!important;
+}
+@keyframes gcCurrentTitleContour{
+    0%,100%{
+        -webkit-text-stroke-color:rgba(151,244,255,.98);
+        text-shadow:
+            0 0 4px rgba(176,250,255,.60),
+            0 0 10px rgba(70,218,255,.36),
+            0 0 18px rgba(91,147,255,.22),
+            0 0 1px rgba(225,250,255,.95);
+    }
+    50%{
+        -webkit-text-stroke-color:rgba(255,191,246,.98);
+        text-shadow:
+            0 0 4px rgba(255,225,251,.62),
+            0 0 10px rgba(255,128,224,.34),
+            0 0 18px rgba(183,94,255,.22),
+            0 0 1px rgba(255,240,250,.95);
+    }
+}
+
+/* 3) Zamknięcie całego Gwiezdnego Prądu przed standardową sceną końca. */
+.gc-current-finish-veil{
+    position:fixed;
+    inset:0;
+    z-index:64950;
+    pointer-events:none;
+    opacity:0;
+    background:
+        radial-gradient(ellipse at 50% 48%,rgba(186,246,255,.34),rgba(77,83,210,.20) 34%,rgba(13,8,43,.72) 72%,rgba(2,5,17,.92) 100%),
+        url("draft-assets/gc_title_current_texture.png") repeat-x center / auto 55%;
+    background-blend-mode:screen,screen;
+    filter:saturate(1.12);
+}
+.gc-current-finish-veil.is-active{
+    animation:gcCurrentFinishVeil 1.08s ease-in-out both;
+}
+body.gc-current-finishing #galacticCurrentBoard,
+body.gc-current-finishing #packName.gc-current-title,
+body.gc-current-finishing #pack.galactic-current-cards,
+body.gc-current-finishing #currentPickerBanner,
+body.gc-current-finishing .gc-detached-ghost-stage{
+    pointer-events:none!important;
+    animation:gcCurrentSceneDrain .72s cubic-bezier(.4,0,.2,1) both!important;
+}
+@keyframes gcCurrentSceneDrain{
+    0%{opacity:1;transform:translate3d(0,0,0) scale(1);filter:blur(0) brightness(1)}
+    42%{opacity:.80;transform:translate3d(-18px,0,0) scale(.99);filter:blur(1px) brightness(1.18)}
+    100%{opacity:0;transform:translate3d(-76px,0,0) scale(.94);filter:blur(12px) brightness(.58)}
+}
+@keyframes gcCurrentFinishVeil{
+    0%{opacity:0;background-position:center,0 50%;filter:blur(0) saturate(1)}
+    38%{opacity:.84;background-position:center,-180px 50%;filter:blur(1px) saturate(1.22)}
+    68%{opacity:.96;background-position:center,-340px 50%;filter:blur(3px) saturate(1.10)}
+    100%{opacity:0;background-position:center,-520px 50%;filter:blur(7px) saturate(.88)}
+}
+
+@media (prefers-reduced-motion:reduce){
+    body.galactic-current-mode #pack .river-age-badge:not(.gc-status-fresh):not(.gc-status-escape)::before,
+    body.galactic-current-mode #packName.gc-current-title,
+    .gc-current-finish-veil.is-active,
+    body.gc-current-finishing #galacticCurrentBoard,
+    body.gc-current-finishing #packName.gc-current-title,
+    body.gc-current-finishing #pack.galactic-current-cards{
+        animation-duration:90ms!important;
+    }
+}
+
+/* ============================================================
+   PATCH85 — PRZYWRÓCENIE TEKSTURY TYTUŁU + KOLEJNOŚĆ PICK FX
+   ============================================================ */
+body.galactic-current-mode #packName.gc-current-title{
+    position:relative;
+}
+body.galactic-current-mode #packName.gc-current-title::before{
+    z-index:1!important;
+    opacity:.74!important;
+    filter:saturate(1.18) brightness(1.06)!important;
+}
+body.galactic-current-mode #packName.gc-current-title{
+    -webkit-text-stroke-width:1.8px!important;
+    text-shadow:
+        0 0 4px rgba(176,250,255,.52),
+        0 0 10px rgba(70,218,255,.30),
+        0 0 18px rgba(183,94,255,.14),
+        0 0 1px rgba(240,250,255,.68)!important;
+}
+
+
+/* ============================================================
+   PATCH86 — TYTUŁ GWIEZDNEGO PRĄDU: WIĘCEJ TEKSTURY, MNIEJ GLOW
+   ============================================================ */
+body.galactic-current-mode #packName.gc-current-title{
+    background:linear-gradient(90deg,
+        rgba(127,238,255,.12) 0%,
+        rgba(236,251,255,.16) 20%,
+        rgba(114,202,255,.12) 38%,
+        rgba(200,148,255,.12) 58%,
+        rgba(244,251,255,.16) 76%,
+        rgba(120,233,255,.12) 100%)!important;
+    filter:
+        drop-shadow(0 0 4px rgba(115,231,255,.24))
+        drop-shadow(0 0 10px rgba(95,157,255,.16))
+        drop-shadow(0 0 14px rgba(180,91,255,.10))!important;
+    -webkit-text-stroke-width:1.25px!important;
+}
+body.galactic-current-mode #packName.gc-current-title::before{
+    z-index:1!important;
+    opacity:.96!important;
+    filter:saturate(1.12) brightness(1.02)!important;
+}
+@keyframes gcCurrentTitleContour{
+    0%,100%{
+        -webkit-text-stroke-color:rgba(151,244,255,.95);
+        text-shadow:
+            0 0 2px rgba(176,250,255,.40),
+            0 0 6px rgba(70,218,255,.22),
+            0 0 10px rgba(91,147,255,.10);
+    }
+    50%{
+        -webkit-text-stroke-color:rgba(255,191,246,.95);
+        text-shadow:
+            0 0 2px rgba(255,225,251,.40),
+            0 0 6px rgba(255,128,224,.20),
+            0 0 10px rgba(183,94,255,.10);
+    }
+}
+
+
+/* ============================================================
+   PATCH89 — PANEL ATTACHMENT REPOSITION + TITLE READABILITY TUNE
+   ============================================================ */
+body.galactic-current-mode #packName.gc-current-title{
+    box-shadow:none!important;
+    background:
+        linear-gradient(90deg,
+            rgba(221,245,255,.06) 0%,
+            rgba(240,251,255,.08) 20%,
+            rgba(152,220,255,.06) 40%,
+            rgba(217,168,255,.07) 62%,
+            rgba(241,252,255,.08) 78%,
+            rgba(160,236,255,.06) 100%),
+        url("draft-assets/gc_title_current_texture.png") repeat-x center / auto 100%!important;
+    background-size:220% 100%,auto 100%!important;
+    background-position:0 50%,0 50%!important;
+    -webkit-background-clip:text!important;
+    background-clip:text!important;
+    -webkit-text-fill-color:transparent!important;
+    color:transparent!important;
+    filter:
+        drop-shadow(0 0 2px rgba(115,231,255,.14))
+        drop-shadow(0 0 5px rgba(95,157,255,.10))
+        drop-shadow(0 0 8px rgba(180,91,255,.06))!important;
+    -webkit-text-stroke-width:1.35px!important;
+    text-shadow:
+        0 0 1px rgba(230,249,255,.22),
+        0 0 3px rgba(70,218,255,.12),
+        0 0 6px rgba(183,94,255,.08)!important;
+    animation:
+        gcCurrentTitleFlow 8.4s linear infinite,
+        gcCurrentTitleContour 2.55s ease-in-out infinite!important;
+}
+body.galactic-current-mode #packName.gc-current-title::before{
+    z-index:1!important;
+    opacity:.82!important;
+    filter:saturate(1.03) brightness(.97)!important;
+    mix-blend-mode:screen!important;
+    animation:gcCurrentTitleTexture 14s linear infinite!important;
+}
+body.galactic-current-mode #packName.gc-current-title::after{
+    left:12%!important;
+    right:12%!important;
+    height:5px!important;
+    opacity:.42!important;
+    background:radial-gradient(ellipse at 50% 50%,rgba(190,248,255,.40) 0 10%,rgba(79,210,255,.18) 32%,rgba(170,84,255,.10) 58%,transparent 80%)!important;
+    filter:blur(3px)!important;
+}
+@keyframes gcCurrentTitleContour{
+    0%,100%{
+        -webkit-text-stroke-color:rgba(151,244,255,.92);
+        text-shadow:
+            0 0 1px rgba(224,250,255,.26),
+            0 0 3px rgba(70,218,255,.14),
+            0 0 6px rgba(91,147,255,.08);
+    }
+    50%{
+        -webkit-text-stroke-color:rgba(255,191,246,.92);
+        text-shadow:
+            0 0 1px rgba(255,240,250,.28),
+            0 0 3px rgba(255,128,224,.14),
+            0 0 6px rgba(183,94,255,.08);
+    }
+}
+
+
+/* ============================================================
+   PATCH91B — GWIEZDNY PRĄD STICKER IDENTITY
+   ============================================================ */
+body.galactic-current-mode #packName.gc-current-title,
+body.gc-current-finishing #packName.gc-current-title{
+    display:inline-flex!important;
+    align-items:center!important;
+    justify-content:center!important;
+    gap:14px!important;
+    padding-inline:10px!important;
+    background:none!important;
+    box-shadow:none!important;
+    filter:none!important;
+}
+body.galactic-current-mode #packName.gc-current-title::before,
+body.galactic-current-mode #packName.gc-current-title::after,
+body.gc-current-finishing #packName.gc-current-title::before,
+body.gc-current-finishing #packName.gc-current-title::after{
+    content:none!important;
+    display:none!important;
+}
+body.galactic-current-mode #packName.gc-current-title .gc-current-title-sticker-wrap,
+body.gc-current-finishing #packName.gc-current-title .gc-current-title-sticker-wrap{
+    flex:0 0 auto;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+}
+body.galactic-current-mode #packName.gc-current-title .gc-current-title-sticker,
+body.gc-current-finishing #packName.gc-current-title .gc-current-title-sticker{
+    width:82px;
+    height:auto;
+    object-fit:contain;
+    filter:drop-shadow(0 6px 12px rgba(0,0,0,.34)) drop-shadow(0 0 10px rgba(106,232,255,.12));
+    animation:gcTitleStickerDrift 4.4s ease-in-out infinite;
+    transform-origin:52% 58%;
+}
+body.galactic-current-mode #packName.gc-current-title .gc-current-title-text,
+body.gc-current-finishing #packName.gc-current-title .gc-current-title-text{
+    position:relative;
+    display:inline-block;
+    background:
+        linear-gradient(90deg,
+            rgba(232,249,255,.08) 0%,
+            rgba(185,235,255,.10) 16%,
+            rgba(106,221,255,.06) 34%,
+            rgba(204,154,255,.07) 56%,
+            rgba(244,247,255,.10) 78%,
+            rgba(118,232,255,.08) 100%),
+        url("draft-assets/gc_title_current_texture.png") repeat-x center / auto 100%;
+    background-size:220% 100%, auto 100%;
+    background-position:0 50%, 0 50%;
+    -webkit-background-clip:text;
+    background-clip:text;
+    -webkit-text-fill-color:transparent;
+    color:transparent;
+    -webkit-text-stroke:1.25px rgba(149,240,255,.92);
+    text-shadow:
+        0 0 1px rgba(236,249,255,.28),
+        0 0 4px rgba(85,219,255,.12),
+        0 0 8px rgba(224,128,255,.06);
+    filter:
+        drop-shadow(0 0 3px rgba(90,207,255,.11))
+        drop-shadow(0 0 6px rgba(255,120,220,.05));
+    animation:gcCurrentTitleFlow 8.6s linear infinite, gcCurrentTitleSoftEdge 2.8s ease-in-out infinite;
+}
+@keyframes gcTitleStickerDrift{
+    0%,100%{transform:translateY(0px) rotate(0deg);}
+    50%{transform:translateY(-2px) rotate(-4deg);}
+}
+@keyframes gcCurrentTitleSoftEdge{
+    0%,100%{
+        -webkit-text-stroke-color:rgba(145,240,255,.88);
+        filter:drop-shadow(0 0 3px rgba(90,207,255,.10)) drop-shadow(0 0 6px rgba(255,120,220,.04));
+    }
+    50%{
+        -webkit-text-stroke-color:rgba(255,177,238,.88);
+        filter:drop-shadow(0 0 3px rgba(255,120,220,.08)) drop-shadow(0 0 6px rgba(90,207,255,.08));
+    }
+}
+@media (max-width: 760px){
+    body.galactic-current-mode #packName.gc-current-title .gc-current-title-sticker,
+    body.gc-current-finishing #packName.gc-current-title .gc-current-title-sticker{
+        width:64px;
+    }
+    body.galactic-current-mode #packName.gc-current-title,
+    body.gc-current-finishing #packName.gc-current-title{
+        gap:10px!important;
+    }
+}
+
+
+/* ============================================================
+   PATCH97A — REAL ASSETS LOCKED TO THE CURRENT
+   Nowe karty/asteroidy żyją wewnątrz canonical .gc-drift-layer,
+   więc są maskowane dokładnie tym samym obszarem co nurt.
+   ============================================================ */
+.gc-drift-layer .gc-scene-asset{
+    position:absolute;
+    left:104%;
+    top:var(--gc-y,50%);
+    display:block;
+    width:var(--gc-size,46px);
+    height:auto;
+    pointer-events:none;
+    user-select:none;
+    opacity:0;
+    z-index:2;
+    backface-visibility:hidden;
+    will-change:transform,opacity;
+    transform-origin:50% 50%;
+    filter:drop-shadow(0 5px 8px rgba(0,0,0,.28)) drop-shadow(0 0 7px rgba(76,211,255,.20));
+    animation:gcRealAssetFlow var(--gc-dur,22s) linear var(--gc-delay,0s) infinite;
+}
+@keyframes gcRealAssetFlow{
+    0%{transform:translate3d(0,-50%,0) rotate(var(--gc-r1,0deg)) scale(.94);opacity:0;}
+    8%{opacity:var(--gc-op,.56);}
+    46%{transform:translate3d(-60vw,calc(-50% + var(--gc-mid-y,0px)),0) rotate(var(--gc-rm,8deg)) scale(1.01);opacity:var(--gc-op,.56);}
+    88%{opacity:var(--gc-op,.56);}
+    100%{transform:translate3d(-126vw,calc(-50% + var(--gc-end-y,0px)),0) rotate(var(--gc-r2,24deg)) scale(.97);opacity:0;}
+}
+@media(max-width:820px){
+    .gc-drift-layer .gc-scene-asset{filter:drop-shadow(0 4px 6px rgba(0,0,0,.24)) drop-shadow(0 0 5px rgba(76,211,255,.16));}
+}
+@media(prefers-reduced-motion:reduce){
+    .gc-drift-layer .gc-scene-asset{display:none!important;animation:none!important;}
+}
+
+
+/* ============================================================
+   PATCH97B — CURRENT LIGHT POLISH + REAL-ASSET FLOW CORRECTION
+   Miękkie różowo-niebieskie światło płynie z nurtem. Bez ostrego shine.
+   ============================================================ */
+body.galactic-current-mode .gc-current-viewport::before,
+body.galactic-current-mode .gc-current-viewport::after{
+    content:"";
+    position:absolute;
+    pointer-events:none;
+    z-index:5;
+    mix-blend-mode:screen;
+}
+body.galactic-current-mode .gc-current-viewport::before{
+    left:-34%;
+    top:50%;
+    width:46%;
+    height:170px;
+    transform:translate3d(0,-50%,0);
+    border-radius:50%;
+    background:
+        radial-gradient(ellipse at 38% 50%,rgba(82,224,255,.34) 0%,rgba(82,224,255,.14) 27%,transparent 62%),
+        radial-gradient(ellipse at 70% 50%,rgba(227,86,255,.27) 0%,rgba(227,86,255,.11) 25%,transparent 60%);
+    filter:blur(24px);
+    opacity:.66;
+    animation:gcSoftGlowTravel97B 10.8s linear infinite;
+}
+body.galactic-current-mode .gc-current-viewport::after{
+    inset:18% 4%;
+    border-radius:50%;
+    background-image:
+        radial-gradient(circle at 14% 44%,rgba(255,255,255,.94) 0 1px,transparent 2.4px),
+        radial-gradient(circle at 31% 58%,rgba(127,232,255,.88) 0 1.1px,transparent 2.5px),
+        radial-gradient(circle at 49% 34%,rgba(249,202,255,.82) 0 1px,transparent 2.4px),
+        radial-gradient(circle at 68% 62%,rgba(139,230,255,.86) 0 1.1px,transparent 2.5px),
+        radial-gradient(circle at 84% 40%,rgba(255,255,255,.90) 0 1px,transparent 2.35px);
+    opacity:.38;
+    animation:gcCurrentStarPulse97B 4.6s ease-in-out infinite alternate;
+}
+@keyframes gcSoftGlowTravel97B{
+    0%{transform:translate3d(0,-50%,0) scaleX(.92);opacity:.22;}
+    16%{opacity:.62;}
+    50%{opacity:.76;}
+    84%{opacity:.58;}
+    100%{transform:translate3d(290%,-50%,0) scaleX(1.12);opacity:.18;}
+}
+@keyframes gcCurrentStarPulse97B{
+    0%{opacity:.22;transform:translate3d(0,1px,0);}
+    47%{opacity:.54;}
+    100%{opacity:.34;transform:translate3d(-5px,-2px,0);}
+}
+
+/* Zamieniamy dawny "sheen" na szeroką, rozmytą falę glow. */
+body.galactic-current-mode .gc-current-sheen{
+    left:-28%;
+    width:43%;
+    height:164px;
+    transform:translateY(-50%);
+    border-radius:50%;
+    background:
+        radial-gradient(ellipse at 35% 50%,rgba(89,224,255,.30) 0%,rgba(89,224,255,.12) 31%,transparent 67%),
+        radial-gradient(ellipse at 72% 50%,rgba(219,91,255,.24) 0%,rgba(219,91,255,.10) 27%,transparent 64%);
+    filter:blur(25px);
+    opacity:.52;
+    animation:gcSoftSheen97B 12.6s linear infinite!important;
+}
+@keyframes gcSoftSheen97B{
+    0%{transform:translate3d(0,-50%,0) scale(.92);opacity:.18;}
+    18%{opacity:.58;}
+    52%{opacity:.66;}
+    86%{opacity:.46;}
+    100%{transform:translate3d(320%,-50%,0) scale(1.08);opacity:.12;}
+}
+
+/* Realne karty/asteroidy idą bliżej centralnej osi nurtu i mają mocniejszy obrót. */
+.gc-drift-layer .gc-scene-asset{
+    filter:drop-shadow(0 5px 9px rgba(0,0,0,.30))
+           drop-shadow(0 0 9px rgba(76,211,255,.26))
+           drop-shadow(0 0 14px rgba(207,92,255,.10));
+}
+@keyframes gcRealAssetFlow{
+    0%{transform:translate3d(0,-50%,0) rotate(var(--gc-r1,0deg)) scale(.94);opacity:0;}
+    7%{opacity:var(--gc-op,.60);}
+    47%{transform:translate3d(-60vw,calc(-50% + var(--gc-mid-y,0px)),0) rotate(var(--gc-rm,12deg)) scale(1.02);opacity:var(--gc-op,.60);}
+    90%{opacity:var(--gc-op,.60);}
+    100%{transform:translate3d(-126vw,calc(-50% + var(--gc-end-y,0px)),0) rotate(var(--gc-r2,38deg)) scale(.98);opacity:0;}
+}
+
+@media(max-width:820px){
+    body.galactic-current-mode .gc-current-viewport::before{height:142px;filter:blur(20px);opacity:.54;}
+    body.galactic-current-mode .gc-current-viewport::after{opacity:.28;}
+}
+@media(prefers-reduced-motion:reduce){
+    body.galactic-current-mode .gc-current-viewport::before,
+    body.galactic-current-mode .gc-current-viewport::after,
+    body.galactic-current-mode .gc-current-sheen{animation:none!important;}
+}
+
+
+/* ============================================================
+   PATCH98B — CURRENT RIBBON / HUD / STAR PASS
+   - więcej życia wewnątrz nurtu,
+   - banner kolejki ponad assetami,
+   - chmura wyłączona w Gwiezdnym Prądzie,
+   - nowe gwiazdy/kolorowe glowy oraz mniejsze, liczniejsze assety.
+   ============================================================ */
+body.galactic-current-mode #currentPickerBanner,
+body.gc-current-finishing #currentPickerBanner{
+    position:relative;
+    z-index:36!important;
+}
+body.galactic-current-mode .pack-stage-cloud,
+body.gc-current-finishing .pack-stage-cloud,
+body.galactic-current-mode .pack-open-cloud,
+body.gc-current-finishing .pack-open-cloud{
+    display:none!important;
+}
+body.galactic-current-mode .gc-current-base::before,
+body.galactic-current-mode .gc-current-base::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    pointer-events:none;
+    border-radius:inherit;
+}
+body.galactic-current-mode .gc-current-base::before{
+    background:
+        radial-gradient(ellipse at 18% 50%,rgba(79,228,255,.28) 0%,rgba(79,228,255,.14) 18%,transparent 48%),
+        radial-gradient(ellipse at 46% 48%,rgba(173,104,255,.18) 0%,rgba(173,104,255,.09) 16%,transparent 44%),
+        radial-gradient(ellipse at 77% 50%,rgba(255,128,223,.20) 0%,rgba(255,128,223,.09) 17%,transparent 46%);
+    filter:blur(20px);
+    opacity:.94;
+    animation:gcBaseColorBands98B 10.5s linear infinite;
+}
+body.galactic-current-mode .gc-current-base::after{
+    background-image:
+        radial-gradient(circle at 9% 46%,rgba(255,255,255,.98) 0 1.1px,transparent 2.4px),
+        radial-gradient(circle at 16% 58%,rgba(146,236,255,.86) 0 1px,transparent 2.3px),
+        radial-gradient(circle at 23% 39%,rgba(255,202,245,.78) 0 .9px,transparent 2.2px),
+        radial-gradient(circle at 34% 63%,rgba(255,255,255,.94) 0 1.1px,transparent 2.4px),
+        radial-gradient(circle at 46% 36%,rgba(139,234,255,.86) 0 1px,transparent 2.3px),
+        radial-gradient(circle at 57% 61%,rgba(255,210,249,.76) 0 .9px,transparent 2.2px),
+        radial-gradient(circle at 68% 42%,rgba(255,255,255,.95) 0 1.1px,transparent 2.4px),
+        radial-gradient(circle at 82% 57%,rgba(143,235,255,.84) 0 1px,transparent 2.3px),
+        radial-gradient(circle at 92% 44%,rgba(255,255,255,.92) 0 1px,transparent 2.2px);
+    opacity:.32;
+    animation:gcCurrentBaseTwinkle98B 4.2s ease-in-out infinite alternate;
+}
+@keyframes gcBaseColorBands98B{
+    0%{transform:translate3d(-8%,0,0) scaleX(.98);opacity:.68;}
+    50%{opacity:1;}
+    100%{transform:translate3d(10%,0,0) scaleX(1.06);opacity:.76;}
+}
+@keyframes gcCurrentBaseTwinkle98B{
+    0%{opacity:.18;transform:translate3d(0,1px,0);}
+    50%{opacity:.42;}
+    100%{opacity:.28;transform:translate3d(-8px,-1px,0);}
+}
+body.galactic-current-mode .gc-current-viewport::before{
+    width:54%;
+    height:188px;
+    background:
+        radial-gradient(ellipse at 26% 50%,rgba(80,226,255,.34) 0%,rgba(80,226,255,.16) 24%,transparent 62%),
+        radial-gradient(ellipse at 57% 50%,rgba(166,99,255,.23) 0%,rgba(166,99,255,.10) 24%,transparent 58%),
+        radial-gradient(ellipse at 82% 50%,rgba(246,120,219,.24) 0%,rgba(246,120,219,.10) 24%,transparent 60%);
+    filter:blur(26px);
+    animation:gcSoftGlowTravel98B 9.6s linear infinite;
+}
+body.galactic-current-mode .gc-current-viewport::after{
+    inset:17% 4%;
+    opacity:.46;
+    animation:gcCurrentStarPulse98B 3.8s ease-in-out infinite alternate;
+}
+@keyframes gcSoftGlowTravel98B{
+    0%{transform:translate3d(0,-50%,0) scaleX(.9);opacity:.18;}
+    20%{opacity:.66;}
+    52%{opacity:.82;}
+    86%{opacity:.60;}
+    100%{transform:translate3d(276%,-50%,0) scaleX(1.16);opacity:.16;}
+}
+.gc-drift-layer .gc-scene-asset{
+    z-index:6;
+    filter:drop-shadow(0 6px 10px rgba(0,0,0,.30))
+           drop-shadow(0 0 10px rgba(83,221,255,.30))
+           drop-shadow(0 0 16px rgba(216,102,255,.14));
+}
+.gc-drift-layer .gc-scene-asset--star{
+    mix-blend-mode:screen;
+    filter:drop-shadow(0 0 8px rgba(255,255,255,.78))
+           drop-shadow(0 0 18px rgba(89,224,255,.58))
+           drop-shadow(0 0 28px rgba(206,110,255,.20));
+}
+@keyframes gcRealAssetFlow{
+    0%{transform:translate3d(0,-50%,0) rotate(var(--gc-r1,0deg)) scale(.92);opacity:0;}
+    8%{opacity:var(--gc-op,.60);}
+    48%{transform:translate3d(-58vw,calc(-50% + var(--gc-mid-y,0px)),0) rotate(var(--gc-rm,14deg)) scale(1.03);opacity:var(--gc-op,.60);}
+    88%{opacity:var(--gc-op,.60);}
+    100%{transform:translate3d(-120vw,calc(-50% + var(--gc-end-y,0px)),0) rotate(var(--gc-r2,42deg)) scale(.98);opacity:0;}
+}
+@media(max-width:820px){
+    body.galactic-current-mode .gc-current-viewport::before{height:154px;filter:blur(22px);opacity:.56;}
+    body.galactic-current-mode .gc-current-viewport::after{opacity:.34;}
+}

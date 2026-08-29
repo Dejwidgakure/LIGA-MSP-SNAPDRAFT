@@ -1,0 +1,216 @@
+
+/* =========================================================
+   PLAYER 03A — HERO LAYOUT HOTFIX
+   Content-only. Navbar untouched.
+========================================================= */
+
+/* Give the hero composition a little more room vertically. */
+.profile-stage{
+  min-height:610px!important;
+}
+
+/* Character shifts slightly left, leaving the right HUD more breathing room. */
+.stage-character{
+  left:47%!important;
+  top:51%!important;
+  width:min(640px,55vw)!important;
+  height:94%!important;
+}
+
+/* Player title deliberately lower and layered over the hero. */
+.profile-identity{
+  left:46.5%!important;
+  top:78px!important;
+  width:min(720px,61%)!important;
+  transform:translateX(-50%)!important;
+  text-align:center!important;
+  z-index:8!important;
+}
+
+.profile-identity .kicker{
+  margin:0 auto!important;
+}
+
+.profile-identity h1{
+  margin:14px 0 13px!important;
+  font-size:clamp(42px,5.8vw,78px)!important;
+  line-height:.90!important;
+  letter-spacing:.01em!important;
+  overflow:visible!important;
+  text-shadow:
+    0 3px 0 rgba(0,0,0,.82),
+    0 0 15px rgba(0,240,255,.58),
+    0 0 38px rgba(102,78,255,.30)!important;
+}
+
+/* Rank strip reads like a deliberate secondary layer under the name. */
+.profile-rank{
+  justify-content:center!important;
+  max-width:100%!important;
+  margin:0 auto!important;
+  padding:10px 15px!important;
+  border-color:rgba(255,216,110,.36)!important;
+  background:rgba(8,11,25,.68)!important;
+  box-shadow:
+    0 0 18px rgba(255,214,107,.07),
+    inset 0 1px rgba(255,255,255,.035)!important;
+}
+
+.hero-signature{
+  display:block!important;
+  width:max-content!important;
+  max-width:100%!important;
+  margin:9px auto 0!important;
+  padding:6px 11px!important;
+  border:1px solid rgba(116,241,255,.08)!important;
+  border-radius:999px!important;
+  background:rgba(4,12,30,.46)!important;
+  backdrop-filter:blur(5px)!important;
+}
+
+/* ---------------------------------------------------------
+   Right side = one coherent HUD column, not floating widgets.
+--------------------------------------------------------- */
+.stage-dossier{
+  right:22px!important;
+  top:28px!important;
+  width:256px!important;
+  padding:20px 18px!important;
+  border-radius:22px!important;
+  border-color:rgba(111,239,255,.30)!important;
+  background:
+    linear-gradient(180deg,rgba(5,18,42,.84),rgba(3,9,28,.76))!important;
+  box-shadow:
+    0 0 24px rgba(0,230,255,.08),
+    inset 0 1px rgba(255,255,255,.035),
+    inset 0 0 30px rgba(0,240,255,.035)!important;
+}
+
+.dossier-label{
+  margin-bottom:13px!important;
+  padding-bottom:11px!important;
+  border-bottom:1px solid rgba(116,241,255,.10)!important;
+  color:#a4d5df!important;
+  font-size:10px!important;
+}
+
+.dossier-row{
+  padding:10px 0!important;
+  font-size:12.5px!important;
+}
+
+.dossier-row b{
+  font-size:15px!important;
+}
+
+/* Radar sits directly under the dossier and shares its visual axis. */
+.profile-mini-scan{
+  right:44px!important;
+  top:286px!important;
+  width:212px!important;
+  height:212px!important;
+  border-color:rgba(116,241,255,.36)!important;
+  background:
+    repeating-radial-gradient(circle,transparent 0 34px,rgba(116,241,255,.075) 35px 36px),
+    conic-gradient(from 18deg,rgba(0,240,255,.20),transparent 18%,transparent 66%,rgba(152,85,255,.16))!important;
+  box-shadow:
+    inset 0 0 38px rgba(0,240,255,.055),
+    0 0 22px rgba(0,240,255,.09)!important;
+}
+
+.profile-mini-scan::before{
+  inset:15%!important;
+}
+
+.profile-mini-scan-core{
+  font-size:13px!important;
+}
+
+/* Keep bottom quick metrics from visually fighting with the larger hero title. */
+.quick-strip{
+  left:28px!important;
+  right:300px!important;
+  bottom:18px!important;
+  gap:8px!important;
+}
+
+.quick-stat{
+  background:rgba(2,8,24,.78)!important;
+}
+
+/* Responsive fallback: restore a stacked layout before elements collide. */
+@media(max-width:1020px){
+  .profile-stage{
+    min-height:665px!important;
+  }
+  .profile-identity{
+    left:43%!important;
+    top:72px!important;
+    width:min(650px,66%)!important;
+  }
+  .stage-character{
+    left:45%!important;
+    width:min(610px,66vw)!important;
+  }
+  .stage-dossier{
+    right:20px!important;
+    top:34px!important;
+    width:230px!important;
+  }
+  .profile-mini-scan{
+    right:39px!important;
+    top:296px!important;
+    width:180px!important;
+    height:180px!important;
+  }
+  .quick-strip{
+    right:22px!important;
+    bottom:18px!important;
+    grid-template-columns:repeat(3,1fr)!important;
+  }
+}
+
+@media(max-width:760px){
+  .profile-stage{
+    min-height:760px!important;
+  }
+  .profile-identity{
+    left:22px!important;
+    right:22px!important;
+    top:32px!important;
+    width:auto!important;
+    transform:none!important;
+    text-align:left!important;
+  }
+  .profile-identity .kicker,
+  .profile-rank,
+  .hero-signature{
+    margin-left:0!important;
+    margin-right:0!important;
+  }
+  .profile-identity h1{
+    font-size:clamp(34px,10vw,54px)!important;
+  }
+  .stage-character{
+    left:50%!important;
+    top:49%!important;
+    width:92vw!important;
+    height:72%!important;
+  }
+  .stage-dossier{
+    left:22px!important;
+    right:22px!important;
+    top:auto!important;
+    bottom:164px!important;
+    width:auto!important;
+  }
+  .profile-mini-scan{
+    display:none!important;
+  }
+  .quick-strip{
+    left:15px!important;
+    right:15px!important;
+    bottom:14px!important;
+    grid-template-columns:repeat(2,1fr)!important;
+  }
+}

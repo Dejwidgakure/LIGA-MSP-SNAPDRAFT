@@ -1,0 +1,14 @@
+const fs=require('fs');
+const assert=require('assert');
+const css=fs.readFileSync('economy.css','utf8');
+const html=fs.readFileSync('snap-draft.html','utf8');
+assert.match(css,/PATCH113A REDO 2 — SHOP TYPOGRAPHY \/ PRICE TEXTURE \/ HUD FIX/);
+assert.match(css,/economyShopTitleRgb113A2/);
+assert.match(css,/url\("draft-assets\/jeffcoin\.png"\) 12% 52%/);
+assert.match(css,/\.economy-shop-customer-card::after\{display:none!important;content:none!important;\}/);
+assert.match(css,/left:31%!important;\s*right:12%!important;/s);
+assert.match(html,/economy\.css\?v=2\.6\.2-shop-visual-fix/);
+assert.match(html,/bounties-engine\.js\?v=1\.4\.7/);
+assert.match(html,/trade-market-ui\.js\?v=0\.6\.0-trade-market-v3-interactive/);
+assert.match(html,/superpowers-mysterio\.js\?v=1\.2\.2/);
+console.log('PATCH113A REDO 2 shop visual regression checks passed.');

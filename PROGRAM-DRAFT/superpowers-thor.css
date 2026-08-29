@@ -1,0 +1,918 @@
+.spx-thor-overlay{
+    position:fixed;inset:0;z-index:64000;
+    background:
+        radial-gradient(circle at 50% 8%,rgba(123,185,255,.18),transparent 28%),
+        radial-gradient(circle at 50% 100%,rgba(255,194,78,.18),transparent 34%),
+        radial-gradient(circle at top,rgba(14,43,96,.38),rgba(8,8,16,.92) 52%,rgba(4,2,0,.98));
+    backdrop-filter:blur(10px);
+    display:flex;align-items:center;justify-content:center;
+    padding:24px;
+}
+.spx-thor-overlay[hidden]{display:none!important;}
+.spx-thor-dialog{
+    width:min(1120px,96vw);
+    max-height:92vh;
+    overflow:auto;
+    border-radius:30px;
+    border:1px solid rgba(255,219,119,.44);
+    background:
+        linear-gradient(180deg,rgba(7,20,48,.975),rgba(20,10,0,.985));
+    box-shadow:0 0 0 1px rgba(255,244,197,.10) inset,0 24px 90px rgba(0,0,0,.62),0 0 42px rgba(232,183,66,.24);
+    position:relative;
+    color:#fff8e6;
+}
+.spx-thor-dialog::before{
+    content:"";
+    position:absolute;inset:0;
+    background:url("draft-assets/thor_asgard_ornament_tile.png") center/cover no-repeat;
+    opacity:.18;mix-blend-mode:screen;pointer-events:none;
+}
+.spx-thor-dialog::after{
+    content:"ᚨ ᛋ ᚷ ᚨ ᚱ ᛞ   ·   ᛟ ᛞ ᛁ ᚾ   ·   ᛗ ᛃ ᛟ ᛚ ᚾ ᛁ ᚱ";
+    position:absolute;left:24px;right:24px;top:12px;text-align:center;
+    color:rgba(255,220,132,.38);font:900 11px/1 Orbitron,system-ui,sans-serif;letter-spacing:4px;
+    text-transform:uppercase;pointer-events:none;z-index:2;
+}
+.spx-thor-content{padding:34px 34px 28px;position:relative;z-index:1;}
+.spx-thor-header{display:grid;grid-template-columns:160px 1fr;gap:22px;align-items:center;margin-bottom:20px;}
+.spx-thor-hero{width:160px;height:160px;border-radius:24px;object-fit:cover;border:1px solid rgba(255,220,126,.35);box-shadow:0 0 30px rgba(49,125,255,.25),0 0 26px rgba(255,202,88,.22);background:rgba(24,18,8,.8);}
+.spx-thor-kicker{color:#ffd86d;font:900 11px/1 Orbitron,system-ui,sans-serif;letter-spacing:3px;text-transform:uppercase;}
+.spx-thor-title{margin:8px 0 8px;font:900 clamp(28px,5vw,58px)/.94 "Cinzel","Palatino Linotype","Book Antiqua",serif;letter-spacing:-1px;text-transform:uppercase;color:#fff5c8;text-shadow:0 0 18px rgba(255,214,112,.24),0 0 30px rgba(84,155,255,.18);}
+.spx-thor-lead{margin:0;color:#fff4dd;font:700 14px/1.55 system-ui,sans-serif;max-width:860px;}
+.spx-thor-rolebar{display:flex;flex-wrap:wrap;gap:10px;margin:18px 0 0;}
+.spx-thor-badge{padding:10px 14px;border-radius:999px;border:1px solid rgba(255,220,120,.24);background:linear-gradient(180deg,rgba(47,36,15,.85),rgba(11,26,50,.82));font:800 11px/1.1 Orbitron,system-ui,sans-serif;color:#ffeab1;letter-spacing:1.2px;text-transform:uppercase;box-shadow:inset 0 0 0 1px rgba(90,155,255,.08);}
+.spx-thor-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:20px;}
+.spx-thor-grid.deck{grid-template-columns:repeat(3,minmax(0,1fr));}
+.spx-thor-card{
+    appearance:none;border:1px solid rgba(255,221,129,.18);border-radius:18px;background:linear-gradient(180deg,rgba(22,32,62,.94),rgba(32,18,4,.98));
+    padding:16px;min-height:132px;color:#fff8e6;text-align:left;cursor:pointer;transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease,opacity .18s ease;position:relative;overflow:hidden;
+}
+.spx-thor-card::before{content:"";position:absolute;inset:0;background:url("draft-assets/thor_asgard_panel_texture.png") center/cover no-repeat;opacity:.08;mix-blend-mode:screen;pointer-events:none;}
+.spx-thor-card::after{content:"";position:absolute;inset:auto -18% -36% auto;width:120px;height:120px;border-radius:50%;background:radial-gradient(circle,rgba(82,165,255,.15),transparent 70%),radial-gradient(circle,rgba(255,216,107,.17),transparent 72%);pointer-events:none;}
+.spx-thor-card:hover:not(:disabled),.spx-thor-card.is-selected{transform:translateY(-3px);border-color:#ffe08e;box-shadow:0 0 20px rgba(255,197,78,.26),0 0 20px rgba(66,142,255,.18),inset 0 0 18px rgba(255,229,157,.08);}
+.spx-thor-card:disabled{opacity:.28;cursor:not-allowed;filter:grayscale(1);}
+.spx-thor-card strong,.spx-thor-card span,.spx-thor-card small,.spx-thor-card .spx-thor-mark{position:relative;z-index:1;}
+.spx-thor-card strong{display:block;font:900 16px/1.18 Orbitron,system-ui,sans-serif;margin-bottom:8px;color:#fff7d3;}
+.spx-thor-card span{display:block;color:#ffeab1;font:800 11px/1.22 system-ui,sans-serif;}
+.spx-thor-card small{display:block;margin-top:10px;color:#fff7dd;font:700 10px/1.28 system-ui,sans-serif;opacity:.9;}
+.spx-thor-card .spx-thor-mark{position:absolute;right:12px;top:10px;color:#ffd56c;font:900 11px/1 Orbitron,system-ui,sans-serif;letter-spacing:1px;}
+.spx-thor-choice-box{padding:16px;border:1px solid rgba(255,220,128,.18);border-radius:20px;background:linear-gradient(180deg,rgba(10,26,58,.68),rgba(29,18,6,.58));}
+.spx-thor-choice-box h3{margin:0 0 10px;font:900 17px/1 "Cinzel","Palatino Linotype","Book Antiqua",serif;color:#ffe28a;text-transform:uppercase;letter-spacing:.8px;}
+.spx-thor-choice-box p{margin:0;color:#fff3dc;font:700 13px/1.45 system-ui,sans-serif;}
+.spx-thor-roll-stage{display:grid;grid-template-columns:220px 1fr;gap:24px;align-items:center;margin-top:20px;}
+.spx-thor-hammer-wrap{position:relative;height:220px;display:flex;align-items:center;justify-content:center;}
+.spx-thor-hammer-wrap::before{content:"";position:absolute;inset:14px;border-radius:50%;border:1px solid rgba(255,220,122,.22);box-shadow:0 0 28px rgba(255,196,72,.14) inset,0 0 24px rgba(60,153,255,.12);} 
+.spx-thor-hammer-wrap::after{content:"";position:absolute;inset:34px;border-radius:50%;background:radial-gradient(circle,rgba(80,170,255,.12),transparent 68%);filter:blur(4px);} 
+.spx-thor-hammer-btn{appearance:none;border:none;background:transparent;position:relative;display:flex;align-items:center;justify-content:center;cursor:pointer;padding:0;}
+.spx-thor-hammer-btn::before,.spx-thor-hammer-btn::after{content:"";position:absolute;border-radius:50%;pointer-events:none;opacity:0;}
+.spx-thor-hammer-btn::before{width:180px;height:180px;background:radial-gradient(circle,rgba(72,155,255,.36),transparent 58%);filter:blur(6px);} 
+.spx-thor-hammer-btn::after{width:220px;height:220px;background:conic-gradient(from 0deg,transparent 0 18%,rgba(255,223,118,.38) 22%,transparent 28%,transparent 50%,rgba(88,174,255,.4) 58%,transparent 64%,transparent 100%);} 
+.spx-thor-hammer-btn.static-display{cursor:default;}
+.spx-thor-hammer{width:170px;height:170px;object-fit:contain;filter:drop-shadow(0 0 18px rgba(73,159,255,.35)) drop-shadow(0 0 10px rgba(255,204,92,.18));}
+.spx-thor-hammer.is-restless{animation:spxThorHammerRestless 1.2s ease-in-out infinite;}
+.spx-thor-hammer.is-shaking{animation:spxThorHammerShake .34s linear infinite;}
+.spx-thor-hammer.is-shaking + .spx-thor-roll-etched,
+.spx-thor-hammer.is-surging + .spx-thor-roll-etched{animation:spxThorEtchedPulse .55s ease-in-out infinite;}
+.spx-thor-hammer.is-shaking ~ .spx-thor-roll-etched{}
+.spx-thor-hammer.is-surging{animation:spxThorHammerSurge 1.25s ease-in-out infinite;}
+.spx-thor-hammer-btn:has(.is-shaking)::before,
+.spx-thor-hammer-btn:has(.is-surging)::before,
+.spx-thor-hammer-btn:has(.is-shaking)::after,
+.spx-thor-hammer-btn:has(.is-surging)::after{opacity:1;animation:spxThorSparkSpin 1.4s linear infinite;}
+@keyframes spxThorHammerRestless{0%{transform:translateY(8px) rotate(-14deg) scale(.95)}50%{transform:translateY(-10px) rotate(10deg) scale(1.04)}100%{transform:translateY(8px) rotate(-14deg) scale(.95)}}
+@keyframes spxThorHammerShake{0%{transform:translate(-4px,3px) rotate(-6deg)}50%{transform:translate(4px,-4px) rotate(5deg)}100%{transform:translate(-4px,3px) rotate(-6deg)}}
+@keyframes spxThorHammerSurge{0%{transform:scale(.98)}50%{transform:scale(1.07)}100%{transform:scale(.98)}}
+@keyframes spxThorSparkSpin{from{transform:rotate(0deg) scale(.92)}to{transform:rotate(360deg) scale(1.02)}}
+@keyframes spxThorEtchedPulse{0%,100%{opacity:.92;transform:translate(-50%,-50%) scale(1)}50%{opacity:1;transform:translate(-50%,-50%) scale(1.08)}}
+.spx-thor-roll-etched{
+    position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+    font:1000 clamp(48px,8vw,82px)/1 Orbitron,system-ui,sans-serif;
+    background:linear-gradient(180deg,#fff9d5 0%,#ffe08c 38%,#cf8d1a 55%,#fff4bf 78%,#694100 100%);
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+    -webkit-text-stroke:1.2px rgba(64,34,0,.78);
+    text-shadow:0 0 10px rgba(255,212,91,.38),0 0 28px rgba(236,180,51,.22),0 2px 0 rgba(52,28,0,.55);
+    pointer-events:none;
+}
+.spx-thor-rollbox{padding:24px;border-radius:24px;border:1px solid rgba(255,222,126,.18);background:linear-gradient(180deg,rgba(11,25,56,.76),rgba(23,15,6,.82));position:relative;overflow:hidden;}
+.spx-thor-rollbox::before{content:"";position:absolute;inset:0;background:url("draft-assets/thor_asgard_ornament_tile.png") center/cover no-repeat;opacity:.08;mix-blend-mode:screen;pointer-events:none;}
+.spx-thor-roll-label,.spx-thor-roll-name,.spx-thor-roll-copy,.spx-thor-verdict{position:relative;z-index:1;}
+.spx-thor-roll-label{color:#ffd66d;font:900 12px/1 Orbitron,system-ui,sans-serif;letter-spacing:3px;text-transform:uppercase;}
+.spx-thor-roll-name{font:900 clamp(20px,3.4vw,38px)/1 "Cinzel","Palatino Linotype","Book Antiqua",serif;text-transform:uppercase;color:#fff1bc;}
+.spx-thor-roll-copy{margin-top:10px;color:#fff3dc;font:700 14px/1.5 system-ui,sans-serif;}
+.spx-thor-verdict{margin-top:22px;padding:16px 18px;border-radius:18px;border:1px solid rgba(255,221,126,.18);background:linear-gradient(180deg,rgba(72,51,16,.76),rgba(12,24,52,.92));}
+.spx-thor-verdict strong{display:block;color:#ffd86d;font:900 13px/1 Orbitron,system-ui,sans-serif;letter-spacing:2px;text-transform:uppercase;margin-bottom:8px;}
+.spx-thor-verdict span{display:block;color:#fff5df;font:800 13px/1.45 system-ui,sans-serif;}
+.spx-thor-actions{display:flex;justify-content:flex-end;gap:12px;flex-wrap:wrap;margin-top:24px;}
+.spx-thor-btn{appearance:none;border:none;border-radius:14px;padding:13px 18px;cursor:pointer;font:900 12px/1 Orbitron,system-ui,sans-serif;letter-spacing:1.4px;text-transform:uppercase;transition:transform .15s ease,filter .15s ease,opacity .15s ease;}
+.spx-thor-btn:hover:not(:disabled){transform:translateY(-2px);filter:brightness(1.06);} 
+.spx-thor-btn:disabled{opacity:.38;cursor:not-allowed;}
+.spx-thor-btn.primary{background:linear-gradient(90deg,#ffcf5c,#ffdcb1);color:#3d2800;box-shadow:0 0 20px rgba(255,204,92,.24);} 
+.spx-thor-btn.secondary{background:rgba(13,30,56,.92);color:#ffefbe;border:1px solid rgba(255,221,126,.24);} 
+.spx-thor-btn.gold{background:linear-gradient(90deg,#f7d46f,#fff1aa);color:#342300;box-shadow:0 0 20px rgba(255,214,102,.28);} 
+.spx-thor-summary{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:20px;}
+.spx-thor-summary-box{padding:16px;border-radius:18px;border:1px solid rgba(255,220,122,.18);background:linear-gradient(180deg,rgba(10,25,56,.66),rgba(24,16,6,.66));}
+.spx-thor-summary-box b{display:block;margin-bottom:10px;color:#ffe28a;font:900 12px/1 Orbitron,system-ui,sans-serif;letter-spacing:1.5px;text-transform:uppercase;}
+.spx-thor-summary-box span{display:block;color:#fff8eb;font:800 13px/1.42 system-ui,sans-serif;margin:4px 0;}
+.spx-thor-mini-note{margin-top:16px;color:#ffefbb;font:700 12px/1.45 system-ui,sans-serif;}
+
+.spx-thor-pack-hud{
+    position:fixed;left:0;top:0;transform:none;z-index:5000;
+    width:min(760px,calc(100vw - 40px));pointer-events:none;
+}
+.spx-thor-pack-hud[hidden]{display:none!important;}
+.spx-thor-pack-shell{
+    pointer-events:auto;border-radius:24px;padding:14px 18px 14px;
+    border:1px solid rgba(255,220,122,.28);
+    background:linear-gradient(180deg,rgba(10,24,52,.82),rgba(24,16,5,.90));
+    box-shadow:0 16px 48px rgba(0,0,0,.38),0 0 28px rgba(255,190,70,.12),0 0 18px rgba(55,145,255,.10);
+    position:relative;overflow:hidden;
+}
+.spx-thor-pack-shell::before{
+    content:"";position:absolute;inset:0;
+    background:url("draft-assets/thor_asgard_modal_frame.png") center/100% 100% no-repeat;
+    opacity:.28;pointer-events:none;
+}
+.spx-thor-pack-shell::after{
+    content:"";position:absolute;inset:0;
+    background:url("draft-assets/thor_asgard_ornament_tile.png") center/cover no-repeat;
+    opacity:.08;mix-blend-mode:screen;pointer-events:none;
+}
+.spx-thor-pack-runes,.spx-thor-pack-kicker,.spx-thor-pack-title,.spx-thor-pack-copy,.spx-thor-pack-picked,.spx-thor-pack-actions{position:relative;z-index:1;}
+.spx-thor-pack-runes{font:900 10px/1 Orbitron,system-ui,sans-serif;letter-spacing:4px;text-align:center;color:rgba(255,225,149,.42);margin-bottom:6px;}
+.spx-thor-pack-kicker{font:900 10px/1 Orbitron,system-ui,sans-serif;letter-spacing:3px;text-transform:uppercase;color:#ffd66d;text-align:center;}
+.spx-thor-pack-title{margin-top:6px;font:900 clamp(18px,2.3vw,28px)/1 "Cinzel","Palatino Linotype","Book Antiqua",serif;color:#fff4c3;text-align:center;text-transform:uppercase;}
+.spx-thor-pack-copy{margin-top:6px;font:700 12px/1.42 system-ui,sans-serif;color:#fff5df;text-align:center;}
+.spx-thor-pack-picked{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:12px;min-height:30px;}
+.spx-thor-picked-chip{padding:7px 11px;border-radius:999px;background:rgba(255,219,123,.16);border:1px solid rgba(255,221,132,.28);font:800 11px/1 Orbitron,system-ui,sans-serif;color:#fff1bc;text-transform:uppercase;letter-spacing:.8px;}
+.spx-thor-picked-empty{padding:7px 11px;border-radius:999px;background:rgba(255,255,255,.04);border:1px dashed rgba(255,221,132,.18);font:800 11px/1 Orbitron,system-ui,sans-serif;color:#ffefbb;text-transform:uppercase;letter-spacing:.8px;}
+.spx-thor-pack-actions{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:12px;}
+
+#pack .spx-thor-candidate{position:relative;outline:1px solid rgba(255,216,108,.24);outline-offset:2px;}
+#pack .spx-thor-selected{position:relative;outline:2px solid rgba(255,230,157,.48);outline-offset:2px;box-shadow:0 0 22px rgba(65,174,255,.36),0 0 16px rgba(255,206,80,.24)!important;}
+#pack .spx-thor-ineligible{cursor:not-allowed;}
+.spx-thor-pack-marker{position:absolute;left:8px;top:8px;z-index:6;width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:radial-gradient(circle,#fff7cc,#ffd66d 56%,#9b6c0c);box-shadow:0 0 14px rgba(255,210,92,.52),0 0 12px rgba(69,155,255,.18);pointer-events:none;}
+.spx-thor-pack-rune{font-size:18px;line-height:1;color:#5a3600;text-shadow:0 0 6px rgba(255,255,255,.55);}
+
+.spx-thor-cinematic-layer{position:fixed;inset:0;z-index:64900;pointer-events:none;overflow:hidden;}
+.spx-thor-cinematic-layer[hidden]{display:none!important;}
+.spx-thor-cinematic-hammer,.spx-thor-cinematic-card,.spx-thor-cinematic-burst{position:fixed;transform:translate(-50%,-50%);}
+.spx-thor-cinematic-hammer{width:132px;height:132px;object-fit:contain;filter:drop-shadow(0 0 18px rgba(65,160,255,.38)) drop-shadow(0 0 22px rgba(255,214,92,.20));opacity:0;}
+.spx-thor-cinematic-hammer.fly{opacity:1;animation:spxThorFlight .82s cubic-bezier(.22,.78,.16,1) forwards;}
+.spx-thor-cinematic-card{padding:8px 12px;border-radius:14px;border:1px solid rgba(255,222,123,.38);background:linear-gradient(180deg,rgba(9,25,56,.94),rgba(41,26,8,.96));color:#fff4cb;font:800 10px/1 Orbitron,system-ui,sans-serif;letter-spacing:.6px;white-space:nowrap;box-shadow:0 0 16px rgba(255,200,77,.14);opacity:0;}
+.spx-thor-cinematic-card.fly{opacity:1;animation:spxThorCardFlight 1.02s cubic-bezier(.22,.78,.16,1) forwards;}
+.spx-thor-cinematic-burst{width:140px;height:140px;border-radius:50%;background:radial-gradient(circle,rgba(255,240,190,.92) 0%,rgba(255,220,122,.55) 18%,rgba(88,174,255,.30) 34%,rgba(88,174,255,0) 70%);opacity:0;filter:blur(3px);} 
+.spx-thor-cinematic-burst.flash{animation:spxThorBurst .9s ease-out forwards;}
+@keyframes spxThorFlight{0%{transform:translate(-50%,-50%) rotate(-22deg) scale(.56);}70%{left:var(--end-x);top:var(--end-y);transform:translate(-50%,-50%) rotate(690deg) scale(.94);}100%{left:var(--end-x);top:var(--end-y);transform:translate(-50%,-50%) rotate(720deg) scale(.84);opacity:0;}}
+@keyframes spxThorCardFlight{0%{transform:translate(-50%,-50%) scale(.78);opacity:0;}12%{opacity:1;}72%{left:var(--end-x);top:var(--end-y);transform:translate(-50%,-50%) scale(.96);}100%{left:var(--end-x);top:var(--end-y);transform:translate(-50%,-50%) scale(.7);opacity:0;}}
+@keyframes spxThorBurst{0%{transform:translate(-50%,-50%) scale(.25);opacity:0;}18%{opacity:1;}100%{transform:translate(-50%,-50%) scale(1.55);opacity:0;}}
+
+@media (max-width: 860px){
+  .spx-thor-header,.spx-thor-roll-stage,.spx-thor-summary{grid-template-columns:1fr;}
+  .spx-thor-grid,.spx-thor-grid.deck{grid-template-columns:1fr;}
+  .spx-thor-hero{width:110px;height:110px}
+  .spx-thor-content{padding:26px 18px 22px;}
+  .spx-thor-pack-hud{width:min(96vw,96vw);}
+}
+
+/* ============================================================
+   PATCH61 — THOR ASGARD FX POLISH
+   Widoczne ornamenty, elektryczne naznaczenia kart,
+   charged Mjolnir oraz wolniejsze loty z efektem kamery.
+   ============================================================ */
+
+/* --- Asgardzkie tło ma być faktycznie widoczne, ale nie zasłaniać treści. --- */
+.spx-thor-dialog{
+    isolation:isolate;
+    background:
+        radial-gradient(circle at 18% 0%,rgba(53,137,255,.24),transparent 34%),
+        radial-gradient(circle at 92% 94%,rgba(255,190,63,.20),transparent 36%),
+        linear-gradient(155deg,rgba(8,24,58,.985),rgba(9,17,40,.985) 48%,rgba(35,19,4,.985));
+    border-color:rgba(255,213,94,.62);
+    box-shadow:
+        0 0 0 1px rgba(255,245,199,.12) inset,
+        0 0 46px rgba(70,152,255,.20),
+        0 0 54px rgba(255,188,62,.16),
+        0 26px 96px rgba(0,0,0,.68);
+}
+.spx-thor-dialog::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    z-index:0;
+    border-radius:inherit;
+    background:
+        url("draft-assets/thor_asgard_modal_frame.png") center/100% 100% no-repeat,
+        url("draft-assets/thor_asgard_ornament_tile.png") center/cover no-repeat;
+    opacity:.74;
+    mix-blend-mode:screen;
+    filter:saturate(1.18) contrast(1.08);
+    pointer-events:none;
+}
+.spx-thor-dialog::after{
+    z-index:2;
+    color:rgba(255,224,138,.66);
+    text-shadow:0 0 10px rgba(255,198,69,.32),0 0 16px rgba(80,158,255,.24);
+}
+.spx-thor-content{
+    isolation:isolate;
+    overflow:hidden;
+    border-radius:26px;
+}
+.spx-thor-content::before{
+    content:"";
+    position:absolute;
+    inset:30px 20px 18px;
+    z-index:0;
+    background:
+        linear-gradient(180deg,rgba(3,12,31,.18),rgba(15,8,0,.26)),
+        url("draft-assets/thor_asgard_panel_texture.png") center/cover no-repeat;
+    opacity:.42;
+    mix-blend-mode:screen;
+    filter:saturate(1.25) contrast(1.08);
+    pointer-events:none;
+}
+.spx-thor-content > *{position:relative;z-index:1;}
+.spx-thor-header{
+    padding:14px 16px 18px;
+    border-bottom:1px solid rgba(255,218,113,.28);
+    background:linear-gradient(100deg,rgba(6,21,50,.66),rgba(28,16,3,.36));
+    border-radius:22px 22px 8px 8px;
+}
+.spx-thor-rollbox,
+.spx-thor-choice-box,
+.spx-thor-verdict,
+.spx-thor-summary-box{
+    border-color:rgba(255,215,101,.34);
+    box-shadow:
+        inset 0 0 0 1px rgba(113,177,255,.07),
+        inset 0 0 28px rgba(26,91,187,.12),
+        0 0 22px rgba(255,187,48,.08);
+}
+.spx-thor-rollbox::before{
+    opacity:.34;
+    background:
+        linear-gradient(100deg,rgba(8,26,61,.22),rgba(45,27,6,.18)),
+        url("draft-assets/thor_asgard_ornament_tile.png") center/cover no-repeat;
+    mix-blend-mode:screen;
+}
+.spx-thor-choice-box{
+    position:relative;
+    overflow:hidden;
+}
+.spx-thor-choice-box::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:url("draft-assets/thor_asgard_panel_texture.png") center/cover no-repeat;
+    opacity:.22;
+    mix-blend-mode:screen;
+    pointer-events:none;
+}
+.spx-thor-choice-box > *{position:relative;z-index:1;}
+
+/* --- Stabilny hitbox młota. --- */
+.spx-thor-hammer-btn{
+    z-index:4;
+    min-width:196px;
+    min-height:196px;
+    border-radius:50%;
+    touch-action:manipulation;
+    user-select:none;
+    -webkit-tap-highlight-color:transparent;
+}
+.spx-thor-hammer-btn > *{pointer-events:none;}
+.spx-thor-hammer-btn::before,.spx-thor-hammer-btn::after{pointer-events:none;}
+.spx-thor-hammer.is-charged{
+    filter:
+        drop-shadow(0 0 16px rgba(102,190,255,.72))
+        drop-shadow(0 0 32px rgba(43,133,255,.50))
+        drop-shadow(0 0 18px rgba(255,205,82,.30));
+}
+
+/* --- Elektryczne naznaczenie kart w realnej paczce. --- */
+.spx-thor-selected-overlay,
+.spx-thor-card-sweep,
+.spx-thor-card-impact{
+    position:absolute;
+    inset:1px;
+    width:calc(100% - 2px);
+    height:calc(100% - 2px);
+    object-fit:cover;
+    object-position:center;
+    pointer-events:none;
+    user-select:none;
+    border-radius:18px;
+    mix-blend-mode:screen;
+}
+.spx-thor-selected-overlay{
+    z-index:11;
+    opacity:.82;
+    animation:spxThorSelectedPulse 1.85s ease-in-out infinite;
+    filter:saturate(1.2) contrast(1.12) drop-shadow(0 0 10px rgba(58,162,255,.42));
+}
+.spx-thor-card-sweep{
+    z-index:14;
+    opacity:1;
+    animation:spxThorSweepEnter .16s ease-out both;
+    filter:saturate(1.28) contrast(1.15) drop-shadow(0 0 12px rgba(83,183,255,.48));
+}
+.spx-thor-card-sweep-impact{
+    filter:saturate(1.42) contrast(1.22) drop-shadow(0 0 18px rgba(90,190,255,.66));
+}
+.spx-thor-card-sweep.is-fading{animation:spxThorSweepFade .17s ease-out forwards;}
+.spx-thor-card-impact{
+    z-index:13;
+    opacity:0;
+    animation:spxThorImpactFlash .72s ease-out forwards;
+    filter:saturate(1.35) contrast(1.18) drop-shadow(0 0 22px rgba(255,215,94,.42));
+}
+#pack .spx-thor-selected{
+    outline:2px solid rgba(255,236,169,.50);
+    outline-offset:2px;
+    box-shadow:
+        0 0 26px rgba(65,174,255,.44),
+        0 0 20px rgba(255,206,80,.28)!important;
+}
+.spx-thor-pack-marker{display:none!important;}
+@keyframes spxThorSelectedPulse{
+    0%,100%{opacity:.58;transform:scale(.99)}
+    50%{opacity:.92;transform:scale(1.025)}
+}
+@keyframes spxThorSweepEnter{
+    from{opacity:0;transform:translateX(-12%) scale(.96)}
+    to{opacity:1;transform:translateX(0) scale(1)}
+}
+@keyframes spxThorSweepFade{
+    from{opacity:1;transform:scale(1)}
+    to{opacity:0;transform:scale(1.05)}
+}
+@keyframes spxThorImpactFlash{
+    0%{opacity:0;transform:scale(.90)}
+    16%{opacity:1;transform:scale(1.08)}
+    48%{opacity:.82;transform:scale(1.02)}
+    100%{opacity:0;transform:scale(1.14)}
+}
+@keyframes spxThorCardGlint{
+    0%,28%{transform:translateX(-125%);opacity:0}
+    42%{opacity:.75}
+    66%,100%{transform:translateX(125%);opacity:0}
+}
+
+/* --- Stan gotowości: dwie karty wybrane. --- */
+.spx-thor-pack-hud.is-ready .spx-thor-pack-shell{
+    box-shadow:
+        0 16px 48px rgba(0,0,0,.38),
+        0 0 34px rgba(255,195,60,.18),
+        0 0 30px rgba(54,155,255,.22),
+        inset 0 0 30px rgba(72,154,255,.09);
+}
+.spx-thor-pack-hud.is-ready #spxThorInvoke{
+    position:relative;
+    overflow:hidden;
+    animation:spxThorReadyButton 1.25s ease-in-out infinite;
+}
+.spx-thor-pack-hud.is-ready #spxThorInvoke::after{
+    content:"";
+    position:absolute;
+    inset:-40% -70%;
+    background:linear-gradient(90deg,transparent,rgba(255,255,255,.62),transparent);
+    transform:translateX(-90%) rotate(-12deg);
+    animation:spxThorReadySweep 1.45s ease-in-out infinite;
+}
+@keyframes spxThorReadyButton{0%,100%{filter:brightness(1)}50%{filter:brightness(1.15)}}
+@keyframes spxThorReadySweep{0%,24%{transform:translateX(-90%) rotate(-12deg)}72%,100%{transform:translateX(90%) rotate(-12deg)}}
+
+/* --- Sweep po poziomych / modalowych kafelkach przy zatwierdzeniu. --- */
+.spx-thor-card{overflow:hidden;}
+.spx-thor-choice-sweep{
+    position:absolute;
+    inset:-32%;
+    z-index:8;
+    width:164%;
+    height:164%;
+    object-fit:cover;
+    pointer-events:none;
+    mix-blend-mode:screen;
+    filter:saturate(1.35) contrast(1.18) drop-shadow(0 0 12px rgba(65,160,255,.50));
+}
+.spx-thor-choice-sweep.is-fading{animation:spxThorSweepFade .17s ease-out forwards;}
+.spx-thor-card.is-thor-confirmed{
+    border-color:rgba(255,221,118,.76)!important;
+    box-shadow:0 0 28px rgba(65,164,255,.40),0 0 20px rgba(255,202,71,.28),inset 0 0 28px rgba(91,172,255,.12)!important;
+}
+
+/* --- Wolniejszy, kinowy lot Mjolnira z przybliżeniem do kamery. --- */
+.spx-thor-cinematic-hammer{
+    width:150px;
+    height:150px;
+    z-index:5;
+    transform-origin:center;
+    will-change:left,top,transform,opacity;
+}
+.spx-thor-cinematic-hammer.outbound.fly{
+    animation:spxThorFlightOutbound var(--thor-flight-duration,1520ms) cubic-bezier(.20,.72,.16,1) forwards;
+}
+.spx-thor-cinematic-hammer.returning.fly{
+    animation:spxThorFlightReturn var(--thor-flight-duration,2280ms) cubic-bezier(.18,.70,.12,1) forwards;
+}
+.spx-thor-flight-aura{
+    position:fixed;
+    width:240px;
+    height:240px;
+    z-index:4;
+    transform:translate(-50%,-50%);
+    border-radius:50%;
+    opacity:0;
+    background:
+        radial-gradient(circle,rgba(255,248,204,.50) 0 4%,rgba(93,183,255,.34) 18%,transparent 62%),
+        conic-gradient(from 20deg,transparent 0 12%,rgba(79,174,255,.34) 18%,transparent 25%,rgba(255,207,81,.28) 38%,transparent 46%,rgba(88,177,255,.34) 63%,transparent 72%);
+    filter:blur(3px);
+    will-change:left,top,transform,opacity;
+}
+.spx-thor-flight-aura.fly{
+    animation:spxThorAuraFlight var(--thor-flight-duration,1520ms) ease-out forwards;
+}
+.spx-thor-cinematic-card{
+    z-index:6;
+    min-width:92px;
+    max-width:150px;
+    min-height:62px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    gap:6px;
+    white-space:normal;
+    text-align:center;
+    background:
+        linear-gradient(150deg,rgba(8,31,72,.96),rgba(42,23,5,.96)),
+        url("draft-assets/thor_asgard_panel_texture.png") center/cover no-repeat;
+    box-shadow:0 0 22px rgba(68,164,255,.30),0 0 16px rgba(255,196,59,.20);
+}
+.spx-thor-cinematic-card-rune{font-size:18px;color:#ffe48c;text-shadow:0 0 10px rgba(66,168,255,.76);}
+.spx-thor-cinematic-card.fly{
+    animation:spxThorCardReturn var(--thor-flight-duration,2280ms) cubic-bezier(.18,.70,.12,1) forwards;
+}
+.spx-thor-cinematic-burst{z-index:7;}
+@keyframes spxThorFlightOutbound{
+    0%{
+        left:var(--start-x);top:var(--start-y);
+        transform:translate(-50%,-50%) rotate(-28deg) scale(.52);
+        opacity:0;
+    }
+    8%{opacity:1}
+    45%{
+        transform:translate(-50%,-50%) rotate(390deg) scale(1.72);
+        filter:drop-shadow(0 0 28px rgba(74,172,255,.72)) drop-shadow(0 0 34px rgba(255,208,78,.32));
+    }
+    72%{transform:translate(-50%,-50%) rotate(650deg) scale(1.03);opacity:1}
+    100%{
+        left:var(--end-x);top:var(--end-y);
+        transform:translate(-50%,-50%) rotate(820deg) scale(.72);
+        opacity:0;
+    }
+}
+@keyframes spxThorFlightReturn{
+    0%{
+        left:var(--start-x);top:var(--start-y);
+        transform:translate(-50%,-50%) rotate(18deg) scale(.62);
+        opacity:0;
+    }
+    9%{opacity:1}
+    52%{
+        transform:translate(-50%,-50%) rotate(-420deg) scale(2.16);
+        filter:drop-shadow(0 0 34px rgba(78,180,255,.82)) drop-shadow(0 0 38px rgba(255,211,83,.38));
+    }
+    78%{transform:translate(-50%,-50%) rotate(-690deg) scale(1.14);opacity:1}
+    100%{
+        left:var(--end-x);top:var(--end-y);
+        transform:translate(-50%,-50%) rotate(-900deg) scale(.48);
+        opacity:0;
+    }
+}
+@keyframes spxThorAuraFlight{
+    0%{left:var(--start-x);top:var(--start-y);transform:translate(-50%,-50%) scale(.35) rotate(0);opacity:0}
+    12%{opacity:.70}
+    54%{transform:translate(-50%,-50%) scale(1.78) rotate(260deg);opacity:.92}
+    100%{left:var(--end-x);top:var(--end-y);transform:translate(-50%,-50%) scale(.40) rotate(620deg);opacity:0}
+}
+@keyframes spxThorCardReturn{
+    0%{left:var(--start-x);top:var(--start-y);transform:translate(-50%,-50%) scale(.54) rotate(-8deg);opacity:0}
+    16%{opacity:1}
+    56%{transform:translate(-50%,-50%) scale(1.26) rotate(5deg);opacity:1}
+    100%{left:var(--end-x);top:var(--end-y);transform:translate(-50%,-50%) scale(.50) rotate(-4deg);opacity:0}
+}
+
+/* Krótszy, mocniejszy impact w miejscu trafienia. */
+.spx-thor-cinematic-burst.flash{animation:spxThorBurst61 1.02s ease-out forwards;}
+@keyframes spxThorBurst61{
+    0%{transform:translate(-50%,-50%) scale(.16);opacity:0}
+    16%{opacity:1}
+    46%{transform:translate(-50%,-50%) scale(1.25);opacity:.72}
+    100%{transform:translate(-50%,-50%) scale(1.82);opacity:0}
+}
+
+@media (prefers-reduced-motion: reduce){
+    .spx-thor-selected-overlay,
+    .spx-thor-pack-hud.is-ready #spxThorInvoke,
+    .spx-thor-pack-hud.is-ready #spxThorInvoke::after{animation:none!important;}
+}
+
+/* ============================================================
+   PATCH64 — THOR CARD FX ISOLATION
+   - arkusz Thora nie zmienia bazowego overflow ani warstw kart paczki,
+   - nie przejmuje pseudo-elementów kanonicznej karty,
+   - rama/sweep/impact działają wyłącznie jako wstrzyknięte nakładki,
+   - modale i HUD zachowują poprawki nieprzezroczystości z PATCH63.
+   ============================================================ */
+
+/* 1. Stan Thora nie przebudowuje komponentu karty.
+   Outline i box-shadow nie zmieniają box modelu ani układu wnętrza. */
+#pack [data-pack-index].spx-thor-candidate,
+#pack [data-pack-index].spx-thor-selected,
+#pack [data-pack-index].spx-thor-ineligible{
+    position:relative;
+}
+
+/* 2. Nakładki pozostają wewnątrz kanonicznego obrysu karty.
+   Nie wymuszamy overflow:visible na prawdziwej karcie. */
+.spx-thor-selected-overlay{
+    inset:1px!important;
+    width:calc(100% - 2px)!important;
+    height:calc(100% - 2px)!important;
+    object-fit:fill!important;
+    object-position:center!important;
+    border-radius:18px!important;
+    z-index:11!important;
+    opacity:.92!important;
+    filter:
+        saturate(1.28)
+        contrast(1.16)
+        drop-shadow(0 0 12px rgba(58,162,255,.56))
+        drop-shadow(0 0 8px rgba(255,203,76,.30))!important;
+}
+
+/* Krótkie sweepy/impact pozostają na powierzchni karty i nie ruszają jej zawartości. */
+.spx-thor-card-sweep,
+.spx-thor-card-impact{
+    inset:1px!important;
+    width:calc(100% - 2px)!important;
+    height:calc(100% - 2px)!important;
+    object-fit:fill!important;
+    border-radius:18px!important;
+}
+.spx-thor-card-sweep{z-index:13!important;}
+.spx-thor-card-impact{z-index:12!important;}
+
+/* 3. Modale i HUD są stabilne/nieprzezroczyste; ornamenty zostają widoczne. */
+.spx-thor-overlay{
+    background:
+        radial-gradient(circle at 50% 8%,rgba(57,120,225,.22),transparent 30%),
+        radial-gradient(circle at 50% 100%,rgba(185,120,24,.18),transparent 36%),
+        rgba(2,5,14,.94)!important;
+}
+
+.spx-thor-dialog{
+    background-color:#071329!important;
+    background-image:
+        radial-gradient(circle at 18% 0%,rgba(45,117,220,.24),transparent 34%),
+        radial-gradient(circle at 92% 94%,rgba(184,120,22,.18),transparent 36%),
+        linear-gradient(155deg,#091a3a 0%,#081329 50%,#1c1105 100%)!important;
+}
+
+.spx-thor-content{
+    background-color:#08152c!important;
+    background-image:linear-gradient(155deg,#0a1b3a 0%,#071329 54%,#1a1005 100%)!important;
+}
+
+.spx-thor-header{
+    background:linear-gradient(100deg,#091a38 0%,#0b1730 58%,#1b1106 100%)!important;
+}
+
+.spx-thor-rollbox,
+.spx-thor-choice-box,
+.spx-thor-verdict,
+.spx-thor-summary-box,
+.spx-thor-card{
+    background-color:#0a1731!important;
+    background-image:linear-gradient(160deg,#0c1e41 0%,#09162f 60%,#211405 100%)!important;
+}
+
+.spx-thor-pack-shell{
+    background-color:#09172f!important;
+    background-image:linear-gradient(180deg,#0a1d3c 0%,#0a162e 55%,#211405 100%)!important;
+}
+
+/* Patterny są dekoracją nad pełnym, nieprzezroczystym podłożem. */
+.spx-thor-dialog::before{
+    opacity:.66!important;
+    mix-blend-mode:screen!important;
+}
+.spx-thor-content::before{
+    opacity:.34!important;
+    mix-blend-mode:screen!important;
+}
+.spx-thor-rollbox::before{
+    opacity:.30!important;
+    mix-blend-mode:screen!important;
+}
+.spx-thor-choice-box::before{
+    opacity:.20!important;
+    mix-blend-mode:screen!important;
+}
+.spx-thor-pack-shell::before{opacity:.38!important;}
+.spx-thor-pack-shell::after{opacity:.16!important;}
+
+/* ============================================================
+   PATCH65 — THOR OUTER FRAME + GOLD MODAL POLISH
+   - asgardzka rama pracuje na zewnętrznych krawędziach modali,
+   - pełna widoczność ornamentu bez przygaszenia w środku panelu,
+   - metaliczne złote obrysy i glow dla okien Thora,
+   - piorunowe zaznaczenie mierzy pełny obrys karty, nie jej środek.
+   ============================================================ */
+
+/* Główna rama modala: pełna, wysunięta do narożników i nad tłem treści. */
+.spx-thor-dialog{
+    border:2px solid #d4a43e!important;
+    box-shadow:
+        inset 0 0 0 1px rgba(255,248,202,.34),
+        inset 0 0 22px rgba(255,193,58,.06),
+        0 0 0 2px rgba(68,39,5,.82),
+        0 0 28px rgba(255,194,57,.34),
+        0 0 38px rgba(67,147,255,.18),
+        0 26px 96px rgba(0,0,0,.68)!important;
+}
+.spx-thor-dialog::before{
+    inset:0!important;
+    z-index:4!important;
+    border-radius:inherit!important;
+    background:url("draft-assets/thor_asgard_modal_frame.png") center/112% 164% no-repeat!important;
+    opacity:1!important;
+    mix-blend-mode:normal!important;
+    --spx-thor-frame-band:clamp(38px,4.6vw,54px);
+    -webkit-mask:
+        linear-gradient(#000 0 0) top/100% var(--spx-thor-frame-band) no-repeat,
+        linear-gradient(#000 0 0) bottom/100% var(--spx-thor-frame-band) no-repeat,
+        linear-gradient(#000 0 0) left/var(--spx-thor-frame-band) 100% no-repeat,
+        linear-gradient(#000 0 0) right/var(--spx-thor-frame-band) 100% no-repeat;
+    mask:
+        linear-gradient(#000 0 0) top/100% var(--spx-thor-frame-band) no-repeat,
+        linear-gradient(#000 0 0) bottom/100% var(--spx-thor-frame-band) no-repeat,
+        linear-gradient(#000 0 0) left/var(--spx-thor-frame-band) 100% no-repeat,
+        linear-gradient(#000 0 0) right/var(--spx-thor-frame-band) 100% no-repeat;
+    filter:
+        saturate(1.16)
+        contrast(1.08)
+        drop-shadow(0 0 8px rgba(255,196,55,.34))
+        drop-shadow(0 0 8px rgba(59,148,255,.18))!important;
+}
+.spx-thor-dialog::after{z-index:5!important;}
+.spx-thor-content{z-index:2!important;}
+
+/* Mały modal wyboru kart: rama trafia w narożniki, zamiast siedzieć wewnątrz. */
+.spx-thor-pack-shell{
+    border:2px solid #d4a43e!important;
+    box-shadow:
+        inset 0 0 0 1px rgba(255,247,197,.30),
+        inset 0 0 18px rgba(255,194,61,.07),
+        0 0 0 2px rgba(67,38,4,.78),
+        0 16px 48px rgba(0,0,0,.42),
+        0 0 24px rgba(255,192,55,.32),
+        0 0 24px rgba(57,146,255,.16)!important;
+}
+.spx-thor-pack-shell::before{
+    inset:0!important;
+    z-index:1!important;
+    border-radius:inherit!important;
+    background:url("draft-assets/thor_asgard_modal_frame.png") center/112% 164% no-repeat!important;
+    opacity:1!important;
+    mix-blend-mode:normal!important;
+    --spx-thor-frame-band:clamp(32px,4vw,44px);
+    -webkit-mask:
+        linear-gradient(#000 0 0) top/100% var(--spx-thor-frame-band) no-repeat,
+        linear-gradient(#000 0 0) bottom/100% var(--spx-thor-frame-band) no-repeat,
+        linear-gradient(#000 0 0) left/var(--spx-thor-frame-band) 100% no-repeat,
+        linear-gradient(#000 0 0) right/var(--spx-thor-frame-band) 100% no-repeat;
+    mask:
+        linear-gradient(#000 0 0) top/100% var(--spx-thor-frame-band) no-repeat,
+        linear-gradient(#000 0 0) bottom/100% var(--spx-thor-frame-band) no-repeat,
+        linear-gradient(#000 0 0) left/var(--spx-thor-frame-band) 100% no-repeat,
+        linear-gradient(#000 0 0) right/var(--spx-thor-frame-band) 100% no-repeat;
+    filter:
+        saturate(1.16)
+        contrast(1.08)
+        drop-shadow(0 0 7px rgba(255,195,56,.30))!important;
+}
+.spx-thor-pack-shell::after{z-index:0!important;}
+.spx-thor-pack-runes,
+.spx-thor-pack-kicker,
+.spx-thor-pack-title,
+.spx-thor-pack-copy,
+.spx-thor-pack-picked,
+.spx-thor-pack-actions{z-index:2!important;}
+
+/* Metaliczne, złote obrysy wszystkich wewnętrznych okien Thora. */
+.spx-thor-header,
+.spx-thor-rollbox,
+.spx-thor-choice-box,
+.spx-thor-verdict,
+.spx-thor-summary-box,
+.spx-thor-card{
+    border-color:rgba(231,186,73,.78)!important;
+    box-shadow:
+        inset 0 0 0 1px rgba(255,246,187,.14),
+        inset 0 0 20px rgba(255,189,46,.06),
+        0 0 0 1px rgba(76,43,4,.72),
+        0 0 14px rgba(255,190,47,.18),
+        0 0 20px rgba(62,147,255,.08)!important;
+}
+.spx-thor-hero{
+    border-color:rgba(232,186,70,.82)!important;
+    box-shadow:
+        inset 0 0 0 1px rgba(255,248,198,.12),
+        0 0 18px rgba(255,191,50,.24),
+        0 0 28px rgba(58,145,255,.24)!important;
+}
+
+/* Piorunowa rama jest skalibrowana do zewnętrznego hitboxu 112 × 148 karty.
+   Asset ma własny przezroczysty margines, więc sam obraz musi być większy
+   niż element karty, aby widoczny łuk trafił dokładnie w jej narożniki. */
+#pack [data-pack-index].spx-thor-selected{
+    overflow:visible!important;
+    outline:1px solid rgba(255,229,139,.30)!important;
+    outline-offset:5px!important;
+    box-shadow:
+        0 0 28px rgba(65,174,255,.46),
+        0 0 22px rgba(255,206,80,.30)!important;
+}
+.spx-thor-selected-overlay{
+    inset:auto!important;
+    left:-16px!important;
+    top:-27px!important;
+    width:calc(100% + 32px)!important;
+    height:calc(100% + 62px)!important;
+    object-fit:fill!important;
+    object-position:center!important;
+    border-radius:0!important;
+    z-index:9!important;
+    opacity:1!important;
+    transform-origin:center!important;
+    filter:
+        saturate(1.34)
+        contrast(1.20)
+        drop-shadow(0 0 13px rgba(58,162,255,.68))
+        drop-shadow(0 0 10px rgba(255,203,76,.40))!important;
+}
+
+@media (max-width:860px){
+    .spx-thor-dialog::before,
+    .spx-thor-pack-shell::before{
+        background-size:116% 170%!important;
+    }
+}
+
+/* PATCH101 — bezpieczna strefa treści pod ornamentem. Rama zostaje na
+   zewnętrznej krawędzi, a przyciski i scroll nigdy nie wchodzą pod metal. */
+.spx-thor-dialog{
+    max-height:calc(100dvh - 24px)!important;
+    overflow:hidden!important;
+}
+.spx-thor-content{
+    box-sizing:border-box;
+    max-height:calc(100dvh - 28px);
+    overflow-x:hidden!important;
+    overflow-y:auto!important;
+    padding:64px 68px 72px!important;
+    scrollbar-gutter:stable;
+}
+.spx-thor-actions{padding-bottom:6px;}
+.spx-thor-actions .spx-thor-btn,
+.spx-thor-pack-actions .spx-thor-btn{min-height:46px;}
+.spx-thor-pack-shell{
+    box-sizing:border-box;
+    max-height:calc(100dvh - 18px);
+    overflow:auto;
+    padding:42px 48px 48px!important;
+    scrollbar-gutter:stable;
+}
+
+@media(max-width:860px){
+    .spx-thor-overlay{padding:6px!important;}
+    .spx-thor-dialog{width:calc(100vw - 12px)!important;max-height:calc(100dvh - 12px)!important;}
+    .spx-thor-content{max-height:calc(100dvh - 16px);padding:48px 34px 54px!important;}
+    .spx-thor-pack-hud{top:6px!important;width:calc(100vw - 12px)!important;}
+    .spx-thor-pack-shell{max-height:calc(100dvh - 12px);padding:38px 30px 42px!important;}
+}
+
+@media(max-width:520px){
+    .spx-thor-content{padding:43px 24px 48px!important;}
+    .spx-thor-pack-shell{padding:34px 24px 38px!important;}
+    .spx-thor-actions,.spx-thor-pack-actions{display:grid;grid-template-columns:1fr;}
+    .spx-thor-actions .spx-thor-btn,.spx-thor-pack-actions .spx-thor-btn{width:100%;min-height:48px;}
+}
+
+@media(prefers-reduced-motion:reduce){
+    .spx-thor-dialog,.spx-thor-content,.spx-thor-pack-shell,.spx-thor-btn{
+        animation:none!important;
+        transition:opacity .12s ease,filter .12s ease!important;
+        scroll-behavior:auto!important;
+    }
+}
+
+/* PATCH103 — ramka HUD-u obejmuje cały panel, łącznie z prawą krawędzią. */
+.spx-thor-pack-hud{box-sizing:border-box!important;overflow:visible!important;}
+.spx-thor-pack-shell{
+    box-sizing:border-box!important;
+    width:100%!important;
+    max-width:100%!important;
+    overflow-x:hidden!important;
+    overflow-y:auto!important;
+    scrollbar-gutter:auto!important;
+    padding-right:40px!important;
+}
+.spx-thor-pack-shell::before{inset:0!important;background-size:100% 100%!important;}
+.spx-thor-pack-shell::-webkit-scrollbar{width:6px;}
+.spx-thor-pack-shell::-webkit-scrollbar-track{background:transparent;}
+.spx-thor-pack-shell::-webkit-scrollbar-thumb{border-radius:999px;background:rgba(248,205,79,.48);}
+@media(max-width:760px){.spx-thor-pack-shell{padding-right:28px!important;}}
+
+/* Niskie ekrany (laptopy 720/768 px): zachowujemy pełną ramę, ale ściskamy
+   wyłącznie pionowy rytm wnętrza. Dzięki temu główne akcje są widoczne od
+   razu, a dłuższe warianty modala nadal mają bezpieczny wewnętrzny scroll. */
+@media (min-width:861px) and (max-height:850px){
+    .spx-thor-content{padding:48px 68px 54px!important;}
+    .spx-thor-header{grid-template-columns:116px 1fr;gap:18px;margin-bottom:12px;}
+    .spx-thor-hero{width:116px;height:116px;border-radius:20px;}
+    .spx-thor-title{font-size:clamp(27px,4vw,43px);margin:5px 0 6px;line-height:.94;}
+    .spx-thor-lead{font-size:12px;line-height:1.4;}
+    .spx-thor-rolebar{margin-top:10px;}
+    .spx-thor-rollbox{padding:14px 18px;border-radius:19px;}
+    .spx-thor-grid{gap:12px;margin-top:12px;}
+    .spx-thor-card{min-height:92px;padding:13px 15px;}
+    .spx-thor-verdict{margin-top:12px;padding:12px 16px;}
+    .spx-thor-actions{margin-top:12px;padding-bottom:2px;}
+}
+
+/* Skrócona tablica wyroków wykorzystuje miejsce odzyskane po powtórzonym
+   ostrzeżeniu przed rzutem — nazwy pełnych wyroków nadal są w tooltipach. */
+.spx-thor-verdict-tiles{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:6px;margin-top:12px;}
+.spx-thor-verdict-tiles span{display:grid;grid-template-columns:auto 1fr;align-items:center;gap:2px;padding:7px 5px;border:1px solid rgba(239,198,91,.30);border-radius:10px;background:linear-gradient(145deg,rgba(88,51,18,.52),rgba(14,30,58,.72));color:#fff1bd;cursor:help;}
+.spx-thor-verdict-tiles b{font:1000 15px/1 Orbitron,"Segoe UI",sans-serif;color:#ffd66a;}.spx-thor-verdict-tiles i{font-style:normal;font-size:11px;}.spx-thor-verdict-tiles small{grid-column:1/-1;min-height:18px;font:800 7px/1.12 "Segoe UI",sans-serif;color:#d7eaff;}
+@media(max-width:620px){.spx-thor-verdict-tiles{grid-template-columns:repeat(3,minmax(0,1fr));}.spx-thor-verdict-tiles small{font-size:7px;}.spx-thor-content{padding-inline:18px!important;}}
+
+/* PATCH106 — jedna pełna rama małego modala oraz czytelna legenda wyroków. */
+.spx-thor-pack-shell{
+    isolation:isolate!important;border-color:transparent!important;border-width:0!important;
+    background:linear-gradient(180deg,rgba(10,24,52,.94),rgba(24,16,5,.96))!important;
+}
+.spx-thor-pack-shell::before{
+    inset:-1px!important;
+    z-index:6!important;
+    background:url("draft-assets/thor_asgard_modal_frame.png") center/100% 100% no-repeat!important;
+    opacity:1!important;
+    mix-blend-mode:normal!important;
+    -webkit-mask:none!important;
+    mask:none!important;
+    filter:saturate(1.16) contrast(1.08) drop-shadow(0 0 7px rgba(255,195,56,.30))!important;
+}
+.spx-thor-pack-shell::after{z-index:1!important;}
+.spx-thor-pack-runes,.spx-thor-pack-kicker,.spx-thor-pack-title,.spx-thor-pack-copy,.spx-thor-pack-picked,.spx-thor-pack-actions{z-index:4!important;}
+.spx-thor-verdict-tiles{grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:9px!important;margin-top:15px!important;}
+.spx-thor-verdict-tiles span{
+    min-height:58px!important;
+    grid-template-columns:28px 30px minmax(0,1fr)!important;
+    gap:6px!important;
+    padding:10px 11px!important;
+    border-width:2px!important;
+    box-shadow:inset 0 0 14px rgba(255,204,80,.06),0 5px 13px rgba(0,0,0,.18)!important;
+}
+.spx-thor-verdict-tiles b{font-size:19px!important;}
+.spx-thor-verdict-tiles i{font-size:16px!important;text-align:center!important;}
+.spx-thor-verdict-tiles small{grid-column:auto!important;min-height:0!important;font-size:10px!important;line-height:1.18!important;color:#f5fbff!important;}
+@media(max-width:700px){
+    .spx-thor-verdict-tiles{grid-template-columns:repeat(2,minmax(0,1fr))!important;}
+    .spx-thor-verdict-tiles span{min-height:54px!important;padding:9px!important;}
+}
+
+/* FINAL POLISH — rama małego Testu Godności dochodzi do rogów całego HUD-u.
+   Ten wariant nie potrzebuje żadnego wewnętrznego scrolla. */
+.spx-thor-pack-hud{overflow:visible!important;}
+.spx-thor-pack-shell{
+    width:100%!important;
+    max-height:none!important;
+    overflow:hidden!important;
+    scrollbar-gutter:auto!important;
+    padding:42px 54px 46px!important;
+    border:1px solid rgba(248,202,73,.58)!important;
+    border-radius:28px!important;
+}
+.spx-thor-pack-shell::before{
+    inset:-8px!important;
+    background-size:112% 148%!important;
+    background-position:center!important;
+}
+.spx-thor-pack-shell::-webkit-scrollbar{display:none!important;}
+@media(max-width:760px){
+    .spx-thor-pack-shell{padding:38px 28px 42px!important;border-radius:22px!important;}
+    .spx-thor-pack-shell::before{background-size:118% 154%!important;}
+}

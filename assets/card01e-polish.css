@@ -1,0 +1,385 @@
+
+/* =========================================================
+   CARD 01E — MUSEUM LAYOUT / GLASS POLISH
+   Narrower exhibits, more breathing room, stronger vitrines,
+   corrected museum-background integration.
+========================================================= */
+
+/* ------------------------------
+   BACKGROUND / ARCHITECTURE
+------------------------------ */
+body{
+  background:
+    linear-gradient(180deg,rgba(2,8,22,.34),rgba(2,6,18,.57) 54%,rgba(1,4,13,.78)),
+    url("kolekcja-kart-muzeum.png") center top / cover fixed no-repeat,
+    #050817!important;
+}
+
+body::before{
+  background:
+    radial-gradient(circle at 50% 7%,rgba(66,238,231,.09),transparent 23%),
+    radial-gradient(circle at 13% 37%,rgba(42,202,220,.055),transparent 25%),
+    radial-gradient(circle at 87% 38%,rgba(74,225,213,.055),transparent 25%),
+    linear-gradient(180deg,rgba(0,9,29,.06),rgba(0,4,18,.29) 66%,rgba(0,3,14,.72))!important;
+}
+
+.cards-page,
+.card-profile-page{
+  width:min(1320px,calc(100% - 64px))!important;
+}
+
+/* More of the actual museum remains visible between content blocks. */
+.cards-page > section,
+.card-profile-page > section{
+  margin-left:auto;
+  margin-right:auto;
+}
+
+.cards-page .page-hero,
+.card-profile-page .page-hero{
+  background:
+    linear-gradient(135deg,rgba(7,25,41,.51),rgba(13,11,38,.47))!important;
+  border-color:rgba(165,251,255,.25)!important;
+  backdrop-filter:blur(13px) saturate(1.20)!important;
+  -webkit-backdrop-filter:blur(13px) saturate(1.20)!important;
+  box-shadow:
+    0 30px 76px rgba(0,0,0,.27),
+    0 0 29px rgba(75,235,226,.08),
+    inset 0 1px 0 rgba(255,255,255,.13),
+    inset 0 0 55px rgba(66,231,224,.026)!important;
+}
+
+/* aqua museum edges, less purple "data lab" */
+.cards-page .page-hero::after,
+.card-profile-page .page-hero::after{
+  content:"";
+  position:absolute;
+  left:5%;
+  right:5%;
+  bottom:0;
+  height:1px;
+  background:linear-gradient(90deg,transparent,#56eee6,rgba(126,244,255,.85),#56eee6,transparent);
+  box-shadow:0 0 15px rgba(67,232,224,.38);
+  opacity:.72;
+  pointer-events:none;
+}
+
+/* ------------------------------
+   MAIN COLLECTION WIDTH / CARDS
+------------------------------ */
+.cards-page .panel{
+  background:
+    linear-gradient(145deg,rgba(6,21,35,.44),rgba(9,10,30,.51))!important;
+  border-color:rgba(154,249,255,.17)!important;
+  backdrop-filter:blur(16px) saturate(1.18)!important;
+  -webkit-backdrop-filter:blur(16px) saturate(1.18)!important;
+}
+
+/* Main collection grid:
+   no more "wide tiles filling every pixel". */
+.cards-page #cardGrid.card-grid{
+  grid-template-columns:repeat(auto-fill, minmax(152px, 174px))!important;
+  justify-content:center!important;
+  justify-items:stretch!important;
+  gap:30px 26px!important;
+  padding:9px 4px 15px;
+}
+
+.cards-page #cardGrid .collection-card{
+  width:100%!important;
+  max-width:174px!important;
+  min-width:0!important;
+  justify-self:center!important;
+  padding:12px 10px 13px!important;
+  border-radius:18px!important;
+  border:1px solid rgba(171,252,255,.19)!important;
+  background:
+    linear-gradient(145deg,rgba(17,44,56,.37),rgba(6,14,31,.51))!important;
+  backdrop-filter:blur(17px) saturate(1.20)!important;
+  -webkit-backdrop-filter:blur(17px) saturate(1.20)!important;
+  box-shadow:
+    0 17px 35px rgba(0,0,0,.29),
+    0 0 0 1px rgba(255,255,255,.025),
+    inset 1px 1px 0 rgba(255,255,255,.10),
+    inset -1px -1px 0 rgba(74,227,222,.035)!important;
+}
+
+/* Glass panel inside each museum vitrine */
+.cards-page #cardGrid .collection-card::before{
+  inset:5px!important;
+  border-radius:14px!important;
+  border:
+    1px solid rgba(206,255,255,.075)!important;
+  background:
+    linear-gradient(112deg,rgba(255,255,255,.075),transparent 23%,transparent 66%,rgba(78,230,225,.025)),
+    radial-gradient(circle at 50% 0%,rgba(80,239,232,.09),transparent 39%)!important;
+}
+
+.cards-page #cardGrid .collection-card::after{
+  left:17%!important;
+  right:17%!important;
+  bottom:-10px!important;
+  height:15px!important;
+  opacity:.62!important;
+  background:rgba(66,239,226,.20)!important;
+  filter:blur(10px)!important;
+}
+
+.cards-page #cardGrid .collection-card:hover{
+  transform:translateY(-8px) scale(1.025)!important;
+  border-color:rgba(140,255,246,.55)!important;
+  background:
+    linear-gradient(145deg,rgba(21,57,65,.48),rgba(8,18,37,.64))!important;
+  box-shadow:
+    0 25px 46px rgba(0,0,0,.37),
+    0 0 26px rgba(71,237,227,.12),
+    inset 1px 1px 0 rgba(255,255,255,.17)!important;
+}
+
+.cards-page #cardGrid .collection-card .cosmo-card{
+  min-height:164px!important;
+  border-radius:13px!important;
+}
+
+.cards-page #cardGrid .collection-card .cosmo-name{
+  min-height:112px!important;
+  padding:50px 10px 18px!important;
+  font-size:clamp(14px,1.05vw,18px)!important;
+}
+
+.cards-page #cardGrid .collection-card .cosmo-badge{
+  width:34px!important;
+  height:34px!important;
+  font-size:15px!important;
+}
+
+.cards-page #cardGrid .collection-card .card-foot{
+  gap:5px!important;
+  padding:9px 1px 0!important;
+  font-size:10.5px!important;
+  line-height:1.12!important;
+}
+
+/* ------------------------------
+   CURATED VITRINES / CONTROLS
+------------------------------ */
+.cards-page .museum-curator-strip{
+  gap:20px!important;
+  margin:28px auto 34px!important;
+  max-width:1180px;
+}
+
+.cards-page .museum-curator-card{
+  min-height:190px!important;
+  border-color:rgba(164,250,255,.19)!important;
+  background:
+    linear-gradient(145deg,rgba(13,39,51,.40),rgba(8,14,34,.49))!important;
+  backdrop-filter:blur(18px) saturate(1.20)!important;
+  -webkit-backdrop-filter:blur(18px) saturate(1.20)!important;
+  box-shadow:
+    0 18px 42px rgba(0,0,0,.25),
+    inset 0 1px 0 rgba(255,255,255,.11),
+    inset 0 0 31px rgba(63,233,226,.035)!important;
+}
+
+.cards-page .control-grid{
+  gap:16px!important;
+  margin:30px auto 30px!important;
+  max-width:1180px;
+  padding:16px!important;
+  background:
+    linear-gradient(145deg,rgba(7,25,39,.49),rgba(8,11,29,.58))!important;
+  border-color:rgba(157,250,255,.17)!important;
+  backdrop-filter:blur(17px)!important;
+  -webkit-backdrop-filter:blur(17px)!important;
+}
+
+/* ------------------------------
+   SINGLE CARD PROFILE:
+   stronger glass, more spacing, narrower metric plaques
+------------------------------ */
+.card-profile-page > section:not(.page-hero){
+  margin-top:34px!important;
+}
+
+.card-profile-page .panel{
+  background:
+    linear-gradient(145deg,rgba(6,22,36,.47),rgba(11,9,31,.54))!important;
+  border-color:rgba(157,250,255,.15)!important;
+  backdrop-filter:blur(17px) saturate(1.16)!important;
+  -webkit-backdrop-filter:blur(17px) saturate(1.16)!important;
+  box-shadow:
+    0 20px 48px rgba(0,0,0,.25),
+    inset 0 1px 0 rgba(255,255,255,.085)!important;
+}
+
+.card-profile-page .panel-inner{
+  padding:28px!important;
+}
+
+.card-profile-page .card-alltime-grid{
+  grid-template-columns:repeat(auto-fit,minmax(185px,220px))!important;
+  justify-content:center!important;
+  gap:18px!important;
+}
+
+.card-profile-page .heritage-stat{
+  width:100%;
+  max-width:220px;
+  min-height:132px!important;
+  padding:17px!important;
+  border-color:rgba(155,249,255,.15)!important;
+  background:
+    linear-gradient(145deg,rgba(9,34,45,.42),rgba(8,12,32,.54))!important;
+  backdrop-filter:blur(13px)!important;
+  -webkit-backdrop-filter:blur(13px)!important;
+}
+
+.card-profile-page .pilot-gallery{
+  grid-template-columns:repeat(3,minmax(0,1fr))!important;
+  gap:18px!important;
+}
+.card-profile-page .full-pilot-gallery{
+  grid-template-columns:repeat(auto-fit,minmax(190px,230px))!important;
+  justify-content:center!important;
+  gap:16px!important;
+}
+
+.card-profile-page .pilot-ledger-card{
+  max-width:230px;
+  width:100%;
+  border-color:rgba(157,249,255,.13)!important;
+  background:linear-gradient(145deg,rgba(8,30,42,.39),rgba(8,11,29,.53))!important;
+}
+
+.card-profile-page .card-trend-facts{
+  gap:16px!important;
+}
+.card-profile-page .card-trend-fact,
+.card-profile-page .momentum-card,
+.card-profile-page .card-record-card{
+  border-color:rgba(156,249,255,.12)!important;
+  background:
+    linear-gradient(145deg,rgba(8,28,41,.34),rgba(8,10,28,.51))!important;
+}
+
+/* Glass shelf treatment under major museum exhibits */
+.card-profile-page .card-signature-twelve-panel,
+.card-profile-page .card-deck-showcase-panel{
+  position:relative;
+}
+.card-profile-page .card-signature-twelve-panel::after,
+.card-profile-page .card-deck-showcase-panel::after{
+  content:"";
+  position:absolute;
+  left:8%;
+  right:8%;
+  bottom:-5px;
+  height:7px;
+  border-radius:50%;
+  background:rgba(58,232,222,.17);
+  filter:blur(8px);
+  pointer-events:none;
+}
+
+/* Signature Twelve: narrower, real display-case rhythm */
+.card-profile-page .signature-twelve-grid{
+  grid-template-columns:repeat(auto-fit,minmax(135px,155px))!important;
+  justify-content:center!important;
+  gap:24px 20px!important;
+}
+.card-profile-page .signature-partner-card{
+  max-width:155px;
+  width:100%;
+  min-height:174px!important;
+  border-color:rgba(155,249,255,.17)!important;
+  background:
+    linear-gradient(145deg,rgba(11,37,49,.44),rgba(12,10,32,.60))!important;
+  backdrop-filter:blur(13px)!important;
+  -webkit-backdrop-filter:blur(13px)!important;
+}
+
+/* Historic deck cases should look like wider museum vitrines, but with more air */
+.card-profile-page .card-deck-showcase-grid{
+  gap:24px!important;
+}
+.card-profile-page .historic-deck-card{
+  border-color:rgba(159,250,255,.16)!important;
+  background:
+    linear-gradient(145deg,rgba(9,31,44,.42),rgba(10,9,30,.58))!important;
+  backdrop-filter:blur(13px)!important;
+  -webkit-backdrop-filter:blur(13px)!important;
+}
+
+/* Peaks/Shadows visually belongs to trajectory/placements now */
+.card-profile-page .card-spectrum-panel{
+  margin-top:34px!important;
+  border-color:rgba(154,119,255,.20)!important;
+}
+.card-profile-page .card-spectrum{
+  gap:20px!important;
+}
+.card-profile-page .spectrum-wing{
+  padding:19px!important;
+  backdrop-filter:blur(10px);
+  -webkit-backdrop-filter:blur(10px);
+}
+
+/* History = final ledger, physically last and calmer */
+.card-profile-page .card-history-panel{
+  margin-top:40px!important;
+  opacity:.96;
+}
+.card-profile-page .card-history-table{
+  background:rgba(2,10,24,.31);
+}
+
+/* ------------------------------
+   RESPONSIVE
+------------------------------ */
+@media(max-width:980px){
+  .cards-page,
+  .card-profile-page{
+    width:min(100% - 34px, 1180px)!important;
+  }
+
+  .cards-page #cardGrid.card-grid{
+    grid-template-columns:repeat(auto-fill,minmax(145px,165px))!important;
+    gap:24px 20px!important;
+  }
+
+  .card-profile-page .pilot-gallery{
+    grid-template-columns:1fr!important;
+  }
+}
+
+@media(max-width:620px){
+  body{
+    background-attachment:scroll!important;
+    background-position:center top!important;
+  }
+
+  .cards-page,
+  .card-profile-page{
+    width:calc(100% - 24px)!important;
+  }
+
+  .cards-page #cardGrid.card-grid{
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    gap:20px 14px!important;
+  }
+
+  .cards-page #cardGrid .collection-card{
+    max-width:none!important;
+  }
+
+  .card-profile-page .card-alltime-grid,
+  .card-profile-page .full-pilot-gallery{
+    grid-template-columns:1fr!important;
+  }
+
+  .card-profile-page .heritage-stat,
+  .card-profile-page .pilot-ledger-card{
+    max-width:none!important;
+  }
+}

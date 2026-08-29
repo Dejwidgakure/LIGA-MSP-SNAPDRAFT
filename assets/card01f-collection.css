@@ -1,0 +1,418 @@
+
+/* =========================================================
+   CARD 01F — MUSEUM UX + LIVING HOLOGRAMS
+========================================================= */
+
+/* Technical strip intentionally removed from markup. */
+.collection-identity-strip{display:none!important}
+
+/* --------------------------
+   HERO JEFF STICKER
+-------------------------- */
+.cards-page .page-hero{
+  min-height:260px;
+}
+.collection-jeff-sticker{
+  position:absolute;
+  z-index:2;
+  left:48.5%;
+  bottom:-28px;
+  width:clamp(120px,12vw,190px);
+  height:auto;
+  transform:translateX(-50%) rotate(-2deg);
+  pointer-events:none;
+  filter:
+    drop-shadow(0 16px 18px rgba(0,0,0,.36))
+    drop-shadow(0 0 12px rgba(69,232,226,.14));
+  opacity:.96;
+}
+.cards-page .hero-inner{
+  position:relative;
+  z-index:3;
+}
+
+/* --------------------------
+   CURATOR GALLERIES
+-------------------------- */
+.cards-page .museum-curator-strip{
+  margin-top:34px!important;
+  margin-bottom:38px!important;
+}
+.cards-page .museum-curator-card{
+  min-height:218px!important;
+  padding:21px 20px!important;
+}
+.cards-page .museum-curator-meta{
+  max-width:70%;
+}
+.cards-page .museum-curator-meta b{
+  font-size:18px!important;
+  line-height:1.08!important;
+}
+.cards-page .museum-curator-meta > span{
+  margin-top:7px!important;
+  font-size:11.5px!important;
+  line-height:1.32!important;
+  color:#88a8b1!important;
+}
+.cards-page .museum-curator-value{
+  display:block;
+  margin-top:18px;
+  color:#efffff;
+  font:900 clamp(17px,1.45vw,23px)/1.12 Orbitron,sans-serif;
+  letter-spacing:-.02em;
+  text-shadow:0 0 15px rgba(78,237,229,.18);
+}
+.cards-page .museum-curator-card:nth-child(2) .museum-curator-value{
+  color:#fff0bd;
+  text-shadow:0 0 14px rgba(246,217,152,.15);
+}
+.cards-page .museum-curator-card:nth-child(3) .museum-curator-value{
+  color:#c7fff9;
+}
+.cards-page .museum-curator-card .holo-slot{
+  right:30px!important;
+  width:86px!important;
+  height:120px!important;
+  opacity:.38!important;
+}
+
+/* --------------------------
+   SECTION HEADING + FILTERS
+-------------------------- */
+.collection-exhibit-panel,
+.unused-exhibit-panel{
+  margin-top:0!important;
+}
+.collection-section-heading{
+  display:flex;
+  align-items:flex-end;
+  justify-content:space-between;
+  gap:24px;
+  margin-bottom:20px;
+}
+.collection-section-heading .section-title{
+  margin-top:5px!important;
+  margin-bottom:0!important;
+}
+.collection-section-heading > p{
+  max-width:440px;
+  margin:0;
+  color:#75939d;
+  text-align:right;
+  font-size:11px;
+  font-weight:800;
+  line-height:1.35;
+}
+
+.cards-page .collection-filter-console{
+  grid-template-columns:minmax(230px,1.35fr) minmax(130px,.62fr) minmax(190px,.9fr) minmax(190px,.9fr)!important;
+  max-width:none!important;
+  margin:0 0 15px!important;
+  padding:13px!important;
+  gap:11px!important;
+  border-color:rgba(148,250,255,.20)!important;
+  background:
+    linear-gradient(145deg,rgba(7,29,42,.55),rgba(6,11,28,.62))!important;
+}
+.cards-page .collection-filter-console .control{
+  min-width:0!important;
+  font-size:14px!important;
+}
+#tag optgroup{
+  color:#8bece8;
+}
+#tag option{
+  color:#fff;
+  background:#061326;
+}
+
+.active-filter-line{
+  min-height:31px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  margin:0 3px 18px;
+  color:#718f99;
+  font-size:10px;
+  font-weight:800;
+}
+.active-filter-line button{
+  padding:6px 9px;
+  border:1px solid rgba(118,240,235,.15);
+  border-radius:999px;
+  background:rgba(7,24,39,.58);
+  color:#a9e9e5;
+  font:800 9px Rajdhani,sans-serif;
+  cursor:pointer;
+}
+.active-filter-line button:hover{
+  border-color:rgba(105,246,239,.42);
+  color:#fff;
+}
+
+/* --------------------------
+   UNUSED EXHIBITS
+-------------------------- */
+.unused-exhibit-panel{
+  margin-top:38px!important;
+  border-color:rgba(128,154,188,.13)!important;
+  background:
+    linear-gradient(145deg,rgba(8,17,29,.52),rgba(7,8,23,.61))!important;
+}
+.unused-exhibit-panel::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  background:
+    radial-gradient(circle at 12% 0,rgba(71,211,218,.04),transparent 27%),
+    repeating-linear-gradient(135deg,transparent 0 14px,rgba(128,190,207,.012) 14px 15px);
+}
+.unused-card-grid{
+  opacity:.89;
+}
+.never-used-card{
+  border-color:rgba(133,171,197,.12)!important;
+  filter:saturate(.66);
+}
+.never-used-card .cosmo-card{
+  opacity:.78;
+}
+.never-used-card .cosmo-card::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:4;
+  pointer-events:none;
+  background:
+    repeating-linear-gradient(0deg,transparent 0 5px,rgba(98,226,229,.025) 5px 6px);
+}
+.never-used-card:hover{
+  filter:saturate(.95)!important;
+}
+.unused-foot-mark{
+  color:#78b8bd!important;
+  font:900 8px Orbitron,sans-serif!important;
+  letter-spacing:.08em;
+}
+
+/* --------------------------
+   LIVING MUSEUM — REAL CARDS
+-------------------------- */
+.museum-card-swarm{
+  position:fixed;
+  inset:0;
+  z-index:0;
+  pointer-events:none;
+  overflow:hidden;
+}
+.living-museum-card{
+  --float-duration:18s;
+  --phase-duration:19s;
+  --delay:0s;
+  position:absolute;
+  width:104px;
+  height:145px;
+  opacity:.22;
+  transform-style:preserve-3d;
+  perspective:700px;
+  animation:
+    livingMuseumFloat var(--float-duration) ease-in-out infinite var(--delay),
+    livingMuseumVisibility 17s ease-in-out infinite var(--delay);
+}
+.living-card-shell{
+  position:absolute;
+  inset:0;
+  transform:rotate(var(--tilt,0deg));
+}
+.living-card-solid,
+.living-card-blueprint{
+  position:absolute;
+  inset:0;
+  overflow:hidden;
+  border-radius:13px;
+}
+.living-card-solid{
+  border:1px solid color-mix(in srgb,var(--ambient-accent) 65%,#cbffff);
+  background:
+    linear-gradient(150deg,rgba(20,11,39,.92),rgba(5,13,31,.95)),
+    radial-gradient(circle at 50% 40%,color-mix(in srgb,var(--ambient-accent) 18%,transparent),transparent 53%);
+  box-shadow:
+    0 13px 25px rgba(0,0,0,.35),
+    0 0 15px color-mix(in srgb,var(--ambient-accent) 23%,transparent),
+    inset 0 0 18px rgba(255,255,255,.035);
+  animation:solidToBlueprint var(--phase-duration) ease-in-out infinite var(--delay);
+}
+.living-card-blueprint{
+  border:1px solid rgba(103,255,248,.70);
+  background:
+    linear-gradient(rgba(4,36,48,.84),rgba(2,21,36,.90)),
+    repeating-linear-gradient(0deg,rgba(104,255,250,.055) 0 1px,transparent 1px 9px),
+    repeating-linear-gradient(90deg,rgba(104,255,250,.04) 0 1px,transparent 1px 9px);
+  box-shadow:
+    0 0 15px rgba(84,255,247,.45),
+    inset 0 0 24px rgba(64,241,235,.17);
+  opacity:0;
+  animation:blueprintReveal var(--phase-duration) ease-in-out infinite var(--delay);
+}
+.living-card-blueprint::after{
+  content:"";
+  position:absolute;
+  left:0;right:0;
+  height:2px;
+  top:-5%;
+  background:#bafffb;
+  box-shadow:0 0 12px rgba(111,255,249,.85);
+  opacity:.75;
+  animation:blueprintScan 3.1s linear infinite;
+}
+.living-card-cost,
+.living-card-power{
+  position:absolute;
+  z-index:3;
+  top:7px;
+  width:28px;height:28px;
+  display:grid;
+  place-items:center;
+  color:#fff;
+  font:900 12px Orbitron,sans-serif;
+}
+.living-card-cost{
+  left:7px;
+  border-radius:50%;
+  background:radial-gradient(circle at 35% 30%,#bffcff,#2b9fff 52%,#27146a);
+}
+.living-card-power{
+  right:6px;
+  clip-path:polygon(50% 0%,61% 30%,93% 34%,69% 54%,78% 88%,50% 70%,22% 88%,31% 54%,7% 34%,39% 30%);
+  background:radial-gradient(circle at 32% 28%,#fff1aa,#ffb33c 56%,#873400);
+}
+.living-card-name{
+  position:absolute;
+  z-index:3;
+  left:8px;right:8px;
+  top:48px;
+  bottom:12px;
+  display:grid;
+  place-items:center;
+  color:#f5ffff;
+  text-align:center;
+  font:900 10px/1.08 Orbitron,sans-serif;
+  text-shadow:0 2px 4px #000,0 0 7px color-mix(in srgb,var(--ambient-accent) 35%,transparent);
+  overflow-wrap:anywhere;
+}
+.living-card-blueprint .living-card-name{
+  color:#a9fff9;
+  text-shadow:0 0 10px rgba(98,255,247,.66);
+}
+.living-card-blueprint .living-card-cost,
+.living-card-blueprint .living-card-power{
+  filter:saturate(0) sepia(1) hue-rotate(115deg) brightness(1.8);
+  opacity:.72;
+}
+
+@keyframes livingMuseumFloat{
+  0%,100%{transform:translate3d(0,0,0) rotateY(-7deg)}
+  33%{transform:translate3d(12px,-24px,0) rotateY(6deg)}
+  66%{transform:translate3d(-7px,-10px,0) rotateY(-2deg)}
+}
+@keyframes livingMuseumVisibility{
+  0%,100%{opacity:.10}
+  22%,72%{opacity:.29}
+}
+@keyframes solidToBlueprint{
+  0%,49%,92%,100%{opacity:1;filter:none}
+  57%,78%{opacity:.06;filter:saturate(.3) brightness(.7)}
+}
+@keyframes blueprintReveal{
+  0%,47%,91%,100%{opacity:0;filter:blur(2px)}
+  58%,78%{opacity:.92;filter:blur(0)}
+}
+@keyframes blueprintScan{
+  from{top:-4%}
+  to{top:104%}
+}
+
+.living-museum-card.slot-0{left:1.3%;top:18%}
+.living-museum-card.slot-1{right:1.5%;top:23%}
+.living-museum-card.slot-2{left:4.5%;top:57%}
+.living-museum-card.slot-3{right:4.2%;top:61%}
+.living-museum-card.slot-4{left:14%;top:82%}
+.living-museum-card.slot-5{right:14%;top:84%}
+.living-museum-card.slot-6{left:27%;top:10%}
+.living-museum-card.slot-7{right:28%;top:11%}
+
+/* Keep ambient cards behind museum UI. */
+.page,
+.topbar,
+nav,
+header{
+  position:relative;
+  z-index:2;
+}
+
+/* --------------------------
+   ZERO-STATE SINGLE CARD
+-------------------------- */
+.card-profile-page .empty-01d,
+.card-profile-page .empty{
+  border-color:rgba(106,239,234,.12)!important;
+  background:rgba(5,18,31,.42)!important;
+}
+
+/* --------------------------
+   RESPONSIVE
+-------------------------- */
+@media(max-width:1080px){
+  .collection-jeff-sticker{
+    left:auto;
+    right:17px;
+    bottom:-18px;
+    transform:rotate(-4deg);
+    width:135px;
+    opacity:.65;
+  }
+  .cards-page .collection-filter-console{
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  }
+  .living-museum-card.slot-6,
+  .living-museum-card.slot-7{display:none}
+}
+
+@media(max-width:680px){
+  .collection-jeff-sticker{display:none}
+  .cards-page .museum-curator-meta{max-width:78%}
+  .cards-page .museum-curator-meta b{font-size:16px!important}
+  .cards-page .museum-curator-value{font-size:16px!important}
+  .cards-page .collection-filter-console{
+    grid-template-columns:1fr!important;
+  }
+  .collection-section-heading{
+    align-items:flex-start;
+    flex-direction:column;
+    gap:8px;
+  }
+  .collection-section-heading > p{text-align:left}
+  .living-museum-card{
+    width:78px;
+    height:109px;
+    opacity:.13;
+  }
+  .living-museum-card.slot-2,
+  .living-museum-card.slot-3,
+  .living-museum-card.slot-4,
+  .living-museum-card.slot-5{display:none}
+}
+
+@media(prefers-reduced-motion:reduce){
+  .living-museum-card,
+  .living-card-solid,
+  .living-card-blueprint,
+  .living-card-blueprint::after{
+    animation:none!important;
+  }
+  .living-card-blueprint{display:none}
+  .living-museum-card{opacity:.13!important}
+}
