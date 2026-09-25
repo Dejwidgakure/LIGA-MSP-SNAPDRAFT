@@ -14846,7 +14846,7 @@ const database = {
   "title": "EKONOMIA EDITION",
   "startDate": "",
   "endDate": "",
-  "status": "active",
+  "status": "finished",
   "draftConfigV2": {
     "schema": "msp-snapdraft/settings-v2",
     "version": "2.5.0-planetary-reserve",
@@ -15248,7 +15248,10 @@ const database = {
     { p1: "Dejwidgakure", p2: "Budiso", pts1: 20, pts2: 0, resultType: "walkover" },
     { p1: "Dejwidgakure", p2: "siwkerss", pts1: 20, pts2: 0, resultType: "walkover" },
     { p1: "Weregesu", p2: "siwkerss", pts1: 0, pts2: 0, resultType: "doubleWalkover" },
-    { p1: "Dejwidgakure", p2: "Weregesu", pts1: 20, pts2: 0, resultType: "walkover" }
+    { p1: "Dejwidgakure", p2: "Weregesu", pts1: 20, pts2: 0, resultType: "walkover" },
+    { p1: "wodolot", p2: "Dejwidgakure", pts1: 21, pts2: 4 },
+    { p1: "Kmythic", p2: "Dejwidgakure", pts1: 20, pts2: 0, resultType: "walkover" },
+    { p1: "Skaje", p2: "Dejwidgakure", pts1: 23, pts2: 2 }
   ]
 
     }
