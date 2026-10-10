@@ -15255,347 +15255,400 @@ const database = {
   ]
 
     },
-    
-{
-
-  "id": 30,
-  "title": "30 JUBILEUSZ EDITION",
-  "startDate": "",
-  "endDate": "",
-  "status": "active",
-  "draftConfigV2": {
-    "schema": "msp-snapdraft/settings-v2",
-    "version": "2.6.1-economy-final-polish",
-    "draftMode": {
-      "id": "classic",
-      "name": "Classic",
-      "variant": null,
-      "variantName": null
-    },
-    "extensions": {
-      "superpowers": {
-        "enabled": false,
-        "name": "Supermoce"
-      },
-      "customPacks": {
-        "enabled": false,
-        "name": "Custom Packi"
-      },
-      "jokers": {
-        "enabled": true,
-        "name": "Jokery"
-      },
-      "saveAndSteal": {
-        "enabled": false,
-        "name": "Save & Steal"
-      },
-      "economy": {
-        "enabled": true,
-        "name": "Ekonomia Draftu"
-      },
-      "bounties": {
-        "enabled": true,
-        "name": "Łowcy Nagród",
-        "requires": [
-          "economy"
-        ],
-        "rewardProfile": "standard",
-        "rewardProfileName": "Standardowe Łowy"
-      },
-      "draftQuests": {
-        "enabled": false,
-        "name": "Kosmiczne Questy",
-        "requires": [
-          "economy"
-        ]
-      },
-      "galacticMarket": {
-        "enabled": false,
-        "name": "Galaktyczny Targ",
-        "requires": [
-          "economy"
-        ]
-      },
-      "mulligan": {
-        "enabled": false,
-        "name": "Mulligan"
-      },
-      "sideboard": {
-        "enabled": false,
-        "name": "Planetarna Rezerwa",
-        "size": 3,
-        "candidatePoolSize": 12,
-        "version": 1
-      }
-    },
-    "sideboard": {
-      "enabled": false,
-      "size": 3,
-      "candidatePoolSize": 12,
-      "version": 1
-    },
-    "specialSettings": {
-      "draftFlow": {
-        "timer": {
-          "enabled": false
+    {
+      "id": 30,
+      "title": "30 JUBILEUSZ EDITION",
+      "startDate": "26.09.2026",
+      "endDate": "09.10.2026",
+      "status": "finished",
+      "draftConfigV2": {
+        "schema": "msp-snapdraft/settings-v2",
+        "version": "2.6.1-economy-final-polish",
+        "draftMode": {
+          "id": "classic",
+          "name": "Classic",
+          "variant": null,
+          "variantName": null
         },
-        "cerebroAutopilot": {
-          "enabled": true
+        "extensions": {
+          "superpowers": {
+            "enabled": false,
+            "name": "Supermoce"
+          },
+          "customPacks": {
+            "enabled": false,
+            "name": "Custom Packi"
+          },
+          "jokers": {
+            "enabled": true,
+            "name": "Jokery"
+          },
+          "saveAndSteal": {
+            "enabled": false,
+            "name": "Save & Steal"
+          },
+          "economy": {
+            "enabled": true,
+            "name": "Ekonomia Draftu"
+          },
+          "bounties": {
+            "enabled": true,
+            "name": "Łowcy Nagród",
+            "requires": [
+              "economy"
+            ],
+            "rewardProfile": "standard",
+            "rewardProfileName": "Standardowe Łowy"
+          },
+          "draftQuests": {
+            "enabled": false,
+            "name": "Kosmiczne Questy",
+            "requires": [
+              "economy"
+            ]
+          },
+          "galacticMarket": {
+            "enabled": false,
+            "name": "Galaktyczny Targ",
+            "requires": [
+              "economy"
+            ]
+          },
+          "mulligan": {
+            "enabled": false,
+            "name": "Mulligan"
+          },
+          "sideboard": {
+            "enabled": false,
+            "name": "Planetarna Rezerwa",
+            "size": 3,
+            "candidatePoolSize": 12,
+            "version": 1
+          }
         },
-        "additionalPackBuffer": {
-          "enabled": false
+        "sideboard": {
+          "enabled": false,
+          "size": 3,
+          "candidatePoolSize": 12,
+          "version": 1
+        },
+        "specialSettings": {
+          "draftFlow": {
+            "timer": {
+              "enabled": false
+            },
+            "cerebroAutopilot": {
+              "enabled": true
+            },
+            "additionalPackBuffer": {
+              "enabled": false
+            }
+          },
+          "poolRules": {
+            "bans": {
+              "enabled": true,
+              "cards": [
+                "Arishem",
+                "Loki",
+                "Friendly Neighborhood Carnage",
+                "Thanos Fractured Frontier",
+                "Shadow King",
+                "Galactus First Steps",
+                "Shang-Chi",
+                "Majestic Wingbeat",
+                "Anti-Polar Magneto",
+                "Leader",
+                "Mother Askani"
+              ]
+            },
+            "luckyCards": {
+              "enabled": true,
+              "cards": [
+                "Superior Iron Man"
+              ]
+            },
+            "seriesFilters": {
+              "enabled": false
+            },
+            "tagFilters": {
+              "enabled": false
+            },
+            "poolProfile": {
+              "enabled": false,
+              "id": null,
+              "name": null
+            }
+          },
+          "deckFinalization": {
+            "presetCard": {
+              "enabled": false,
+              "card": null
+            },
+            "champions": {
+              "enabled": true
+            }
+          },
+          "specialTwist": {
+            "enabled": false,
+            "name": null,
+            "description": null
+          }
         }
       },
-      "poolRules": {
-        "bans": {
-          "enabled": true,
-          "cards": [
-            "Arishem",
-            "Loki",
-            "Friendly Neighborhood Carnage",
+      "playersCount": 11,
+      "winner": "Dejwidgakure",
+      "scoring": {
+        "system": "standard25",
+        "singleWalkover": "20:0",
+        "doubleWalkover": "0:0"
+      },
+      "players": [
+        {
+          "name": "Maniek",
+          "deck": [
+            "Cable",
+            "Jubilee Silver Surfer",
+            "Negasonic Teenage Warhead",
+            "Kang",
             "Thanos Fractured Frontier",
-            "Shadow King",
-            "Galactus First Steps",
-            "Shang-Chi",
-            "Majestic Wingbeat",
-            "Anti-Polar Magneto",
-            "Leader",
-            "Mother Askani"
+            "Sebastian Shaw",
+            "Superior Iron Man",
+            "Juggernaut Horseman of War",
+            "Mercury",
+            "Maverick",
+            "Colossus",
+            "Ultron"
           ]
         },
-        "luckyCards": {
-          "enabled": true,
-          "cards": [
+        {
+          "name": "troyak",
+          "deck": [
+            "U.S. Agent",
+            "Mystique",
+            "Man-Thing",
+            "Diamondback",
+            "Heimdall",
+            "Scorpion Brand New Day",
+            "Scorpion",
+            "Annihilus",
+            "Scream",
+            "Star-Lord",
+            "Luke Cage",
+            "Rhino"
+          ]
+        },
+        {
+          "name": "Weregesu",
+          "deck": [
+            "Batroc the Leaper",
+            "Miles Morales Spider-Man",
+            "Thor",
+            "Nocturne",
+            "Mirage",
+            "Monstro",
+            "Spider-Man 2099",
+            "Heimdall",
+            "Hydro-Man",
+            "Sam Wilson Captain America",
+            "Sparky",
             "Superior Iron Man"
           ]
         },
-        "seriesFilters": {
-          "enabled": false
+        {
+          "name": "Qrls",
+          "deck": [
+            "Madame Web",
+            "Stegron",
+            "Spider-Man 2099",
+            "Super-Adaptoid",
+            "Wave",
+            "Nightcrawler",
+            "Blink",
+            "Jubilee",
+            "Silver Samurai",
+            "Stature",
+            "Psylocke",
+            "Anti-Polar Magneto"
+          ]
         },
-        "tagFilters": {
-          "enabled": false
+        {
+          "name": "Supcio",
+          "deck": [
+            "Starbrand",
+            "Typhoid Mary",
+            "Zero",
+            "Doctor Doom",
+            "Angela",
+            "Silk",
+            "Wilson Fisk",
+            "Jeff the Baby Dolphin!?",
+            "Armor",
+            "Thanos Fractured Frontier",
+            "Entropic Havok",
+            "Captain Marvel"
+          ]
         },
-        "poolProfile": {
-          "enabled": false,
-          "id": null,
-          "name": null
+        {
+          "name": "GalacticKitsune",
+          "deck": [
+            "Ms. Marvel",
+            "Lady Deathstrike",
+            "Kingpin",
+            "Wasp",
+            "Omega Sentinel",
+            "Baron Zemo",
+            "Professor X",
+            "Angela",
+            "Iron Man",
+            "Agent Coulson",
+            "Hawkeye Kate Bishop",
+            "Colleen Wing"
+          ]
+        },
+        {
+          "name": "Skaje",
+          "deck": [
+            "Maximus",
+            "Iron Man",
+            "Superior Spider-Man",
+            "Mantis",
+            "Armor",
+            "Omega Red",
+            "Angela",
+            "Galactus First Steps",
+            "Gladiator",
+            "Crystal",
+            "America Chavez",
+            "Adam Warlock"
+          ]
+        },
+        {
+          "name": "siwkerss",
+          "deck": [
+            "Danger",
+            "Red Onslaught",
+            "Elektra",
+            "She-Hulk",
+            "Leech",
+            "Falcon",
+            "Odin",
+            "Jessica Jones",
+            "Negasonic Teenage Warhead",
+            "Rogue",
+            "Baron Zemo",
+            "Mystique"
+          ]
+        },
+        {
+          "name": "MrMateoS",
+          "deck": [
+            "Sebastian Shaw",
+            "Namora",
+            "Forge",
+            "Snowguard",
+            "Iron Lad",
+            "Hit-Monkey",
+            "Clea",
+            "Valkyrie",
+            "Rama-Tut",
+            "Hydra Bob",
+            "Jane Foster Fractured Frontier",
+            "Gwenpool"
+          ]
+        },
+        {
+          "name": "I'm Batman",
+          "deck": [
+            "Angela",
+            "Doctor Doom",
+            "Maximus",
+            "Hobgoblin",
+            "Nimrod",
+            "Typhoid Mary",
+            "Red Skull",
+            "Deadpool",
+            "The Infinaut",
+            "Skaar",
+            "Headpool",
+            "Man-Spider"
+          ]
+        },
+        {
+          "name": "Dejwidgakure",
+          "deck": [
+            "Jeff!",
+            "Werewolf By Night",
+            "Hit-Monkey",
+            "Rogue Scion of Division",
+            "Doctor Octopus Fractured Frontier",
+            "Sera",
+            "Loki",
+            "Gamora",
+            "Kang",
+            "Gwenpool",
+            "Gambit Horseman of Death",
+            "Agent Venom"
+          ]
         }
-      },
-      "deckFinalization": {
-        "presetCard": {
-          "enabled": false,
-          "card": null
-        },
-        "champions": {
-          "enabled": true
-        }
-      },
-      "specialTwist": {
-        "enabled": false,
-        "name": null,
-        "description": null
-      }
-    }
-  },
-  "playersCount": 11,
-  "winner": null,
-  "scoring": {
-    "system": "standard25",
-    "singleWalkover": "20:0",
-    "doubleWalkover": "0:0"
-  },
-  "players": [
-    {
-      "name": "Maniek",
-      "deck": [
-        "Cable",
-        "Jubilee Silver Surfer",
-        "Negasonic Teenage Warhead",
-        "Kang",
-        "Thanos Fractured Frontier",
-        "Sebastian Shaw",
-        "Superior Iron Man",
-        "Juggernaut Horseman of War",
-        "Mercury",
-        "Maverick",
-        "Colossus",
-        "Ultron"
-      ]
-    },
-    {
-      "name": "troyak",
-      "deck": [
-        "U.S. Agent",
-        "Mystique",
-        "Man-Thing",
-        "Diamondback",
-        "Heimdall",
-        "Scorpion Brand New Day",
-        "Scorpion",
-        "Annihilus",
-        "Scream",
-        "Star-Lord",
-        "Luke Cage",
-        "Rhino"
-      ]
-    },
-    {
-      "name": "Weregesu",
-      "deck": [
-        "Batroc the Leaper",
-        "Miles Morales Spider-Man",
-        "Thor",
-        "Nocturne",
-        "Mirage",
-        "Monstro",
-        "Spider-Man 2099",
-        "Heimdall",
-        "Hydro-Man",
-        "Sam Wilson Captain America",
-        "Sparky",
-        "Superior Iron Man"
-      ]
-    },
-    {
-      "name": "Qrls",
-      "deck": [
-        "Madame Web",
-        "Stegron",
-        "Spider-Man 2099",
-        "Super-Adaptoid",
-        "Wave",
-        "Nightcrawler",
-        "Blink",
-        "Jubilee",
-        "Silver Samurai",
-        "Stature",
-        "Psylocke",
-        "Anti-Polar Magneto"
-      ]
-    },
-    {
-      "name": "Supcio",
-      "deck": [
-        "Starbrand",
-        "Typhoid Mary",
-        "Zero",
-        "Doctor Doom",
-        "Angela",
-        "Silk",
-        "Wilson Fisk",
-        "Jeff the Baby Dolphin!?",
-        "Armor",
-        "Thanos Fractured Frontier",
-        "Entropic Havok",
-        "Captain Marvel"
-      ]
-    },
-    {
-      "name": "Kitsune",
-      "deck": [
-        "Ms. Marvel",
-        "Lady Deathstrike",
-        "Kingpin",
-        "Wasp",
-        "Omega Sentinel",
-        "Baron Zemo",
-        "Professor X",
-        "Angela",
-        "Iron Man",
-        "Agent Coulson",
-        "Hawkeye Kate Bishop",
-        "Colleen Wing"
-      ]
-    },
-    {
-      "name": "Skaje",
-      "deck": [
-        "Maximus",
-        "Iron Man",
-        "Superior Spider-Man",
-        "Mantis",
-        "Armor",
-        "Omega Red",
-        "Angela",
-        "Galactus First Steps",
-        "Gladiator",
-        "Crystal",
-        "America Chavez",
-        "Adam Warlock"
-      ]
-    },
-    {
-      "name": "siwkerss",
-      "deck": [
-        "Danger",
-        "Red Onslaught",
-        "Elektra",
-        "She-Hulk",
-        "Leech",
-        "Falcon",
-        "Odin",
-        "Jessica Jones",
-        "Negasonic Teenage Warhead",
-        "Rogue",
-        "Baron Zemo",
-        "Mystique"
-      ]
-    },
-    {
-      "name": "MrMateoS",
-      "deck": [
-        "Sebastian Shaw",
-        "Namora",
-        "Forge",
-        "Snowguard",
-        "Iron Lad",
-        "Hit-Monkey",
-        "Clea",
-        "Valkyrie",
-        "Rama-Tut",
-        "Hydra Bob",
-        "Jane Foster Fractured Frontier",
-        "Gwenpool"
-      ]
-    },
-    {
-      "name": "I'm Batman",
-      "deck": [
-        "Angela",
-        "Doctor Doom",
-        "Maximus",
-        "Hobgoblin",
-        "Nimrod",
-        "Typhoid Mary",
-        "Red Skull",
-        "Deadpool",
-        "The Infinaut",
-        "Skaar",
-        "Headpool",
-        "Man-Spider"
-      ]
-    },
-    {
-      "name": "Dejwidgakure",
-      "deck": [
-        "Jeff!",
-        "Werewolf By Night",
-        "Hit-Monkey",
-        "Rogue Scion of Division",
-        "Doctor Octopus Fractured Frontier",
-        "Sera",
-        "Loki",
-        "Gamora",
-        "Kang",
-        "Gwenpool",
-        "Gambit Horseman of Death",
-        "Agent Venom"
+      ],
+      "matches": [
+        { p1: "Qrls", p2: "MrMateoS", pts1: 18, pts2: 7 },
+        { p1: "Qrls", p2: "Maniek", pts1: 25, pts2: 0 },
+        { p1: "troyak", p2: "Qrls", pts1: 19, pts2: 6 },
+        { p1: "troyak", p2: "Weregesu", pts1: 21, pts2: 4 },
+        { p1: "MrMateoS", p2: "troyak", pts1: 23, pts2: 2 },
+        { p1: "Maniek", p2: "troyak", pts1: 21, pts2: 4 },
+        { p1: "Weregesu", p2: "MrMateoS", pts1: 17, pts2: 8 },
+        { p1: "MrMateoS", p2: "Maniek", pts1: 24, pts2: 1 },
+        { p1: "Skaje", p2: "troyak", pts1: 24, pts2: 1 },
+        { p1: "Skaje", p2: "Maniek", pts1: 23, pts2: 2 },
+        { p1: "MrMateoS", p2: "Skaje", pts1: 25, pts2: 0 },
+        { p1: "I'm Batman", p2: "troyak", pts1: 19, pts2: 6 },
+        { p1: "I'm Batman", p2: "Maniek", pts1: 23, pts2: 2 },
+        { p1: "Supcio", p2: "Maniek", pts1: 25, pts2: 0 },
+        { p1: "Qrls", p2: "I'm Batman", pts1: 23, pts2: 2 },
+        { p1: "Dejwidgakure", p2: "troyak", pts1: 22, pts2: 3 },
+        { p1: "siwkerss", p2: "Maniek", pts1: 17, pts2: 8 },
+        { p1: "Qrls", p2: "Weregesu", pts1: 22, pts2: 3 },
+        { p1: "MrMateoS", p2: "siwkerss", pts1: 25, pts2: 0 },
+        { p1: "Weregesu", p2: "siwkerss", pts1: 25, pts2: 0 },
+        { p1: "Weregesu", p2: "Maniek", pts1: 17, pts2: 8 },
+        { p1: "Qrls", p2: "GalacticKitsune", pts1: 18, pts2: 7 },
+        { p1: "MrMateoS", p2: "I'm Batman", pts1: 23, pts2: 2 },
+        { p1: "Dejwidgakure", p2: "GalacticKitsune", pts1: 23, pts2: 2 },
+        { p1: "GalacticKitsune", p2: "Maniek", pts1: 24, pts2: 1 },
+        { p1: "Dejwidgakure", p2: "Maniek", pts1: 21, pts2: 4 },
+        { p1: "Supcio", p2: "Qrls", pts1: 21, pts2: 4 },
+        { p1: "GalacticKitsune", p2: "Supcio", pts1: 19, pts2: 6 },
+        { p1: "Dejwidgakure", p2: "Supcio", pts1: 21, pts2: 4 },
+        { p1: "MrMateoS", p2: "Supcio", pts1: 25, pts2: 0 },
+        { p1: "Supcio", p2: "Skaje", pts1: 17, pts2: 8 },
+        { p1: "Qrls", p2: "Skaje", pts1: 22, pts2: 3 },
+        { p1: "Skaje", p2: "Weregesu", pts1: 16, pts2: 9 },
+        { p1: "Dejwidgakure", p2: "MrMateoS", pts1: 24, pts2: 1 },
+        { p1: "Supcio", p2: "Weregesu", pts1: 16, pts2: 9 },
+        { p1: "Skaje", p2: "I'm Batman", pts1: 25, pts2: 0 },
+        { p1: "Supcio", p2: "I'm Batman", pts1: 24, pts2: 1 },
+        { p1: "Supcio", p2: "troyak", pts1: 19, pts2: 6 },
+        { p1: "I'm Batman", p2: "Weregesu", pts1: 24, pts2: 1 },
+        { p1: "Skaje", p2: "Dejwidgakure", pts1: 19, pts2: 6 },
+        { p1: "Dejwidgakure", p2: "I'm Batman", pts1: 21, pts2: 4 },
+        { p1: "I'm Batman", p2: "siwkerss", pts1: 24, pts2: 1 },
+        { p1: "siwkerss", p2: "Skaje", pts1: 23, pts2: 2 },
+        { p1: "troyak", p2: "siwkerss", pts1: 25, pts2: 0 },
+        { p1: "Supcio", p2: "siwkerss", pts1: 25, pts2: 0 },
+        { p1: "Dejwidgakure", p2: "siwkerss", pts1: 24, pts2: 1 },
+        { p1: "Dejwidgakure", p2: "Weregesu", pts1: 22, pts2: 3 },
+        { p1: "GalacticKitsune", p2: "troyak", pts1: 22, pts2: 3 },
+    { p1: "I'm Batman", p2: "GalacticKitsune", pts1: 16, pts2: 9 },
+    { p1: "MrMateoS", p2: "GalacticKitsune", pts1: 20, pts2: 0, resultType: "walkover" },
+    { p1: "Skaje", p2: "GalacticKitsune", pts1: 20, pts2: 0, resultType: "walkover" },
+    { p1: "Weregesu", p2: "GalacticKitsune", pts1: 20, pts2: 0, resultType: "walkover" },
+    { p1: "siwkerss", p2: "GalacticKitsune", pts1: 20, pts2: 0, resultType: "walkover" },
+    { p1: "Qrls", p2: "Dejwidgakure", pts1: 21, pts2: 4 },
+    { p1: "Qrls", p2: "siwkerss", pts1: 20, pts2: 0, resultType: "walkover" }
+
       ]
     }
-  ],
-  "matches": []
-
-},
-
   ]
 };
